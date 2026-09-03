@@ -1,0 +1,13 @@
+# Ignore all files by default
+*
+
+# Do NOT ignore directories, so Git can look inside them
+!*/
+
+# Keep your specific file types
+!*.tex
+!*.pdf
+
+# Do not ignore the gitignore file itself
+!.gitignore
+
