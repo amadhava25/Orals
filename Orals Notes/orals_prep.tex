@@ -1,9 +1,9 @@
 \documentclass{article}
 \usepackage{../header}
 \usepackage{datetime2}
-\rhead{Orals Prep}
+\rhead{Nonlinear Wave Equations}
 \om 
-\title{Orals Prep}
+\title{Nonlinear Wave Equations}
 \author{\me}
 \date{Fall 2026}
 
@@ -15,15 +15,80 @@
 \footnotetext{Last updated: \today\ at \DTMcurrenttime}
 \halfline 
 \newpage 
-\setlength{\parskip}{0.75em}
+\setlength{\parskip}{0.55em}
+
 \section{Overview}
-The following document outlines some of the notes I have taken during my oral qualifying exam preparation in the mathematics department at Stony Brook University. These notes aren't meant to be a detailed exposition, but rather a concise collection of key results and ideas that I should remember. In some places, I may add a bit of exposition to emphasize a particular idea or result. 
 
-This document is split into two main parts: (1) the major topic, which is (hyperbolic) partial differential equations, and (2) the minor topic, which is fluids (tbd). Within the major topic part, I split the document further into smaller classifications. 
-
-As always, the aim is to reduce the errors as much as possible. However, it is inevitable that some type of error (whether a typo, or something more substantial) makes it way into this document. I take full responsibility for these errors. 
-
+The following notes are a (brief) introduction into the theory of nonlinear wave equations, and mathematical fluids that I've written in preparation for the mathematics PhD oral examination at Stony Brook. These notes cover a few fundamental results on the (local) well-posedness of (non)linear wave equations, energy estimates, Strichartz estimates, and related results in harmonic analysis and fluids. The content reflects my most current understanding of the key ideas, and were written alongside discussions with my advisor, Professor John Anderson. Moreover, these notes are strongly based on the corresponding notes of Professors Holzegel, Lawrie, and Luk. It goes without saying that any errors in the following notes are entirely my responsibility. 
 
 \newpage 
-\part{Hyperbolic Partial Differential Equations} 
+\part{Nonlinear Wave Equations}
+
+\section{Linear Wave Equation}
+
+\subsection{Introduction} 
+Through these notes, our goal is to study the properties of the nonlinear wave equation, which can either be a ``simple'' scalar equation or a system of equations \cite{Luk}: 
+\begin{equation}
+	\frac{1}{\sqrt{-\det(g)}}\partial_{\mu}\left(\sqrt{-\det{g}}g^{\mu\nu}\partial_{\nu}\phi\right) = F(\phi, \partial \phi) 
+	\label{eq:nlw}, 
+\end{equation}
+where $g$ is a Lorentzian metric on $I \times \mathbb{R}^{n}$, and $\phi: I \times \mathbb{R}^{n} \to \mathbb{R}$ is an unknown function of some regularity. For example, if $n = 1$, and $g$ is the flat Minkowski metric, $\operatorname{diag}(1,-1)$, then the nonlinear wave equation is merely 
+\begin{equation*}
+	\partial_{\mu}(\partial^{\mu\nu}\partial_{\nu}\phi) = F(\phi, \partial \phi) \iff \partial_{t}^{2} - (\partial_{x}\phi)^{2} = F(\phi, \partial \phi). 
+\end{equation*}
+Note that we denote the coordinate of $I$ by $t$ (to designate the \textit{time} coordinate), and the coordinates of $\mathbb{R}^{n}$ by $x = (x^{1}, \ldots, x^{n})$. An equation of the form (\ref{eq:nlw}) is said to be \vspace{-1.2em}
+\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item \textbf{linear}: $g$ is independent of $\phi$ and $F$ is a linear function of both of its arguments;
+	\item \textbf{semilinear}: $g$ is independent of $\phi$  and $F$ is a nonlinear function; 
+	\item \textbf{quasilinear}: $g$ is independent of $\phi$ and/or $\partial \phi$. 
+\end{enumerate}
+Before we build up to the nonlinear wave equation, we will first examine the properties of the linear wave equation. Generally speaking, we are interested in the following properties: \vspace{-1.2em}
+\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item \textbf{Existence and Uniqueness}: Does a solution to (\ref{eq:nlw}) exist, and if so, is it the only solution? 
+	\item \textbf{Dispersion}: Do solutions to (\ref{eq:nlw}) (if they exist) disperse in time? If so, what is the rate of decay? 
+	\item \textbf{Well-Posedness}: If we consider the \textit{Cauchy wave problem} consisting of the equation (\ref{eq:nlw}) along with initial data $(\phi, \partial_{t}\phi)$ on the hypersurface $\{t = 0\}$, where $\phi, \partial_{t}\phi$, does there exist a unique solution to the problem that satisfy the initial conditions and is continuously dependent on the initial data?
+\end{enumerate}
+
+We will gradually work through each of these results, sometimes developing new techniques and machinery to answer these questions. 
+
+\subsection{Existence and Uniqueness} 
+
+Consider the Cauchy wave problem, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box \phi = 0, \\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}), 
+	\end{alignedat}
+	\right.
+\end{equation}
+where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathcal{S}(\mathbb{R}^{n})$, and $\Box$ denotes the \textbf{wave operator}. Perhaps the easiest result to show is existence. Assuming that $\phi$ is an appropriate space of functions, taking the Fourier transformation of the wave equation yields, 
+\begin{equation*}
+	\partial_{t}^{2}\hat{\phi} + 4\pi^{2}|\xi|^{2}\hat{\phi} = 0 \implies \partial_{t}^{2}\phi = -4\pi^{2}|\xi|^{2}\hat{\phi}, 
+\end{equation*} 
+which is a second-order ordinary differential equation. Thus solving this system, one obtains the general solution 
+\begin{equation*}
+	\hat{\phi}(t, \xi) = A\cos(2\pi t\xi) + B\sin(2\pi t \xi). 
+\end{equation*}
+Thus matching the initial conditions, it follows that 
+\begin{equation*}
+	\hat{\phi}(t, \xi) = \hat{\phi}_{0}\cos(2\pi t \xi) + \frac{\hat{\phi}_{1}}{2\pi  \xi}\sin(2\pi t \xi). 
+\end{equation*}
+But to complete the proof of existence, it remains to be seen that we can compute the inverse Fourier transform of $\hat{\phi}$. It suffices to show, at least, that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. Thus, we compute, 
+\begin{align*}
+	\begin{split}
+		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi. 
+	\end{split}
+\end{align*}
+Since $\hat{\phi}_{0}(\xi)$ is Schwartz, it is integrable, and thus the first term is finite. $\hat{\phi}_{1}(\xi)$ is also Schwartz, and thus bounded above; i.e., there exists some $M > 0$ such that for all $\xi$, $|\hat{\phi}_{1}(\xi)| \leq M$. We note that $\sin(2\pi t \xi)/\xi \to 1$ as $\xi \to 0$. This means there exists some $\epsilon > 0$ such that for all $\xi \in B_{\epsilon}(0)$, $|\sin(2\pi t \xi)/\xi - 1| \leq 1$. This means that 
+\begin{align*}
+	\begin{split}
+		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi \\
+		&\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}|\;d\xi + \int_{B_{\epsilon}(0)}M\;d\xi + \int_{\mathbb{R}^{n}\setminus B_{\epsilon}(0)}M\abs{\frac{\sin(2\pi t\xi)}{\xi}}\;d\xi. 
+	\end{split} 
+\end{align*}
+
+\newpage 
+\bibliography{biblio}
+\bibliographystyle{plain}
 \end{document}
