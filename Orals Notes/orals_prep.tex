@@ -11,6 +11,11 @@
 		\vcenter{\hbox{$#2#3$ }}\kern-0.6\wd0}}
 \def\ddashint{\Xint=}
 \def\dashint{\Xint-}
+\usepackage[
+colorinlistoftodos,
+textsize=small,          % Sets the text to the smallest LaTeX font size
+textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
+]{todonotes}
 \rhead{Nonlinear Wave Equations}
 \om 
 \title{Nonlinear Wave Equations}
@@ -55,15 +60,19 @@ Note that we denote the coordinate of $I$ by $t$ (to designate the \textit{time}
 Before we build up to the nonlinear wave equation, we will first examine the properties of the linear wave equation. Generally speaking, we are interested in the following properties: \vspace{-1.2em}
 \begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
 	\item \textbf{Existence and Uniqueness}: Does a solution to (\ref{eq:nlw}) exist, and if so, is it the only solution? 
-	\item \textbf{Dispersion}: Do solutions to (\ref{eq:nlw}) (if they exist) disperse in time? If so, what is the rate of decay? 
+	\item \textbf{Dispersion}: What physical properties do solutions to (\ref{eq:nlw}) have? 
 	\item \textbf{Well-Posedness}: If we consider the \textit{Cauchy wave problem} consisting of the equation (\ref{eq:nlw}) along with initial data $(\phi, \partial_{t}\phi)$ on the hypersurface $\{t = 0\}$, where $\phi, \partial_{t}\phi$, does there exist a unique solution to the problem that satisfy the initial conditions and is continuously dependent on the initial data?
 \end{enumerate}
 
-We will gradually work through each of these results, sometimes developing new techniques and machinery to answer these questions. 
+We will gradually work through each of these results, sometimes developing new techniques and machinery. We first begin by developing some general analytic results, and idea of energy estimates. Then we will apply these to the study of linear wave equations. This will then give a foundation for the study of nonlinear wave equations. 
 
-\subsection{Existence and Uniqueness} 
+\subsection{General Analytic Results}
 
-Consider the Cauchy wave problem, 
+
+\newpage 
+\subsection{Energy Estimates}
+
+In this section, we introduce the notion of the energy of a solution to the wave equation. We begin by considering the homogeneous linear Cauchy problem, 
 \begin{equation}
 	\left\{
 	\begin{alignedat}{1}
@@ -73,81 +82,103 @@ Consider the Cauchy wave problem,
 	\right.
 	\label{eq:clwp}
 \end{equation}
-where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathcal{S}(\mathbb{R}^{n})$, and $\Box$ denotes the \textbf{wave operator}. Perhaps the easiest result to show is existence. Assuming that $\phi$ is an appropriate space of functions, taking the Fourier transformation of the wave equation yields, 
-\begin{equation*}
-	\partial_{t}^{2}\hat{\phi} + 4\pi^{2}|\xi|^{2}\hat{\phi} = 0 \implies \partial_{t}^{2}\hat{\phi} = -4\pi^{2}|\xi|^{2}\hat{\phi}, 
-\end{equation*} 
-which is a second-order ordinary differential equation. Thus solving this system, one obtains the general solution 
-\begin{equation*}
-	\hat{\phi}(t, \xi) = A\cos(2\pi t|\xi|) + B\sin(2\pi t \xi). 
-\end{equation*}
-Thus matching the initial conditions, it follows that 
-\begin{equation*}
-	\hat{\phi}(t, \xi) = \hat{\phi}_{0}\cos(2\pi t \xi) + \frac{\hat{\phi}_{1}}{2\pi  \xi}\sin(2\pi t \xi). 
-\end{equation*}
-But to complete the proof of existence, it remains to be seen that we can compute the inverse Fourier transform of $\hat{\phi}$. It suffices to show, at least, that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. Thus, we compute, 
-\begin{align*}
-	\begin{split}
-		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi. 
-	\end{split}
-\end{align*}
-Since $\hat{\phi}_{0}(\xi)$ is Schwartz, it is integrable, and thus the first term is finite. $\hat{\phi}_{1}(\xi)$ is also Schwartz, and thus bounded above; i.e., there exists some $M > 0$ such that for all $\xi$, $|\hat{\phi}_{1}(\xi)| \leq M$. We note that $\sin(2\pi t \xi)/\xi \to t$ as $\xi \to 0$. This means there exists some $\epsilon > 0$ such that for all $\xi \in B_{\epsilon}(0)$, $|\sin(2\pi t \xi)/\xi - t| \lesssim_{t} 1$. This means that 
-\begin{align*}
-	\begin{split}
-		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi \\
-		&\lesssim \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}|\;d\xi + \int_{B_{\epsilon}(0)}M\;d\xi + \int_{\mathbb{R}^{n}\setminus B_{\epsilon}(0)}|\hat{\phi}_{1}(\xi)|\;d\xi < \infty.  
-	\end{split} 
-\end{align*}
-Therefore, it follows that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. The Fourier Inversion Theorem then tells us that 
-\begin{equation*}
-	\phi(t, x) = \int_{\mathbb{R}^{n}}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi 
-\end{equation*}
-The final piece of the proof of existence is that $\phi(t, x)$ is a solution to (\ref{eq:clwp}). We first compute, 
-\begin{equation*}
-	\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}(0, \xi)e^{2\pi i x \cdot \xi}\;d\xi = \int_{\mathbb{R}^{n}}\hat{\phi}_{0}e^{2\pi i x \cdot \xi}\;d\xi = \phi_{0}(x). 	
-\end{equation*}
-Then using integrability and the dominated convergence theorem, one obtains: 
-\begin{align*}
-	\begin{split}
-		\partial_{t}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
-		\partial_{t}^{2}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
-		\Delta \phi(t, x) &= -\int_{\mathbb{R}^{n}}4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi,  
-	\end{split}
-\end{align*}
-so that 
-\begin{equation*}
-	\partial_{t}\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}_{1}(\xi)e^{2\pi i x \cdot \xi}\;d\xi = \phi_{1}(x), 
-\end{equation*}
-and 
-\begin{equation*}
-	\Box \phi = \partial_{t}^{2}\phi(t,x) - \Delta \phi(t, x) = \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi) + 4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)\;d\xi = 0. 
-\end{equation*}
-Thus, an integrable solution exists for (\ref{eq:clwp}) under the hypothesis assumed above. In fact, since $\hat{\phi}(t, x) \in \mathcal{S}(\mathbb{R}^{n})$, one actually has that $\phi(t, \cdot) \in \mathcal{S}(\mathbb{R}^{n})$. 
-
-A reasonable next question to ask is if this solution is unique. To prove that we have uniqueness, we introduce the energy of the system\footnote{We have much more to say about the energy and energy estimates in a later section.}, 
-
-\begin{definition}[Energy of a Solution to the Cauchy Linear Wave Problem]
+where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathcal{S}(\mathbb{R}^{n})$, and $\Box$ denotes the \textbf{wave operator}. As of now, we do not yet have an existence (or uniqueness) result for this Cauchy wave problem. Thus we simply assume that such a unique (sufficiently regular) solution exists for now. Then we define the \textbf{energy} of a solution to be the following $L^{2}$-type norm,
+\begin{definition}[Energy]
 	For $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}(\mathbb{R}^{n})$ and $\phi$ the solution to the Cauchy problem (\ref{eq:clwp}), the \textbf{energy} of $\phi$ at the spacetime point $(t, x)$ is defined to be the $L^{2}$-type norm, 
 	\begin{equation}
-		E(t) = \frac{1}{2}\int_{\mathbb{R}^{n}}\left((\partial_{t}\phi)^{2} + \sum_{i}^{n}(\partial_{j}\phi)^{2}\right)(t, x)\;dx. 
+		E(t) = \frac{1}{2}\int_{\mathbb{R}^{n}}\left((\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2}\right)(t, x)\;dx. 
 		\label{eq:energy_lwp}
 	\end{equation}
-\end{definition} 
+	\label{def:energy}
+\end{definition}
+Intuitively, the definition for the energy is as we expected: consider an oscillating 1-dimensional string, and let $\phi(t, x)$ denote the amplitude of the wave at a point $x$ at time $t$. Then the quantity $(1/2)(\partial_{t}\phi)^{2}$ resembles the kinetic energy of an infinitesimal point particle at the spacetime location $(t, x)$, while the quantity $\sum_{1}^{n}(\partial_{j}\phi)^{2}$ resembles the (spring) potential energy at $(t, x)$. Thus under these observations, $E(t)$ resembles the total energy of the system at some time $t$. Since the Cauchy wave problem (\ref{eq:clwp}) has no source term (i.e., is homogeneous), one expects the following result \cite{Luk}: 
+\begin{prop}[Conservation of Energy]
+	Let $\phi$ be a (sufficiently regular) solution to (\ref{eq:clwp}). Define $E(t)$ as given in Definition \ref{def:energy}. Then $E$ is constant in time. 
+\end{prop} 
 
-As we might expect from a physical system with no source/sink, the energy $E(t)$ is conserved. 
+\begin{remark}
+		We will give two proofs for this result; one relies on straightforward differentiation of $E(t)$ and follows the steps outlined in \cite{Luk}, while the other introduces the concept of conservation laws and follows the steps outlined in \cite{Lawrie}. 
+\end{remark}
 
-\begin{proof}
-	Under the given hypothesis on the spaces the functions $\phi, \phi_{0}, \phi_{1}$ belong to, we are justified in passing the derivatives through the integral sign. Therefore, one computes, 
+\begin{proof}[Proof \# 1]
+	Let $\phi$ be a sufficiently regular solution to (2), and define the energy $E(t)$ of $\phi$ to be the function, 
+	\begin{equation*}
+		E(t) = \frac{1}{2}\int_{\mathbb{R}^{n}}\left((\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2}\right)(t, x)\;dx, 
+	\end{equation*}
+	where we assume that the initial data $\phi_{0}, \phi_{1}$ are both smooth with compact support. As we will see in a later section, $\phi \in C^{\infty}(I, \mathcal{S}(\mathbb{R}^{n}))$. Thus by the Dominated Convergence Theorem allows us to pass a time derivative inside the integral sign. We then obtain, 
 	\begin{align*}
 		\begin{split}
-			\frac{d}{dt}E(t) &= \int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{t}^{2}\phi) + \sum_{1}^{n}\partial_{t}(\partial_{j}\phi)^{2}\;dx \\
-			&= \int_{\mathbb{R}^{n}}(\partial_{t}\phi)\cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \sum_{1}^{n}\partial_{t}\phi \cdot (\partial_{j}\phi)^{2}\;dx 
+			\frac{d}{dt}E(t) &= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{t}^{2}\phi) + \sum_{1}^{n}\partial_{t}(\partial_{j}\phi)^{2}\;dx \\
+			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)\cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \sum_{1}^{n}\partial_{t}\phi \cdot (\partial_{j}\phi)^{2}\;dx  \\
+			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \frac{1}{2}\sum_{1}^{n}\int_{\mathbb{R}^{n}}\partial_{j}(\partial_{t}\phi)(\partial_{j}\phi)\;dx  \\
+			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \frac{1}{2}\sum_{1}^{n}\left[(\partial_{t}\phi)(\partial_{j}\phi)\bigg|_{|x| = \infty} - \int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{j}^{2} \phi)\;dx\right] \\
+			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right)\;dx - \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right)\;dx = 0, 
 		\end{split}
 	\end{align*}
+	where the boundary term is identically zero since $\phi$ is Schwartz. Thus, the energy is conserved. 
 \end{proof}
 
-\newpage 
+\begin{proof}[Proof \# 2]
+	We start by claiming that solutions to (\ref{eq:clwp}) are the stationary points of a variational integral. Define the linear functional $\mathcal{L}: C^{\infty}(\mathbb{R};\mathcal{S}(\mathbb{R}^{n})) \to \mathbb{R}$ by 
+	\begin{equation*}
+		\mathcal{L}(\phi) = \frac{1}{2}\int_{\mathbb{R} \times \mathbb{R}^{n}}(\partial_{t}\phi)^{2} - \sum_{1}^{n}(\partial_{j}\phi)^{2}\;dtdx; 
+	\end{equation*}
+	to obtain this functional, we can use the Euler-Lagrange equations for a physical system. Now let $\psi \in C_{c}^{\infty}(\mathbb{R} \times \mathbb{R}^{n})$. We recall that $\braket{\mathcal{L}'(\phi), \psi}$, where $\mathcal{L'}(\phi)$ is the Fr\'echet derivative is defined as the directional derivative along $\psi$; i.e., 
+	\begin{align*}
+		\begin{split}
+			\braket{\mathcal{L}'(\phi), \psi} &= \frac{d}{d\epsilon}\mathcal{L}(\phi + \epsilon \psi)\bigg|_{\epsilon = 0} \\
+			&= \frac{d}{d\epsilon}\bigg|_{\epsilon = 0} \left(\mathcal{L}(\phi) + \epsilon \int_{\mathbb{R} \times \mathbb{R}^n} (-\nabla \phi \cdot \nabla \psi + (\partial_{t}\phi)(\partial_{t}\psi))\;dtdx + \mathcal{O}(\epsilon^2)\right) \\
+			&= \int_{\mathbb{R} \times \mathbb{R}^{n}}-(\nabla \phi) \cdot (\nabla \psi) + (\partial_{t}\phi)(\partial_{t}\psi)\;dtdx. 
+		\end{split}
+	\end{align*} 
+	Since $\psi$ is smooth with compact support, and $\phi$ is Schwartz, using Fubini's theorem and integration by parts, and recognizing that the boundary terms are identically zero, one obtains 
+	\begin{equation*}
+		\braket{\mathcal{L}'(\phi), \psi} = -\int_{\mathbb{R} \times \mathbb{R}^{n}}(\Box \phi) \psi\;dtdx = 0. 
+	\end{equation*}
+	Thus since $\phi \in C_{c}^{\infty}$ was arbitrary, we conclude that $\phi$ is stationary for $\mathcal{L}$ iff $\Box \phi = 0$. Now, we recall N\"other's theorem, which states that if $\mathcal{L}$ is invariant with respect to a 1-parameter family of diffeomorphisms, then there exists a conservation law for an extreme value of $\mathcal{L}$. We note that $\mathcal{L}$ is time-translation invariant: if $G_{\epsilon}: \phi(t, x) \mapsto \phi(t + \epsilon, x)$, then one observes that $\mathcal{L}(\phi) = \mathcal{L}(G_{\epsilon}\phi)$. Therefore, since the vector field $\partial_{t}$ generates the flow corresponding to time translations, one has 
+	\begin{align*}
+		\begin{split}
+			0 &= \phi_{t}\Box \phi \\
+			&= \phi_{tt}\phi_{t}- \Delta \phi \phi_{t} \\
+			&= \partial_{t}\left(\frac{(\partial_{t}\phi)^{2}}{2} - \frac{(\nabla \phi)^{2}}{2}\right) - \operatorname{div}(\nabla \phi \phi_{t}). 
+		\end{split}
+	\end{align*}
+	Then, integrating over $\mathbb{R}^{n}$ yields, 
+	\begin{equation*}
+		0 = \frac{d}{dt}\left(\frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)^{2} - (\nabla \phi)^{2}\;dx\right) - \int_{\mathbb{R}^{n}}\operatorname{div}(\nabla \phi \phi_{t})\;dx. 
+	\end{equation*}
+	The last term vanishes by using integration by parts and recalling that $\phi$ is Schwartz. Thus, one has that the energy is independent of time. 
+\end{proof}
 
+\begin{remark}
+	As the second proof shows, because of the time translation invariance, to show that the energy is conserved, it suffices to integrate the quantity $(\partial_{t}\phi)(\Box\phi)$ by parts. 
+\end{remark}
+
+Likewise, we have the following conservation law in Sobolev norms \cite{Holzegel2021}. 
+
+\begin{corollary}[Sobolev Conservation Law I]
+	Given initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in \mathcal{S}(\mathbb{R}^{n}) \times \mathcal{S}(\mathbb{R}^{n})$, and assuming the existence of a solution $\phi \in C^{\infty}(\mathbb{R}; \mathcal{S}(\mathbb{R}^{n}))$ to the Cauchy wave problem (\ref{eq:clwp}), for all $s \in \mathbb{R}$, 
+	\begin{equation}
+		\norm{\partial_{t}\phi}_{H^{s - 1}(\mathbb{R}^{n})} + \norm{\nabla \phi}_{H^{s - 1}(\mathbb{R}^{n})} = \norm{\phi_{0}}_{H^{s - 1}(\mathbb{R}^{n})} + \norm{\nabla \phi_{1}}_{H^{s - 1}(\mathbb{R}^{n})}. 
+	\end{equation}   
+\end{corollary}
+\begin{proof}
+	Assume that $\phi \in C^{\infty}(\mathbb{R}; \mathcal{S}(\mathbb{R}^{n}))$ is a solution to (\ref{eq:clwp}) with initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in \mathcal{S}(\mathbb{R}^{n}) \times \mathcal{S}(\mathbb{R}^{n})$. If $\hat{\empspace}$ denotes the Fourier transform of $\empspace$, then one has the equation
+	\begin{equation*}
+		(\partial_{t}\phi)^{2} + 4\pi^{2}|\xi|^{2}(\hat{\phi})^{2} = (\hat{\phi}_{0})^{2} + 4\pi^{2}|\xi|^{2}(\hat{\phi}_{1})^{2}.
+	\end{equation*} 
+	Note, this equation becomes clearer once we establish a representation formula for $\phi$ in a later section. Multiplying through by $(1 + |\xi|^{2})^{s - 1}$ (for arbitrary $s \in \mathbb{R}$), and integrating, yields the desired conservation law. 
+\end{proof}
+
+One immediate advantage of having conservation laws is that if the Cauchy problem (\ref{eq:clwp}) has a solution, then these laws immediately imply uniqueness. 
+
+\begin{corollary}[Uniqueness I]
+	Given initial data $(\phi, \partial_{t}\phi)\upharpoonright|_{\{t = 0\}}= (\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$, if we have two solutions $\phi^{(1)}$ and $\phi^{(2)}$ to the linear wave equation (\ref{eq:clwp}) with the given data such that both of them satisfy $(\phi^{(i)}, \partial_{t}\phi^{(i)}) \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$ for $i = 1, 2$, then $\phi^{(1)} = \phi^{(2)}$ almost everywhere in $[0,T] \times \mathbb{R}^{n}$. 
+	\todo{Give proof (possibly using mollifiers). See Holzegel}
+\end{corollary}
+
+
+\newpage 
 \appendix
 \section{Explicit Representation Formulas} 
 In this section, we work through the derivations of explicit representation formulas for initial value problems of the \textit{wave equation},
@@ -566,6 +597,7 @@ Hence, we conclude that
 \end{equation*}
 where the integrand on the right is called a \textit{retarded potential}. 
 \newpage 
+\setlength{\parskip}{0pt}
 \bibliography{biblio}
 \bibliographystyle{plain}
 \end{document}
