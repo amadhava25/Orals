@@ -1,6 +1,16 @@
 \documentclass{article}
 \usepackage{../header}
 \usepackage{datetime2}
+\def\Xint#1{\mathchoice
+	{\XXint\displaystyle\textstyle{#1}}%
+	{\XXint\textstyle\scriptstyle{#1}}%
+	{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+	{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+	\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+		\vcenter{\hbox{$#2#3$ }}\kern-0.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
 \rhead{Nonlinear Wave Equations}
 \om 
 \title{Nonlinear Wave Equations}
@@ -61,14 +71,15 @@ Consider the Cauchy wave problem,
 		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}), 
 	\end{alignedat}
 	\right.
+	\label{eq:clwp}
 \end{equation}
 where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathcal{S}(\mathbb{R}^{n})$, and $\Box$ denotes the \textbf{wave operator}. Perhaps the easiest result to show is existence. Assuming that $\phi$ is an appropriate space of functions, taking the Fourier transformation of the wave equation yields, 
 \begin{equation*}
-	\partial_{t}^{2}\hat{\phi} + 4\pi^{2}|\xi|^{2}\hat{\phi} = 0 \implies \partial_{t}^{2}\phi = -4\pi^{2}|\xi|^{2}\hat{\phi}, 
+	\partial_{t}^{2}\hat{\phi} + 4\pi^{2}|\xi|^{2}\hat{\phi} = 0 \implies \partial_{t}^{2}\hat{\phi} = -4\pi^{2}|\xi|^{2}\hat{\phi}, 
 \end{equation*} 
 which is a second-order ordinary differential equation. Thus solving this system, one obtains the general solution 
 \begin{equation*}
-	\hat{\phi}(t, \xi) = A\cos(2\pi t\xi) + B\sin(2\pi t \xi). 
+	\hat{\phi}(t, \xi) = A\cos(2\pi t|\xi|) + B\sin(2\pi t \xi). 
 \end{equation*}
 Thus matching the initial conditions, it follows that 
 \begin{equation*}
@@ -80,14 +91,480 @@ But to complete the proof of existence, it remains to be seen that we can comput
 		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi. 
 	\end{split}
 \end{align*}
-Since $\hat{\phi}_{0}(\xi)$ is Schwartz, it is integrable, and thus the first term is finite. $\hat{\phi}_{1}(\xi)$ is also Schwartz, and thus bounded above; i.e., there exists some $M > 0$ such that for all $\xi$, $|\hat{\phi}_{1}(\xi)| \leq M$. We note that $\sin(2\pi t \xi)/\xi \to 1$ as $\xi \to 0$. This means there exists some $\epsilon > 0$ such that for all $\xi \in B_{\epsilon}(0)$, $|\sin(2\pi t \xi)/\xi - 1| \leq 1$. This means that 
+Since $\hat{\phi}_{0}(\xi)$ is Schwartz, it is integrable, and thus the first term is finite. $\hat{\phi}_{1}(\xi)$ is also Schwartz, and thus bounded above; i.e., there exists some $M > 0$ such that for all $\xi$, $|\hat{\phi}_{1}(\xi)| \leq M$. We note that $\sin(2\pi t \xi)/\xi \to t$ as $\xi \to 0$. This means there exists some $\epsilon > 0$ such that for all $\xi \in B_{\epsilon}(0)$, $|\sin(2\pi t \xi)/\xi - t| \lesssim_{t} 1$. This means that 
 \begin{align*}
 	\begin{split}
 		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi \\
-		&\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}|\;d\xi + \int_{B_{\epsilon}(0)}M\;d\xi + \int_{\mathbb{R}^{n}\setminus B_{\epsilon}(0)}M\abs{\frac{\sin(2\pi t\xi)}{\xi}}\;d\xi. 
+		&\lesssim \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}|\;d\xi + \int_{B_{\epsilon}(0)}M\;d\xi + \int_{\mathbb{R}^{n}\setminus B_{\epsilon}(0)}|\hat{\phi}_{1}(\xi)|\;d\xi < \infty.  
 	\end{split} 
 \end{align*}
+Therefore, it follows that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. The Fourier Inversion Theorem then tells us that 
+\begin{equation*}
+	\phi(t, x) = \int_{\mathbb{R}^{n}}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi 
+\end{equation*}
+The final piece of the proof of existence is that $\phi(t, x)$ is a solution to (\ref{eq:clwp}). We first compute, 
+\begin{equation*}
+	\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}(0, \xi)e^{2\pi i x \cdot \xi}\;d\xi = \int_{\mathbb{R}^{n}}\hat{\phi}_{0}e^{2\pi i x \cdot \xi}\;d\xi = \phi_{0}(x). 	
+\end{equation*}
+Then using integrability and the dominated convergence theorem, one obtains: 
+\begin{align*}
+	\begin{split}
+		\partial_{t}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
+		\partial_{t}^{2}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
+		\Delta \phi(t, x) &= -\int_{\mathbb{R}^{n}}4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi,  
+	\end{split}
+\end{align*}
+so that 
+\begin{equation*}
+	\partial_{t}\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}_{1}(\xi)e^{2\pi i x \cdot \xi}\;d\xi = \phi_{1}(x), 
+\end{equation*}
+and 
+\begin{equation*}
+	\Box \phi = \partial_{t}^{2}\phi(t,x) - \Delta \phi(t, x) = \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi) + 4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)\;d\xi = 0. 
+\end{equation*}
+Thus, an integrable solution exists for (\ref{eq:clwp}) under the hypothesis assumed above. In fact, since $\hat{\phi}(t, x) \in \mathcal{S}(\mathbb{R}^{n})$, one actually has that $\phi(t, \cdot) \in \mathcal{S}(\mathbb{R}^{n})$. 
 
+A reasonable next question to ask is if this solution is unique. To prove that we have uniqueness, we introduce the energy of the system\footnote{We have much more to say about the energy and energy estimates in a later section.}, 
+
+\begin{definition}[Energy of a Solution to the Cauchy Linear Wave Problem]
+	For $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}(\mathbb{R}^{n})$ and $\phi$ the solution to the Cauchy problem (\ref{eq:clwp}), the \textbf{energy} of $\phi$ at the spacetime point $(t, x)$ is defined to be the $L^{2}$-type norm, 
+	\begin{equation}
+		E(t) = \frac{1}{2}\int_{\mathbb{R}^{n}}\left((\partial_{t}\phi)^{2} + \sum_{i}^{n}(\partial_{j}\phi)^{2}\right)(t, x)\;dx. 
+		\label{eq:energy_lwp}
+	\end{equation}
+\end{definition} 
+
+As we might expect from a physical system with no source/sink, the energy $E(t)$ is conserved. 
+
+\begin{proof}
+	Under the given hypothesis on the spaces the functions $\phi, \phi_{0}, \phi_{1}$ belong to, we are justified in passing the derivatives through the integral sign. Therefore, one computes, 
+	\begin{align*}
+		\begin{split}
+			\frac{d}{dt}E(t) &= \int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{t}^{2}\phi) + \sum_{1}^{n}\partial_{t}(\partial_{j}\phi)^{2}\;dx \\
+			&= \int_{\mathbb{R}^{n}}(\partial_{t}\phi)\cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \sum_{1}^{n}\partial_{t}\phi \cdot (\partial_{j}\phi)^{2}\;dx 
+		\end{split}
+	\end{align*}
+\end{proof}
+
+\newpage 
+
+\appendix
+\section{Explicit Representation Formulas} 
+In this section, we work through the derivations of explicit representation formulas for initial value problems of the \textit{wave equation},
+\begin{equation}
+	\Box u\coloneqq u_{tt} - \Delta u = 0 \quad (\text{or more generally, } f), 
+\end{equation}
+where the unknown is the function $u: \bar{U} \times [0, \infty) \to \mathbb{R}$, $u = u(x, t)$, with $x \in U^{\text{open}} \subseteq \mathbb{R}^{n}$ and $t > 0$, $\Delta$ is taken with respect to the spatial variables $x = (x_{1}, \ldots, x_{n})$, and $f: U \times [0, \infty) \to \mathbb{R}$ is a given function \cite{evans10}. 
+
+\subsubsection{The Wave Equation in One Spatial Dimension -- D'Alembert's Formula}
+The simplest example of the wave equation happens in the case $n = 1$. Consider the following initial value problem, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - u_{xx} &= 0 &\qquad \text{ in $\mathbb{R} \times (0, \infty)$}  \\
+		&u = g,  u_{t} &= h &\qquad \text{ on $\mathbb{R} \times \{t = 0\}$}. 
+	\end{alignedat}
+	\right.
+\end{equation}
+We note that the wave equation can be written in a more suggestive manner: 
+\begin{equation}
+	0 = u_{tt} - u_{xx} = (\partial_{t} + \partial_{x})(\partial_{t} - \partial_{x})u \eqqcolon (\partial_{t} + \partial_{x})v, 
+\end{equation}
+where we set $v = v(x, t) = u_{t} - u_{x}$. Thus, $v$ satisfies the transport equation, $v_{t} + v_{x} = 0$. Using the solution to the transport equation in one dimension, one obtains the solution, 
+\begin{equation*}
+	v(x, t) = a(x - t), 
+\end{equation*}
+where $a(x) \coloneqq v(x, 0)$. This gives us the nonhomogeneous transport equation, 
+\begin{equation*}
+	u_{t} -u_{x} = a(x -t), 
+\end{equation*}
+for which the explicit representation formula was shown (see Appendix) to be 
+\begin{equation}
+	u(x, t) = \int_{0}^{t}a(x + (t - s)- s)\;ds + g(x + t) = \frac{1}{2}\int_{x - t}^{x + t}a(y)\;dy + g(x + t). 
+\end{equation}
+It remains for us to identify the function $a(x, t)$. Using the definition of $v(x, t)$, at $t = 0$, one has, 
+\begin{equation*}
+	a(x) = v(x,0) = u_{t}(x, 0) - u_{x}(x, 0) = h(x) - g'(x). 
+\end{equation*}
+Therefore, using the fundamental theorem of calculus and the above results, we conclude that 
+\begin{equation}
+	\boxed{u(x, t) = \frac{1}{2}\left[g(x + t) - g(x - t)\right] + \frac{1}{2}\int_{x - t}^{x + t}h(y)\;dy} \qquad (x \in \mathbb{R}^{n}, t \geq 0). 
+\end{equation}
+This explicit formula is called \textbf{d'Alembert's formula} for $n = 1$. Hence, we have shown that \textit{if} the wave equation has a ``sufficiently smooth solution $u$'', then it must be given by d'Alembert's formula. The following theorem formalizes this result. 
+
+\begin{theorem}[Solution to the Wave Equation ($n = 1$)]
+	Assume $g \in C^{2}(\mathbb{R})$, $h \in C^{1}(\mathbb{R})$, and define $u$ by d'Alembert's formula. Then \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $u \in C^{2}(\mathbb{R} \times [0, \infty))$. 
+		\item $u_{tt} - u_{xx} = 0$ in $\mathbb{R} \times (0, \infty)$ 
+		\item $\lim\limits_{\substack{(x, t) \to (x^{0}, 0) \\ t > 0}}u(x, t) = g(x^{0})$ and $\lim\limits_{\substack{(x, t) \to (x^{0}, 0) \\ t > 0}}u_{t}(x, t) = h(x^{0})$ for each point $x^{0} \in \mathbb{R}$. 
+	\end{enumerate}
+\end{theorem}
+\newpage 
+\begin{proof}
+	$ $\newline \vspace{-0.65cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item Define $u$ by d'Alembert's formula. Then we compute the following: 
+		\begin{align*}
+			\begin{split}
+				u_{x} &= \frac{1}{2}[g'(x + t) + g'(x - t)] + \frac{1}{2}[h(x + t) - h(x - t)]. \\
+				u_{t} &= \frac{1}{2}[g'(x + t) -g'(x - t)] + \frac{1}{2}[h(x + t) + h(x - t)], 
+			\end{split}
+		\end{align*}
+		whence 
+		\begin{align*}
+			\begin{split}
+				u_{xx} &= \frac{1}{2}[g''(x + t) + g''(x - t)] + \frac{1}{2}[h'(x + t) - h'(x - t)]. \\ 
+				u_{xt} &= \frac{1}{2}[g''(x + t) - g''(x - t)] + \frac{1}{2}[h'(x + t) + h'(x - t)].  \\
+				u_{tt} &= \frac{1}{2}[g''(x + t) +  g''(x - t)] + \frac{1}{2}[h'(x + t) - h'(x - t)]. 
+			\end{split}
+		\end{align*}
+		Since $g', g''$ and $h, h'$ are all continuous at every $x \in \mathbb{R}$ and $t \in [0, \infty)$, as are the functions $x + t$ and $x - t$, we conclude that each of the first and second-order partial derivatives of $u$ are continuous on $\mathbb{R} \times [0, \infty)$. Thus, $u \in C^{2}(\mathbb{R} \times [0,\infty))$. 
+		\item From the above calculations, it follows immediately that $u_{tt} - u_{xx} = 0$. 
+		\item By (1), $u$ is continuous at every $(x, t) \in \mathbb{R} \times [0, \infty)$, and thus continuous at every point of the form $(x^{0}, 0) \in \mathbb{R} \times \{0\}$. Thus by the limit definition of continuity, one has 
+		\begin{equation*}
+			\lim_{(x, t) \to (x^{0}, 0)}u(x, t) = u(x^{0}, 0) \eqqcolon g(x^{0}). 
+		\end{equation*}
+		Likewise, by our remark above, $u_{t}(x, t) \in C^{1}(\mathbb{R} \times [0, \infty)$. Thus by the limit definition of continuity, one has 
+		\begin{equation*}
+			\lim_{(x, t) \to (x^{0}, 0)} u_{t}(x, t) = u_{t}(x^{0}, 0) \eqqcolon h(x^{0}). 
+		\end{equation*}
+	\end{enumerate}
+\end{proof}
+
+\subsubsection{The Wave Equation in One Spatial Dimension -- Half-Line}
+Now we will consider the modified initial value problem, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - u_{xx} &=0 &\qquad (\text{in $\mathbb{R}_{+} \times (0, \infty)$} \\
+		&u = g, u_{t} &=h &\qquad (\text{in $\mathbb{R}_{+} \times \{t = 0\}$}) \\
+		&u = 0 & &\qquad (\text{on $\{x = 0\} \times (0,\infty)$}. 
+	\end{alignedat}
+	\right.
+\end{equation}
+To solve this problem, we will use the \textit{method of reflections}; i.e., we will extend the initial value problem to the entire real line by means of the odd reflections: 
+\begin{equation*}
+	\ti{u}(x, t) = 
+	\begin{cases}
+		u(x, t) & x \geq 0 \\
+		-u(-x,t) & x \leq 0.  
+	\end{cases}
+\end{equation*}
+\begin{equation*}
+	\ti{g}(x) = 
+	\begin{cases}
+		g(x), & x \geq 0 \\
+		-g(-x), & x \leq 0,
+	\end{cases}
+\end{equation*}
+\begin{equation*}
+	\ti{h}(x) = 
+	\begin{cases}
+		h(x), & x \geq 0 \\
+		-h(-x), & x \leq 0. 
+	\end{cases}
+\end{equation*}
+It is straightforward to check that $\ti{u}, \ti{g}, \ti{h}$ satisfy the ordinary wave equation ($n= 1$) on the whole real line. Thus by d'Alembert's formula, we obtain the following solution: 
+\begin{equation}
+	\boxed{u(x, t) = 
+		\left\{
+		\begin{alignedat}{2}
+			&\frac{1}{2}[g(x + t) - g(x-t)] + \frac{1}{2}\int_{x -t}^{x + t}h(y)\;dy &\qquad (x\geq t \geq 0)\\
+			&\frac{1}{2}[g(x + t) - g(t - x)] + \frac{1}{2}\int_{t - x}^{x + t}h(y)\;dy &\qquad (0 \leq x \leq t)
+		\end{alignedat}
+		\right.
+	}
+\end{equation}
+
+\subsubsection{The Wave Equation in \texorpdfstring{$n\geq 2$}{>2} Spatial Dimension -- Kirchoff's and Poisson's Formulas}
+In this subsection, we will develop explicit representation formulas for the wave equation for dimensions $n \geq 2$. To develop these formulas, we require the \textit{method of spherical means}. Consider the following definitions. 
+
+\begin{definition}[Spherical Means]
+	$ $\newline \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item Let $x \in \mathbb{R}^{n}$, $t > 0$, and $r > 0$. We define the average of $u(\cdot, t)$ over the sphere $\partial B(x, r)$ to be 
+		\begin{equation}
+			U(x;r, t) = \dashint_{\partial B(x, r)} u(y,t)\;dS(y).
+		\end{equation}
+		\item We make the analogous definitions, 
+		\begin{equation}
+			\begin{cases}
+				G(x; r) &= \dashint_{\partial B(x,r)}g(y)\;dS(y). \\
+				H(x; r) &= \dashint_{\partial B(x,r)}h(y)\;dS(y). 
+			\end{cases}
+		\end{equation}
+	\end{enumerate}
+	For any fixed $x$, we will regard $U, G, H$ as functions of $r$ and $t$. 
+\end{definition}
+
+\begin{lemma}[Euler-Poisson-Darboux Equation]
+	Fix $x \in\mathbb{R}^{n}$, $n, m \geq 2$, and let $u \in C^{m}(\mathbb{R}^{n} \times [0, \infty))$ satisfy the initial value problem, 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{3}
+			&u_{tt} - \Delta u &= 0 &\qquad (\text{in $\mathbb{R}^{n} \times (0,\infty)$}) \\
+			&u = g, u_{t} &= h &\qquad (\text{in $\mathbb{R}^{n} \times \{t = 0\}$}). 
+		\end{alignedat}
+		\right. 
+	\end{equation*}
+	Then $U \in C^{m}(\overline{\mathbb{R}}_{+} \times [0,\infty))$, and $U_{tt}$ satisfies the \textit{Euler-Poisson-Darboux} initial value problem, 
+	\begin{equation}
+		\left\{
+		\begin{alignedat}{3}
+			&U_{tt} - U_{rr} - \frac{n-1}{r}U_{r} &= 0 & \qquad (\text{in $\mathbb{R}_{+} \times (0,\infty)$)} \\
+			&U = G, U_{t} = H& &\qquad (\text{on $\mathbb{R}_{+} \times \{t = 0\}$}
+		\end{alignedat}
+		\right. 
+	\end{equation}
+\end{lemma}
+\begin{proof}
+	We begin by taking the partial derivative of the spherical mean $U$ with respect to $r$. To do so, we rewrite 
+	\begin{equation*}
+		U(x;r,t) = \dashint_{\partial B(x, r)}u(y,t)\;dS(y) = \frac{1}{n\alpha(n)r^{n-1}}\int_{\partial B(x, r)}u(y,t)\;dS(y) = \frac{1}{n\alpha(n)}\int_{\partial B(0,1)}u(x + rz, t)\;dS(z). 
+	\end{equation*}
+	Thus, 
+	\begin{align*}
+		\begin{split}
+			U_{r}(x;r, t) &= \frac{1}{n\alpha(n)}\frac{\partial}{\partial r}\int_{\partial B(0,1)}u(x + rz, t)\;dS(z) \\
+			&= \frac{1}{n\alpha(n)}\int_{\partial B(0,1)}Du(x + rz, t) \cdot z \;dS(z) \\
+			&= \frac{r^{1-n}}{n\alpha(n)}\int_{\partial B(x, r)}Du(y, t) \cdot \frac{y -x}{r}\;dS(y) \\
+			&= \frac{r}{n\alpha(n)r^{n}}\int_{\partial B(x, r)}\frac{\partial u}{\partial \nu}\;dS(y) \\
+			&= \frac{r}{n\alpha(n)r^{n}}\int_{B(x, r)}\Delta u\;dy = \frac{r}{n}\dashint_{B(x, r)}\Delta u\;dy,
+		\end{split}
+	\end{align*}
+	where passing the derivative inside the integral in the second line is justified since $u$ is sufficiently smooth (meaning that $Du$ exists a.e. and is integrable on $\partial B(0,1)$), and the final line follows from Green's formula. Now taking some large $R > 0$, and restricting to $0 < r \leq R/2$, one has that since $B(x,r) \subset \overline{B(x, R/2)}$ and $\Delta u$ is continuous (so that the extreme value theorem applies), 
+	\begin{equation*}
+		\norm{\Delta u}_{L^{\infty}(B(x, r))} \leq \norm{\Delta u}_{L^{\infty}(B(x, R))} \eqqcolon C < \infty. 
+	\end{equation*}
+	Hence, 
+	\begin{equation*}
+		U_{r}(x;r, t) \leq \frac{C}{n}r \implies \lim_{r \to 0^{+}}U_{r}(x;r, t) = 0.
+	\end{equation*}
+	Now we will compute the second partial derivative of $U$ with respect to $r$. We compute, 
+	\begin{align*}
+		\begin{split}
+			U_{rr}(x;r, t) &= \frac{1 -n}{n\alpha(n)r^{n}}\int_{B(x, r)}\Delta u\;dy + \frac{r^{1-n}}{n\alpha(n)}\frac{\partial}{\partial r}\int_{B(x, r)}\Delta u(y,t)\;dy \\
+			&= \frac{1 - n}{n}\dashint_{B(x, r)}\Delta u(y,t)\;dy + \frac{r^{1-n}}{n\alpha(n)}\int_{\partial B(x, r)}\Delta u(y,t)\;dS(y) \\
+			&= \dashint_{\partial B(x, r)}\Delta u(y, t)\;dS(y) + \left(\frac{1}{n} - 1\right)\dashint_{B(x, r)}\Delta u(y, t)\;dy, 
+		\end{split}
+	\end{align*}
+	where the second line follows from the coarea formula (see Appendix). By applying similar reasoning to above, one computes that $\lim_{r \to 0^{+}}U_{rr}(x;r, t) = (1/n)\Delta u$. In this manner, repeatedly differentiating $U$, one sees that $U \in C^{m}(\overline{\mathbb{R}}_{+} \times [0, \infty))$. Now differentiating, 
+	\begin{align*}
+		\begin{split}
+			(n-1)r^{n - 2}U_{r} + r^{n-1}U_{rr} &= \frac{d}{dr}(r^{n-1}U_{r}) \\
+			&= \frac{d}{dr}\frac{1}{n\alpha(n)}\int_{B(x,r)}u_{tt}\;dy  \\
+			&= \frac{1}{n\alpha(n)}\int_{\partial B(x,r)}u_{tt}\;dS(y)  \\
+			&= r^{n-1}\dashint_{\partial B(x, r)}u_{tt}\;dS(y) \eqqcolon r^{n-1}U_{tt}, 
+		\end{split}
+	\end{align*}
+	with the third line following from the coarea formula. 
+\end{proof}
+
+Now we will derive the explicit representation formula for the 3-dimensional wave equation by reducing the system to the one-dimensional Euler-Poisson-Darboux equation and solving this system using the formula we derived for the one-dimensional half-line equation. 
+
+\paragraph{Kirchoff's Formula for the Wave Equation \texorpdfstring{($n = 3$)}{n =3}}
+Suppose $u \in C^{2}(\mathbb{R}^{3} \times [0,\infty))$ solves the initial-value problem 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - \Delta u &= 0 &\qquad (\text{in $\mathbb{R}^{3} \times [0,\infty)$}) \\
+		&u = g, u_{t} &=h &\qquad (\text{on $\mathbb{R}^{3} \times \{t = 0\}$})
+	\end{alignedat}
+	\right.
+\end{equation}
+Define the functions, $\ti{U} = rU(x;r, t)$, $\ti{G}(r) = rG(x;r)$, and $\ti{H}(r) = rH(x;r)$. Then we observe the following: 
+\begin{enumerate}[itemsep =-2pt, label = (\roman{*})]
+	\item $ $\newline \vspace{-0.75cm}
+	\begin{align*}
+		\begin{split}
+			\ti{U}_{tt} &= rU_{tt} = r\left[U_{rr} + \frac{2}{r}U_{r}\right] \\
+			&= rU_{rr} + 2U_{r} = (U + rU_{r})_{r} = \ti{U}_{rr}. 
+		\end{split}
+	\end{align*}
+	\item On $\mathbb{R}_{+} \times \{t = 0\}$, $U = G$ and $U_{t} = H$ so that $\ti{U} =\ti{G}$ and $\ti{U}_{t} = \ti{H}$. 
+	\item For $r = 0$, $\partial B(x, 0) = \varnothing$ so that $\ti{U} = 0$ on $\{r = 0\} \times (0, \infty)$. 
+\end{enumerate}
+In other words, we have shown that $\ti{U}$ satisfies the following initial value problem, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{3}
+		&\ti{U}_{tt} - \ti{U}_{rr} &= 0 &\qquad (\text{in $\mathbb{R}_{+} \times (0,\infty)$}) \\
+		&\ti{U} = \ti{G}, \ti{U}_{t} &= \ti{H} &\qquad (\text{on $\mathbb{R}_{+} \times \{t = 0\}$}) \\
+		&\ti{U} = 0 &&\qquad (\text{on $\{r = 0\} \times (0,\infty)$})
+	\end{alignedat}
+	\right.
+\end{equation*}
+Using the solution for the one-dimensional wave equation on the half-line, for $0 \leq r \leq t$, one has 
+\begin{equation*}
+	\ti{U}(x; r, t) = \frac{1}{2}[\ti{G}(r + t) - \ti{G}(t - r)] + \frac{1}{2}\int_{t -r}^{r + t}\ti{H}(y)\;dy. 
+\end{equation*}
+On the other hand, one has that 
+\begin{align*}
+	\begin{split}
+		u(x, t) &= \lim_{r \to 0^{+}}\frac{\ti{U}(x; r, t)}{r} \\
+		&= \lim_{r \to 0^{+}}\left[\frac{\ti{G}(r + t) - \ti{G}(t - r)}{2r} + \frac{1}{2r}\int_{t - r}^{r + t}\ti{H}(y)\;dy\right] \\
+		&= \ti{G}'(t) + \ti{H}(t). 
+	\end{split}
+\end{align*}
+Recall again that 
+\begin{align}
+	\begin{split}
+		\ti{G}'(t) &= \frac{\partial}{\partial t}\left(t\dashint_{\partial B(x, t)}g(y)\;dS(y)\right) \\
+		&= \frac{\partial}{\partial t}\left(\frac{1}{n\alpha(n)t}\int_{\partial B(x ,t)}g(y)\;dS(y)\right) \\
+		&= -\frac{1}{n\alpha(n)t^{2}}\int_{\partial B(x,t)}g(y)\;dS(y) + \frac{1}{n\alpha(n)t}\frac{\partial}{\partial t}\left(t^{2}\int_{\partial B(0,1)}g(x + tz)\;dS(z)\right) \\
+		&= -\dashint_{\partial B(x, t)}g(y)\;dS(y) + \frac{2}{n\alpha(n)}\int_{\partial B(0,1)}g(x + tz)\;dS(z) + \frac{1}{n\alpha(n)t}\int_{\partial B(x, t)}Dg(y) \cdot \left(\frac{y - x}{t}\right)\;dS(y) \\
+		&= \dashint_{\partial B(x, t)}g(y)\;dS(y) + \dashint_{\partial B(x, t)}Dg(y) \cdot (y - x)\;dS(y). 
+	\end{split}
+\end{align}
+Likewise, one has 
+\begin{equation*}
+	\ti{H}(t) = tH(t) = \dashint_{\partial B(x, t)}th(y)\;dS(y). 
+\end{equation*}
+Therefore, we conclude that 
+\begin{equation}
+	\boxed{u(x, t) = \dashint_{\partial B(x, t)}th(y) + g(y) + Dg(y) \cdot (y - x)\;dS(y)}\label{eq:Kirchoff}
+\end{equation}
+This is \textbf{Kirchoff's formula} for the wave equation in dimension 3.
+
+\paragraph{Poisson's Formula for the Wave Equation \texorpdfstring{($n = 2$)}{n=2}} Assume $u \in C^{2}(\mathbb{R}^{2} \times [0,\infty))$ solves the IVP for $n = 2$. Unlike for the $n = 3$ case, we will consider the 2-dimensional problem and ``view'' it as a 3-dimensional problem. Define $\bar{u}(x_{1}, x_{2}, x_{3}, t) = u(x_{1}, x_{2}, t)$ so that $u$ satisfies the IVP 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{3}
+		&\bar{u}_{tt} - \Delta \bar{u} &= 0 &\qquad(\text{in $\mathbb{R}^{3} \times (0, \infty)$}) \\
+		&\bar{u} =\bar{g}, \bar{u}_{t} &= \bar{h} &\qquad(\text{on $\mathbb{R}^{3} \times \{t = 0\}$}), 
+	\end{alignedat}
+	\right.
+\end{equation*}
+where we define $\bar{g}$ and $\bar{h}$ analogously. For $x = (x_{1}, x_{2}) \in \mathbb{R}^{2}$, write $\bar{x} = (x_{1}, x_{2}, 0) \in \mathbb{R}^{3}$. Then by Kirchoff's formula, one has 
+\begin{equation*}
+	u(x, t) = \bar{u}(\bar{x}, t) = \frac{\partial}{\partial t}\left(t\dashint_{\partial \bar{B}(\bar{x},t)}\bar{g}d\bar{S}\right) + t\dashint_{\partial \bar{B}(\bar{x},t)}\bar{h}d\bar{S}, 
+\end{equation*}
+where $\bar{B}(\bar{x}, t)$ denotes the ball in $\mathbb{R}^{3}$ with center $\bar{x}$, radius $t > 0$, and where $d\bar{S}$ denotes the 2-dimensional surface measure on $\partial \bar{B}(\bar{x}, t)$. But we can write 
+\begin{equation*}
+	\dashint_{\partial \bar{B}(\bar{x},t)}\bar{g}d\bar{S} = \frac{1}{4\pi t^{2}}\int_{\partial \bar{B}(\bar{x}, t)}\bar{g}d\bar{S} = \frac{2}{4\pi t^{2}}\int_{B(x,t)}g(y)(1 + |D\gamma(y)|^{2})^{1/2}\;dy, 
+\end{equation*}
+where $\gamma(y) = (t^{2} - |y - x|^{2})^{1/2}$ for $y \in B(x, t)$. The factor 2 comes from the two hemispheres of $\partial\bar{B}(\bar{x}, t)$. Since $(1 + |D\gamma|^{2})^{1/2} = t(t^{2} - |y - x|^{2})^{-1/2}$, one has 
+\begin{align*}
+	\begin{split}
+		\dashint_{\partial \bar{B}(\bar{x}, t)}\bar{g}d\bar{S} &= \frac{1}{2\pi t}\int_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy \\
+		&= \frac{t}{2}\dashint_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy.
+	\end{split}
+\end{align*}
+Using this and the coarea formula, one obtains 
+\begin{equation*}
+	u(x, t) = \frac{1}{2}\frac{\partial}{\partial t}\left(t^{2}\dashint_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy\right) + \frac{t^{2}}{2}\dashint_{B(x,t)}\frac{h(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy.
+\end{equation*}
+Using the same reasoning as above to pass the derivative inside the integral, one has 
+\begin{align*}
+	\begin{split}
+		\frac{\partial}{\partial t}\left(t^{2}\dashint_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy\right) &= t\dashint_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy + t\dashint_{B(x,t)}\frac{Dg(y) \cdot (y -x)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy. 
+	\end{split}
+\end{align*}
+Thus for $n = 2$, we obtain \textbf{Poisson's Formula}, 
+\begin{equation}
+	\boxed{
+		u(x,t) = \frac{1}{2}\dashint_{B(x,t)}\frac{ tg(y) + t^{2}h(y) + tDg(y) \cdot (y -x) }{(t^{2} - |y - x|^{2})^{1/2}}\;dy \qquad \quad (x \in \mathbb{R}^{2}, t > 0)
+	}
+\end{equation}
+Notice that in solving the wave equation for $n = 2$, we used the \textit{method of descent}; i.e., we solved the problem for $n = 3$ first, and then dropped down to $n =2$. 
+
+\paragraph{General Solutions for \texorpdfstring{$n\geq 2$}{n > 1}} Following similar extensive calculations as above (see Appendix for the work), we obtain the following solutions to the wave equation, 
+\begin{equation}
+	\boxed{
+		u(x, t) = 
+		\left\{
+		\begin{alignedat}{2}
+			&\frac{1}{\gamma(n)}\left[\left(\frac{\partial}{\partial t}\right)\left(\frac{1}{t}\frac{\partial}{\partial t}\right)^{\frac{n-3}{2}}\left(t^{n-2}\dashint_{\partial B(x,t)}g\;dS\right) + \left(\frac{1}{t}\frac{\partial}{\partial t}\right)^{\frac{n-3}{2}}\left(t^{n-2}\dashint_{\partial B(x,t)}h\;dS\right)\right] &\qquad \substack{\displaystyle n \geq 3 \\ \displaystyle n \text{ odd}} \\
+			&\frac{1}{\beta(n)}\left[\left(\frac{\partial}{\partial t}\right)\left(\frac{1}{t}\frac{\partial}{\partial t}\right)^{\frac{n-2}{2}}\left(t^{n}\dashint_{B(x,t)}\frac{g(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy\right)\right. &\\
+			&\qquad \qquad \qquad \left.+ \left(\frac{1}{t}\frac{\partial}{\partial t}\right)^{\frac{n-2}{2}}\left(t^{n}\dashint_{B(x,t)}\frac{h(y)}{(t^{2} - |y - x|^{2})^{1/2}}\;dy\right)\right] &\qquad \substack{\displaystyle n \geq 2 \\ \displaystyle n \text{ even}}
+		\end{alignedat}
+		\right.
+	}
+\end{equation}
+where in the first equation $\gamma_{n} = 1 \cdot 3 \cdot \dotsm\cdot (n-2)$, and $\beta(n) = 2 \cdot 4 \cdot \dotsm \cdot (n-2) \cdot n$. The above solutions highlight an interesting contrast between odd-dimensional, and even-dimensional solutions. Note that if $n$ is odd and $n \geq 3$, the initial data at a point $x\in \mathbb{R}^{n}$ only affect the solution $u$ along the boundary $\{(y,t) \mid t > 0, |x -y| = t\}$ of the cone $C = \{(y,t)\mid t > 0, |x - y| < t\}$. On the other hand, if $n$ is given, the initial data can affect the solution within all of $C$. Thus, a disturbance originating at $x$ propagates along a sharp wavefront in odd dimensions, but continues to have effects even after the leading edge of the wavefront passes in even dimensions. This phenomenon is \textbf{Huygen's principle}. 
+
+\subsection{Solution to the Nonhomogeneous Wave Equation}
+Now we will use the solutions from the previous sections to address the nonhomogeneous wave equation, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - \Delta u &= f &\qquad (\text{in $\mathbb{R}^{n} \times (0,\infty)$}) \\
+		&u =0, u_{t} &= 0 &\qquad (\text{on $\mathbb{R}^{n} \times \{t = 0\}$}). 
+	\end{alignedat}
+	\right.
+\end{equation}
+To solve this problem, we use Duhamel's principle\footnote{See \href{https://en.wikipedia.org/wiki/Duhamel\%27s\_principle}{https://en.wikipedia.org/wiki/Duhamel\%27s\_principle} for an explanation.} by setting $u = u(x,t;s)$ to be the solution of 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt}(\cdot; s)- \Delta u(\cdot, s) &= 0 \qquad &(\text{in $\mathbb{R}^{n} \times (0,\infty)$}) \\
+		&u(\cdot;s) =0, u_{t}(\cdot;s) &= f(\cdot,s) \qquad &(\text{on $\mathbb{R}^{n} \times \{t = 0\}$}). 
+	\end{alignedat}
+	\right.
+\end{equation}
+Thus, by Duhamel's principle, 
+\begin{equation}
+	u(x, t) \coloneqq \int_{0}^{t}u(x,t;s)\;ds \qquad (x \in \mathbb{R}^n, t \geq 0)
+\end{equation}
+is a solution of the above nonhomogeneous wave equation. Consequently, the solution to the general inhomogeneous wave problem, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - \Delta u &= f &\qquad(\text{in $\mathbb{R}^n \times (0,\infty)$}) \\
+		&u = g, u_t &=h &\qquad (\text{on $\mathbb{R}^n \times \{t = 0\}$})
+	\end{alignedat}
+	\right.
+\end{equation}
+is equal to the sum of the solutions to the problems
+\begin{equation}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - \Delta u &= 0 &\qquad(\text{in $\mathbb{R}^n \times (0,\infty)$}) \\
+		&u = g, u_t &=h &\qquad (\text{on $\mathbb{R}^n \times \{t = 0\}$})
+	\end{alignedat}
+	\right.
+	\quad 
+	\text{and} 
+	\quad 
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} - \Delta u &= f &\qquad(\text{in $\mathbb{R}^n \times (0,\infty)$}) \\
+		&u = 0, u_t &=0 &\qquad (\text{on $\mathbb{R}^n \times \{t = 0\}$})
+	\end{alignedat}
+	\right.
+\end{equation}
+
+\subsubsection{Example 1: Solution to Nonhomogeneous Problem for \texorpdfstring{$n = 1$}{n=1}}
+By d'Alembert's formula, one has 
+\begin{equation*}
+	u(x,t;s) = \frac{1}{2}\int_{x -t + s}^{x + t + s}f(y,s)\;dy. 
+\end{equation*}
+Thus, 
+\begin{equation*}
+	u(x,t) = \frac{1}{2}\int_{0}^{t}\int_{x - t + s}^{x + t + s}f(y,s)\;dyds = \frac{1}{2}\int_0^t\int_{x - s}^{x + s}f(y,t-s)\;dyds \qquad (x \in \mathbb{R}, t \geq 0).
+\end{equation*}
+
+\subsubsection{Example 2: Solution to Nonhomogeneous Problem for \texorpdfstring{$n = 3$}{n=3}}
+
+By Kirchoff's formula, one has 
+\begin{equation*}
+	u(x,t;s) = (t-s)\dashint_{\partial B(x,t -s)}f(y,s)\;dS. 
+\end{equation*}
+This implies that 
+\begin{align*}
+	\begin{split}
+		u(x, t) &= \int_{0}^{t}(t - s)\dashint_{\partial B(x, t -s)}f(y,s)\;dSds \\
+		&= \int_{0}^{t}(t - s)\frac{1}{4\pi(t - s)^{2}}\int_{\partial B(x, t - s)}f(y,s)\;dSds \\
+		&= \frac{1}{4\pi}\int_{0}^{t}\int_{\partial B(x, t -s)}\frac{f(y,s)}{t - s}\;dSds \\
+		&= \frac{1}{4\pi}\int_{0}^{t}\int_{\partial B(x,r)}\frac{f(y, t - r)}{r}\;dSdr. 
+	\end{split}
+\end{align*}
+Hence, we conclude that 
+\begin{equation*}
+	u(x,t) = \frac{1}{4\pi}\int_{B(x,t)}\frac{f(y, t - |y - x|)}{|y - x|}\;dy \qquad (x \in \mathbb{R}^3, t \geq 0), 
+\end{equation*}
+where the integrand on the right is called a \textit{retarded potential}. 
 \newpage 
 \bibliography{biblio}
 \bibliographystyle{plain}
