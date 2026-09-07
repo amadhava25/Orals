@@ -482,6 +482,18 @@ and
 \end{equation*}
 Thus, an integrable solution exists for (\ref{eq:clwp}) under the hypothesis assumed above. In fact, since $\hat{\phi}(t, x) \in \mathcal{S}(\mathbb{R}^{n})$, one actually has that $\phi(t, \cdot) \in \mathcal{S}(\mathbb{R}^{n})$. To prove uniqueness, assume $\phi^{(1)}$ and $\phi^{(2)}$ are two solutions to (\ref{eq:clwp}). Linearity of $\Box$ then implies that $\phi \coloneqq \phi^{(1)} - \phi^{(2)}$ also solves the linear wave equation with zero initial data. Thus, if $E(t) = \norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}$ denotes the energy of $\phi$, then $E(0) = 0$. Thus conservation of energy implies that $E(t) = 0$ for all $t \geq 0$, whence $\phi \equiv 0$. Therefore, $\phi^{(1)} \equiv \phi^{(2)}$. 
 \end{proof}
+
+For $n \geq 2$, we intuitively expect the amplitude of the wave $|\phi(t, x)|$ to decay as $t \to \infty$ for the following reason: as $t \to \infty$, the support of the function increases (e.g., consider ripples on the surface of a lake), while the total energy of the wave is conserved. Note that this reasoning  does not quite apply to $n = 1$ since the size of the support remains constant. Now we can rigorously compute the decay estimates. We have the following first result. 
+
+\begin{prop}[Pointwise Decay Rate]
+	Fix any $R > 0$. For $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty} \times C_{c}^{\infty}(\mathbb{R}^{n})$ and $\phi$ the unique solution to the linear Cauchy wave problem, 
+	\begin{equation}
+		\sup_{|x| \leq R}|\phi(t, x)|\lesssim_{(\phi_{0}, \phi_{1}, R)} \frac{1}{(1 + t)^{n - 1}}. 
+		\label{eq:decay_clwp_1}
+	\end{equation}
+\end{prop}
+
+
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
