@@ -94,6 +94,7 @@ where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathca
 Intuitively, the definition for the energy is as we expected: consider an oscillating 1-dimensional string, and let $\phi(t, x)$ denote the amplitude of the wave at a point $x$ at time $t$. Then the quantity $(1/2)(\partial_{t}\phi)^{2}$ resembles the kinetic energy of an infinitesimal point particle at the spacetime location $(t, x)$, while the quantity $\sum_{1}^{n}(\partial_{j}\phi)^{2}$ resembles the (spring) potential energy at $(t, x)$. Thus under these observations, $E(t)$ resembles the total energy of the system at some time $t$. Since the Cauchy wave problem (\ref{eq:clwp}) has no source term (i.e., is homogeneous), one expects the following result \cite{Luk}: 
 \begin{prop}[Conservation of Energy]
 	Let $\phi$ be a (sufficiently regular) solution to (\ref{eq:clwp}). Define $E(t)$ as given in Definition \ref{def:energy}. Then $E$ is constant in time. 
+	\label{prop:cons_energy}
 \end{prop} 
 
 \begin{remark}
@@ -177,7 +178,310 @@ One immediate advantage of having conservation laws is that if the Cauchy proble
 	\todo{Give proof (possibly using mollifiers). See Holzegel}
 \end{corollary}
 
+To extract more useful information, we can localize the energy identity, thus obtaining the following result. 
 
+\begin{prop}[Localized Energy Identity]
+	Define, for $0 \leq t \leq R$, 
+	\begin{equation}
+		E(t;x, R) \coloneqq \frac{1}{2}\int_{B(x, R - t)}\left((\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2}\right)(t, y)\;dy. 
+		\label{eq:local_e_id}
+	\end{equation}
+	Then $E(t;x, R)$ is a nonincreasing function of $t$. 
+\end{prop} 
+
+\begin{remark}
+	This result tells us that the energy at time $t$ is less than or equal to the energy at time $s > t$ in the backwards light cone with vertex at $x$. 
+\end{remark}
+
+\begin{proof}
+	As suggested in the second proof of Proposition \ref{prop:cons_energy}, we will start with the expression $(\partial_{t}\phi)\Box\phi = 0$ and integrate by parts in the region to the future of $\{t_{1}\} \times B(x, R - t_{1})$ and to the past of $(\{t_{2}\} \times B(x, R - t_{2})) \cup \left(\bigcup_{s \in [t_{1}, t_{2}]}(\{s\} \times \partial B(x, R - s))\right)$. The idea behind this choice is that the boundary terms conveniently give us $E(t_{1}; x, R)$ and $E(t_{2}; x, R)$. The boundary term on $\bigcup_{s \in [t_{1}, t_{2}]}(\{s\} \times \partial B(x, R - s))$ then has a definite sign, which then allows us to compare the final and initial energy. Indeed, one has the following computations, 
+	\begin{multline*}
+			0 = \int_{t_{1}}^{t_{2}}\int_{B(x, R - t)}\left((\partial_{t}\phi)\left(-\partial_{t}^{2}\phi + \sum_{1}^{n}\partial_{j}^{2}\phi\right)\right)(t,y)\;dydt 
+			\\ = -\int_{t_{1}}^{t_{2}} \int_{B(x, R - t)}\partial_{t}\left(\frac{1}{2}(\partial_{t}\phi)^{2} + \frac{1}{2}\sum_{1}^{n}(\partial_{j}\phi)^{2}\right)\;dydt
+			 + \sum_{1}^{n}\int_{t_{1}}^{t_{2}}\int_{B(x, R- t)}\partial_{j}((\partial_{t}\phi) \cdot (\partial_{j}\phi))\;dydt \\
+			= -\int_{t_{1}}^{t_{2}}\left[\frac{1}{2}\frac{d}{dt}\int_{B(x, R - t)}(\partial_{t}\phi)^{2}+ \Delta \phi \right]\;dt
+			 - \frac{1}{2}\int_{t_{1}}^{t_{2}}\int_{\partial B(x, R - t)}\left((\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2}\right)
+			\\ + \int_{t_{1}}^{t_{2}}\int_{\partial B(x, R - t)}(\partial_{t}\phi) \cdot \sum_{1}^{n}(\partial_{j}\phi) \cdot \frac{(y- x)_{j}}{|y - x|}\;d\sigma(y)dt \\
+			= -E(t_{2}; x, R) + E(t_{1}; x, R) 
+			- \frac{1}{2}\int_{t_{1}}^{t_{2}}\int_{\partial B(x, R - t)}\left((\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2} - 2(\partial_{t}\phi) \cdot \sum_{1}^{n}\frac{(y -x)_{j}}{|y - x|} (\partial_{j}\phi)\right)\;d\sigma(y)dt. 
+	\end{multline*}
+	where the second equality follows from Theorem C.4.6 of \cite{evans10}. Now we estimate the final term of the last equation. Cauchy-Schwarz tells us the following (CS arises in the second line), 
+	\begin{align*}
+		\begin{split}
+			2(\partial_{t}\phi) \cdot \sum_{1}^{n}\frac{(y - x)_{j}}{|y - x|}(\partial_{j}\phi)&\leq (\partial_{t}\phi)^{2} + \left(\sum_{1}^{n}\frac{(y - x)_{j}}{|y - x|}(\partial_{j}\phi)\right)^{2}\\
+			&\leq (\partial_{t}\phi)^{2} + \left(\sum_{1}^{n}\frac{(y - x)_{j}}{|y -x|}\right)^{2} \cdot \left(\sum_{1}^{n}(\partial_{j}\phi)^{2}\right) \\
+			&= (\partial_{t}\phi)^{2} + \sum_{1}^{n}(\partial_{j}\phi)^{2}. 
+		\end{split}
+	\end{align*}
+	Thus this implies that the final term is negative. So then, one must have $-E(t_{2}; x, R) + E(t_{1}; x, R) \geq 0$, whence $E(t_{2}; x, R) \leq E(t_{1}; x, R)$. 
+	\end{proof}
+	
+While we are at it, we also consider the following linear, non-constant coefficient wave equation, 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{1}
+		&\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) = F, 	\\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}), 
+	\end{alignedat}
+	\right.
+	\label{eq:clwp_ncc} 
+\end{equation}
+where $a$ is assumed to be a symmetric $(n + 1)\times (n + 1)$ matrix on $I \times \mathbb{R}^{n}$ satisfying 
+\begin{equation*}
+	\sum_{\alpha,\beta}|a^{\alpha\beta} - m^{\alpha\beta}| < \frac{1}{10}. 
+\end{equation*}
+While the energy is not conserved, in general, due to the source term $F$, the growth of the energy is controlled in the following sense. 
+
+\begin{theorem}[Growth Bound on Energy]
+	Assume $\phi$ is a solution to (\ref{eq:clwp_ncc}) of some sufficient regularity; let $E(t)$ be the energy of $\phi$ in the sense of Proposition (\ref{prop:cons_energy}). Then there exists a positive constant $C = C(n) > 0$ such that the following energy estimate holds 
+	\begin{equation}
+		\norm{E^{1/2}}_{C([0,T])} =  \leq C\left(\norm{(\phi_{0}, \phi_{1})}_{\dot{H}^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right), 
+		\label{eq:clwp_nc_ebound}
+	\end{equation} 
+	\label{thm:clwp_nc_ebound}
+\end{theorem}
+where by $\partial \empspace$, we denote $(\partial_{t} \empspace)^{2} + \Delta \empspace$. 
+
+To prove this result, we first require \textbf{Gr\"onwall's lemma}. 
+
+\begin{lemma}[Gr\"onwall's Lemma]
+	Let $f: \mathbb{R} \to \mathbb{R}$ be a nonnegative continuous function and $g: \mathbb{R} \to \mathbb{R}$ be a nonnegative integrable function such that 
+	\begin{equation*}
+		f(t) \leq A + \int_{0}^{t}f(s)g(s)\;ds
+	\end{equation*}
+	holds for some $A \geq 0$, and every $t \in [0,T]$. Then 
+	\begin{equation*}
+		f(t) \leq A \exp\left(\int_{0}^{t}g(s)\;ds\right)
+	\end{equation*}
+	for every $t \in [0,T]$. 
+\end{lemma}
+\begin{proof}
+	$ $\newline \vspace{-0.65cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\arabic{*})]
+		\item (Standard Proof): The proof follows by showing that the result holds for any $A > 0$, and then passing to the limit $A \to 0$. First, we compute 
+		\begin{equation*}
+			\frac{d}{dt}\left(A + \int_{0}^{t}f(s)g(s)\;ds\right) = f(t)g(t) \leq g(t)\left(A + \int_{0}^{t}f(s)g(s)\;ds\right). 
+		\end{equation*}
+		In particular, this implies that 
+		\begin{equation*}
+			\frac{d}{dr}\log\left[A + \int_{0}^{t}f(s)g(s)\;ds\right] \leq g(r), 
+		\end{equation*}
+		so that integrating, 
+		\begin{equation*}
+			\log\left[A + \int_{0}^{t}f(s)g(s)\;ds\right] \leq \int_{0}^{t}g(r)\;dr + \log{A}. 
+		\end{equation*}
+		Thus, we conclude that 
+		\begin{equation*}
+			f(t) \leq A + \int_{0}^{t}f(s)g(s)\;ds \leq A\exp\left(\int_{0}^{t}g(r)\;dr\right). 
+		\end{equation*}
+		\item (Bootstrap Method): Now we will prove the same result again, using the \textbf{bootstrap} method. For each $\epsilon > 0$, consider the following condition: 
+		\begin{equation*}
+			f(t) \leq (1 + \epsilon)A\exp\left((1 + \epsilon)\int_{0}^{t}g(s)\;ds\right), 
+			\tag{$\star$}
+		\end{equation*}
+		and define the subset $B \subseteq [0,T]$ by 
+		\begin{equation*}
+			B \coloneqq \{t \in [0,T]: (\star) \text{ holds for all $s \in [0,t]$}\}. 
+		\end{equation*}
+		It follows immediately that $B$ is nonempty as it at least contains the point $0 \in B$. Likewise, by continuity of $f$, it follows that $B$ is closed. By continuity of $f$, if we can show that $f$ satisfies a \textit{better} estimate for $t \in B$, then it must follow that $f$ satisfies the above bound in some small neighborhood of $t$, which would show that $B$ is open in $[0,T]$. Indeed, let $t \in B$. Then combining the hypothesis, one has that 
+		\begin{align*}
+			\begin{split}
+				f(t) &\leq A + \int_{0}^{t}g(s)\;ds \leq A + (1 + \epsilon)A\int_{0}^{t}g(s)\exp\left((1 + \epsilon)\int_{0}^{s}g(r)\;dr\right)\;ds \\
+				&\leq A\left(1 + \left(\exp\left((1 + \epsilon)\int_{0}^{t}g(s)\;ds\right)-1\right)\right) \qquad (\text{by integration by parts}) \\
+				&= A\exp\left((1 + \epsilon)\int_{0}^{t}g(s)\;ds\right). 
+			\end{split}
+		\end{align*}
+		Thus, this shows that $B$ must be open. Since $[0,T]$ is connected, one must have $B = [0,T]$. Hence the modified condition holds for all $t \in [0,T]$ and $\epsilon > 0$ so that passing to the limit $\epsilon \to 0$ yields the desired estimate. 
+	\end{enumerate}
+\end{proof}
+
+Now we will use Gr\"onwall's lemma to prove the energy estimate from above. 
+
+\begin{proof}[Proof of Theorem \ref{thm:clwp_nc_ebound}]
+	For the sake of this proof, we will be assuming that $\phi$ is compactly supported so that we can ignore the spatial boundary terms in the integration. The fundamental idea behind the techniques in this proof is to bound the energy of the solution on the time interval $[0,T]$ by looking at the total energy at some fixed time, and then summing these contributions. In other words, we wish to integrate the first term of the quantity, $\partial_{t}\phi(\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) - F)$ by parts. Before doing so, we make the following observations. 
+	\begin{enumerate}[itemsep =-2pt,label = (\arabic{*})]
+		\item Suppose first that $\alpha = \beta = 0$. Then one has that 
+		\begin{align*}
+			\begin{split}
+				\partial_{t}\phi(\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)) &= (\partial_{t}\phi)(\partial_{t}(a^{tt}\partial_{t}\phi)) \\
+				&= (\partial_{t}\phi)((\partial_{t}a^{tt})(\partial_{t}\phi)) + a^{tt}(\partial_{t}\phi)(\partial_{tt}\phi) \\
+				&= (\partial_{t}a^{tt})(\partial_{t}\phi)^{2} + \frac{1}{2}a^{tt}\partial_{t}(\partial_{t}\phi)^{2}, 
+			\end{split}
+		\end{align*}
+		so that 
+		\begin{align*}
+			\begin{split}
+				\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{t}(a^{tt}\partial_{t}\phi))\;dxdt &= \int_{0}^{T}\int_{\mathbb{R}^{n}} (\partial_{t}a^{tt})(\partial_{t}\phi)^{2} + \frac{1}{2}a^{tt}\partial_{t}(\partial_{t}\phi)^{2}\;dx dt \\
+				&= \frac{1}{2}\int_{\{T\} \times \mathbb{R}^{n}}a^{tt}(\partial_{t}\phi)^{2}\;dx - \frac{1}{2}\int_{\{0\} \times \mathbb{R}^{n}}a^{tt}(\partial_{t}\phi)^{2}\;dx \\
+				&\qquad + \frac{1}{2}\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}a^{tt})(\partial_{t}\phi)^{2}\;dxdt, 
+			\end{split}
+		\end{align*}
+		where the second line follows from Fubini/Tonelli, and the fundamental theorem of calculus. 
+		
+		\item Now assume that one of the indices is $t$, while the other index runs from $j = 1, \ldots, n$. Then one has that 
+		\begin{align*}
+			\begin{split}
+				\partial_{t}\phi(\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)) &= (\partial_{t}\phi) \cdot \left[\partial_{j}(a^{jt}\partial_{t}\phi) + \partial_{t}(a^{tj}\partial_{j}\phi)\right] \\
+				&= (\partial_{t}\phi) \cdot \left[(\partial_{j}a^{jt})(\partial_{t}\phi) + a^{jt}\partial_{j}(\partial_{t}\phi) + \partial_{t}(a^{jt})(\partial_{j}\phi) + a^{jt}\partial_{j}(\partial_{t}\phi)\right] \\
+				&= (\partial_{j}a^{jt})(\partial_{t}\phi)^{2} + a^{jt}\partial_{j}(\partial_{t}\phi)^{2} + (\partial_{t}a^{jt})(\partial_{t}\phi)(\partial_{j}\phi). 
+			\end{split}
+		\end{align*}
+		Observe that $a^{jt} = a^{tj}$ by symmetry of $a$. We first consider the integral of the middle term. Integration by parts tells us that 
+		\begin{align*}
+			\begin{split}
+				\int_{0}^{T}\int_{\mathbb{R}^{n}}a^{jt}\partial_{j}(\partial_{t}\phi)^{2}\;dx dt &= \int_{0}^{T} \left[a^{jt}(\partial_{t}\phi)^{2}|_{\text{bdr.}} - \int_{\mathbb{R}^{n}}(\partial_{j}a^{jt})(\partial_{t}\phi)^{2}\;dx\right]\;dt \\
+				&= -\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{j}a^{jt})(\partial_{t}\phi)^{2}\;dxdt, 
+			\end{split}
+		\end{align*}
+		where the boundary terms vanish because of our assumption that $\phi$ is compactly supported. Thus in fact, 
+		\begin{equation*}
+			\int_{0}^{T}\int_{\mathbb{R}^{n}}\partial_{t}\phi(\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi))\;dxdt = \int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{j}a^{jt})(\partial_{t}\phi)^{2} - (\partial_{j}a^{jt})(\partial_{t}\phi)^{2} + (\partial_{t}a^{jt})(\partial_{t}\phi)(\partial_{j}\phi)\;dx dt. 
+		\end{equation*}
+		\item Now assume that both indices run over $i, j = 1, \ldots, n$. Then one has that  
+		\begin{align*}
+			\begin{split}
+				\int_{0}^{T}\int_{\mathbb{R}^{n}}\partial_{t}\phi (\partial_{i}(a^{ij}\partial_{j}\phi))\;dxdt &= (\partial_{t}\phi)(a^{ij}\partial_{j}\phi)\bigg|_{\text{bdr.}} - \int_{0}^{T}\int_{\mathbb{R}^{n}}\partial_{t}\partial_{i}\phi a^{ij}\partial_{j}\phi\;dx dt \\
+				&= -\frac{1}{2}\int_{0}^{T}\int_{\mathbb{R}^{n}}a^{ij}\partial_{t}(\partial_{i}\phi\partial_{j}\phi)\;dxdt  \\
+				&= -\frac{1}{2}\int_{\{T\} \times \mathbb{R}^{n}}a^{ij}\partial_{i}\phi \partial_{j}\phi\;dx + \frac{1}{2}\int_{\{0\} \times \mathbb{R}^{n}}a^{ij}\partial_{i}\phi\partial_{j}\phi \;dx  \\ &\qquad\quad + \frac{1}{2}\int_{0}^{T}\int_{\mathbb{R}^n}(\partial_{t}a^{ij}(\partial_{i}\phi)(\partial_{j}\phi)\;dxdt, 
+			\end{split}
+		\end{align*}
+		where the final line follows from the fact that 
+		\begin{equation*}
+			\partial_{t}(a^{ij}\partial_{i}\phi\partial_{j}\phi) - (\partial_{t}a^{ij})(\partial_{i}\phi)(\partial_{j}\phi) = a^{ij}\partial_{t}(\partial_{i}\phi\partial_{j}\phi), 
+		\end{equation*}
+		we used the fundamental theorem of calculus after using the above fact, and the boundary terms in the first line vanish since $\phi$ has compact support. 
+	\end{enumerate}
+	Now we obtain the following result: 
+	\begin{align*}
+		\begin{split}
+			\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)) &= \int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)F \\
+			\implies 
+			\frac{1}{2}\int_{\{T\} \times \mathbb{R}^{n}}a^{tt}(\partial_{t}\phi)^{2}\;dx -\frac{1}{2}\int_{\{T\}\times \mathbb{R}^{n}}a^{ij}\partial_{i}\phi\partial_{j}\phi\;dx &= \frac{1}{2}\int_{\{0\} \times \mathbb{R}^{n}}a^{tt}(\partial_{t}\phi)^{2}\;dx  -\frac{1}{2}\int_{\{0\} \times \mathbb{R}^{n}}a^{ij}\partial_{i}\phi\partial_{j}\phi\;dx \\
+			&\hspace{5pt}+\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)F - \frac{1}{2}(\partial_{t}a^{tt})(\partial_{t}\phi)^{2} - (\partial_{j}a^{jt})(\partial_{t}\phi)^{2} \\
+			&\qquad\qquad\hspace{2pt}+(\partial_{j}a^{jt})(\partial_{t}\phi)^{2} - (\partial_{t}a^{jt})(\partial_{t}\phi)(\partial_{j}\phi)\;dxdt
+		\end{split}
+	\end{align*}
+	Now, one has that 
+	\begin{multline*}
+		\abs{\int_{0}^{T}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)F - \frac{1}{2}(\partial_{t}a^{tt})(\partial_{t}\phi)^{2} - (\partial_{j}a^{jt})(\partial_{t}\phi)^{2}+(\partial_{j}a^{jt})(\partial_{t}\phi)^{2} - (\partial_{t}a^{jt})(\partial_{t}\phi)(\partial_{j}\phi)\;dxdt} \\
+		\leq 
+		C'\int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t) + \norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\norm{\partial \phi}^{2}_{L^{2}(\mathbb{R}^{n})}(t)\;dt, 
+	\end{multline*}
+	where we used H\"older's inequality to obtain the first term, and assumed $\partial a \in L^{\infty}(\mathbb{R}^{n})$. 
+	On the other hand, by our hypothesis on $a^{\alpha\beta}$, there exists some constant $K > 0$ large enough so that (taking $C = \min\{C',K\}$)\todo{Explain how?},
+	\begin{equation*}
+		\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}(T) \leq C\abs{\frac{1}{2}\int_{\{T\} \times \mathbb{R}^{n}}a^{tt}(\partial_{t}\phi)^{2}\;dx - \frac{1}{2}\int_{\{T\} \times \mathbb{R}^{n}}a^{ij}\partial_{i}\phi\partial_{j}\phi\;dx}. 
+	\end{equation*}
+	Thus this implies that 
+	\begin{multline*}
+		\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}(T) \leq C\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}(0) + C\int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t) + \norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\norm{\partial \phi}^{2}_{L^{2}(\mathbb{R}^{n})}(t)\;dt. 
+	\end{multline*}
+	Since one can repeat this argument for any smaller interval $[0, T']$, where $0 < T' < T$, one obtains 
+	\begin{multline*}
+		\sup_{t \in [0,T]}\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}(0) + C\int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t) + \norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\norm{\partial \phi}^{2}_{L^{2}(\mathbb{R}^{n})}(t)\;dt. 
+	\end{multline*}
+	For the first term inside the integral, one has that 
+	\begin{align*}
+		\begin{split}
+			\int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t)\;dt &\leq \sup_{t \in [0,T]}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})} \cdot \left(\int_{0}^{T}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right)\\
+			&\leq \delta\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}^{2} + \frac{1}{4\delta}\left(\int_{0}^{T}\norm{F}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right)^{2}. 
+		\end{split}
+	\end{align*}
+	where the second line follows from Young's inequality with $\epsilon$\footnote{For any $a, b \geq 0$ and any $\epsilon > 0$, $$ab \leq \frac{\epsilon^{p}a^{p}}{p} + \frac{1}{e^{q}q}b^{q}$$, where $p$, $q$ are conjugate exponents.}. If we fix $\delta > 0$ small enough so that the first term can be combined with the left side of the above inequality (and absorbing $\delta$ into the constant $C$), one has that 
+	\begin{align*}
+		\begin{split}
+			\sup_{t \in [0,T]}\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}(0) + C\left(\int_{0}^{T}\norm{F}_{L^{2}(\mathbb{R}^{n})}^{2}(t)\;dt\right)^{2} + C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\norm{\partial \phi}^{2}_{L^{2}(\mathbb{R}^{n})}(t)\;dt.
+		\end{split}
+	\end{align*}
+	Thus using Gr\"onwall's lemma concludes the proof. 
+\end{proof}
+
+We can, of course, say more. Using the above estimate, we can control the size of the higher-order derivatives of $\phi$ via the following result. 
+
+\begin{prop}[Higher Order Energy Estimate I]
+	Assume $\phi$ is a smooth solution to the Cauchy wave problem \ref{eq:clwp_ncc}, and let $k$ be a positive integer. Then there exists some constant $C = C(n,k) > 0$, the following energy estimates holds: 
+	\begin{multline}
+		\sup_{t\in[0,T]}\norm{\phi}_{H^{k}(\mathbb{R}^{n})}(t) + \sup_{t \in [0,T]}\norm{\partial_{t}\phi}_{H^{k -1}(\mathbb{R}^{n})}(t) \\ \leq C(1 + T)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right)\left(\norm{f}_{H^{k}(\mathbb{R}^{n})} 
+		+ \norm{g}_{H^{k - 1}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}(t)\;dt\right.\\ + \left. C\int_{0}^{T}\sum_{|\alpha| + |\beta| \leq k - 1}\norm{\partial\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| + |\beta| \leq k- 1}\norm{\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
+	\end{multline}
+\end{prop}
+\begin{proof}
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof}
+
+
+\newpage 
+\subsection{Existence of Solutions and Simple Properties} 
+In the previous subsection, we outlined various simple energy estimates solutions to the (non-)constant coefficient linear wave equations would satisfy if they existed, and also used these estimates to establish uniqueness results. But we have not yet shown that such solutions exist, nor what their physical properties. We dedicate this subsection to answering these questions. 
+
+
+Consider again the Cauchy wave problem (\ref{eq:clwp}), 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box \phi = 0, \\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}), 
+	\end{alignedat}
+	\right.
+\end{equation*}
+where we initially assume $\phi_{0}, \phi_{1} \in C_{c}^{\infty} \subset \mathcal{S}(\mathbb{R}^{n})$, and $\Box$ denotes the \textbf{wave operator}. Then one has the following result. 
+
+\begin{theorem}[Existence and Uniqueness for (\ref{eq:clwp})]
+	Given initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n}) \subset \mathcal{S}(\mathbb{R}^{n}) \times \mathcal{S}(\mathbb{R}^{n})$, there exists a unique solution $\phi \in C^{\infty}(\mathbb{R}; \mathcal{S}(\mathbb{R}^{n}))$ that solves (\ref{eq:clwp}).
+\end{theorem}
+
+\begin{proof}
+ Assuming that $\phi$ is an appropriate space of functions, taking the Fourier transformation of the wave equation yields, 
+\begin{equation*}
+	\partial_{t}^{2}\hat{\phi} + 4\pi^{2}|\xi|^{2}\hat{\phi} = 0 \implies \partial_{t}^{2}\hat{\phi} = -4\pi^{2}|\xi|^{2}\hat{\phi}, 
+\end{equation*} 
+which is a second-order ordinary differential equation. Thus solving this system, one obtains the general solution 
+\begin{equation*}
+	\hat{\phi}(t, \xi) = A\cos(2\pi t|\xi|) + B\sin(2\pi t \xi). 
+\end{equation*}
+Thus matching the initial conditions, it follows that 
+\begin{equation*}
+	\hat{\phi}(t, \xi) = \hat{\phi}_{0}\cos(2\pi t \xi) + \frac{\hat{\phi}_{1}}{2\pi  \xi}\sin(2\pi t \xi). 
+\end{equation*}
+But to complete the proof of existence, it remains to be seen that we can compute the inverse Fourier transform of $\hat{\phi}$. It suffices to show, at least, that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. Thus, we compute, 
+\begin{align*}
+	\begin{split}
+		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi. 
+	\end{split}
+\end{align*}
+Since $\hat{\phi}_{0}(\xi)$ is Schwartz, it is integrable, and thus the first term is finite. $\hat{\phi}_{1}(\xi)$ is also Schwartz, and thus bounded above; i.e., there exists some $M > 0$ such that for all $\xi$, $|\hat{\phi}_{1}(\xi)| \leq M$. We note that $\sin(2\pi t \xi)/\xi \to t$ as $\xi \to 0$. This means there exists some $\epsilon > 0$ such that for all $\xi \in B_{\epsilon}(0)$, $|\sin(2\pi t \xi)/\xi - t| \lesssim_{t} 1$. This means that 
+\begin{align*}
+	\begin{split}
+		\int_{\mathbb{R}^{n}}|\hat{\phi}(t, \xi)|\;d\xi &\leq \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}(\xi)|\;d\xi + \int_{\mathbb{R}^{n}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}|\sin(2\pi t |\xi|)|\;d\xi \\
+		&\lesssim \int_{\mathbb{R}^{n}}|\hat{\phi}_{0}|\;d\xi + \int_{B_{\epsilon}(0)}M\;d\xi + \int_{\mathbb{R}^{n}\setminus B_{\epsilon}(0)}|\hat{\phi}_{1}(\xi)|\;d\xi < \infty.  
+	\end{split} 
+\end{align*}
+Therefore, it follows that $\hat{\phi}(t, \empspace) \in L^{1}(\mathbb{R}^{n})$. The Fourier Inversion Theorem then tells us that 
+\begin{equation*}
+	\phi(t, x) = \int_{\mathbb{R}^{n}}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi 
+\end{equation*}
+The final piece of the proof of existence is that $\phi(t, x)$ is a solution to (\ref{eq:clwp}). We first compute, 
+\begin{equation*}
+	\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}(0, \xi)e^{2\pi i x \cdot \xi}\;d\xi = \int_{\mathbb{R}^{n}}\hat{\phi}_{0}e^{2\pi i x \cdot \xi}\;d\xi = \phi_{0}(x). 	
+\end{equation*}
+Then using integrability and the dominated convergence theorem, one obtains: 
+\begin{align*}
+	\begin{split}
+		\partial_{t}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
+		\partial_{t}^{2}\phi(t, x) &= \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi, \\
+		\Delta \phi(t, x) &= -\int_{\mathbb{R}^{n}}4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)e^{2\pi i x \cdot \xi}\;d\xi,  
+	\end{split}
+\end{align*}
+so that 
+\begin{equation*}
+	\partial_{t}\phi(0,x) = \int_{\mathbb{R}^{n}}\hat{\phi}_{1}(\xi)e^{2\pi i x \cdot \xi}\;d\xi = \phi_{1}(x), 
+\end{equation*}
+and 
+\begin{equation*}
+	\Box \phi = \partial_{t}^{2}\phi(t,x) - \Delta \phi(t, x) = \int_{\mathbb{R}^{n}}\partial_{t}^{2}\hat{\phi}(t, \xi) + 4\pi^{2}|\xi|^{2}\hat{\phi}(t, \xi)\;d\xi = 0. 
+\end{equation*}
+Thus, an integrable solution exists for (\ref{eq:clwp}) under the hypothesis assumed above. In fact, since $\hat{\phi}(t, x) \in \mathcal{S}(\mathbb{R}^{n})$, one actually has that $\phi(t, \cdot) \in \mathcal{S}(\mathbb{R}^{n})$. To prove uniqueness, assume $\phi^{(1)}$ and $\phi^{(2)}$ are two solutions to (\ref{eq:clwp}). Linearity of $\Box$ then implies that $\phi \coloneqq \phi^{(1)} - \phi^{(2)}$ also solves the linear wave equation with zero initial data. Thus, if $E(t) = \norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}$ denotes the energy of $\phi$, then $E(0) = 0$. Thus conservation of energy implies that $E(t) = 0$ for all $t \geq 0$, whence $\phi \equiv 0$. Therefore, $\phi^{(1)} \equiv \phi^{(2)}$. 
+\end{proof}
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
