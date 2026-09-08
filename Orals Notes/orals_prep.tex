@@ -39,7 +39,110 @@ The following notes are a (brief) introduction into the theory of nonlinear wave
 \newpage 
 \part{Nonlinear Wave Equations}
 
-\section{Linear Wave Equation}
+\section{General Analytic Results}
+
+In this subsection, we will be introducing some general analytic results in functional analysis and harmonic analysis, that we will later use in our study of the (non)linear wave equations (and hyperbolic PDE, in general) \cite{Stein}. 
+
+\subsection{Distributions and Generalized Functions} 
+
+In this subsection, we introduce the notion of \textit{distributions}, which will become essential in our future study of nonlinear wave equations. Classically, we are used to the idea of a function $f$ (on $\mathbb{R}^{n}$) as assigning a definite value $f(x)$ for every $x \in \mathbb{R}^{n}$. But we also saw in measure theory that it suffices to define a function up to a set of measure zero (i.e., we can allow $f$ to remain undefined on points contained in a set of measure zero).\footnote{which is to say that a function is really just an equivalence class of functions that agree pointwise a.e.} Now, we will see that it suffices to relax this definition even more in certain cases, leading to the idea of \textbf{distributions} or \textbf{generalized functions}. Rather than assigning a definite value at each point in its domain, we define a distribution by its averages taken with respect to a certain class of test functions (e.g., $C_{c}^{\infty}(\mathbb{R}^{n})$). As we will see in Section \S.\ref{sec:lwe}, one might not have classical solutions of desired regularity (in the sense of ordinary functions) for various partial differential equations. However, there could exist generalized functions, that although do not necessarily have the regularity to satisfy the original differential equations, that satisfy other properties that a normal classical solution would have. For example, consider the one-dimensional wave equation, 
+\begin{equation*}
+	\frac{\partial u}{\partial t} + \frac{\partial u}{\partial x} = 0.  
+\end{equation*}
+Multiplying both sides by an arbitrary smooth function, $\varphi(x,t)$ with compact support, and integrating one has, 
+\begin{equation*}
+	\int_{\mathbb{R}}\int_{\mathbb{R}}\frac{\partial u}{\partial t}\varphi(x, t)\;dtdx + \int_{\mathbb{R}}\int_{\mathbb{R}}\frac{\partial u}{\partial x}\varphi(x, t)\;dtdx. 
+\end{equation*}
+Using Fubini's theorem, and integration by parts, one obtains 
+\begin{equation*}
+	\int_{\mathbb{R}}\int_{\mathbb{R}}u(t, x) \frac{\partial \varphi}{\partial t}\;dtdx + \int_{\mathbb{R}}\int_{\mathbb{R}}u(t, x)\frac{\partial \varphi}{\partial x}\;dtdx = 0. 
+\end{equation*}
+Thus any solution to the wave equation satisfies the above equation as long as it is at least $C^{1}$. However, it is possible that there exist functions $u$ that satify the above equation for all such $\varphi$ but is possibly not differentiable (so that $u$ does not satisfy the wave equation, itself). Hence, as we will see, distributions enable us to make sense of such $u$ (which we shall call \textit{weak solutions} to a differential equation). 
+
+Thus we have the following definitions. 
+
+\begin{definition}[Test Functions on $\Omega$]
+Fix an open set $\Omega$ in $\mathbb{R}^{d}$. The \textbf{test functions} are those functions $\varphi \in C_{c}^{\infty}(\Omega)$ (or equivalently, $C_{0}^{\infty}(\Omega)$) - the set of all smooth functions with compact support in $\Omega$. We denote the space of all test functions on $\Omega$ by the symbol $\mathcal{D}(\Omega)$. 
+\end{definition} 
+
+\begin{definition}[Convergence in $\mathcal{D}(\Omega)$]
+	Let $\{\varphi_{n}\} \subset \mathcal{D}(\Omega)$ and $\varphi \in \mathcal{D}$. $\varphi_{n}$ is said to converge to $\varphi$ if the supports of $\varphi_{n}$ are contained in a common compact set, and for every multiindex $\alpha$, one has that $\partial_{x}^{\alpha} \varphi_{n} \to \partial_{x}^{\alpha}\varphi$ uniformly in $x$ as $n \to \infty$. 
+\end{definition}
+
+\begin{definition}[Distributions on $\Omega$]
+	A \textbf{distribution} $F$ on $\Omega$ is a complex-valued linear functional $\varphi \mapsto F(\varphi)$, defined for all $\varphi \in \mathcal{D}$, that is continuous in the sense that $F(\varphi_{n}) \to F(\varphi)$ whenever $\varphi_{n}\to \varphi$ in $\mathcal{D}$. We shall denote the vector space of all distributions on $\Omega$ by $\mathcal{D}^{\ast}(\Omega)$. 
+\end{definition} 
+
+For example, all signed Radon measures on an open subset $\Omega$, and all locally integrable function on $\Omega$ are examples of distributions on $\Omega$. Our ultimate goal is to ``calculus'' using distributions. For smooth functions $f$, one of the most important results we have (as we shall see in the Section \S.\ref{sec:lwe}) is \textbf{integration by parts}: for any $f \in C^{\infty}(\Omega)$ and $\varphi \in \mathcal{D}(\Omega)$, a simple inductive argument yields, 
+\begin{equation*}
+	\int_{\Omega}(\partial_{x}^{\alpha}f)\varphi(x)\;dx = (-1)^{|\alpha|}\int_{\Omega}f(\partial_{x}^{\alpha}\varphi)\;dx,  
+\end{equation*}
+where the boundary terms are identically zero because $\varphi$ has compact support. Thus, generalizing this definition, 
+
+\begin{definition}[Derivative of a Distribution]
+	If $F \in \mathcal{D}^{\ast}(\Omega)$, for any multiindex $\alpha$, one defines the \textbf{distributional derivative of $F$}, $(\partial_{x}^{\alpha}F)$ as follows: for any $\varphi \in\mathcal{D}(\Omega)$, 
+	\begin{equation}
+		(\partial_{x}^{\alpha}F)(\varphi) = (-1)^{|\alpha|}F(\partial_{x}^{\alpha}\varphi). 
+		\label{eq:dist_der}
+	\end{equation}
+\end{definition}
+Thus while an arbitrary locally integrable function $f$ may not have sufficient regularity to talk about its classical derivatives, we can certainly talk about its partial derivatives as distributions (which exist). 
+
+We can generalize some basic properties of functions to distributions. 
+
+\begin{definition}[Some Basic Operations on Distributions]
+	Let $\Omega$ be an open subset of $\mathbb{R}^{d}$, and let $F \in \mathcal{D}^{\ast}$. Then we define the following. \vspace{-1.2em}
+	\begin{enumerate}[itemsep =-2pt]
+		\item If $\psi \in C^{\infty}(\Omega)$, then the product $\psi \cdot F$ is defined by $(\psi \cdot F)(\varphi) \coloneqq F(\psi \varphi)$ for every $\varphi \in \mathcal{D}$. It stands that $\psi \cdot F \in \mathcal{D}^{\ast}$. 
+		\item Let $\tau_{\empspace}$ denote the translation operator: $\tau_{h}f(x) \coloneqq f(x - h)$ for any $h \in \mathbb{R}^{d}$. Then the corresponding definition for distributions is, 
+		\begin{equation*}
+			\tau_{h}(F)(\varphi) = F(\tau_{-h}\varphi), \qquad \forall \varphi \in \mathcal{D}. 
+		\end{equation*}
+		\item If $L$ is a \textit{nonsingular} linear transformation on $\mathbb{R}^{d}$, then if $f_{L}(x) \coloneqq f(Lx)$ for functions, on distributions, one has 
+			\begin{equation*}
+				F_{L}(\varphi) = |\det{L}|^{-1} \cdot F(\varphi_{L^{-1}}), \qquad \forall \varphi \in \mathcal{D}. 
+			\end{equation*}
+	\end{enumerate}
+\end{definition}
+
+Another property we would like to generalize is convolution of a distribution with a test function. We make the following definitions: 
+
+\begin{definition}[Convolution of a Distribution with Test Functions]
+	Let $F \in \mathcal{D}(\mathbb{R}^{d})$, and $\psi \in C_{c}^{\infty}(\mathbb{R}^{d})$. Then we make the definitions, \vspace{-1.2em}
+	\begin{enumerate}[itemsep =-2pt]
+		\item (As a function): $(F \ast \psi)(x) \coloneqq F(\psi^{\ti{}}_{x})$, where $\psi_{x}^{\ti{}} \coloneqq \psi(x - y)$, 
+		\item (As a distribution): $(F \ast \psi)(\varphi) \coloneqq F(\psi^{\ti{}} \ast \varphi)$, for all $\varphi \in \mathcal{D}(\mathbb{R}^{d})$, with $\psi^{\ti{}} \equiv \psi^{\ti{}}_{0}$. 
+	\end{enumerate}
+\end{definition} 
+
+To see where these definitions could come from, assume first that $F$ is a locally integrable function. Then one has that 
+\begin{equation*}
+	(F \ast \psi)(x) \coloneqq \int_{\mathbb{R}^{d}}F(x - y)\psi(y)\;dy = \int_{\mathbb{R}^{d}}F(y)\psi(x - y)\;dy. 
+\end{equation*}
+This leads naturally to the first definition. On the other hand, for any $\varphi \in \mathcal{D}(\mathbb{R}^{d})$, if $F$ is a locally integrable function, then 
+\begin{align*}
+	\begin{split}
+		(F \ast \psi)(\varphi) &= \int_{\mathbb{R}^{d}}\int_{\mathbb{R}^{d}}F(y)\psi(x - y)\varphi(x)\;dydx \\
+		&= \int_{\mathbb{R}^{d}}\int_{\mathbb{R}^{d}}F(y)\psi(x - y)\varphi(x)\;dxdy \qquad (\text{by Fubini's Theorem}) \\
+		&= \int_{\mathbb{R}^{d}}F(y)(\psi^{\ti{}}\ast \varphi)(y)\;dy  \\
+		&= F(\psi^{\ti{}} \ast \varphi). 
+	\end{split} 
+\end{align*}
+This leads naturally to the second definition. 
+
+\begin{prop}[Equivalence of Definitions of Convolution]
+	Suppose $F$ is a distribution and $\psi \in \mathcal{D}$. Then \vspace{-1.75em}
+	\begin{enumerate}[itemsep =-2pt]
+		\item The two definitions of $F \ast \psi$ given above coincide. 
+		\item The distribution $F \ast \psi$ is a $C^{\infty}$ function. 
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+\textcolor{red}{[!! Complete Later !!]}
+\end{proof}
+
+\newpage 
+\section{Linear Wave Equation}\label{sec:lwe}
 
 \subsection{Introduction} 
 Through these notes, our goal is to study the properties of the nonlinear wave equation, which can either be a ``simple'' scalar equation or a system of equations \cite{Luk}: 
@@ -66,7 +169,7 @@ Before we build up to the nonlinear wave equation, we will first examine the pro
 
 We will gradually work through each of these results, sometimes developing new techniques and machinery. We first begin by developing some general analytic results, and idea of energy estimates. Then we will apply these to the study of linear wave equations. This will then give a foundation for the study of nonlinear wave equations. 
 
-\subsection{General Analytic Results}
+
 
 
 \newpage 
@@ -411,7 +514,7 @@ We can, of course, say more. Using the above estimate, we can control the size o
 
 
 \newpage 
-\subsection{Existence of Solutions and Simple Properties} 
+\subsection{Solutions to the Linear Wave Equation (Constant Coefficients)} 
 In the previous subsection, we outlined various simple energy estimates solutions to the (non-)constant coefficient linear wave equations would satisfy if they existed, and also used these estimates to establish uniqueness results. But we have not yet shown that such solutions exist, nor what their physical properties. We dedicate this subsection to answering these questions. 
 
 
@@ -483,6 +586,17 @@ and
 Thus, an integrable solution exists for (\ref{eq:clwp}) under the hypothesis assumed above. In fact, since $\hat{\phi}(t, x) \in \mathcal{S}(\mathbb{R}^{n})$, one actually has that $\phi(t, \cdot) \in \mathcal{S}(\mathbb{R}^{n})$. To prove uniqueness, assume $\phi^{(1)}$ and $\phi^{(2)}$ are two solutions to (\ref{eq:clwp}). Linearity of $\Box$ then implies that $\phi \coloneqq \phi^{(1)} - \phi^{(2)}$ also solves the linear wave equation with zero initial data. Thus, if $E(t) = \norm{\partial \phi}_{L^{2}(\mathbb{R}^{n})}^{2}$ denotes the energy of $\phi$, then $E(0) = 0$. Thus conservation of energy implies that $E(t) = 0$ for all $t \geq 0$, whence $\phi \equiv 0$. Therefore, $\phi^{(1)} \equiv \phi^{(2)}$. 
 \end{proof}
 
+In particular, one does not completely require the initial data to smooth with compact support. We have the following existence and uniqueness result. 
+
+\begin{theorem}[Existence and Uniqueness for (\ref{eq:clwp})]
+	Given initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$, there exists a unique solution $\phi \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$ that solves (\ref{eq:clwp}). 
+\end{theorem}
+
+\begin{proof}
+	The following proof is due to \cite{Holzegel2021}. \textcolor{red}{[!! Complete Later !!]}
+\end{proof}
+
+
 For $n \geq 2$, we intuitively expect the amplitude of the wave $|\phi(t, x)|$ to decay as $t \to \infty$ for the following reason: as $t \to \infty$, the support of the function increases (e.g., consider ripples on the surface of a lake), while the total energy of the wave is conserved. Note that this reasoning  does not quite apply to $n = 1$ since the size of the support remains constant. Now we can rigorously compute the decay estimates. We have the following first result. 
 
 \begin{prop}[Pointwise Decay Rate]
@@ -493,7 +607,99 @@ For $n \geq 2$, we intuitively expect the amplitude of the wave $|\phi(t, x)|$ t
 	\end{equation}
 \end{prop}
 
+\begin{proof}
+	The fundamental ideas behind the proof are as follows: we wish to consider the expression 
+	\begin{equation*}
+		\phi(t, x) = \int_{\mathbb{R}^{n}}e^{2\pi i (t|\xi| + x \cdot \xi)}\left(\frac{\hat{\phi}_{0}}{2} + \frac{\hat{\phi}_{1}}{2\pi i |\xi|}\right) + e^{-2\pi i t|\xi|}\left(\frac{\hat{\phi}_{0}}{2} - \frac{\hat{\phi}_{1}}{2\pi i |\xi|}\right)\;d\xi, 
+	\end{equation*}
+	and then bound each of the terms in the integral. For sake of demonstrating the main ideas, we shall assume $n = 3$. The proof follows trivially for all $|t| \leq 1$: let 
+	\begin{equation*}
+		\begin{matrix}
+			\displaystyle I_{1} = \int_{\mathbb{R}^{3}}e^{2\pi i (t|\xi| + x \cdot \xi)}\frac{\hat{\phi}_{0}}{2}\;d\xi, & & \displaystyle I_{2} = \int_{\mathbb{R}^{3}}e^{-2\pi i (t|\xi| + x \cdot \xi)}\frac{\hat{\phi}_{0}}{2}\;d\xi. \\ && \\
+			\displaystyle I_{3}  = \int_{\mathbb{R}^{3}}e^{2\pi i (t|\xi| + x \cdot \xi)}\frac{\hat{\phi}_{1}}{2\pi i |\xi|}\;d\xi && \displaystyle I_{4} = -\int_{\mathbb{R}^{3}}e^{-2\pi i(t|\xi| + x \cdot \xi)}\frac{\hat{\phi}_{1}}{2\pi i |\xi|}\;d\xi. 
+		\end{matrix}
+	\end{equation*}
+	Since $\hat{\phi}_{0}$ is Schwartz, and thus integrable, there exist $M_{1}, M_{2} > 0$ such that for all $|t|\leq 1$, $|I_{i}| \leq M_{i}$ for $i = 1, 2$. Now for $I_{3}$ (and analogously for $I_{4}$), we can write 
+	\begin{align*}
+		\begin{split}
+			|I_{3}| &\leq \int_{\mathbb{R}^{3}}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}\;d\xi = \int_{B_{1}(0)}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}\;d\xi + \int_{\mathbb{R}^{3}\setminus B_{1}(0)}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}\;d\xi \\
+			&\leq \int_{B_{1}(0)}\frac{K_{1}}{2\pi |\xi|}\;d\xi + \int_{\mathbb{R}^{3}\setminus B_{1}(0)}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}\;d\xi\\
+			&= \int_{B_{1}(0)}\frac{K_{1}}{2\pi |\xi|}\;d\xi + \int_{\mathbb{R}^{3}\setminus B_{1}(0)}\frac{|\hat{\phi}_{1}(\xi)|}{2\pi |\xi|}\;d\xi < \infty, 
+		\end{split}
+	\end{align*}
+	where the second line follows from the fact that since $\hat{\phi}_{1} \in \mathcal{S}(\mathbb{R}^{n})$, it is continuous on the compact set $\overline{B}_{1}(0)$ and thus bounded above by some positive constant $K_{1}$, and the final line follows from the fact that $1/|\xi|$ is integrable over $B_{1}(0)$ for all $n \geq 2$, and the second term in the final line is controlled above by H\"older's inequality; $I_{4}$ is controlled in the same way. Thus, one has that for every $x \in \mathbb{R}^{n}$, and all $|t| \leq 1$, $|\phi(t, x)| \leq M$ for some constant $M$. Taking $C > 0$ large enough so that $C \geq M \cdot 2^{n - 1}$, one has that
+	\begin{equation*}
+		\sup_{|x| \leq R}|\phi(t, x)| \leq \frac{M}{(1 + t)^{2}}; 
+	\end{equation*} 
+	note that since $M_{1}, M_{2}, K_{1}, K_{2}$ are dependent on $\phi_{0}, \phi_{1}$, the proof concludes. So now we focus on the case with $t > 1$. Now introduce polar coordinates on $\mathbb{R}^{3}$ as follows: let $(|\xi|, \xi_{\theta}, \xi_{\phi})$ be the polar coordinates on $\mathbb{R}^{3}_{\xi}$ with $\xi_{1} = |\xi|\sin{\xi_{\theta}}\cos{\xi_{\phi}}$, $\xi_{2} = |\xi|\sin{\xi_{\theta}}\sin{\xi_{\phi}}$, and $\xi_{3} = |\xi|\cos{\xi_{\theta}}$. The corresponding volume form is, 
+	\begin{equation*}
+		d\xi = |\xi|^{2}\sin{\xi_{\theta}}\;d|\xi|d\xi_{\theta}d\xi_{\phi}. 
+	\end{equation*} 
+	Furthermore, one has that for any $N \in \mathbb{N}_{0}$, 
+	\begin{equation*}
+		\left(\frac{1}{2\pi i t}\frac{\partial}{\partial |\xi|}\right)^{N}e^{2\pi i t|\xi|} = e^{2\pi i t|\xi|}. 
+	\end{equation*}
+	Now using integration by parts, 
+	\begin{align*}
+		\begin{split}
+			I &= \int_0^{2\pi}\int_0^\pi\int_0^\infty e^{2\pi i t|\xi|} e^{2\pi i (x \cdot \xi)} \frac{\hat{\phi}_1(\xi)}{2\pi i}|\xi|\sin(\xi_\theta)\;d|\xi|d\xi_\theta d\xi_\varphi \\
+			&= \left[ \frac{1}{(2\pi i)^2 t}\int_0^{\pi}\int_0^{2\pi}e^{2\pi i t |\xi|}e^{2\pi i (x \cdot \xi)}\hat{\phi}_1(\xi) |\xi| \sin(\xi_\theta)\;d\xi_\varphi d\xi_\theta \right]^{R \to \infty}_{|\xi| = 0} \\
+			&\qquad - \int_0^{2\pi}\int_0^\pi\int_0^\infty \frac{1}{2\pi i t} e^{2\pi i t|\xi|} \frac{\partial}{\partial |\xi|}\left(e^{2\pi i x \cdot \xi}\frac{\hat{\phi}_1(\xi)}{2\pi i}|\xi|\right)\sin(\xi_\theta)\;d|\xi| d\xi_\theta d\xi_\varphi
+		\end{split}
+	\end{align*}
+	We claim that the first term is identically zero. To prove this, we first note that 
+	\begin{equation*}
+		\lim_{|\xi|\to \infty}\abs{^{2\pi i t |\xi|}e^{2\pi i (x \cdot \xi)}\hat{\phi}_1(\xi) |\xi| \sin(\xi_\theta)} = \lim_{|\xi| \to \infty}|\hat{\phi}_1(\xi)||\xi| = 0, 
+	\end{equation*}
+	since $\hat{\phi}_1(\xi) \in \mathcal{S}(\mathbb{R}^3)$. On the other hand, the integrand vanishes identically at $|\xi| = 0$. Now, we see that one application of integration by parts gave us a power of $t$. To get another power of $t$, we will use integration by parts on the second term. This time, after dealing with a boundary term at $|\xi| = 0$, we get 
+	\begin{equation*}
+		I = -\int_{\mathbb{R}^3}e^{2\pi i t|\xi|}\frac{1}{8\pi^3it^2}\left(\dotsm\right)\sin(\xi_\theta)\;d|\xi|d\xi_\theta d\theta_\varphi + \frac{1}{2\pi^2 i t^2}\hat{\phi}_1(\xi = 0). 
+	\end{equation*}
+	The boundary term does not allow us to use integration by parts again. Thus bounding each of the term and using the fact that $\hat{\phi}_1 \in \mathcal{S}$, one obtains 
+	\begin{equation*}
+		|I| \leq \frac{C(1 + R^2)}{t^2}. 
+	\end{equation*}
+\end{proof}
 
+Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can actually get a uniform decay bound for all $x \in \mathbb{R}^{n}$, but at the cost of the strength. 
+
+\begin{theorem}[Uniform Decay Rate]
+	For $(\phi_0, \phi_1) \in C_c^{\infty}(\mathbb{R}^n) \times C_c^{\infty}(\mathbb{R}^n)$, and $\phi$ the unique solution to the homogeneous initial value problem, there exists $C = C(\phi_0, \phi_1) > 0$ so that
+	\begin{equation*}
+		\sup_{x \in \mathbb{R}^n}|\phi(t,x)| \leq \frac{C}{(1 + t)^{\frac{n-1}{2}}}
+	\end{equation*}
+	for $t\geq 0$. 
+\end{theorem}
+
+The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. 
+
+\subsection{Solutions to the Linear Wave Equation (Variable Coefficients)}
+In this subsection, we continue studying the (non)homogeneous linear wave equation with \textit{variable} coefficients \cite{Luk, Rauch2012}. Consider again the equation (\ref{eq:clwp_ncc}), 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) = F \\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in H^{k}(\mathbb{R}^{n}) \times H^{k - 1}(\mathbb{R}^{n}), 
+	\end{alignedat}
+	\right.
+\end{equation*}
+where $k \in \mathbb{N}$, $\phi: I \times \mathbb{R}^{n} \to \mathbb{R}$, and $a^{\alpha\beta}$ is assumed to be a symmetric matrix such that\footnote{to ensure hyperbolicity; \textcolor{red}{[!! Complete Later !!]}}. 
+\begin{equation*}
+	\sum_{\alpha,\beta}|a^{\alpha\beta} - m^{\alpha\beta}| < \frac{1}{10}. 
+\end{equation*}
+
+Furthermore, we shall assume that $a$ and all its derivatives (of all orders) are bounded in $[0,T] \times \mathbb{R}^{n}$, and that $F: [0,T] \times \mathbb{R}^{n} \to \mathbb{R}^{n} \in L^{1}([0,T];H^{k-1}(\mathbb{R}^{n}))$ . As in the case of the linear wave equation with constant coefficients, we wish to proceed with an existence and uniqueness result. But this requires us to first present the following result. 
+
+\begin{lemma}[Bound on Sobolev Norms]
+	Let $L$ denote the partial differential operator $L\phi = \partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)$. Let $L^{\ast}$ be defined by $L^{\ast}\psi = \partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\psi)$ be the (formal) adjoint of $L$.\todo{Explain?} Suppose $\psi \in C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})$. Then for every $m \in \mathbb{Z}$, there exists $C = C(m, T, a, b) > 0$ such that 
+	\begin{equation}
+		\norm{\psi}_{H^{m}(\mathbb{R}^{n})}(t) \leq C \cdot \int_{t}^{T}\norm{L^{\ast}\psi}_{H^{m-1}(\mathbb{R}^{n})}(s)\;ds. 
+		\label{eq:sobNorm_ncc}
+	\end{equation}  
+\end{lemma} 
+\begin{proof}
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof}
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
