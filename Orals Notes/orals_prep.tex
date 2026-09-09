@@ -137,10 +137,65 @@ This leads naturally to the second definition.
 		\item The distribution $F \ast \psi$ is a $C^{\infty}$ function. 
 	\end{enumerate}
 \end{prop}
-\begin{proof}
-\textcolor{red}{[!! Complete Later !!]}
-\end{proof}
 
+We can also talk about distributions converging in $\mathcal{D}^{\ast}$. 
+
+\begin{definition}[Weak Convergence of Distributions]
+	A sequence of distributions $\{F_{n}\} \subset \mathcal{D}^{\ast}$ converges to a distribution $F$ in the \textbf{weak sense} (or in the \textbf{sense of distributions}) if $F_{n}(\varphi) \to F(\varphi)$ for all $\varphi \in \mathcal{D}$.
+\end{definition} 
+
+In particular, the following result follows. 
+\begin{prop}[Approximating Distibutions with Smooth Functions]
+	Suppose $F$ is a distribution on $\mathbb{R}^{d}$. Then there exists a sequence $\{f_{n}\}$, with $f_{n} \in C^{\infty}$, and $f_{n} \to F$ in the weak sense. 
+\end{prop}
+
+However, the space of test functions $C_{c}^{\infty}(\mathbb{R}^{d})$ could potentially be too restrictive at points. Thus we generalize instead to the Schwartz space, $\mathcal{S} = \mathcal{S}(\mathbb{R}^{d})$ of \textbf{Schwartz functions}, which are smooth functions that rapidly decrease at infinity with all of their derivatives. I.e., we define 
+\begin{equation*}
+	\mathcal{S}(\mathbb{R}^{d}) \coloneqq \{\varphi \in C_{c}^{\infty}(\mathbb{R}^{d}): \sup_{x \in \mathbb{R}^{d}}|x^{\beta}(\partial^{\alpha}_{x}\varphi)(x)| < \infty, \quad \forall |\alpha|, |\beta| \leq N \text{ and } \forall N \in \mathbb{N}\}. 
+\end{equation*}
+We denote, 
+\begin{equation*}
+	\norm{\varphi}_{N} = \sup_{x \in \mathbb{R}^{d}, |\alpha|,|\beta| \leq N}|x^{\beta}(\partial_{x}^{\alpha}\varphi)(x)|, \qquad \forall N \in \mathbb{N}; 
+\end{equation*}
+we say that $\varphi_{k} \to \varphi$ in $\mathcal{S}$ iff $\norm{\varphi_{k} - \varphi}_{N} \to 0$ for every $N \geq 1$. Accordingly, we make the following definition. 
+
+\begin{definition}[Tempered Distributions]
+	$F$ is said to be a \textbf{tempered distribution} if it is a linear functional on $\mathcal{S}$ which is continuous in the sense that $F(\varphi_{k}) \to F(\varphi)$ whenever $\varphi_{k} \to \varphi$ in $\mathcal{S}$. By $\mathcal{S}^{\ast}$, we shall denote the space of all tempered distributions on a domain. 
+\end{definition}
+
+Tempered distributions satisfy the following bounding criterion. 
+
+\begin{prop}[Bounding for Distributions]
+	Suppose $F$ is a tempered distribution. Then there is a positive integer $N$ and a constant $c > 0$, so that 
+	\begin{equation*}
+		|F(\varphi)| \leq c\norm{\varphi}_{N}, \qquad \forall \varphi \in \mathcal{S}. 
+	\end{equation*}
+\end{prop} 
+\begin{proof}
+Assume that this bound is not satisfied. Then for every positive integer $n$, there exists $\psi_{n} \in \mathcal{S}$ with $\norm{\psi_{n}}_{n} = 1$, and $|F(\psi_{n})| \geq n$. For each $n$, set $\varphi_{n}= \psi_{n}/n^{1/2}$. This means $\norm{\varphi_{n}}_{N} \leq \norm{\varphi_{n}}_{n}$ for all $n \geq N$. 
+In particular, $\norm{\varphi_{n}}_{N} \leq n^{-1/2} \to 0$ as $n \to \infty$. On the other hand, $|F(\varphi_{n})| \geq n^{1/2} \to \infty$, which contradicts the continuity of $F$. 
+\end{proof} 
+
+Now we recall that the Fourier transform of Schwartz functions are Schwartz. As a result, it follows that the Fourier transform maps the class of tempered distributions onto itself, so that $\mathcal{S}^{\ast}$ is closed under the Fourier transform. But we have not yet described what it means to take the Fourier transform of a distribution. 
+
+Recall that for all $\varphi, \psi \in \mathcal{S}$, one has 
+\begin{align*}
+	\begin{split}
+		\int_{\mathbb{R}^{d}}\hat{\varphi}(x)\psi(x)\;dx &= \int_{\mathbb{R}^{d}}\left(\int_{\mathbb{R}^{d}}\varphi(y)\psi(x)e^{-2\pi iy \cdot x}\;dy\right)\;dx \\
+		&= \int_{\mathbb{R}^{d}}\left(\int_{\mathbb{R}^{d}}\varphi(y)\psi(x)e^{-2\pi i y \cdot x}\;dx\right)\;dy \qquad (\text{by Fubini's Theorem}) \\
+		&= \int_{\mathbb{R}^{d}}\varphi(y)\hat{\psi}(y)\;dy \eqqcolon \int_{\mathbb{R}^{d}}\varphi(x)\hat{\psi}(x)\;dx. 
+	\end{split} 
+\end{align*}
+Thus, one seeks to generalize this to distributions as follows: 
+\begin{definition}[Fourier Transform for Tempered Distributions]
+	Let $F \in \mathcal{S}^{\ast}$ be a tempered distribution. Then the \textbf{Fourier distribution} of $F$, denoted by $F^{\wedge}$, is defined by 
+	\begin{equation*}
+		F^{\wedge}(\varphi) = F(\varphi^{\wedge}), \qquad \forall \varphi \in \mathcal{S}. 
+	\end{equation*}
+\end{definition} 
+In particular, the Fourier transform of tempered distributions satisfy the same properties as the Fourier transform for functions. 
+
+\subsection{Important Examples of Distributions} 
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
 
@@ -674,7 +729,7 @@ Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can 
 The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. 
 
 \subsection{Solutions to the Linear Wave Equation (Variable Coefficients)}
-In this subsection, we continue studying the (non)homogeneous linear wave equation with \textit{variable} coefficients \cite{Luk, Rauch2012}. Consider again the equation (\ref{eq:clwp_ncc}), 
+In this subsection, we continue studying the (non)homogeneous linear wave equation with \textit{variable} coefficients \cite{Luk}. Consider again the equation (\ref{eq:clwp_ncc}), 
 \begin{equation*}
 	\left\{
 	\begin{alignedat}{1}
@@ -700,9 +755,80 @@ Furthermore, we shall assume that $a$ and all its derivatives (of all orders) ar
 \begin{proof}
 	\textcolor{red}{[!! Complete Later !!]}
 \end{proof}
+
+\subsection{General Hyperbolic Systems} 
+
+Here, we consider additional properties of the linear wave equation not studied above, and also consider the more general class of \textit{hyperbolic systems} \cite{Rauch2012}. As we shall see, this leads naturally to the notion of \textit{propagation}. Some of these results are presented, perhaps with less exposition, in the Appendix  
+
+\paragraph{Method of Characteristics} 
+
+We start with a simple setting: consider the homogeneous linear wave equation in $\mathbb{R}^{1 + 1}$, given by 
+\begin{equation*}
+	\partial_{t}\phi + c(t, x)\;\partial_{x}\phi  = 0, 
+\end{equation*}
+where $c(t, x)$ is assumed to be a smooth real-valued function. We also consider the ordinary differential equation, $\dot{x}(t)= c(t, x(t))$. For a smooth function $\phi$, one has that along the integral curves $(1, x(t))$, 
+\begin{equation*}
+	\frac{d}{dt}\phi(t, x(t)) = (\partial_{t}\phi + c\;\partial_{x}\phi)|_{(t, x(t))}. 
+\end{equation*}
+Thus it follows that the solutions of the homogeneous 1D linear wave equation are precisely those solutions $\phi$ that are constant along the integral curves $(t, x(t))$. We call these curves the \textbf{characteristic curves} of the partial differential operator $L = \partial_{t} + c(t, x)\partial_{x}$. 
+
+The \textbf{method of characteristics} then boils down to considering a differential equation in one spatial dimension, reducing the equation to an ODE on integral curves, and constructing an overall solution from the solutions on each integral curve (e.g., see Chapter 1 of \cite{Folland} for an in-depth coverage of the subtleties and generalizations of the method of characteristics). It then follows that certain existence and uniqueness theorems follow easily from this method. E.g., 
+
+\begin{prop}[Existence and Uniqueness for 1D Wave Equation] If $c \in \mathbb{R}$ is constant, then $\phi \in C^{\infty}([0,T] \times \mathbb{R})$ satisfies 
+\begin{equation*}
+	\partial_{t}\phi + c\partial_{x}\phi = 0 
+\end{equation*}
+if and only if there is an $f \in C^{\infty}(\mathbb{R})$ such that $\phi = f(x - ct)$. The function $f$ is \textit{uniquely determined}. 
+\end{prop} 
+\begin{proof}
+	By the method of characteristics, for constant $c$, the characteristics along which $u$ is constant are the lines $(t, x + ct)$. Thus, $u(t, x) = u(0,x - ct)$. If one sets $f(x) = u(0, x)$, then the forward direction is satisfied. Conversely, if there exists $f \in C^{\infty}$ such that $\phi(t, x) = f(x - ct)$, then 
+	\begin{equation*}
+		\partial_{t}\phi = -cf'(x - ct), \qquad c\partial_{x}\phi = cf'(x - ct). 
+	\end{equation*} 
+	Thus, $\partial_{t}\phi + c\partial_{x}\phi = 0$. 
+\end{proof} 
+
+I.e., the Cauchy problem above is uniquely solvable by a $C^{\infty}$ function, and the solutions are \textit{propagating} waves translating rigidly with velocity $c$. We may also consider the same differential equation, but where $c(t, x)$ is \textit{not} bounded. 
+
+\begin{example}[Nonuniqueness for Unbounded Speed]
+	Consider the differential equation, 
+	\begin{equation*}
+		\partial_{t}\phi + c(t, x)\;\partial_{x}\phi = 0, 
+	\end{equation*}
+	where $c(t, x) = x^{2}$ is not bounded. Fix a point $(0,x_{0})$ in spacetime. The characteristic through this point is the solution of the differential equation, 
+	\begin{equation*}
+		x' = x^{2}, \qquad x(0) = x_{0}, 
+	\end{equation*}
+	whence 
+	\begin{equation*}
+		x(t) = \frac{x_{0}}{1 - x_{0}t}. 
+	\end{equation*}
+	Inverting this, one obtains 
+	\begin{equation*}
+		x_{0} = \frac{x}{1 + xt}. 
+	\end{equation*}
+	Thus for each point $(t, x)$ with $t \geq 0$, there is a unique characteristic tracing back to $t = 0$. Therefore, given initial data $\phi(0,x) = g(x)$, the solution $\phi(t, x)$ is uniquely determined in $t \geq 0$ by requiring $t \geq 0$ by requiring $\phi$ to be constant on the characteristics. By plotting the integral curves, we observe the following: for $|x_{0}| \geq 1$, the corresponding integral curves all diverge before $t = 1$, for $x_{0} = 1$, the integral curve passing through $(0,x_{0})$ diverges at $t = 1$, and for $x_{0} \in (0,1)$, the integral curves blow up at finite time $t = 1/x_{0} > 1$. The backward characteristic through $(0,-1)$ diverges to $-\infty$ at $t = -1$. These observations have the following consequences. 
+	
+	Since information about the data on $[1, \infty)$ blows up before $t = 1$, the data for $|x| \geq 1$ does not influence the solution in $t \geq 1$. Consequently, there has been a loss of information so that the initial values do not uniquely determine a solution in $t < 0$. 
+\end{example} 
+
+Thus, going forward, we shall make the following hypotheses: 
+
+\begin{quote}
+	\textbf{Hypotheses 3.1} \textit{Suppose that for all $T > 0$, $\partial_{t, x}^{\alpha}c \in L^{\infty}([0, T] \times \mathbb{R})$, and that the coefficient $d(t, x)$ satisfies analogous bounds.}
+\end{quote}
+
+A reasonable question to ask is when the method of characteristics holds. We have the following result: the method of characteristics applies to, \vspace{-1.5em}
+
+\begin{enumerate}[itemsep =-2pt]
+	\item Systems of hyperbolic equations: 
+	
+\end{enumerate}
+
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
+\label{sec:A.Representation}
 In this section, we work through the derivations of explicit representation formulas for initial value problems of the \textit{wave equation},
 \begin{equation}
 	\Box u\coloneqq u_{tt} - \Delta u = 0 \quad (\text{or more generally, } f), 
