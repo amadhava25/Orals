@@ -38,12 +38,26 @@ The following notes are a (brief) introduction into the theory of nonlinear wave
 
 \newpage 
 \part{Nonlinear Wave Equations}
-
 \section{General Analytic Results}
 
 In this subsection, we will be introducing some general analytic results in functional analysis and harmonic analysis, that we will later use in our study of the (non)linear wave equations (and hyperbolic PDE, in general) \cite{Stein}. 
 
-\subsection{Distributions and Generalized Functions} 
+\begin{figure}[h!]
+	\centering 
+	\includegraphics[width = 0.5\textwidth]{mickey}
+\end{figure}
+
+\subsection{Introductory Harmonic Analysis} 
+
+In this subsection, we introduce key notions of harmonic analysis. In particular, we introduce the role of $L^{p}$ spaces in harmonic analysis, then turn to \textit{weak-type} estimates which will prove handy when we talk about estimates for (non)linear wave equations. 
+
+\subsubsection{Motivation} 
+
+
+
+\newpage 
+
+\subsection{Distributions and Generalized Functions} \label{subsec:distributions}
 
 In this subsection, we introduce the notion of \textit{distributions}, which will become essential in our future study of nonlinear wave equations. Classically, we are used to the idea of a function $f$ (on $\mathbb{R}^{n}$) as assigning a definite value $f(x)$ for every $x \in \mathbb{R}^{n}$. But we also saw in measure theory that it suffices to define a function up to a set of measure zero (i.e., we can allow $f$ to remain undefined on points contained in a set of measure zero).\footnote{which is to say that a function is really just an equivalence class of functions that agree pointwise a.e.} Now, we will see that it suffices to relax this definition even more in certain cases, leading to the idea of \textbf{distributions} or \textbf{generalized functions}. Rather than assigning a definite value at each point in its domain, we define a distribution by its averages taken with respect to a certain class of test functions (e.g., $C_{c}^{\infty}(\mathbb{R}^{n})$). As we will see in Section \S.\ref{sec:lwe}, one might not have classical solutions of desired regularity (in the sense of ordinary functions) for various partial differential equations. However, there could exist generalized functions, that although do not necessarily have the regularity to satisfy the original differential equations, that satisfy other properties that a normal classical solution would have. For example, consider the one-dimensional wave equation, 
 \begin{equation*}
@@ -195,7 +209,7 @@ Thus, one seeks to generalize this to distributions as follows:
 \end{definition} 
 In particular, the Fourier transform of tempered distributions satisfy the same properties as the Fourier transform for functions. 
 
-\subsection{Important Examples of Distributions} 
+\subsubsection{Important Examples of Distributions} 
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
 
@@ -215,7 +229,7 @@ Note that we denote the coordinate of $I$ by $t$ (to designate the \textit{time}
 	\item \textbf{semilinear}: $g$ is independent of $\phi$  and $F$ is a nonlinear function; 
 	\item \textbf{quasilinear}: $g$ is independent of $\phi$ and/or $\partial \phi$. 
 \end{enumerate}
-Before we build up to the nonlinear wave equation, we will first examine the properties of the linear wave equation. Generally speaking, we are interested in the following properties: \vspace{-1.2em}
+Before we build up to the nonlinear wave equation, we will first examine the linear wave equation. Generally speaking, we are interested in the following properties: \vspace{-1.2em}
 \begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
 	\item \textbf{Existence and Uniqueness}: Does a solution to (\ref{eq:nlw}) exist, and if so, is it the only solution? 
 	\item \textbf{Dispersion}: What physical properties do solutions to (\ref{eq:nlw}) have? 
@@ -652,6 +666,55 @@ In particular, one does not completely require the initial data to smooth with c
 \end{proof}
 
 
+\subsubsection{Fundamental Solutions}
+
+Now we will present another approach to solving (\ref{eq:clwp}). In particular, we consider instead the \textit{fundamental solution} using distributions (see Section \ref{subsec:distributions} for a review of distributions). We immediately have the following definition. 
+
+\begin{definition}[Forward Fundamental Solution]
+	The distribution $E_{+}$ is said to be a \textbf{forward fundamental solution} to the linear wave equation on $\mathbb{R}^{n + 1}$ if \vspace{-1.25em}
+	\begin{enumerate}[itemsep =-2pt]
+		\item $\Box E_{+} = \delta_{0}$ (where $\delta_{0}$ is defined as $\delta_{0}(\varphi) = \varphi(t = 0, x =0)$), 
+		\item $\operatorname{supp}(E_{+}) \subseteq \{(t, x) \in \mathbb{R}^{1 + n} \mid 0 \leq |x| \leq t\}$. 
+	\end{enumerate}
+\end{definition} 
+In other words, the forward fundamental solution to the linear wave equation is the solution to linear wave equation on the \textit{forward light cone}. Immediately, one has the following uniqueness result. 
+
+\begin{prop}[Uniqueness of Forward Fundamental Solution]
+	A forward fundamental solution on $\mathbb{R}^{n + 1}$, if it exists, is unique. 
+\end{prop} 
+\begin{proof}
+	Let $E_{1}, E_{2}$ be two forward fundamental solutions. Then one has, 
+	\begin{equation*}
+		E_{1} = E_{1} \ast \delta_{0}  = E_{1} \ast (\Box E_{2}) = E_{1} \ast (\Box \delta_{0} \ast E_{2}) = (\Box \delta_{0} \ast E_{1}) \ast E_{2} = \Box E_{1} \ast E_{2} = \delta_{0} \ast E_{2} = E_{2}, 
+	\end{equation*}
+	where we use the support properties of $E_{1}$ and $E_{2}$ to justify well-definedness of the convolution of the distributions and to justify swapping the wave operator.  
+\end{proof} 
+
+Now, we can use the forward fundamental solution to craft a solution to (\ref{eq:clwp}). 
+
+\begin{prop}[Forward Fundamental Solutions and Representation Formulas]
+	Let $E_{+}$ be a forward fundamental solution to the linear wave equation on $\mathbb{R}^{1 + n}$. Then if $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$, the unique solution to (\ref{eq:clwp}) is given by, 
+	\begin{equation*}
+			\phi(t, x) = -E_{+} \ast (\phi_{1}\delta_{\{t = 0\}}) - (\partial_{t}E_{+}) \ast (\phi_{0}\delta_{\{t = 0\}}). 
+	\end{equation*}
+	More generally, for $\Box \phi = F$, where $F \in C^{\infty}(\mathbb{R}^{n})$, $\phi$ is given for $t \geq 0$ by the following formula 
+	\begin{equation*}
+		\phi(t, x) = -E_{+} \ast (\phi_{1}\delta_{\{t = 0\}}) - (\partial_{t}E_{+}) \ast (\phi_{0}\delta_{\{t = 0\}}) + (F\chi_{\{t\geq 0\}}) \ast E_{+}, 
+	\end{equation*}
+	where 
+	\begin{equation*}
+		\chi_{\{t \geq 0\}}(t, x) \coloneqq 
+		\begin{cases}
+			1, & t \geq 0 \\
+			0, & t < 0
+		\end{cases}
+	\end{equation*}
+	is the characteristic function for the set $\{t \geq 0\}$. 
+\end{prop} 
+
+
+\subsubsection{Decay Estimates}
+
 For $n \geq 2$, we intuitively expect the amplitude of the wave $|\phi(t, x)|$ to decay as $t \to \infty$ for the following reason: as $t \to \infty$, the support of the function increases (e.g., consider ripples on the surface of a lake), while the total energy of the wave is conserved. Note that this reasoning  does not quite apply to $n = 1$ since the size of the support remains constant. Now we can rigorously compute the decay estimates. We have the following first result. 
 
 \begin{prop}[Pointwise Decay Rate]
@@ -728,7 +791,8 @@ Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can 
 
 The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. 
 
-\subsection{Solutions to the Linear Wave Equation (Variable Coefficients)}
+
+\subsection{Solutions to the Linear Wave Equation (Variable Coefficients)} \label{subsec:sol_lin_varco}
 In this subsection, we continue studying the (non)homogeneous linear wave equation with \textit{variable} coefficients \cite{Luk}. Consider again the equation (\ref{eq:clwp_ncc}), 
 \begin{equation*}
 	\left\{
@@ -756,9 +820,9 @@ Furthermore, we shall assume that $a$ and all its derivatives (of all orders) ar
 	\textcolor{red}{[!! Complete Later !!]}
 \end{proof}
 
-\subsection{General Hyperbolic Systems} 
+\subsection{Linear Hyperbolic Systems} 
 
-Here, we consider additional properties of the linear wave equation not studied above, and also consider the more general class of \textit{hyperbolic systems} \cite{Rauch2012}. As we shall see, this leads naturally to the notion of \textit{propagation}. Some of these results are presented, perhaps with less exposition, in the Appendix  
+Here, we consider additional properties of the linear wave equation not studied above, and also consider the more general class of \textit{hyperbolic systems} \cite{Rauch2012}. As we shall see, this leads naturally to the notion of \textit{propagation}. Some of these results are presented, perhaps with less exposition, in the Appendix. 
 
 \paragraph{Method of Characteristics} 
 
@@ -818,13 +882,101 @@ Thus, going forward, we shall make the following hypotheses:
 	\textbf{Hypotheses 3.1} \textit{Suppose that for all $T > 0$, $\partial_{t, x}^{\alpha}c \in L^{\infty}([0, T] \times \mathbb{R})$, and that the coefficient $d(t, x)$ satisfies analogous bounds.}
 \end{quote}
 
-A reasonable question to ask is when the method of characteristics holds. We have the following result: the method of characteristics applies to, \vspace{-1.5em}
+One can also generalize to \textit{systems} of hyperbolic equations. For instance, the method of characteristics applies to systems of the form 
+\begin{equation*}
+	u_{t} + \operatorname{diag}(c_{1}(t, x), \dotsm, c_{N}(t,x))u = 0, 
+\end{equation*}
+where $u = (u_{1}(t, x), \dotsm, u_{N}(t, x))^{\top}$, and each $u_{j}$ is constant on characteristics with speed $c_{j}(t, x)$ that satisfy Hypotheses 3.1. More generally, the method of characteristics extends to systems given by the partial differential operator, 
+\begin{equation*}
+	L = \partial_{t} + A(t, x)\partial_{x} + B(t, x), 
+\end{equation*}
+where $A, B$ are smooth matrix-valued functions such that for all $T \in \mathbb{R}$ and for all multiindices $\alpha$, $\partial^{\alpha}_{t, x}A, \partial^{\alpha}_{t, x}B \in L^{\infty}([-T, T] \times \mathbb{R})$ when the following hypothesis is satisfied, 
+\begin{quote}
+	\textbf{Hypothesis 3.2} There is  smooth matrix-valued function $M(t, x)$ so that for all $T \in \mathbb{R}$, and all multiindices $\alpha$, 
+	\begin{equation*}
+		\partial_{t, x}^{\alpha}(M), \partial_{t, x}^{\alpha}(M^{-1}) \in L^{\infty}([0,T] \times \mathbb{R}), 
+	\end{equation*}
+	and $MAM^{-1}$ is diagonal and real. 
+\end{quote} 
 
-\begin{enumerate}[itemsep =-2pt]
-	\item Systems of hyperbolic equations: 
+Here, real diagonalizability of $A$ just ensures that the linear operator remains hyperbolic-type, and the bounds on $M$ and $A$ just ensure that the characteristic speeds do not diverge (thus preventing the loss of information and/or uniqueness of solutions). 
+
+\begin{definition}[Strictly Hyperbolic Systems]
+	If for each $(t, x)$, the matrix $A$ has $N$ distinct real eigenvalues $c_{1}(t, x) < c_{2}(t, x) < \dotsm < c_{N}(t, x)$, the system is said to be \textbf{strictly hyperbolic}. To ensure that the estimates on $M$ and $M^{-1}$ are uniform as $|x|\to \infty$, we also make the additional assumption 
+	\begin{equation*}
+		\inf_{(t,x)\in [0,T] \times \mathbb{R}}\min_{2 \leq j \leq N}\left(c_{j}(t,  x) - c_{j - 1}(t, x)\right) > 0. 
+	\end{equation*}
+	\todo{Explain?}
 	
-\end{enumerate}
+	A strictly hyperbolic system satisfies Hypothesis 3.2. 
+\end{definition} 
 
+In particular, if the hypothesis holds, then since one has that $A = MDM^{-1}$ with $D = \operatorname{diag}(c_{1}, \ldots, c_{N})$, we can write 
+\begin{equation*}
+	L = \partial_{t} + MDM^{-1}\partial_{x} + B(x, t)
+\end{equation*} 
+
+\textcolor{red}{[!! Complete Later !!]}
+
+\subsubsection{Energy Estimates} 
+
+Here, we return again to energy estimates for \textit{systems} of hyperbolic partial differential equations. As in the previous section, we will initially only consider first-order hyperbolic PDE. 
+
+\paragraph{Constant Coefficient Systems} 
+
+We start by considering the constant coefficient systems, 
+\begin{equation*}
+	\partial_{t}\phi + \sum_{j = 1}^{d}A_{j}\partial_{x^{j}}\phi = f, 
+\end{equation*}
+where $\phi = (\phi_{1}, \ldots, \phi_{d})^{\top}$, and each $A_{j}$ is a matrix-valued function. One has the following definition, 
+\begin{definition}[Symmetric Hyperbolic Operator (Constant Coefficient)]
+	A constant coefficient operator 
+	\begin{equation*}
+		L = \partial_{t} + \sum_{j = 1}^{d}A_{j}\partial_{x^{j}} 
+	\end{equation*}
+	on $\mathbb{R}^{d}$ is said to be \textbf{symmetric hyperbolic} if each $A_{j}$ is hermitian symmetric. 
+\end{definition} 
+Requiring that the $A_{j}$ be hermitian \textit{symmetric} is very useful for computing energy estimates. We recall that if $A$ is symmetric, then the matrix-valued operator $\exp(-itA)$ is \textit{unitary}. So now, computing the Fourier transform of the PDE $L\phi = 0$, one obtains, 
+\begin{equation*}
+	\hat{\phi}(t,\xi) = \exp\left(-it\sum_{j = 1}^{d}A_{j}\xi_{j}\right)\hat{\phi}(0,\xi). 
+\end{equation*}
+But then, using the unitariness of the the exponential operator, we recover that for all $t \geq 0$, 
+\begin{equation*}
+	|\hat{\phi}(t,\xi)|^{2} = |\hat{\phi}(0,\xi)|^{2}. 
+\end{equation*}
+In particular, integrating over $d\xi$ and using Plancherel's theorem, one easily obtains conservation of the $L^2$-norm: $\norm{\phi(t)}_{L^{2}(\mathbb{R}^{d})} = \norm{\phi(0)}_{L^{2}(\mathbb{R}^{d})}$. Likewise, under appropriate assumptions on $\phi$, one could also obtain conservation of the Sobolev norms. 
+
+As we saw before, these types of energy estimates segue easily into a discussion of (local) well-posedness, existence, and unique. Thus as an analogue to the existence and uniqueness results in the above subsections, we have the following result. 
+
+\begin{prop}[Existence and Uniqueness for Constant Coefficient Symmetric Hyperbolic PDE]
+Suppose that $L = \partial_{t} + \sum_{j= 1}^{d}A_{j}\partial_{j}$ is a constant coefficient symmetric hyperbolic operator. For $g \in H^{\infty}(\mathbb{R}^{d})$, there exists a unique solution $\phi \in C^{\infty}(\mathbb{R}; H^{\infty}(\mathbb{R}^{d}))$ to the initial value problem 
+\begin{equation}
+	L\phi = 0, \qquad \phi|_{\{t = 0\}} = g. 
+\end{equation}
+This solution is given by $\wh{\phi}(t, \xi) = e^{-2\pi it\sum A_{j}\xi_{j}}\hat{g}$\footnote{Note the $2\pi$ constant; \cite{Rauch2012} uses a slightly different convention for the Fourier transform.}. Furthermore, for all $t, s$, $\norm{\phi(t)}_{H^{s}(\mathbb{R}^{d})} = \norm{\phi(0)}_{H^{s}(\mathbb{R}^{d})}$. 
+\end{prop} 
+
+\begin{proof}
+	We first prove existence of a solution: consider the function $\hat{\phi}(t, \xi) = \exp\left(-2\pi it\sum A_{j}\xi_{j}\right)\hat{g}$. Then one notes that 
+	\begin{equation*}
+		|\hat{\phi}(t, \xi)|^{2} = |\hat{g}|^{2} \implies \norm{\hat{\phi}(t)}_{L^{2}(\mathbb{R}^{d})}^{2} = \norm{\hat{g}}_{L^{2}(\mathbb{R}^{d})}^{2} = \norm{g}_{L^{2}(\mathbb{R}^{d})}^{2} < \infty, 
+	\end{equation*}
+	where the last equality follows from Plancherel's theorem, and the final inequality follows from the fact that $g \in H^{\infty}(\mathbb{R}^{d}) \subset L^{2}(\mathbb{R}^{d})$. Thus the inverse Fourier transform of $\hat{\phi}(t, \xi)$ is well-defined and also $L^{2}$. In particular, one has 
+	\begin{align*}
+		\begin{split}
+			\phi(t, x) &= \int_{\mathbb{R}^{d}}e^{2\pi i (x \cdot \xi - t\sum A_{j}\xi_{j})}\hat{g}(\xi)\;d\xi. 
+		\end{split} 
+	\end{align*}
+	It is immediately clear that $\phi(t, \empspace) \in C^{\infty}$. Now we must show that $\phi(\empspace, x) \in H^{\infty}(\mathbb{R}^{d})$. Let $s \in \mathbb{R}$ be an arbitrary fixed real number. Then, 
+	\begin{align*}
+		\begin{split}
+			|(1 + |\xi|^{2})^{s/2}\hat{\phi}(t, \xi)|^{2} &= (1 + |\xi|^{2})^{s} \cdot |\hat{g}|^{2}. 
+		\end{split} 
+	\end{align*}
+	But since we assumed that $g \in H^{\infty}(\mathbb{R}^{d})$, it follows that $(1 + |\xi|^{2})^{s/2}\hat{g}(\xi) \in L^{2}(\mathbb{R}^{d})$. Thus, it follows that $\phi(\empspace, x) \in H^{s}(\mathbb{R}^{d})$ for all $s \in \mathbb{R}$. Hence, $\phi \in C^{\infty}(\mathbb{R}; H^{\infty}(\mathbb{R}^{d}))$. To show that $\phi$ actually solves the PDE, it suffices to show that $\hat{\phi}$ solves the ODE obtained by taking the Fourier transform of the PDE. But we've already shown this to be the case. Therefore, the proof of existence is complete. Moreover, the above equality also establishes conservatinon the Sobolev norms for all $t, s$. All that remains is to prove uniqueness. Assume that $\phi_{1}, \phi_{2}$ are two solutions to the initial value problem. Then their difference $\phi = \phi_{1} - \phi_{2}$ also solves the PDE $L\phi = 0$, but with the initial value identically zero. Applying the above results (in particular, the Sobolev norm conservation), it follows that $\phi$ is identically zero. Thus the proof concludes. 
+\end{proof} 
+
+\paragraph{Variable Coefficient Systems} Now we shall consider variable coefficient systems, analagous to the variable coefficient equations studied in Section \ref{subsec:sol_lin_varco}.
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
