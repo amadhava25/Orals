@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage{../header}
+\usepackage{datetime2}
+\def\Xint#1{\mathchoice
+	{\XXint\displaystyle\textstyle{#1}}%
+	{\XXint\textstyle\scriptstyle{#1}}%
+	{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+	{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+	\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+		\vcenter{\hbox{$#2#3$ }}\kern-0.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\usepackage[
+colorinlistoftodos,
+textsize=small,          % Sets the text to the smallest LaTeX font size
+textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
+]{todonotes}
+\rhead{Nonlinear Wave Equations}
+\om 
+\title{Random Exercises}
+\author{\me}
+\date{Fall 2026}
+
+\begin{document}
+\maketitle
+\fullline 
+\tableofcontents
+\xappto\thefootnote{\relax}
+\footnotetext{Last updated: \today\ at \DTMcurrenttime}
+\halfline 
+\newpage 
+\setlength{\parskip}{0.55em}
+
+\section{Overview}
+
+The following document is a compilation of various calculations, computations, and exercises I completed as part of orals prep. The work here is not meant to bean extensive account of my work, by any means. 
+
+\newpage 
+
+\section{Evans} 
+
+\begin{prb}{2.18}
+	(Stokes' rule) Assume $u$ solves the initial-value problem 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{3}
+			u_{tt} - \Delta u &= 0 &\qquad& \text{in $\mathbb{R}^{n} \times (0, \infty)$} \\
+			u =0, u_{t} &= h, &\qquad& \text{on $\mathbb{R}^{n} \times \{t = 0\}$}. 
+		\end{alignedat}
+		\right.
+	\end{equation*}
+	Show that $v \coloneqq u_{t}$ solves 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{3}
+			v_{tt} - \Delta v &= 0 &\qquad& \text{in $\mathbb{R}^{n} \times (0, \infty)$} \\
+			v =h, v_{t} &= 0, &\qquad& \text{on $\mathbb{R}^{n} \times \{t = 0\}$}. 
+		\end{alignedat}
+		\right.
+	\end{equation*}
+	This is \textit{Stokes' rule.}
+\end{prb}
+Assume $u$ solves the given IVP, and let $v \coloneqq u_{t}$. One immediately notes that on $\mathbb{R}^{n} \times \{t = 0\}$, since $u_{t} = h$, $v = h$. Second, $v_{t} = u_{tt}$. On $\mathbb{R}^{n} \times \{t = 0\}$, $u \equiv 0$ so that $\Delta u = 0$. But since $u$ satisfies the wave equation $u_{tt} = \Delta u \equiv 0$. Thus $v_{t} \equiv 0$ on $\mathbb{R}^{n} \times \{t = 0\}$. Next we note that $\partial_{t}$ and $\partial_{x^{j}}$ commute for any $1 \leq j \leq n$. Thus since $u$ satisfies $u_{tt} - \Delta u = 0$, differentiating both sides by $t$, one obtains 
+\begin{equation*}
+	u_{ttt} - \Delta u_{t} = 0 \iff v_{tt} - \Delta v = 0 
+\end{equation*}
+in $\mathbb{R}^{n} \times (0,\infty)$. 
+
+\begin{prb}{2.19}
+$ $\newline \vspace{-0.25cm}
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+	\item Show the general solution of the PDE $u_{xy} = 0$ is 
+	\begin{equation*}
+		u(x, y) = F(x) + G(y) 
+	\end{equation*}
+	for arbitrary functions $F, G$. 
+	\item Using the change of variables $\xi = x + t$, $\eta = x - t$, show $u_{tt} - u_{xx} = 0$ if and only if $u_{\xi\eta} = 0$. 
+	\item Use (a) and (b) to rederive d'Alembert's formula. 
+	\item Under what conditions on the initial data $g, h$ is the solution $u$ a right-moving wave? A left-moving wave? 
+\end{enumerate}
+\end{prb}
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+\item Consider the PDE $u_{xy} =0$. Let $v(x,y) = u_{x}$. Then $v$ satisfies the differential equation $v_{y} = 0$. Thus since $v$ is independent of $y$, one has $u_{x}(x,y) = v(x,y) = f(x)$ for some arbitrary function $f$. But then integrating both sides with respect to $x$, and supposing that $F(x)$ is the antiderivative of $f(x)$, 
+\begin{equation*}
+	u(x,y) = F(x) + G(y), 
+\end{equation*}
+where $G$ is some arbitrary function of $y$. 
+\item Define $\xi = x + t$ and $\eta = x -t$ so that $x = (\xi + \eta)/2$ and $t = (\xi - \eta)/2$. Then, 
+\begin{align*}
+	\begin{split}
+		u_{\xi} &= u_{x}\frac{\partial x}{\partial \xi} + u_{t}\frac{\partial t}{\partial \xi} \\
+		&= \frac{1}{2}u_{x} + \frac{1}{2}u_{t}. \\
+		u_{\xi\eta} &= \frac{1}{2}\left[u_{xx}\frac{\partial x}{\partial \eta} + u_{xt}\frac{\partial t}{\partial \eta}\right] + \frac{1}{2}\left[u_{tx}\frac{\partial x}{\partial \eta} + u_{tt}\frac{\partial t}{\partial \eta}\right] \\
+		&= \frac{1}{2}[u_{xx} -u_{xt}] + \frac{1}{2}[u_{tx} - u_{tt}] =  \frac{1}{2}[u_{tt} - u_{xx}], 
+	\end{split}
+\end{align*}
+where we used the fact that $u_{xt} = u_{tx}$. Thus, the proof concludes. 
+\item Consider the initial value problem, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{3}
+		&u_{tt} -u_{xx} &= 0 \qquad &(\text{in $\mathbb{R} \times (0,\infty)$}) \\
+		&u = g, u_{t} &= h \qquad &(\text{on $\mathbb{R} \times \{t = 0\}$}).
+	\end{alignedat}
+	\right.
+\end{equation*}
+Define the change of variables $\xi = x + t$ and $\eta = x - t$ as above. By (b), $u_{tt} - u_{xx} = 0$ if and only if $u_{\xi\eta} =0$. By (a), it follows that $u$ must be of the form, 
+\begin{equation*}
+	u(\xi, \eta) = F(\xi) + G(\eta). 
+\end{equation*}
+Thus, $u(x,t) = F(x + t) + G(x - t)$. Now we must match the initial conditions. At $t = 0$, 
+\begin{align*}
+	\begin{split}
+		u(x, 0) &= F(x) + G(x) = g(x). \\
+		u_{t}(x, 0) &= F'(x) - G'(x) = h(x). 
+	\end{split}
+\end{align*}
+Differentiating the first equation, one first obtains the system 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{2}
+		&F'(x) + G'(x) &= g'(x) \\
+		&F'(x) - G'(x) &= h(x). 
+	\end{alignedat}
+	\right. 
+\end{equation*} 
+Thus, we get 
+\begin{equation*}
+	F'(x) = \frac{1}{2}(g'(x) +h(x)) \implies F(x + t) = \frac{1}{2}[g(x+ t) - g(0)] + \frac{1}{2}\int_{0}^{x + t}h(y)\;dy + F(0). 
+\end{equation*}
+Likewise, we get 
+\begin{equation*}
+	G(x-t) = \frac{1}{2}[g(x - t) - g(0)] -\int_{0}^{x - t}h(y)\;dy + G(0). 
+\end{equation*}
+Adding the two equations, and using the fact that $F(0) + G(0) = g(0)$, we conclude that 
+\begin{equation*}
+	u(x,t) = \frac{1}{2}[g(x - t) + g(x + t)] + \frac{1}{2}\int_{x - t}^{x + t}h(y)\;dy, 
+\end{equation*}
+which is precisely d'Alembert's formula. 
+\item To get a left-moving wave, we want the functions of $(x - t)$ to cancel out. Suppose $h(x) = g'(x)$. Then the fundamental theorem of calculus implies that 
+\begin{equation*}
+	u(x, t) = \frac{1}{2}[g(x - t) + g(x + t)] + \frac{1}{2}\int_{x - t}^{x + t}g'(y)\;dy = \frac{1}{2}[g(x - t) + g(x + t)] +\frac{1}{2}[g(x + t) - g(x - t)] = g(x + t). 
+\end{equation*}
+Likewise, to get a right-moving wave, we want the functions of $(x + t)$ to cancel out, so we can take $h(x) = -g'(x)$. 
+\begin{prb}{2.21}
+	(Equipartition of Energy). Let $u \in C^{2}(\mathbb{R} \times [0,\infty))$ solve the initial-value problem for the wave equation in one-dimension: 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{3}
+			&u_{tt} - u_{xx} &=0 \qquad &(\text{in } \mathbb{R} \times (0,\infty)) \\
+			&u=g, u_t &= h \qquad &(\text{on } \mathbb{R} \times \{t = 0\}).
+		\end{alignedat}
+		\right. 
+	\end{equation*} 
+	Suppose $g,h$ have compact support. The \textit{kinetic energy} is $k(t) \coloneqq \frac{1}{2}\int_{-\infty}^{\infty}u_t^2(x,t)\;dx$ and the \textit{potential energy} is $p(t) \coloneqq \frac{1}{2}\int_{-\infty}^{\infty}u_x^2(x,t)\;dx$. Prove \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label =(\roman{*})]
+		\item $k(t) + p(t)$ is constant in $t$, 
+		\item $k(t) = p(t)$ for all large enough times $t$. 
+	\end{enumerate}
+	\end{prb}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item Let us define the kinetic and potential energy, $k(t)$ and $p(t)$ as given above. We wish to show that the total energy 
+	\begin{equation*}
+		e(t) = k(t) + p(t) = \frac{1}{2}\int_{-\infty}^{\infty}u_t^2 + u_x^2\;dx
+	\end{equation*}
+	is conserved, where $u$ is given by d'Alembert's formula, 
+	\begin{equation*}
+		u(x, t) = \frac{1}{2}[g(x + t) + g(x - t)] + \frac{1}{2}\int_{x - t}^{x + t}h(y)\;dy. 
+	\end{equation*}
+	so that 
+	\begin{align*}
+		\begin{split}
+			u_t(x,t) &= \frac{1}{2}[g'(x + t) - g'(x - t) + h(x + t) + h(x - t)]. \\
+			u_x(x, t) &= \frac{1}{2}[g'(x + t) + g'(x - t) + h(x + t) - h(x - t)]. 
+		\end{split}
+	\end{align*}
+	Let $T > 0$, and let $K \subset \mathbb{R}$ be a compact set large enough so that $\operatorname{supp}{g}, \operatorname{supp}{h}$ are both contained in $K$. Then it follows that $u_t^2$ and $u_x^2$ are both supported in $K_{T} \coloneqq K + [-T,T]$ for all $0 \leq t \leq T$. Since $u_t^2$ and $u_x^2$ are continuous on $\mathbb{R}$ (and thus on $K_T$) for all $0 \leq t \leq T$, by the extreme value theorem, there exist finite constants $M$ and $N$ so that for all $x \in K$ and $0 \leq t \leq T$, $|u_t|^2 \leq M\chi_{K_T}$ and $|u_x^2| \leq N\chi_{K_T}$, where both dominating functions are integrable since $K_{T}$ is compact. Thus using the Dominated Convergence Theorem, taking the derivative of $e(t)$ gives us, 
+	\begin{align*}
+		\begin{split}
+			\dot{e}(t) &= \frac{1}{2}\frac{\partial}{\partial t}\int_{-\infty}^{\infty}u_t^2 + u_x^2\;dx = \frac{1}{2}\frac{\partial}{\partial t}\int_{K_T}u_t^2 + u_x^2\;dx \\
+			&= \frac{1}{2}\int_{K_T}\partial_t(u_t^2 + u_x^2)\;dx \\
+			&= \int_{K_T}u_tu_{tt} + u_x \cdot \partial_x u_t\;dx \\
+			&= \int_{K_T}u_t(u_{tt} - u_{xx})\;dx \qquad (\text{by integration by parts}) \\
+			&= 0, 
+		\end{split}
+	\end{align*}	
+	where there is no boundary term since $u_x, u_t$ are supported inside $K_T$. So we have shown that $\dot{e}(t) = 0$ for all $0 \leq t \leq T$. Since $T > 0$ was chosen arbitrarily, it follows that $\dot{e}(t)\equiv 0$. Therefore, the total energy is constant in $t$. 
+	\item What we wish is that in the limit $t \to \infty$, 
+	\begin{equation*}
+		\abs{\int_{\mathbb{R}}u_t^2 - u_x^2\;dx} \to 0. 
+	\end{equation*}
+	First, we compute 
+	\begin{equation*}
+		u_t^2 - u_x^2 = h(x + t)h(x - t) - h(x + t)g'(x - t) + h(x - t)g'(x + t) - g'(x - t)g'(x + t). 
+	\end{equation*}
+	Then 
+	\begin{align*}
+		\begin{split}
+			\abs{\int_{\mathbb{R}}u_t^2 - u_x^2\;dx} &\leq \int_{-\infty}^{\infty}|h(y)h(y - 2t)|\;dy + \int_{-\infty}^{\infty}|h(y)g'(y - 2t)|\;dy \\
+			&\quad+ \int_{-\infty}^{\infty}|h(y - 2t)g'(y)|\;dy + \int_{-\infty}^{\infty}|g'(y - 2t)g'(y)|\;dy.
+		\end{split}
+	\end{align*}
+	Let $K \subset \mathbb{R}$ be a compact set large enough that contains the support of both $g$ and $h$. Then we may write, 
+	\begin{align*}
+		\begin{split}
+			\abs{\int_{\mathbb{R}}u_t^2 - u_x^2\;dx} &\leq \int_{K}|h(y)h(y - 2t)|\;dy + \int_{K}|h(y)g'(y - 2t)|\;dy \\
+			&\quad+ \int_{K}|h(y - 2t)g'(y)|\;dy + \int_{K}|g'(y - 2t)g'(y)|\;dy.
+		\end{split}
+	\end{align*}
+	We will only show that the first term on the right vanishes since the work for the remaining terms is identical. Since $h(u) \to 0$ as $|u| \to \infty$ (by compact support of $h$), we know that pointwise $|h(y)h(y - 2t)| \to 0$ as $t \to \infty$. Next since $h$ is continuous, there exists some finite $M > 0$ so that $|h(y)|, |h(y - 2t)| \leq M$ for all $y \in K$. Thus, $|h(y)h(y-2t)| \leq M^2\chi_{K} \in L^1(\mathbb{R})$ since $K$ is compact. Hence, by the Dominated Convergence Theorem, one has that the first term vanishes as $t \to \infty$. As we stated before, the remaining three terms also vanish as $t \to \infty$. Thus, we conclude that as $t \to \infty$,
+	\begin{equation*}
+		\abs{\int_{\mathbb{R}}u_t^2 - u_x^2\;dx} \to 0. 
+	\end{equation*}
+\end{enumerate}
+\end{enumerate}
+
+\section{Luk}
+
+\begin{prb}{2.1}
+	
+\end{prb}
+\end{document} 

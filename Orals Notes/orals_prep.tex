@@ -53,7 +53,77 @@ In this subsection, we introduce key notions of harmonic analysis. In particular
 
 \subsubsection{Motivation} 
 
+We start with the following questions, that lead to our study of harmonic analysis. If $f \in L^{2}([0,2\pi])$ is square integrable, then the $L^{2}$ Parseval relation tells us that 
+\begin{equation}
+	\sum_{n = -\infty}^{\infty}|a_{n}|^{2} = \frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{2}\;d\theta, 
+	\label{eq:L2_Parseval}
+\end{equation}
+where for each $n$, 
+\begin{equation*}
+	a_{n} = \frac{1}{2\pi}\int_{0}^{2\pi}f(\theta)e^{-in\theta}\;d\theta 
+\end{equation*}
+are the \textbf{Fourier coefficients} of $f$ such that 
+\begin{equation*}
+	f(\theta) \sim \sum_{n = -\infty}^{\infty}a_{n}e^{in\theta}. 
+\end{equation*}
+Likewise, if $\{a_{n}\} \in \ell^{2}(\mathbb{Z})$, then there exists a unique $f \in L^{2}([0,2\pi])$ such that $f(\theta) \sim \sum_{n = -\infty}^{\infty}a_{n}e^{in\theta}$ and (\ref{eq:L2_Parseval}) holds. If we assume $f \in L^{p}([0,2\pi])$ or $\{a_{n}\} \in \ell^{p}(\mathbb{Z})$ for some $p \neq 2$, does the $L^{2}$ Parseval relation generalize to these cases? In general, one has the \textit{Hausdorff-Young inequalities}, 
+\begin{equation*}
+	\left(\sum |a_{n}|^{q}\right)^{1/q} \leq \left(\frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{p}\;d\theta\right)^{1/p}, 
+\end{equation*}
+and 
+\begin{equation*}
+	  \left(\frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{q}\;d\theta\right)^{1/q} \leq \left(\sum |a_{n}|^{p}\right)^{1/p}. 
+\end{equation*}
 
+Thus in this subsection, we are interested in answering questions of this form, and setting up the framework for other types of estimates. In particular, we are interested in $L^{p}$-type estimates involving a function and its Fourier transform.  
+
+\subsubsection{Riesz Interpolation Theorem} 
+
+In this subsubsection, we encounter the \textbf{Riesz interpolation theorem}. When establishing various estimates for PDEs, it can be easier to establish corresponding inequalities for certain ``endpoints'', and to ``interpolate'' in the corresponding estimates for all intermediate values. I.e., suppose one has the estimates $A_{0} \leq B_{0}$ and $A_{1} \leq B_{1}$. A natural question to ask is if for any $\theta \in (0,1)$, $A_{\theta} \lesssim_{\theta} B_{\theta}$. In this subsubsection, we will focus on estimates for linear operators between $L^{p}$ spaces, and we will give specific criteria under which interpolation in the above sense holds. In particular, we will answer the following question. 
+
+\begin{quote}
+	Suppose $(p_{0}, q_{0})$ and $(p_{1}, q_{1})$ are two pairs of indices with $ \leq p_{i}, q_{j} \leq \infty$. Assume also that $T$ is a linear operator and that, 
+	\begin{equation*}
+		\norm{Tf}_{L^{q_{0}}} \leq M_{0}\norm{f}_{L^{p_{0}}} \qquad \norm{Tf}_{L^{q_{1}}} \leq M_{1}\norm{f}_{L^{p_{1}}}. 
+	\end{equation*}
+	Does it follow necessarily that $\norm{Tf}_{L^{q}} \leq M\norm{f}_{L^{p}}$ for other pairs $(p,q)$? 
+\end{quote}
+
+
+We begin with the following technical lemma. 
+
+\begin{lemma}[Three-Lines Lemma]
+	Suppose $\Phi(z)$ is a holomorphic function in the strip $S = \{z \in \mathbb{C}: 0 < \operatorname{Re}(z) < 1\}$, that is also continuous and bounded on the closure of $S$. If 
+	\begin{equation*}
+		M_{0} = \sup_{y \in \mathbb{R}}|\Phi(iy)| \qquad \text{and} \qquad M_{1} = \sup_{y \in \mathbb{R}}|\Phi(1 + iy)|, 
+	\end{equation*}
+	then 
+	\begin{equation*}
+		\sup_{y \in \mathbb{R}}|\Phi(t + iy)| \leq M_{0}^{1 - t}M_{1}^{t}, \qquad \text{for all $0 \leq t \leq 1$}. 
+	\end{equation*}
+\end{lemma} 
+\begin{proof}
+	Let $\Phi$ be a holomorphic function in the strip $S = \{z \in \mathbb{C}: 0 < \operatorname{Re}(z) < 1\}$ that is also continuous and bounded on $\bar{S}$. If $\Phi$ is constant, then the claim follows trivially. So assume $\Phi$ is nonconstant. First, we assume that $M_{0}, M_{1} = 1$. We also assume that $\Phi(x + iy) \to 0$ as $|y| \to \infty$. By the hypotheses on $\Phi$, there exists some $M > 0$ such that 
+	\begin{equation*}
+		\sup_{z \in S}|\Phi(z)| = M. 
+	\end{equation*}
+	In particular, it follows that there exists some sequence $\{z_{n}\}_{1}^{\infty}\subset S$ such that $\Phi(z_{n}) \to M$ as $n \to\infty$. But by the hypotheses, the $z_{n}$ cannot converge to $\infty$, and thus, must converge to some $z_{0} \in S$. The maximum modulus principle and the fact that $\Phi$ is not constant forces $z_{0} \in \partial S$. Thus by the hypotheses on $M$, one has that $M \leq 1$. Therefore, the proof concludes under these restrictive hypotheses. 
+	
+	Now assume that $M_{0}, M_{1} = 1$, but that the decay rate is not necessarily satisfied. For each $\epsilon > 0$, define 
+	\begin{equation*}
+		\Phi_{\epsilon}(z) = \Phi(z) \exp\left(\epsilon(z^{2} - 1)\right). 
+	\end{equation*}
+	Moreover, it follows that on the lines $\operatorname{Re}(z) = 0$ and $\operatorname{Re}(z) = 1$, $|\Phi_{\epsilon}(z)| \leq 1$. Since $\Phi$ is bounded, it also follows that for each fixed $x \in [0,1]$, 
+	\begin{equation*}
+		\sup_{x \in [0,1]}|\Phi_{\epsilon}(x + iy)| \xrightarrow{|y| \to \infty} 0. 
+	\end{equation*}
+	Therefore, the first part of the proof shows that on $\bar{S}$, $|\Phi_{\epsilon}| \leq 1$. Taking $\epsilon \to 0$ concludes the proof. 
+	
+	For the final part of the proof, assume the least possible number of hypotheses on $\Phi$, and define $\ti{\Phi} = M_{0}^{z - 1}M_{1}^{-z}$. Then $\ti{\Phi}$ satisfies the hypotheses of the previous case so that $|\ti{\Phi}| \leq 1$ in the strip, concluding the proof. 
+\end{proof} 
+\begin{remark}
+	The geometric intuition for this lemma is clear to see. We specify bounds for $\Phi$ on the two vertical lines $\operatorname{Re}{\Phi} = 0$ and $\operatorname{Re}(z) = 1$. Then under the right hypotheses, the above lemma gives bounds for any third vertical line $\operatorname{Re}(z)= t$ between $\operatorname{Re}(z) = 0$ and $\operatorname{Re}(z) = 1$. 
+\end{remark} 
 
 \newpage 
 
@@ -788,6 +858,35 @@ Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can 
 	\end{equation*}
 	for $t\geq 0$. 
 \end{theorem}
+\begin{proof}
+	As before, we only present the proof for $n = 3$ and for the term 
+	\begin{equation*}
+		I = \int_{\mathbb{R}^{3}}e^{2\pi i (t |\xi| + x \cdot \xi)}\frac{\hat{\phi}_{1}(\xi)}{2\pi i |\xi|}\;d\xi. 
+	\end{equation*}
+	It is always possible to find a coordinate system in which $x = (0,0,\alpha)$ for some $\alpha \in \mathbb{R}$; thus, we will work in these coordinates. Let $\rho = \sqrt{\xi_{1}^{2} + \xi_{2}^{2}}$, and let us use the coordinate system $(\xi_{3}, \rho, \xi_{\theta})$, where $\xi_{\theta}$ is given by $\rho\cos(\xi_{\theta}) = \xi_{1}$. First note that  
+	\begin{equation*}
+		\frac{\partial |\xi|}{\partial \rho} = \frac{\partial}{\partial \rho}\sqrt{\rho^{2} + \xi_{3}^{2}} = \frac{\rho}{|\xi|}. 
+	\end{equation*}
+	Moreover, $\partial_{\rho}e^{2\pi i x \cdot \xi} = 0$. Thus, since for any nonnegative integer $N$,  
+	\begin{equation*}
+		\left(\frac{|\xi|}{2\pi i \rho t}\frac{\partial}{\partial \rho}e^{2\pi i t|\xi|}\right)^{N} = e^{2\pi i t|\xi|}, 
+	\end{equation*}
+	integration by parts gets us, 
+	\begin{align*}
+		\begin{split}
+			I &= \int_{\mathbb{R}^{3}}\frac{|\xi|}{2\pi i \rho t}\frac{\partial}{\partial \rho}(e^{2\pi i t|\xi|})e^{2\pi i x \cdot \xi} \frac{\hat{\phi}_{1}(\xi)}{2\pi i |\xi|}\;\rho d\rho d\xi_{\theta}d\xi_{3} = \int_{\mathbb{R}^{3}}\frac{1}{2\pi i t}\frac{\partial}{\partial \rho}(e^{2\pi i t|\xi|})e^{2\pi i x \cdot \xi} \frac{\hat{\phi}_{1}(\xi)}{2\pi i}\;d\rho d\xi_{\theta}d\xi_{3} \\
+			&= -\int \frac{1}{4\pi^{2}t}e^{2\pi i(t|\xi| + x \cdot \xi)}\hat{\phi}_{1}(\xi)\bigg|_{\rho = 0}^{\infty}\;d\xi_{\theta}d\xi_{3} + \int_{\mathbb{R}^{3}}\frac{1}{4\pi^{2}t}e^{2\pi i (t |\xi| + x \cdot \xi)}\frac{\partial}{\partial \rho}(\hat{\phi}_{1}(\xi))\;d\rho d\xi_{\theta}d\xi_{3} \\
+			&= \int \frac{1}{2\pi t}e^{2\pi i (t|\xi_{3}| + \alpha \xi_{3})}\hat{\phi}_{1}(\rho = 0, \xi = \xi_{3})\;d\xi_{3} + \int_{\mathbb{R}^{3}}\frac{1}{4\pi^{2}t}e^{2\pi i (t|\xi| + x \cdot \xi)}\frac{\partial}{\partial \rho}(\hat{\phi}_{1}(\xi))\;d\rho d\xi_{\theta}d\xi_{3}. 	
+		\end{split} 
+	\end{align*}
+	Since $\hat{\phi}_{1}(\xi)$ and $\partial_{\rho}\hat{\phi}_{1}(\xi)$ are Schwartz, it follows that 
+	\begin{align*}
+		\begin{split}
+			|I| &\leq \frac{\norm{\hat{\phi}_{1}}_{L^{1}}}{2\pi t} + \frac{\norm{\partial_{\rho}\hat{\phi}_{1}}_{L^{1}}}{4\pi^{2} t} \eqqcolon \frac{M}{t}. 
+		\end{split} 
+	\end{align*}	
+	Now we split into two cases. First assume $t \in [0,1]$. Then $(1 + t)^{-1} \geq 2^{-1}$ so that $2/(1 + t) \geq 1$. Directly bounding $|I(t,x)|$, one has that $|I(t, x)| \leq M_{0}$ for some $M_{0} > 0$, and all $t \in [0,1]$, $x \in \mathbb{R}^{3}$. Thus in this case, $|I| \leq M_{0} \leq \frac{2M_{0}}{1 + t}$. Now for the $t > 1$ case, $2t \geq 1 + t$ so that $2/(1 + t) \geq \frac{1}{t}$. Therefore, $|I| \leq \frac{2M}{1 + t}$. Take $C = \max\{2M_{0}, 2M\}$ so that $|I| \leq C/(1 + t)$ for all $t \in [0,1]$ and $x \in \mathbb{R}^{3}$. The other terms of $\phi(t, x)$ can be controlled the same way. 
+\end{proof}
 
 The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. 
 
