@@ -782,13 +782,68 @@ Now, we can use the forward fundamental solution to craft a solution to (\ref{eq
 	is the characteristic function for the set $\{t \geq 0\}$. 
 \end{prop} 
 
+\begin{prop}[Unique Fundamental Solution]
+	The unique forward fundamental solution is given by 
+	\begin{equation*}
+		E_{+}(t, x) = -\frac{\pi^{\frac{1 - n}{2}}}{2}\chi_{\{t \geq 0\}}\chi_{+}^{-\frac{n-1}{2}}(t^{2} - |x|^{2}), 
+	\end{equation*}
+	where 
+	\begin{equation*}
+		\chi_{+}^{a} \coloneqq \frac{x^{a}\chi_{\{x \geq 0\}}}{\Gamma(a + 1)}. 
+	\end{equation*}
+\end{prop} 
+
+From the fundamental solution, one has the following result. 
+
+\begin{corollary}[Propagation of Waves]
+	Solutions to the wave equation $\Box \phi = F$ propagate in time; i.e., $\frac{d}{dt}\operatorname{supp}(\phi)(t) > 0$.  
+	\label{cor:wave_prop}
+\end{corollary} 
+
+
+Now we can derive some of the explicit representation formulas given in the Appendix. 
+
+\begin{prop}[d'Alembert's Formula]
+	Let $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$ be initial data to (\ref{eq:clwp}) in $\mathbb{R}^{1 + 1}$. Then the unique solution is given by 
+	\begin{equation*}
+		\phi(t, x) = \frac{1}{2}\left(\phi_{0}(x + t) - \phi_{0}(x - t)\right) + \frac{1}{2}\int_{x - t}^{x + t}\phi_{1}(y)\;dy. 
+	\end{equation*}
+\end{prop} 
+
+\begin{proof}
+	First, we have 
+	\begin{equation*}
+		\chi_{+}^{0}(t^{2} - |x|^{2}) = \chi_{\{t^{2} - |x|^{2} \geq 0\}}, 
+	\end{equation*}
+	so that 
+	\begin{align*}
+		\begin{split}
+			(\chi_{\{t \geq 0\}}\chi_{+}^{0}(t^{2} - |x|^{2})) \ast (\phi_{1}\delta_{\{t = 0\}}) &= \int_{-\infty}^{\infty}\chi_{\{t \geq 0\}} \chi_{\{t^{2} - |x - y|^{2}\}}\phi_{1}(y)\;dy = \int_{x - t}^{x + t}\phi_{1}(y)\;dy. \\
+			(\partial_{t}(\chi_{\{t \geq 0\}}\chi_{+}^{0}(t^{2} - |x|^{2}))) \ast (\phi_{0}\delta_{t = 0}) &= \partial_{t}\int_{x - t}^{x + t}\phi_{0}(y)\;dy = \phi_{0}(x + t) - \phi_{0}(x - t). 
+		\end{split} 
+	\end{align*}
+	Thus using the formula for the forward fundamental solution, we conclude that 
+	\begin{equation*}
+		\phi(t, x) = \frac{1}{2}(\phi_{0}(x + t) - \phi_{0}(x - t)) + \frac{1}{2}\int_{x - t}^{x + t}\phi_{1}(y)\;dy. 
+	\end{equation*}
+\end{proof} 
+
+The support of the forward fundamental solution also yields the following results. 
+
+\begin{corollary}[Finite Speed of Propagation]
+	Suppose $\phi  \in C^{\infty}(\mathbb{R}^{n + 1})$ is a solution to the linear wave equation with data $(\phi_{0}, \phi_{1})$. If $(\phi_{0}, \phi_{1}) = (0,0)$ in $\{y \in \mathbb{R}^{n}: |x - y| \leq t\}$, then $\phi(t, x) = 0$. 
+\end{corollary}
+
+\begin{corollary}[Strong Huygens Principle]
+	Let $n \geq 3$ be an odd integer. Suppose $\phi \in C^{\infty}(\mathbb{R}^{n + 1})$ is a solution to the linear wave equation with data $(\phi_{0}, \phi_{1})$. If $(\phi_{0}, \phi_{1}) = (0,0)$ in $\{y \in \mathbb{R}^{n}: |x - y| = t\}$, then $\phi(t, x) =0$. 
+\end{corollary} 
 
 \subsubsection{Decay Estimates}
 
-For $n \geq 2$, we intuitively expect the amplitude of the wave $|\phi(t, x)|$ to decay as $t \to \infty$ for the following reason: as $t \to \infty$, the support of the function increases (e.g., consider ripples on the surface of a lake), while the total energy of the wave is conserved. Note that this reasoning  does not quite apply to $n = 1$ since the size of the support remains constant. Now we can rigorously compute the decay estimates. We have the following first result. 
+Corollary \ref{cor:wave_prop} shows that as $t$ increases, the support of the unique solution to the (non)homogeneous wave equation increases (e.g., consider ripples on the surface of a lake). For $n \geq 2$, the measure of the support increases in time, while for $n =1$, the measure remains constant. However, we showed that the energy of a solution to (\ref{eq:clwp}) is conserved. This must imply that the amplitude of the wave $|\phi(t, x)|$ decays as $t \to \infty$. We have the following decay estimates. 
 
 \begin{prop}[Pointwise Decay Rate]
-	Fix any $R > 0$. For $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty} \times C_{c}^{\infty}(\mathbb{R}^{n})$ and $\phi$ the unique solution to the linear Cauchy wave problem, 
+	Fix any $R > 0$. For $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty} \times C_{c}^{\infty}(\mathbb{R}^{n})$ and $\phi$ the unique solution to the linear Cauchy wave problem (\ref{eq:clwp}), 
 	\begin{equation}
 		\sup_{|x| \leq R}|\phi(t, x)|\lesssim_{(\phi_{0}, \phi_{1}, R)} \frac{1}{(1 + t)^{n - 1}}. 
 		\label{eq:decay_clwp_1}
@@ -861,7 +916,7 @@ Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can 
 \begin{proof}
 	As before, we only present the proof for $n = 3$ and for the term 
 	\begin{equation*}
-		I = \int_{\mathbb{R}^{3}}e^{2\pi i (t |\xi| + x \cdot \xi)}\frac{\hat{\phi}_{1}(\xi)}{2\pi i |\xi|}\;d\xi. 
+		I = \left(\int_{\mathbb{R}^{2}}e^{2\pi i (t |\xi| + x \cdot \xi)}\frac{\hat{\phi}_{1}(\xi)}{2\pi i |\xi|}\;d\xi\right).
 	\end{equation*}
 	It is always possible to find a coordinate system in which $x = (0,0,\alpha)$ for some $\alpha \in \mathbb{R}$; thus, we will work in these coordinates. Let $\rho = \sqrt{\xi_{1}^{2} + \xi_{2}^{2}}$, and let us use the coordinate system $(\xi_{3}, \rho, \xi_{\theta})$, where $\xi_{\theta}$ is given by $\rho\cos(\xi_{\theta}) = \xi_{1}$. First note that  
 	\begin{equation*}
@@ -919,6 +974,21 @@ Furthermore, we shall assume that $a$ and all its derivatives (of all orders) ar
 	\textcolor{red}{[!! Complete Later !!]}
 \end{proof}
 
+
+\begin{theorem}[Existence of Solutions to the Linear Equation]
+	Let $k \in \mathbb{N}$. Given $F \in L^{1}([0,T]; H^{k - 1}(\mathbb{R}^{n}))$, there exists a solution 
+	\begin{equation*}
+		(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{k}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{k - 1}(\mathbb{R}^{n}))
+	\end{equation*}
+	solving (\ref{eq:clwp_ncc}). 
+\end{theorem} 
+\begin{proof}
+	We begin with the case where the initial data are identically zero. Let $L$ denote the differential operator $\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)$, and $L^{\ast}$ its (formal) adjoint. For every element $L^{\ast}\psi \in L^{\ast}(C_{c}^{\infty}((-\infty,T) \times \mathbb{R}^{n}))$, define a map to $\mathbb{R}$ by 
+	\begin{equation*}
+		L^{\ast}\psi \mapsto 
+	\end{equation*} 
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof} 
 \subsection{Linear Hyperbolic Systems} 
 
 Here, we consider additional properties of the linear wave equation not studied above, and also consider the more general class of \textit{hyperbolic systems} \cite{Rauch2012}. As we shall see, this leads naturally to the notion of \textit{propagation}. Some of these results are presented, perhaps with less exposition, in the Appendix. 
