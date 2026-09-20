@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{../header}
+\usepackage{datetime2}
+\def\Xint#1{\mathchoice
+	{\XXint\displaystyle\textstyle{#1}}%
+	{\XXint\textstyle\scriptstyle{#1}}%
+	{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+	{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+	\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+		\vcenter{\hbox{$#2#3$ }}\kern-0.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\usepackage[
+colorinlistoftodos,
+textsize=small,          % Sets the text to the smallest LaTeX font size
+textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
+]{todonotes}
+\rhead{tl;dr Notes on Nonlinear Wave Equations}
+\om 
+\title{tl;dr Notes on Nonlinear Wave Equations}
+\author{\me}
+\date{Fall 2026}
+
+\begin{document}
+	\maketitle
+	\fullline 
+	\tableofcontents
+	\xappto\thefootnote{\relax}
+	\footnotetext{Last updated: \today\ at \DTMcurrenttime}
+	\halfline 
+	\newpage 
+	\setlength{\parskip}{0.55em}
+
+\section*{Overview} 
+
+The following is a tl;dr version of the lecture notes on nonlinear wave equations I am writing in preparation for the SBU math PhD oral exam. The purpose of these notes aren't to include every single detail/computation that is inside the main set of notes, but rather to point out the important ideas, techniques, and perspectives. 
+
+\newpage
+\section{Linear Wave Equation} 
+\begin{itemize}
+	\item (\textbf{Cauchy Linear Wave Problem}) Let $\phi$ be a function (or distribution) of appropriate regularity on $I \times \mathbb{R}^{n}$, and let $\Box = \partial_{tt} - \Delta$ be the d'Alembertian operator. Then the Cauchy wave problem on $I \times \mathbb{R}^{n}$ is 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{1}
+			&\Box\phi = f,  \\
+			&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1})
+		\end{alignedat}
+		\right., 
+	\end{equation*}
+	where $f$ (potentially zero) is some source term. 
+	\item (\textbf{Well-Posedness of the Cauchy Problem}) A desired property for the Cauchy problem. We require the following three conditions: \vspace{-0.2cm}
+	\begin{enumerate}
+		\item Existence of a solution; 
+		\item Uniqueness of the solution; 
+		\item Continuous dependence of the solution on the initial data (small perturbation in the initial data leads to a small perturbation in the solution). 
+	\end{enumerate}
+	\item (\textbf{Energy of a Solution; Homogeneous}) Assuming a solution $\phi$ exists to $\Box\phi = 0$, define the energy $E(t)$ to be 
+	\begin{equation*}
+		E(t) = \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)^{2} + (\nabla \phi)^{2}\;dx. 
+	\end{equation*}
+	(1) The energy is always conserved, and (2) gives uniqueness of solution (if a solution exists) by considering the difference of two solutions which must have zero energy at $t = 0$ (compare this to elliptic and parabolic equations, whose uniqueness of solutions can be given by a maximum principle). 
+	\item (\textbf{Energy Estimate of a Solution; Nonhomogeneous}) Assume $\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) = F$, where $a_{\alpha\beta}$ is some metric (close enough to the standard Minkowski metric $g_{\alpha\beta}$). Let $|\partial \phi|^{2} \coloneqq (\partial_{t}\phi)^{2} + (\nabla \phi)^{2}$. Although $\norm{\partial \phi}_{C([0,T])}$ is not conserved, it is bounded above by the $\dot{H}^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$ norm of the initial data, and the $L^{2}$ norm of the source term.
+	
+	\item (\textbf{Fundamental Solutions}) Distributional solutions to the wave equation, 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{1}
+			&\Box E_{+} = \delta_{0},  \\
+			&\operatorname{supp}(E_{+}) \subseteq \{(t, x): 0 \leq |x| \leq t\} 
+		\end{alignedat}
+		\right., 
+	\end{equation*}  
+	I.e., a distribution $E_{+}$ solving $\Box E_{+} = \delta_{0}$ that is supported on the forward light cone based at the origin. \textbf{Key Facts:} (1) the support of the fundamental solution grows with time (i.e., solutions to the wave equation propagation), (2) \textit{if} a fundamental solution exists, then it propagates at finite speed, (3) a \textit{unique} fundamental solution exists: 
+		\begin{equation*}
+			E_{+}(t, x) = - \frac{\pi^{\frac{1 - n}{2}}}{2}\chi_{\{t \geq 0\}}\chi_{+}^{\frac{1 - n}{2}}\left(t^{2} - |x|^{2}\right), 
+		\end{equation*} 
+		where 
+		\begin{equation*}
+			\chi_{+}^{a}(y) \coloneqq \frac{y^{a}\chi_{\{y \geq 0\}}}{\Gamma(a + 1)}; 
+		\end{equation*} 
+	i.e., 
+		\begin{equation*}
+			E_{+}(t, x) = -\frac{\pi^{\frac{1-n}{2}}}{2}\chi_{\{t \geq 0\}}\frac{1}{\Gamma(\frac{3 - n}{2})^{\frac{n - 1}{2}}}\frac{1}{(t^{2} - |x|^{2})^{\frac{n- 1}{2}}}\chi_{\{|x| \leq t\}},
+		\end{equation*} 
+	(4) can be used to derive general representation formulas for the wave equation ($\Box\phi = F$): 
+	\begin{equation*}
+		\phi(t, x) = -E_{+} \ast (\phi_{1}\delta_{\{t = 0\}}) - (\partial_{t}E_{+}) \ast (\phi_{0}\delta_{\{t = 0\}}) + (F\chi_{\{t\geq 0\}}) \ast E_{+},
+	\end{equation*}
+	(5) can be used to understand pointwise decay estimates of solutions. 
+\end{itemize}
+	
+	
+  \end{document} 
