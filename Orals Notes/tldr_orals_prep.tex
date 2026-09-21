@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{../header}
 \usepackage{datetime2}
+\usepackage{xcolor}
+\usepackage{colortbl}
 \def\Xint#1{\mathchoice
 	{\XXint\displaystyle\textstyle{#1}}%
 	{\XXint\textstyle\scriptstyle{#1}}%
@@ -16,6 +18,8 @@ colorinlistoftodos,
 textsize=small,          % Sets the text to the smallest LaTeX font size
 textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 ]{todonotes}
+\definecolor{faintgray}{gray}{0.80}
+\usepackage{multirow}
 \rhead{tl;dr Notes on Nonlinear Wave Equations}
 \om 
 \title{tl;dr Notes on Nonlinear Wave Equations}
@@ -34,9 +38,54 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 
 \section*{Overview} 
 
-The following is a tl;dr version of the lecture notes on nonlinear wave equations I am writing in preparation for the SBU math PhD oral exam. The purpose of these notes aren't to include every single detail/computation that is inside the main set of notes, but rather to point out the important ideas, techniques, and perspectives. 
+The following is a tl;dr version of the lecture notes on nonlinear wave equations I am writing in preparation for the SBU math PhD oral exam. The purpose of these notes aren't to include every single detail/computation that is inside the main set of notes, but rather to point out the important ideas, techniques, and perspectives.
+
+\newpage 
+
+\section{Syllabus}
+
+\begin{table}[h!]
+	\centering 
+	\begin{tabular}{|>{\centering\arraybackslash}m{4.2cm}|m{7.5cm}|}
+		\hline 
+		\multicolumn{2}{|c|}{\textbf{Functional and Harmonic Analysis}} \\ 
+		\hline 
+		\multirow{2}{*}{Harmonic Analysis} & Three-Lines Lemma \newline Riesz Interpolation Theorem   \\\hline 
+	\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+	\centering 
+	\begin{tabular}{|>{\centering\arraybackslash}m{4.2cm}|m{7.5cm}|}
+		\hline 
+		\multicolumn{2}{|c|}{\textbf{Nonlinear Wave Equations}} \\ 
+		\hline 
+		\multirow{2}{*}{Linear Wave Equation} & Cauchy Problem \newline 
+		Well-Posedness \newline 
+		Simple Energy Estimates \newline 
+		Properties of Fundamental Solutions \newline 
+		Explicit Representation Formulas \newline 
+		Pointwise and Uniform Dispersion Rates ($n \geq 2$) \newline 
+		Finite Speed of Propagation \newline 
+		Strong Huygens Principle \\ 
+		\arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} 
+		& Hahn-Banach Theorem and Existence of Weak Solutions (Variable Coefficient Equation) \\
+		\hline 
+		\multirow{2}{*}{Linear Hyperbolic Systems} &  Method of Characteristics and loss of uniqueness for unbounded speed \\ \arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} &  Strictly/Symmetric Hyperbolic Systems \\\hline 
+		Nonlinear Wave Equations & \textbf{Local} Well-Posedness \\
+		\hline 
+	\end{tabular}
+\end{table}
+
 
 \newpage
+\section{Functional and Harmonic Analysis}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\newpage 
 \section{Linear Wave Equation} 
 \begin{itemize}
 	\item (\textbf{Cauchy Linear Wave Problem}) Let $\phi$ be a function (or distribution) of appropriate regularity on $I \times \mathbb{R}^{n}$, and let $\Box = \partial_{tt} - \Delta$ be the d'Alembertian operator. Then the Cauchy wave problem on $I \times \mathbb{R}^{n}$ is 
@@ -81,13 +130,15 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 		\end{equation*} 
 	i.e., 
 		\begin{equation*}
-			E_{+}(t, x) = -\frac{\pi^{\frac{1-n}{2}}}{2}\chi_{\{t \geq 0\}}\frac{1}{\Gamma(\frac{3 - n}{2})^{\frac{n - 1}{2}}}\frac{1}{(t^{2} - |x|^{2})^{\frac{n- 1}{2}}}\chi_{\{|x| \leq t\}},
+			E_{+}(t, x) = -\frac{\pi^{\frac{1-n}{2}}}{2}\chi_{\{t \geq 0\}}\frac{1}{\Gamma(\frac{3 - n}{2})}\frac{1}{(t^{2} - |x|^{2})^{\frac{n- 1}{2}}}\chi_{\{|x| \leq t\}},
 		\end{equation*} 
 	(4) can be used to derive general representation formulas for the wave equation ($\Box\phi = F$): 
 	\begin{equation*}
 		\phi(t, x) = -E_{+} \ast (\phi_{1}\delta_{\{t = 0\}}) - (\partial_{t}E_{+}) \ast (\phi_{0}\delta_{\{t = 0\}}) + (F\chi_{\{t\geq 0\}}) \ast E_{+},
 	\end{equation*}
-	(5) can be used to understand pointwise decay estimates of solutions. 
+	(5) can be used to understand pointwise decay estimates of solutions (pointwise, for every $R > 0$ and $|x| \leq R$, $|E_{+}(t, x)| \sim O(t^{1 - n})$), (6) can be used to derive explicit representation formulas for solutions to the linear wave equation. 
+	
+	\item (\textbf{Explicit Representation Formulas}) Solutions exist to linear wave equation, and are unique. Suffices for the initial data $(\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$. \textbf{Key Facts:} (1) if initial data are continuous and compactly supported, uniform decay rate for $n \geq 2$ is $\lesssim_{(\phi_{0}, \phi_{1})} (1 + t)^{\frac{1 - n}{2}}$, (2) also propagate in time, (3) satisfy the \textbf{Strong Huygens Principle} in odd dimensions at least 3 (solution depends only on data on spherical shells). 
 \end{itemize}
 	
 	

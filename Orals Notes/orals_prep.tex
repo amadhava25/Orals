@@ -983,13 +983,43 @@ Furthermore, we shall assume that $a$ and all its derivatives (of all orders) ar
 	solving (\ref{eq:clwp_ncc}). 
 \end{theorem} 
 \begin{proof}
-	We begin with the case where the initial data are identically zero. Let $L$ denote the differential operator $\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi)$, and $L^{\ast}$ its (formal) adjoint. For every element $L^{\ast}\psi \in L^{\ast}(C_{c}^{\infty}((-\infty,T) \times \mathbb{R}^{n}))$, define a map to $\mathbb{R}$ by 
-	\begin{equation*}
-		L^{\ast}\psi \mapsto 
-	\end{equation*} 
-	\textcolor{red}{[!! Complete Later !!]}
+	Unlike for the linear case with constant coefficients where we explicitly derived a representation formula, the proof of this result requires a bit of functional analysis (in particular the \textit{Hahn-Banach theorem}). The proof will be carried out over two steps. \vspace{-0.25cm}
+	\begin{enumerate}
+		\item First assume that $(\phi_{0}, \phi_{1}) = (0,0)$. Let $L$ be the differential operator $\partial_{\alpha}(a^{\alpha \beta}\partial_{\beta} \bullet)$, and let $L^{\ast}: C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n}) \to C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})$ be the formal adjoint of $L$\footnote{In the sense that for every $\phi, \psi \in C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})$, $\braket{L\phi, \psi} = \braket{\phi, L^{\ast}\psi}$.}. For every $\psi \in C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})$, define a map 
+		\begin{equation*}
+			\Phi: L^{\ast}\psi \in L^{\infty}(C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})) \mapsto \int_{0}^{T}\int_{\mathbb{R}^{n}}\psi F\;dxdt \eqqcolon \braket{F, \psi}. 
+		\end{equation*} 
+		We claim that this functional $\Phi$ is bounded. Indeed, one has 
+		\begin{align*}
+			\begin{split}
+				|\Phi(L^{\ast}\psi)| &= \abs{\int_{0}^{T}\int_{\mathbb{R}^{n}} \psi F\;dxdt} \leq \int_{0}^{T}\int_{\mathbb{R}^{n}}|\psi F|\;dxdt  \\
+				&\leq \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}\norm{\psi}_{H^{1 - k}(\mathbb{R}^{n})} \;dt \\
+				&\leq C\cdot \left(\int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}\;dt\right) \cdot \left(\sup_{t \in [0,T]}\norm{\psi}_{H^{1 - k}(\mathbb{R}^{n})}\right) \\
+				&\leq C' \cdot \int_{0}^{T}\norm{L^{\ast}\psi}_{H^{-k}(\mathbb{R}^{n})}(s)\;ds, 
+			\end{split} 
+		\end{align*}
+		where (1) the second line follows from the generalized H\"older's inequality\footnote{$\norm{uv}_{L^{1}} \leq \norm{u}_{W^{(-s,p)}}\norm{v}_{W^{(-s, q)}}$, where $p, q$ are conjugate exponents}, (2) the final line follows from incorporating $\int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}\;dt$ into $C$, and using the previous lemma. It is also straightforward to see that the $\Phi$ is linear. Thus, by the Hahn-Banach theorem, there exists $\phi \in (L^{1}((-\infty, T); H^{-k}(\mathbb{R}^{n})))^{\ast} = L^{\infty}((-\infty, T); H^{k}(\mathbb{R}^{n}))$ with $\phi = 0$ for $t < 0$ that extends $\Phi$: $\braket{F, \psi} = \braket{\phi, L^{\ast}\psi}$ for every $\psi \in C_{c}^{\infty}((-\infty, T) \times \mathbb{R}^{n})$. Thus $\phi$ is a \textit{weak solution} (see e.g., Section \ref{subsec:distributions}) to the Cauchy wave problem with trivial data. 
+		
+		
+		\item Now turn to the general case with $(\phi_{0}, \phi_{1})\in H^{k}(\mathbb{R}^{n}) \times H^{k - 1}(\mathbb{R}^{n})$, and let $u$ be a function in $[0,T] \times \mathbb{R}^{n}$ such that 
+		\begin{equation*}
+			(u, \partial_{t}u)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}). 
+		\end{equation*} 
+		Then the system $L\eta = F - Lu$ has trivial initial data. Then the work in (1) gives us a weak solution $\eta$ to the problem. Setting $\phi = \eta + u$ gives the desired solution\footnote{\textcolor{red}{Complete proof that $(\phi, \partial_{t}\phi)$ belong to the appropriate spaces}}.  
+	\end{enumerate} 
 \end{proof} 
-\subsection{Linear Hyperbolic Systems} 
+\begin{remark}
+	It is important to note that the above theorem only gives the existence of weak solutions. If the initial data is sufficiently regular, we can upgrade to a classical solution via the \textit{Sobolev Embedding Theorem}. 
+\end{remark} 
+\begin{theorem}[Sobolev Embedding Theorem]
+	For every $s > \frac{n}{2}$, and for all $\phi \in H^{s}(\mathbb{R}^{n})$, 
+	\begin{equation*}
+		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \lesssim_{(n, s)} \norm{\phi}_{H^{s}(\mathbb{R}^{n})}. 
+	\end{equation*} 
+	I.e., for every $s > n/2$, $H^{s}(\mathbb{R}^{n}) \hookrightarrow C_{0}(\mathbb{R}^{n})$. 
+\end{theorem} 
+
+\subsection{More on Linear Hyperbolic Systems} 
 
 Here, we consider additional properties of the linear wave equation not studied above, and also consider the more general class of \textit{hyperbolic systems} \cite{Rauch2012}. As we shall see, this leads naturally to the notion of \textit{propagation}. Some of these results are presented, perhaps with less exposition, in the Appendix. 
 
@@ -1145,7 +1175,94 @@ This solution is given by $\wh{\phi}(t, \xi) = e^{-2\pi it\sum A_{j}\xi_{j}}\hat
 	But since we assumed that $g \in H^{\infty}(\mathbb{R}^{d})$, it follows that $(1 + |\xi|^{2})^{s/2}\hat{g}(\xi) \in L^{2}(\mathbb{R}^{d})$. Thus, it follows that $\phi(\empspace, x) \in H^{s}(\mathbb{R}^{d})$ for all $s \in \mathbb{R}$. Hence, $\phi \in C^{\infty}(\mathbb{R}; H^{\infty}(\mathbb{R}^{d}))$. To show that $\phi$ actually solves the PDE, it suffices to show that $\hat{\phi}$ solves the ODE obtained by taking the Fourier transform of the PDE. But we've already shown this to be the case. Therefore, the proof of existence is complete. Moreover, the above equality also establishes conservatinon the Sobolev norms for all $t, s$. All that remains is to prove uniqueness. Assume that $\phi_{1}, \phi_{2}$ are two solutions to the initial value problem. Then their difference $\phi = \phi_{1} - \phi_{2}$ also solves the PDE $L\phi = 0$, but with the initial value identically zero. Applying the above results (in particular, the Sobolev norm conservation), it follows that $\phi$ is identically zero. Thus the proof concludes. 
 \end{proof} 
 
-\paragraph{Variable Coefficient Systems} Now we shall consider variable coefficient systems, analagous to the variable coefficient equations studied in Section \ref{subsec:sol_lin_varco}.
+\paragraph{Variable Coefficient Systems} Now we shall consider variable coefficient systems, analagous to the variable coefficient equations studied in Section \ref{subsec:sol_lin_varco}. We start with the following definition. 
+
+\begin{definition}[Symmetric Hyperbolic Systems]
+	In $\mathbb{R}^{1 + d}$ introduce the coordinates $y = (y_{0}, \ldots, y_{d})$, where $y_{0} = t$, and for each $1 \leq j \leq d$, $y_{j} = x_{j}$. Then the partial differential operator, 
+	\begin{equation}
+		L(y,\partial) = \sum_{\mu = 0}^{d}A_{\mu}(y)\frac{\partial}{\partial y_{\mu}} + B(y) 
+		\label{eq:symHypOp}
+	\end{equation}
+	is said to be \textbf{symmetric hyperbolic} if the following hold: \vspace{-0.2cm} 
+	\begin{enumerate}[itemsep = -2pt]
+		\item The coefficient matrices $A_{\mu}$ and $B$ have uniformly bounded derivatives: for all $\alpha$, 
+		\begin{equation*}
+			\sup_{y \in \mathbb{R}^{1 + d}}\norm{\partial^{\alpha}_{y}(A_{\mu}(y), B(y))} < \infty; 
+		\end{equation*} 
+		\item $A_{\mu}$ are hermitian symmetric; 
+		\item $A_{0}$ is strictly positive in the sense that there exists $c > 0$ so that for all $y$, $A_{0}(y) \geq cI$. 
+	\end{enumerate}
+\end{definition} 
+
+It follows that this system satisfies an $L^{2}$ estimate of the following form. 
+
+\begin{prop}{$L^{2}$ Estimates}
+	For every $s \in \mathbb{R}$, there is a constant $C(s, L)$ so that for all $t \geq 0$ and all $u \in C^{1}(\mathbb{R}; H^{s}(\mathbb{R}^{d})) \cap C(\mathbb{R}; H^{s + 1}(\mathbb{R}^{d}))$, 
+	\begin{equation*}
+		\norm{u(t)}_{H^{s}(\mathbb{R}^{d})} \leq Ce^{Ct}\norm{u(0)}_{H^{s}(\mathbb{R}^{d})} + \int_{0}^{t}Ce^{C(t - \sigma)} \norm{(Lu)(\sigma)}_{H^{s}(\mathbb{R}^{d})}\;d\sigma, 
+	\end{equation*} 
+	where $L$ is a symmetric hyperbolic system. 
+\end{prop}
+\begin{proof}
+	Let us consider a few cases. \vspace{-0.4cm} 
+	\begin{enumerate}
+		\item First assume that $A_{0} = I$, and define 
+		\begin{equation*}
+			G(t) = \sum_{j}A_{j}(t, x)\;\partial_{j} + B(t, x), 
+		\end{equation*} 
+		and define its formal adjoint differential operator $G^{\ast}$ by 
+		\begin{equation*}
+			G^{\ast}(t) = -\sum_{j}A_{j}^{\ast}(t, x)\partial_{j} + B(t, x)^{\ast} - \sum_{j}(\partial_{j}A_{j}^{\ast})  
+		\end{equation*} 
+		so that for all $\phi, \psi \in C_{c}^{\infty}(\mathbb{R}^{d})$, $\braket{G(t)\phi, \psi} = \braket{\phi, G^{\ast}(t)\psi}$. In particular, one has 
+		\begin{equation*}
+			G(t) + G^{\ast}(t) = B(t,x) + B^{\ast}(t, x) - \sum_{j = 1}^{d}\partial_{j}A_{j}, 
+		\end{equation*} 
+		where we used the fact that since the $A_{j}$ are hermitian symmetric, $A_{j}^{\ast} = A_{j}$. Therefore, $G(t) + G^{\ast}(t)$ is multiplication by a uniformly bounded matrix, which means that as an operator on $L^{2}(\mathbb{R}^{d})$, $\norm{G(t) + G^{\ast}(t)} \leq 2C$ for some $C > 0$. Note that this means that $G(t)$ is \textbf{nearly anti-self-adjoint}. If we assume that $u \in C(\mathbb{R}; H^{1}(\mathbb{R}^{d}))$, $u_{t} \in C(\mathbb{R}; L^{2}(\mathbb{R}^{d}))$, and $f \coloneqq Lu$, then it is straightforward to see that $u'(t) + G(t)u(t) = f(t)$. 
+	\end{enumerate}
+\end{proof} 
+
+\newpage 
+
+\section{Local Theory for Nonlinear Wave Equations}
+\subsection{Quasilinear Equations} 
+In this subsection, we are most interested in the following quasilinear wave equations for $\phi: I \times \mathbb{R}^{n} \to \mathbb{R}$: 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{1}
+		&\partial_{\alpha}(a^{\alpha\beta}(\phi)\partial_{\beta}\phi) = F(\phi, \partial \phi) \\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in H^{k}(\mathbb{R}^{n}) \times H^{k - 1}(\mathbb{R}^{n}), 
+	\end{alignedat} 
+	\right. 
+	\label{eq:qlwe}
+\end{equation}
+where $k \in \mathbb{N}$ is specified later, $a^{\alpha\beta}$ is symmetric and satisfies, 
+\begin{equation}
+	\sum_{\alpha,\beta}|a^{\alpha\beta} - m^{\alpha\beta}| \leq \frac{1}{10}, \qquad a(0) =0, \qquad F(0,0) = 0, 
+	\tag{$\ast$}
+	\label{eq:assumptions-aF}
+\end{equation} 
+and $a^{\alpha\beta}: \mathbb{R} \to \mathbb{R}$ and $F: \mathbb{R}\times \mathbb{R}^{n} \to \mathbb{R}$ are smooth functions. As we will see, unlike the linear wave equation, (\ref{eq:qlwe}) is only \textit{locally} (in time) well-posed. We will first state the main result of this section, then prove a couple of technical results that will then enable us to prove the theorem. 
+
+\begin{theorem}[Local Well-Posedness of the Quasilinear Wave Equations]
+	Fix $a$ and $F$ satisfying assumptions (\ref{eq:assumptions-aF}). Then the Cauchy problem (\ref{eq:qlwe}) is locally well-posed in the following sense. \vspace{-0.2cm} 
+	\begin{enumerate}
+		\item (\textsc{Existence and Uniqueness of Local-in-time Solutions}) There exists 
+		\begin{equation*}
+			T = T(\norm{\phi_{0}}_{H^{n + 2}(\mathbb{R}^{n})}, \norm{\phi_{1}}_{H^{n + 1}(\mathbb{R}^{n})}) > 0 
+		\end{equation*}
+		such that there exists a \textbf{classical} solution $\phi$ to (\ref{eq:qlwe}) with 
+		\begin{equation*}
+			(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n})). 
+		\end{equation*} 
+		Moreover, this solution is unique in the function space above.
+		\item (\textsc{Continuous Dependence on Initial Data}) Let $\phi_{0}^{(i)}, \phi_{1}^{(i)}$ be sequences of functions such that $\phi_{0}^{(i)} \to \phi_{0}$ in $H^{n + 2}(\mathbb{R}^{n})$ and $\phi_{1}^{(i)} \to \phi_{1}$ in $H^{n + 1}(\mathbb{R}^{n})$ as $i \to \infty$. Then taking $T > 0$ sufficiently small, we have 
+		\begin{equation*}
+			\norm{(\phi^{(i)} - \phi, \partial_{t}(\phi^{(i)} - \phi))}_{L^{\infty}([0,T];H^{s}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{s - 1}(\mathbb{R}^{n}))} \to 0
+		\end{equation*} 
+		as $i \to \infty$ for every $1 \leq s < n + 2$. 
+	\end{enumerate}
+\end{theorem} 
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
