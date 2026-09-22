@@ -125,6 +125,146 @@ We begin with the following technical lemma.
 	The geometric intuition for this lemma is clear to see. We specify bounds for $\Phi$ on the two vertical lines $\operatorname{Re}{\Phi} = 0$ and $\operatorname{Re}(z) = 1$. Then under the right hypotheses, the above lemma gives bounds for any third vertical line $\operatorname{Re}(z)= t$ between $\operatorname{Re}(z) = 0$ and $\operatorname{Re}(z) = 1$. 
 \end{remark} 
 
+From this result, we now have the following interpolation theorem for $L^{p}$ spaces. 
+
+\begin{theorem}[Riesz-Thorin Interpolation Theorem]
+	Suppose $T$ is a linear mapping from $L^{p_{0}} + L^{p_{1}}$ to $L^{q_{0}} + L^{q_{1}}$. Assume that $T$ is bounded from $L^{p_{0}}$ to $L^{q_{0}}$ and from $L^{p_{1}}$ to $L^{q_{1}}$: 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{3}
+			&\norm{Tf}_{L^{q_{0}}} & \leq & M_{0}\norm{f}_{L^{p_{0}}}, \\
+			&\norm{Tf}_{L^{q_{1}}} & \leq & M_{1}\norm{f}_{L^{p_{1}}}. 
+		\end{alignedat} 
+		\right. 
+	\end{equation*} 
+	Then $T$ is bounded from $L^{p}$ to $L^{q}$: $\norm{Tf}_{L^{q}} \leq M\norm{f}_{L^{p}}$, whenever the pair $(p, q)$ can be written as 
+	\begin{equation*}
+		\frac{1}{p} = \frac{1 - t}{p_{0}} + \frac{t}{p_{1}} \qquad \text{and} \qquad \frac{1}{q} = \frac{1 - t}{q_{0}} + \frac{t}{q_{1}}
+	\end{equation*} 
+	for some $t$ with $0 \leq t \leq 1$. Moreover, the bound $M$ satisfies $M \leq M_{0}^{1 - t}M_{1}^{t}$. 
+\end{theorem} 
+\begin{proof}
+	Recall that the space of simple functions is dense in $L^{p}$ for all $p$. Thus, our strategy is as follows: (1) show that the result holds for all simple functions and for all $p < \infty$ and $q > 1$, (2) use the density of simple functions in $L^{p}$ to show the result for all $f \in L^{p}$ ($1 \leq p < \infty$), (3) show the result holds for $p = 1$ and $q = \infty$, and (4) finally show the result holds for $p < \infty$ and $q = 1$. We will also use the fact that to show that $\norm{Tf}_{L^{q}} \leq M \norm{f}_{L^p}$, it suffices to show that $\abs{\int Tfg\;dx} \leq M \norm{f}_{L^{p}}\norm{g}_{L^{q'}}$ for all simple functions $g$ with $\norm{g}_{L^{q'}} = 1$\footnote{Note: by $'$, we shall denote the conjugate exponent of an exponent.} \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label= (\arabic{*})]
+		\item First assume that $p < \infty$ and $q > 1$, and assume $f \in L^{p}$ is simple with $\norm{f}_{L^{p}} = 1$. We wish to define some holomorphic function $\Phi$ that is bounded on $\operatorname{Re}(z) = 0, 1$ so that we can use the interpolation result for this function. Thus for $z \in \mathbb{C}$, define 
+		\begin{align*}
+			f_{z} &= |f|^{\gamma(z)}\frac{f}{|f|},  \qquad \gamma(z) = p\left(\frac{1 - z}{p_{0}} + \frac{z}{p_{1}}\right), \\
+			g_{z} &= |g|^{\delta(z)}\frac{g}{|g|}, \qquad \delta(z) = q'\left(\frac{1 - z}{q_{0}'} + \frac{z}{q'_{1}}\right). 
+		\end{align*}
+	These definitions are useful for the following reasons. First, it is straightforward to see that for any $t \in [0,1]$, $f_{t} = f$ and $g_{t} = g$. Next, for $\operatorname{Re}(z) = 0$, we compute
+	\begin{equation*}
+		\norm{f_{z}}_{L^{p_{0}}}^{p_{0}} = \int \abs{|f|^{\gamma(z)}}^{p_{0}}\;d\nu = \int |f|^{p_{0}\cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
+	\end{equation*}
+	Likewise, for $\operatorname{Re}(z) = 1$, we compute 
+	\begin{equation*}
+		\norm{f(z)}_{L^{p_{1}}}^{p_{1}} = \int \abs{|f|^{\gamma(z)}}^{p_{1}}\;d\nu = \int |f|^{p_{1} \cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
+	\end{equation*} 
+	Likewise, one has 
+	\begin{equation*}
+		\norm{g_{z}}_{L^{q'_{0}}} = 1 \qquad \text{ and } \qquad \norm{g_{z}}_{L^{q'_{1}}} = 1. 
+	\end{equation*} 
+	Thus define 
+	\begin{equation*}
+		\Phi(z) = \int (Tf_{z})g_{z}\;d\nu. 
+	\end{equation*} 
+	Since $f, g$ are simple, assume 
+	\begin{equation*}
+		f_{z} = \sum |a_{k}|^{\gamma(z)}\frac{a_{k}}{|a_{k}|}\chi_{E_{k}} \qquad \text{ and }\qquad g_{z} = \sum |b_{j}|^{\delta(z)}\frac{b_{j}}{|b_{j}|}\chi_{F_{j}}, 
+	\end{equation*} 
+	where the $E_{k}$ and $F_{j}$ are sets of finite measure. This implies that 
+	\begin{equation*}
+		\Phi(z) = \sum_{j,k} |a_{k}|^{\gamma(z)}|b_{j}|^{\delta(z)}\frac{a_{k}}{|a_{k}|}\frac{b_{j}}{|b_{j}|}\left(\int T(\chi_{E_{k}})\chi_{F_{j}}\;d\nu\right) 
+	\end{equation*} 
+	so that (a) $\Phi$ is holomorphic on the strip $S$, and bounded, continuous on $\bar{S}$. For $\operatorname{Re}(z) = 0$, one has 
+	\begin{equation*}
+		|\Phi(z)| \leq \int|Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{0}}}\norm{g}_{L^{q_{0}'}} = \norm{Tf_{z}}_{L^{q_{0}}} \leq M_{0}\norm{f}_{L^{p_{0}}} = M_{0}. 
+	\end{equation*}
+	Likewise on $\operatorname{Re}(z) = 1$, one has 
+	\begin{equation*}
+		|\Phi(z)| \leq \int |Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{1}}}\norm{g}_{L^{q_{1}'}} = \norm{Tf_{z}}_{L^{q_{1}}} \leq M_{1}\norm{f}_{L^{p_{1}}}= M_{1}. 
+	\end{equation*}  
+	Therefore, by the three-lines lemma, one has that on the line $\operatorname{Re}(z) = t$ ($t \in [0,1]$), $|\Phi(z)| \leq M_{0}^{1 - t}M_{1}^{t}$. Thus this completes the proof. 
+	
+	\item Now fix some $f \in L^{p}$ for $1 \leq p < \infty$. Choose a sequence $\{f_{n}\}$ of simple functions in $L^{p}$ so that $\norm{f_{n} - f}_{L^{p}} \to 0$. Since $\norm{Tf_{n}}_{L^{q}} \leq M\norm{f_{n}}_{L^{p}}$, $Tf_{n}$ is a Cauchy sequence in $L^{q}$. Thus it suffices to show that $Tf_{n}\to Tf$ a.e. To prove this, let us define, 
+	\begin{equation*}
+		f^{U}(x) \coloneqq 
+		\begin{cases}
+			f(x), & \{x: |f(x)| \geq 1\}, \\
+			0, & \text{otherwise}
+		\end{cases} 
+		\qquad \text{and} \qquad 
+		f^{L}(x) \coloneqq 
+		\begin{cases}
+			f(x), & \{x: |f(x)| < 1\}, \\
+			0, & \text{otherwise}. 
+		\end{cases} 
+	\end{equation*} 
+	Then clearly $f = f^{U} + f^{L}$. Likewise, let $f_{n} = f^{U}_{n} + f^{L}_{n}$ for all $n$. Now wlog assume that $p_{0} \leq p_{1}$ so that $p_{0} \leq p \leq p_{1}$. Since $p_{0} \leq p$, and $1 \leq p$, 
+	\begin{equation*}
+		\int |f^{U}|^{p_{0}} \leq \int |f^{U}|^{p} \leq \int |f|^{p} < \infty, 
+	\end{equation*} 
+	so that $f^{U} \in L^{p_{0}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{U} \to f^{U}$ in $L^{p_{0}}$. Thus there exists a subsequence $\{Tf_{n_{j}}^{U}\}$ that converges to $Tf^{U}$ pointwise a.e. Likewise, we have 
+	\begin{equation*}
+		\int |f^{L}|^{p_{1}} \leq \int |f^{L}|^{p} \leq \int |f|^{p} < \infty, 
+	\end{equation*} 
+	so that $f^{L} \in L^{p_{1}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{L} \to f^{L}$ in $L^{p_{1}}$. Thus the sequence $f_{n_{j}}^{L} \to f^{L}$ in $L^{p_{1}}$ which means that $\{Tf_{n_{j}}^{L}\}$ converges to $Tf^{L}$ in $L^{q_{1}}$. This means there exists a subsubsequence $\{Tf_{n_{j_{k}}}^{L}\}$ that converges to $Tf^{L}$ pointwise a.e.; by construction, $Tf_{n_{j_{k}}}^{U}$ converges to $Tf^{U}$ pointwise a.e. Therefore, renaming this subsubsequence as $\{Tf_{n}\}$, we conclude that $Tf_{n} = Tf_{n}^{U} + Tf_{n}^{L}$ converges to $Tf$ a.e. so that $\norm{Tf}_{L^{q}} \leq M \norm{f}_{L^{p}}$. 
+	
+	\item Now consider the case $q = 1$ and $p = \infty$. Suppose first that $p = \infty$. Necessarily, it follows that $p_{0} = p_{1} = \infty$. Then H\:older's inequality concludes the proof. 
+	\item Suppose $p < \infty$ and $q = 1$. Then $q_{0} = q_{1} = 1$. We can take $g_{z} = g$ for all $z$ and argue as in the case for $q > 1$. 
+	\end{enumerate}
+\end{proof} 
+
+In particular, the following definition highlights the key essence of the Riesz-Thorin theorem. 
+
+\begin{definition}[Operator of Type $(p, q)$]
+	Let $T: X \to Y$ be a linear operator that is initially defined on simple functions of $X$ and maps such functions to functions on $Y$ that are integrable on sets of finite measure. $T$ is said to be an \textbf{operator of type $(p, q)$} if there exists $M > 0$ such that $\norm{Tf}_{L^{q}} \leq M\norm{f}_{L^{p}}$ whenever $f$ is simple. 
+\end{definition} 
+Since the space of simple functions is dense in every $L^{p}$ space, it follows that if $T$ is an operator of type $(p, q)$ for some such pair, then the result extends easily to the entire $L^{p}$ space for $p < \infty$ ($p = \infty$ if $X$ has finite measure). We can denote the space of all such pairs $(p, q)$ using a \textit{Riesz diagram}.
+
+\begin{definition}[Riesz Diagram]
+	Let $T$ be a linear operator as defined above. Then the \textbf{Riesz diagram} of $T$ is the set of all points $(1/p, 1/q)$ in the unit square $[0,1]^{2}$ such that $T$ is of type $(p, q)$. We define $M_{x,y}$ to be the least $M$ for which $\norm{Tf}_{L^{q}} \leq M \norm{f}_{L^{p}}$ among all $(p, q)$ such that $T$ is of type $(p, q)$. 
+\end{definition} 
+
+For example, suppose $T$ is a linear operator that satisfies the Riesz-Thorin Interpolation Theorem for $(p_{0}, q_{0}) = (1,3.3)$, and $(q_{0}, q_{1}) = (1,4.6)$. Then the Riesz diagram for $T$ (as guaranteed by the Riesz-Thorin Interpolation Theorem) is the following, 
+\begin{figure}[h!]
+	\centering 
+	\begin{tikzpicture}
+		\draw[fill = black] (4,4) circle(1pt) node[anchor = north] {\tiny $(p,q) = (1,1)$};
+		\draw[thick] (0,0) -- (4,0) node[anchor = north]{$1$}; 
+		\draw[thick] (0,0) -- (0,4) node[anchor = east]{$1$}; 
+		\draw[thick, dashed] (0,4) -- (4,4) -- (4,0);
+		\draw[thick, dashed, ->] (4,4) -- (2.60606,2.43478261);
+		\draw[very thick] (1.2121212, 0.86956522) -- (4,4); 
+		\draw[fill = black] (1.2121212, 0.86956522) circle(1pt) node[anchor = north] {\tiny $(p,q) = (3.3,4.6)$};
+	\end{tikzpicture} 
+\end{figure}
+
+We have the following corollary. 
+
+\begin{corollary}[Riesz Convexity Theorem]
+	With $T$ as before, \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt, label = (\alph{*})]
+		\item The Riesz diagram of $T$ is a convex set. 
+		\item $\log(M_{x, y})$ is a convex function on this set. 
+	\end{enumerate}
+\end{corollary} 
+
+Now we are interested in applications of this theorem. 
+
+\begin{corollary}[Hausdorff-Young Inequality]
+	Let $X = [0,2\pi]$ with the normalized Lebesgue measure $d\theta/(2\pi)$, and let $Y = \mathbb{Z}$ with its usual counting measure. Let $T$ be the map defined by $Tf = \{a_{n}\}$, where $a_{n}$ is the Fourier coefficient $f$: 
+	\begin{equation*}
+		a_{n} = \frac{1}{2\pi} \int_{0}^{2\pi}f(\theta)e^{-in\theta}\;d\theta. 
+	\end{equation*} 
+	If $1 \leq p \leq 2$ and $1/p + 1/q = 1$, then 
+	\begin{equation*}
+		\norm{Tf}_{L^{q}(\mathbb{Z})} \leq \norm{f}_{L^{p}([0,2\pi])}. 
+	\end{equation*} 
+\end{corollary} 
+\begin{proof}
+	This is a classic example of a proof using interpolation. First assume $p_{0}, q_{0} = 2$. Then the proof follows directly from Plancherel's theorem. Now assume $p_{1} = 1, q_{1} = \infty$. 
+\end{proof} 
+
 \newpage 
 
 \subsection{Distributions and Generalized Functions} \label{subsec:distributions}

@@ -82,7 +82,15 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 \section{Functional and Harmonic Analysis}
 
 \begin{itemize}
-	\item 
+	\item (\textbf{Three-Lines Lemma}) First interpolation result we obtain. For a holomorphic function $\Phi$ on the strip $S = \{0 < \operatorname{Re}(z) < 1\}$ and continuous on $\bar{S}$, and bounded by $M_{0}$ and $M_{1}$ on either side of the strip, $\Phi$ is also bounded on any vertical line between $\operatorname{Re}(z) = 0$ and $\operatorname{Re}(z) = 1$: 
+	\begin{equation*}
+		\sup_{y \in \mathbb{R}}|\Phi(t + iy)| \leq M_{0}^{1 - t}M_{1}^{t}, \qquad \forall t \in [0,1]. 
+	\end{equation*} 
+	
+	\item (\textbf{Riesz-Thorin Interpolation Theorem}) Consider a linear operator $T$ that is bounded from $L^{p_{0}} \to L^{q_{0}}$ and from $L^{q_{0}}$ to $L^{q_{1}}$. Then this theorem gives us the conditions under which $T$ is a bounded operator from $L^{p}$ to $L^{q}$. In particular, one has that $T$ is a bounded operator from $L^{p}$ to $L^{q}$ for all pairs $(p, q)$ such that 
+	\begin{equation*}
+		\frac{1}{p} = \frac{1 - t}{p_{0}} + \frac{t}{p_{1}}, \qquad \frac{1}{q} = \frac{1 - t}{q_{0}} + \frac{t}{q_{1}}. 
+	\end{equation*} 
 \end{itemize}
 
 \newpage 
