@@ -50,7 +50,7 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 		\hline 
 		\multicolumn{2}{|c|}{\textbf{Functional and Harmonic Analysis}} \\ 
 		\hline 
-		\multirow{2}{*}{Harmonic Analysis} & Three-Lines Lemma \newline Riesz Interpolation Theorem   \\\hline 
+		\multirow{2}{*}{Harmonic Analysis} & Three-Lines Lemma \newline Riesz Interpolation Theorem \newline Hausdorff-Young Inequality \\ \arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} & Extension of Fourier Transform  (Bounded Map from $L^{p} \to L^{q}$ for all $p \in [1,2]$) \\ \arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black}  & Young's Inequality for Convolutions \newline Hilbert Transform \\\hline 
 	\end{tabular}
 \end{table}
 
@@ -63,6 +63,7 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 		\multirow{2}{*}{Linear Wave Equation} & Cauchy Problem \newline 
 		Well-Posedness \newline 
 		Simple Energy Estimates \newline 
+		Bootstrap Arguments \newline 
 		Properties of Fundamental Solutions \newline 
 		Explicit Representation Formulas \newline 
 		Pointwise and Uniform Dispersion Rates ($n \geq 2$) \newline 
@@ -91,6 +92,7 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 	\begin{equation*}
 		\frac{1}{p} = \frac{1 - t}{p_{0}} + \frac{t}{p_{1}}, \qquad \frac{1}{q} = \frac{1 - t}{q_{0}} + \frac{t}{q_{1}}. 
 	\end{equation*} 
+	\textbf{Key Facts:} (1) Reduces the effort to establishing endpoint estimates. (2) applications include the \textbf{Hausdorff-Young inequality}, \textbf{extension of the Fourier transforrm}, \textbf{Young's inequality for convolutions}. 
 \end{itemize}
 
 \newpage 
@@ -118,6 +120,8 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 	\end{equation*}
 	(1) The energy is always conserved, and (2) gives uniqueness of solution (if a solution exists) by considering the difference of two solutions which must have zero energy at $t = 0$ (compare this to elliptic and parabolic equations, whose uniqueness of solutions can be given by a maximum principle). 
 	\item (\textbf{Energy Estimate of a Solution; Nonhomogeneous}) Assume $\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) = F$, where $a_{\alpha\beta}$ is some metric (close enough to the standard Minkowski metric $g_{\alpha\beta}$). Let $|\partial \phi|^{2} \coloneqq (\partial_{t}\phi)^{2} + (\nabla \phi)^{2}$. Although $\norm{\partial \phi}_{C([0,T])}$ is not conserved, it is bounded above by the $\dot{H}^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$ norm of the initial data, and the $L^{2}$ norm of the source term.
+	
+	\item (\textbf{Bootstrap Argument}) A method of establishing certain desired results. The idea is that if we wish to show that some result $A$ is true, we start by assuming that some marginally better assumption $A_{\epsilon}$ is true, and showing that this better result forces the original result. 
 	
 	\item (\textbf{Fundamental Solutions}) Distributional solutions to the wave equation, 
 	\begin{equation*}

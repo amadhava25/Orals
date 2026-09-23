@@ -252,7 +252,7 @@ We have the following corollary.
 Now we are interested in applications of this theorem. 
 
 \begin{corollary}[Hausdorff-Young Inequality]
-	Let $X = [0,2\pi]$ with the normalized Lebesgue measure $d\theta/(2\pi)$, and let $Y = \mathbb{Z}$ with its usual counting measure. Let $T$ be the map defined by $Tf = \{a_{n}\}$, where $a_{n}$ is the Fourier coefficient $f$: 
+	Let $X = [0,2\pi]$ with the normalized Lebesgue measure $d\theta/(2\pi)$, and let $Y = \mathbb{Z}$ with its usual counting measure. Let $T$ be the map defined by $Tf = \{a_{n}\}$, wher each $a_{n}$ is the Fourier coefficient,  
 	\begin{equation*}
 		a_{n} = \frac{1}{2\pi} \int_{0}^{2\pi}f(\theta)e^{-in\theta}\;d\theta. 
 	\end{equation*} 
@@ -262,8 +262,44 @@ Now we are interested in applications of this theorem.
 	\end{equation*} 
 \end{corollary} 
 \begin{proof}
-	This is a classic example of a proof using interpolation. First assume $p_{0}, q_{0} = 2$. Then the proof follows directly from Plancherel's theorem. Now assume $p_{1} = 1, q_{1} = \infty$. 
+	This is a classic example of a proof using interpolation. Since $[0,2\pi]$ has finite Lebesgue measure, one has that $L^{2}([0,2\pi]) \subset L^{1}([0,2\pi])$ and $L^{2}(\mathbb{Z}) \subset L^{\infty}(\mathbb{Z})$. Thus $L^{2}([0,2\pi]) + L^{1}([0,2\pi]) = L^{1}([0,2\pi])$, and $L^{2}(\mathbb{Z}) + L^{\infty}(\mathbb{Z}) = L^{\infty}(\mathbb{Z})$. 
+	
+	Now let $p_{0}, q_{0} = 2$. Parseval's identity implies that 
+	\begin{equation*}
+		\norm{f}_{L^{p_{0}}([0,2\pi])} = \left(\sum_{n = -\infty}^{\infty}|a_{n}|^{2}\right)^{1/2} = \norm{Tf}_{L^{q_{0}}(\mathbb{Z})}. 
+	\end{equation*}
+	Thus the result follows immediately for this endpoint pair. Now suppose $p_{1} = 1$ and $q_{1} = \infty$. For any $n$, one has that 
+	\begin{equation*}
+		|a_{n}| \leq \frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|\;d\theta = \frac{1}{2\pi}\norm{f}_{L^{1}([0,2\pi])} \leq \norm{f}_{L^{1}([0,2\pi])}. 
+	\end{equation*} 
+	Therefore, it follows immediately that $\norm{Tf}_{L^{\infty}(\mathbb{Z})} \leq \norm{f}_{L^{1}([0,2\pi])}$. The Riesz-Thorin Interpolation Theorem then states that the result holds for all pairs $(p, q)$ with 
+	\begin{equation*}
+		p = \left(\frac{1 - t}{2} + t\right)^{-1} = \left(\frac{1 - t + 2t}{2t}\right)^{-1} = \frac{2t}{t + 1}, \qquad \forall t \in [0,1], 
+	\end{equation*} 
+	and $q$ the conjugate exponent of $p$; i.e., for all $1 \leq p \leq 2$ and $q$ the conjugate exponent of $p$. Thus the proof concludes. 
 \end{proof} 
+
+\begin{corollary}[The Fourier Transform]
+	For simple functions $f$ on $\mathbb{R}^{d}$, define the \textbf{Fourier transform} of $f$ by 
+	\begin{equation*}
+		T(f)(\xi)= \int_{\mathbb{R}^{d}}f(x)e^{-2\pi i x \cdot \xi}\;dx. 
+	\end{equation*} 
+	Then $\norm{Tf}_{L^{\infty}(\mathbb{R}^{d})} \leq \norm{f}_{L^{1}(\mathbb{R}^{d})}$ so that $T$ has a unique extension to $L^{1}(\mathbb{R}^{d})$ for which this inequality continues to hold (i.e., by the Hahn-Banach Theorem). By Plancherel's Theorem, $T$ also extends to $L^{2}(\mathbb{R}^{d})$ as a unitary mapping. Thus, if $1 \leq p \leq 2$ and $1/p + 1/q = 1$, then the Fourier transform has a unique extension to a bounded map from $L^{p}$ to $L^{q}$ with $\norm{Tf}_{L^{q}} \leq \norm{f}_{L^{p}}$. 
+\end{corollary}
+
+\begin{corollary}[Young's Inequality for Convolutions]
+	Let $f \in L^{p}(\mathbb{R}^{d})$ and $g \in L^{r}(\mathbb{R}^{d})$. Then the convolution, 
+	\begin{equation*}
+		(f \ast g)(x) \coloneqq \int_{\mathbb{R}^{d}}f(x - y)g(y)\;dy
+	\end{equation*} 
+	is well-defined (i.e., $f(x - y)g(y)$ is integrable for almost every $x$), and 
+	\begin{equation*}
+		\norm{f \ast g}_{L^{q}} \leq \norm{f}_{L^{p}}\norm{g}_{L^{r}}, 
+	\end{equation*} 
+	where $1/q = 1/p + 1/r - 1$ ($1 \leq q \leq \infty$). 
+\end{corollary} 
+
+\subsection{The Hilbert Transform} 
 
 \newpage 
 
@@ -491,7 +527,7 @@ Intuitively, the definition for the energy is as we expected: consider an oscill
 	where we assume that the initial data $\phi_{0}, \phi_{1}$ are both smooth with compact support. As we will see in a later section, $\phi \in C^{\infty}(I, \mathcal{S}(\mathbb{R}^{n}))$. Thus by the Dominated Convergence Theorem allows us to pass a time derivative inside the integral sign. We then obtain, 
 	\begin{align*}
 		\begin{split}
-			\frac{d}{dt}E(t) &= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{t}^{2}\phi) + \sum_{1}^{n}\partial_{t}(\partial_{j}\phi)^{2}\;dx \\
+			\frac{d}{dt}E(t) &= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{tt}\phi) + \sum_{1}^{n}\partial_{t}(\partial_{j}\phi)^{2}\;dx \\
 			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi)\cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \sum_{1}^{n}\partial_{t}\phi \cdot (\partial_{j}\phi)^{2}\;dx  \\
 			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \frac{1}{2}\sum_{1}^{n}\int_{\mathbb{R}^{n}}\partial_{j}(\partial_{t}\phi)(\partial_{j}\phi)\;dx  \\
 			&= \frac{1}{2}\int_{\mathbb{R}^{n}}(\partial_{t}\phi) \cdot \left(\sum_{1}^{n}\partial_{j}^{2}\phi\right) + \frac{1}{2}\sum_{1}^{n}\left[(\partial_{t}\phi)(\partial_{j}\phi)\bigg|_{|x| = \infty} - \int_{\mathbb{R}^{n}}(\partial_{t}\phi)(\partial_{j}^{2} \phi)\;dx\right] \\
@@ -557,8 +593,10 @@ One immediate advantage of having conservation laws is that if the Cauchy proble
 
 \begin{corollary}[Uniqueness I]
 	Given initial data $(\phi, \partial_{t}\phi)\upharpoonright|_{\{t = 0\}}= (\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$, if we have two solutions $\phi^{(1)}$ and $\phi^{(2)}$ to the linear wave equation (\ref{eq:clwp}) with the given data such that both of them satisfy $(\phi^{(i)}, \partial_{t}\phi^{(i)}) \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$ for $i = 1, 2$, then $\phi^{(1)} = \phi^{(2)}$ almost everywhere in $[0,T] \times \mathbb{R}^{n}$. 
-	\todo{Give proof (possibly using mollifiers). See Holzegel}
 \end{corollary}
+\begin{proof}
+The immediate difficulty with trying to use conservation of energy to prove uniqueness of solutions under the regularity assumptions made above is that we do not have enough regularity in the time variable to justify passing the time derivative inside the integral when differentiating $E(t)$. Thus we must use a mollification argument. First, let us assume there exist two solutions $\phi^{(1)}, \phi^{(2)} \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n}))$ to the linear wave equation, where both solution satisfy the initial data $(\phi_{0}, \phi_{1})$. Define $\phi = \phi^{(1)} - \phi^{(2)}$, which solves the linear wave equation for initial data that are identically zero. For now, we provide a heuristic argument, with a rigorous statement to be filled in afterwards. The idea is that we can consider mollifying $\phi$ with temporal mollifiers $\varphi_{\epsilon}$ for each $\epsilon > 0$. Then for each $\epsilon > 0$, one has that $\phi_{\epsilon} = \phi \ast \varphi_{\epsilon}$ is smooth and the energy conservation applies. Thus passing to the limit $\epsilon \to 0$ would enable us to conclude that $\phi$ is identically zero, yielding uniqueness. 
+\end{proof} 
 
 To extract more useful information, we can localize the energy identity, thus obtaining the following result. 
 
@@ -977,6 +1015,13 @@ The support of the forward fundamental solution also yields the following result
 \begin{corollary}[Strong Huygens Principle]
 	Let $n \geq 3$ be an odd integer. Suppose $\phi \in C^{\infty}(\mathbb{R}^{n + 1})$ is a solution to the linear wave equation with data $(\phi_{0}, \phi_{1})$. If $(\phi_{0}, \phi_{1}) = (0,0)$ in $\{y \in \mathbb{R}^{n}: |x - y| = t\}$, then $\phi(t, x) =0$. 
 \end{corollary} 
+\begin{proof}
+	The proof just follows by looking at the forward fundamental solution, 
+	\begin{equation*}
+		E_{+}(t, x) = -\frac{\pi^{\frac{1-n}{2}}}{2}\chi_{\{t \geq 0\}}\frac{1}{\Gamma(\frac{3 - n}{2})}\frac{1}{(t^{2} - |x|^{2})^{\frac{n- 1}{2}}}\chi_{\{|x| \leq t\}}. 
+	\end{equation*} 
+	Consider $n \geq 3$ odd. Then $1/\Gamma((3 -n)/2)$ is identically zero since $3 - n$ is a nonpositive integer, and the $\Gamma$ function has poles at these values. Since for $|x| < t$, $1/(t^{2} - |x|^{2})^{(n - 1)/2}$ is bounded, it follows that the forward fundamental solution is identically zero for all $|x| < t$. On the other hand, one has that on $|x| = t$, the $1/(t^{2} - |x|^{2})^{(n - 1)/2}$ is unbounded, while $1/\Gamma((3 - n)/2)$ is zero. Thus the support focuses on the spherical shell $|x| = t$. On the other hand, for $n \geq 2$ even, $\Gamma((3 - n)/2)$ is bounded as is $1/(t^{2} - |x|^{2})^{(n - 1)/2}$ for $|x| < t$. Thus the forward fundamental solution is not identically zero in the interior of the balls. 
+\end{proof}
 
 \subsubsection{Decay Estimates}
 
