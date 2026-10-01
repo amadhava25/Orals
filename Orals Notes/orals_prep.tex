@@ -299,8 +299,235 @@ Now we are interested in applications of this theorem.
 	where $1/q = 1/p + 1/r - 1$ ($1 \leq q \leq \infty$). 
 \end{corollary} 
 
-\subsection{The Hilbert Transform} 
+\subsubsection{The Hilbert Transform} 
+In this subsection, we introduce the \textit{Hilbert transform}, which we will eventually use to define \textit{weak-type estimates}, and when we discuss distribution theory. We approach the Hilbert transform via an $L^{2}$-formalism, then via the general $L^{p}$-formalism. 
 
+We start with the following definition. 
+\begin{definition}[Cauchy Integral]
+	Let $f \in L^{2}(\mathbb{R})$. Then the \textbf{Cauchy integral} of $f$ is defined to be 
+	\begin{equation}
+		F(z) = C(f)(z) = \frac{1}{2\pi i}\int_{-\infty}^{\infty}\frac{f(t)}{t - z}\;dt, \qquad \operatorname{Im}(z) > 0. 
+		\label{eq:CauchyIntegralL2}
+	\end{equation}
+\end{definition} 
+\begin{remark}
+	The fact that we call $F(z)$ the \textit{Cauchy integral} of $f$ should look familiar. We recall that Cauchy's integral theorem tells us that if $\gamma$ is a closed contour in $\mathbb{C}$, $f(z)$ is holomorphic inside the region enclosed by $\gamma$ and on $\gamma$, and $z_{0}$ is a point contained inside the region enclosed by $\gamma$, then 
+	\begin{equation*}
+		f(z_{0}) = \frac{1}{2\pi i}\oint_{\gamma}\frac{f(z)}{z - z_{0}}\;dz. 
+	\end{equation*}
+	For our analysis, we replace the unit circle with the real line $\mathbb{R}$, and the unit disk with the upper half-plane $\mathbb{R}_{+}$. Thus for any $z \in \mathbb{R}_{+}$ (i.e., with $\operatorname{Im}(z) > 0$), it would be reasonable to consider the quantity 
+	\begin{equation*}
+		\frac{1}{2\pi i}\int_{-\infty}^{\infty}\frac{f(t)}{t - z}\;dt. 
+	\end{equation*} 
+	Thus we denote this quantity the \textit{Cauchy integral} of $f$. 
+\end{remark} 
+The first thing we must check is if $F(z)$ is well-defined; i.e., if $F(z)$ converges for arbitrary $f \in L^{2}(\mathbb{R})$. We compute, 
+\begin{align*}
+	\begin{split}
+		|F(z)| &\leq \frac{1}{2\pi}\int_{-\infty}^{\infty}\frac{|f(t)|}{|t - z|}\;dt \leq \norm{f}_{L^{2}(\mathbb{R})}\norm{\frac{1}{\cdot - z}}_{L^{2}(\mathbb{R})}. 
+	\end{split} 
+\end{align*} 
+If we can show that $(t - z)^{-1} \in L^{2}(\mathbb{R})$, then we are done. Taking $z = x + iy$ (where $y > 0$), we have 
+\begin{align*}
+	\begin{split}
+		\int_{-\infty}^{\infty}\frac{1}{|t - x -iy|^{2}}\;dt &= \int_{-\infty}^{\infty}\frac{1}{(t - x)^{2} + y^{2}}\;dt \\
+		&= \int_{-\infty}^{\infty}\frac{1}{u^{2} + y^{2}}\;du = \frac{\pi}{y} < \infty. 
+	\end{split} 
+\end{align*} 
+Therefore, it follows that $F(z)$ converges for all $x + iy$ with $y > 0$. But there is also a more clever way of writing the Cauchy integral of $f$, 
+\begin{equation*}
+	F(z) = \int_{0}^{\infty}\hat{f}(\xi)e^{2\pi i z\xi}\;d\xi, \qquad \operatorname{Im}(z) > 0. 
+\end{equation*} 
+This notation allows us to demonstrate the following, 
+\begin{align*}
+	\begin{split}
+		\norm{F(\cdot + iy) - P(f)(\cdot)}_{L^{2}(\mathbb{R})} &= 
+		\left(\int_{-\infty}^{\infty}\abs{\int_{-\infty}^{\infty}\hat{f}(\xi)\chi(\xi)e^{2\pi i x \xi}e^{-2\pi y \xi}\;d\xi - \int_{-\infty}^{\infty}\hat{f}(\xi)\chi(\xi)e^{2\pi i x\xi}\;d\xi}^{2}\;dx\right)^{\frac{1}{2}} \\
+		&= \left(\int_{-\infty}^{\infty}\abs{\int_{-\infty}^{\infty}\hat{f}(\xi)\chi(\xi)e^{2\pi i x \xi}(e^{-2\pi y \xi} - 1)\;d\xi}^{2}\;dx\right)^{1/2} \\
+		&= \left(\int_{-\infty}^{\infty}\abs{\int_{-\infty}^{\infty}g(\xi)e^{2\pi i x \xi}\;d\xi}^{2}\;dx\right)^{1/2} \\
+		&= \norm{\check{g}}_{L^{2}(\mathbb{R})} = \norm{g}_{L^{2}(\mathbb{R})}. 
+	\end{split} 
+\end{align*}
+Using the definition of $g$, we have 
+\begin{align*}
+	\begin{split}
+		\norm{g}_{L^{2}(\mathbb{R})}^{2} &= \int_{-\infty}^{\infty}|\hat{f}(\xi)|^{2}\chi(\xi)(e^{-2\pi y \xi} - 1)^{2}\;d\xi 
+	\end{split} 
+\end{align*}
+Pointwise, in the limit $y \to 0^{+}$, the integrand converges to $0$. Thus by the Dominated Convergence Theorem, we conlude that $\norm{g}_{L^{2}(\mathbb{R})} \to 0$ as $y \to 0^{+}$. Therefore, we conclude that $F(x + iy) \xrightarrow{y \to 0^{+}} P(f)(x)$ under the $L^{2}(\mathbb{R})$ norm, where we define 
+\begin{definition}[Orthogonal Projection Operator]
+	Let $P: L^{2}(\mathbb{R}) \to L^{2}(\mathbb{R})$ be the orthogonal projection operator that projects each $f \in L^{2}(\mathbb{R})$ to a function $f'$ for which $\hat{f}'(\xi) = 0$ for almost every $\xi < 0$: 
+	\begin{equation*}
+		P(f)(x) = \int_{-\infty}^{\infty}\hat{f}(\xi)\chi(\xi)e^{2\pi i x\xi}\;d\xi. 
+	\end{equation*}
+\end{definition} 
+Now we define the \textit{Hilbert transform}; a motivation for the Hilbert transform will follow later. 
+\begin{definition}[Hilbert Transform]
+	Let $f \in L^{2}(\mathbb{R})$. Then we define the \textbf{Hilbert transform} of $f$ to be the function 
+	\begin{equation}
+		H(f)(x) = \int_{-\infty}^{\infty}\hat{f}(\xi)\frac{\operatorname{sign}(\xi)}{i}e^{2\pi i x\xi}\;d\xi. 
+		\label{eq:HilbertTransform1}
+	\end{equation}
+\end{definition} 
+From the definition, we make the following observations: \vspace{-0.45cm} 
+\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item $P = \frac{1}{2}(I + iH)$, where $I$ is the identity operator. 
+	\item $H$ is unitary on $L^{2}$, and $H \circ H= H^{2} = -I$; i.e., $\norm{H(f)}_{L^{2}} =\norm{f}_{L^{2}}$ and $H$ is invertible with $H^{-1} = -H$. 
+\end{enumerate}
+\begin{proof}
+	$ $\newline \vspace{-0.65cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item Let $f \in L^{2}(\mathbb{R})$. Then 
+		\begin{align*}
+			\begin{split}
+				\frac{1}{2}(I + iH)(f) &= \frac{1}{2}\int_{-\infty}^{\infty}\hat{f}(\xi)e^{2\pi i x\xi}\;d\xi + \frac{1}{2}\int_{-\infty}^{\infty}\hat{f}(\xi)\operatorname{sign}(\xi)e^{2\pi i x\xi}\;d\xi \\
+				&= \int_{0}^{\infty}\hat{f}(\xi)e^{2\pi i x \xi}\;d\xi = \int_{-\infty}^{\infty}\hat{f}(\xi)\chi(\xi)e^{2\pi i x \xi}\;d\xi \eqqcolon P(f)(x), 
+			\end{split} 
+		\end{align*}
+		where the integral over all $\xi \in (-\infty, 0]$ vanishes because of the $\operatorname{sign}(\xi)$ in the second integral.  
+		\item Fix $f \in L^{2}(\mathbb{R})$. Then we compute, 
+		\begin{align*}
+			\begin{split} 
+				\hat{H}(f)(\xi) &= \int_{-\infty}^{\infty}H(f)(x)e^{-2\pi i x \cdot \xi}\;dx \\
+				&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\hat{f}(\eta)\frac{\operatorname{sign}(\eta)}{i}e^{2\pi i x \dot (\eta - \xi)}\;d\eta dx. \\
+				\norm{H(f)}_{L^{2}(\mathbb{R})}^{2} &= \int_{-\infty}^{\infty}\abs{\int_{-\infty}^{\infty}\hat{f}(\xi)\frac{\operatorname{sign}(\xi)}{i}e^{2\pi i x \xi}\;d\xi}^{2}\;dx \\
+				&= \int_{-\infty}^{\infty}\abs{\int_{-\infty}^{\infty}g(\xi)e^{2\pi i x \xi}\;d\xi}^{2}\;dx  \\
+				&= \norm{\hat{g}}_{L^{2}(\mathbb{R})}^{2} = \norm{\hat{g}}_{L^{2}(\mathbb{R})}^{2}  = \norm{\hat{f}}_{L^{2}(\mathbb{R})}^{2} = \norm{f}_{L^{2}(\mathbb{R})}^{2}
+			\end{split} 
+		\end{align*} 
+	\end{enumerate}
+\end{proof} 
+
+If we wish to extend the Hilbert transform to other $L^{p}$ spaces, then it is desirable for $H$ to be at least bounded (if not unitary). To work towards this goal, we have the following proposition. 
+\begin{prop}[Hilbert Transform as a Singular Integral]
+	If $f \in L^{2}(\mathbb{R})$, then 
+	\begin{equation}
+		H(f)(x) = \lim_{\epsilon \to 0}\frac{1}{\pi}\int_{|t|\geq \epsilon}f(x - t)\frac{dt}{t}. 
+		\label{eq:HilbertTransform2} 
+	\end{equation}
+	I.e., if for each $\epsilon > 0$, we denote 
+	\begin{equation*}
+		H_{\epsilon}(f)(x) \coloneqq \frac{1}{\pi} \int_{|t|\geq \epsilon}f(x - t)\frac{dt}{t}, 
+	\end{equation*} 
+	then $H_{\epsilon}(f) \in L^{2}(\mathbb{R})$ and the convergence is accordingly in the $L^{2}$ norm. 
+\end{prop} 
+\begin{remark}
+	The proof needs to be incorporated. But the main idea is that for each $\epsilon > 0$, $\norm{H_{\epsilon}(f)}_{L^{2}(\mathbb{R})} \leq A \norm{f}_{L^{2}(\mathbb{R})}$, where $A$ is independent of $\epsilon$ and $f$. 
+\end{remark} 
+In particular, the remark is suggestive of the following theorem of Riesz. 
+\begin{theorem}[Riesz's Theorem for Hilbert Transform]
+	Suppose $1 < p < \infty$. Then the Hilbert transform $H$, initially defined on $L^{2} \cap L^{p}(\mathbb{R})$ by either (\ref{eq:HilbertTransform1}) or (\ref{eq:HilbertTransform2}), satisfies the estimate 
+	\begin{equation}
+		\norm{H(f)}_{L^{p}(\mathbb{R})} \leq A_{p}\norm{f}_{L^{p}(\mathbb{R})}, \qquad \forall f \in L^{2} \cap L^{p}(\mathbb{R}), 
+	\end{equation}
+	where $A_{p}$ is independent of $f$. Thus the Hilbert transform has a unique extension to all of $L^{p}$ satisfying the same bound. 
+\end{theorem} 
+\begin{proof}
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof} 
+
+\subsubsection{The Maximal Function and Weak-Type Estimates} 
+
+In this subsection, we will now switch to talking about \textit{maximal functions} and \textit{weak-type estimates}. We start with the following definition. 
+
+\begin{definition}[Maximal Function]
+	Let $f$ be an ``appropriate'' function on $\mathbb{R}^{d}$. Define the maximal function of $f$ to be, 
+	\begin{equation}
+		f^{\ast}(x) = \sup_{x \in B}\frac{1}{m(B)}\int_{B}|f(y)|\;dy, 
+		\label{eq:maximal_function} 
+	\end{equation} 
+	where the supremum is taken over all balls $B$ containing $x$, and $m$ is the Lebesgue measure. 
+\end{definition} 
+As before, we are interested in finding if $f^{\ast}$ satisfies any interesting estimates. First, notice the following observation. 
+\begin{prop}[Subadditivity of Maximal Function]
+	The maximal function, (\ref{eq:maximal_function}) is not linear, but is sub-additive: let $f = f_{1} + f_{2}$. Then $f^{\ast} \leq f_{1}^{\ast} + f_{2}^{\ast}$.  
+\end{prop} 
+The proof follows from a simple application of the triangle inequality, and linearity of integration. Then we have the following results. 
+
+\begin{prop}[$L^{1}$ Boundedness Estimate]
+	Let $f \in L^{1}(\mathbb{R}^{d})$. Then $f^{\ast}$ satisfies the $L^{1}$ estimate, 
+	\begin{equation}
+		m(\{x: f^{\ast}(x) > \alpha\}) \leq \frac{A}{\alpha}\norm{f}_{L^{1}(\mathbb{R}^{d})}, \qquad \forall \alpha > 0.
+	\end{equation}
+\end{prop} 
+\begin{theorem}[$L^{p}$ Boundedness Principle]
+	Suppose $f \in L^{p}(\mathbb{R}^{d})$ with $1 < p \leq\infty$. Then $f^{\ast} \in L^{p}(\mathbb{R}^{d})$, and 
+	\begin{equation*}
+		\norm{f^{\ast}}_{L^{p}} \leq A_{p}\norm{f}_{L^{p}}, 
+	\end{equation*}
+	where $A_{p}$ is dependent on $p$, but independent of $f$. 
+\end{theorem}
+\begin{proof}
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof}
+
+The term on the left side of the maximal is a special type of function, called a \textit{distribution function}. 
+
+\begin{definition}{Distribution Functions}
+	Let $F$ be a nonnegative measurable function. Then its distribution function $\lambda(\alpha) = \lambda_{F}(\alpha)$ is defined for positive $\alpha$ by 
+	\begin{equation*}
+		\lambda(\alpha) = m(\{x: F(x) > \alpha\}). 
+	\end{equation*} 
+\end{definition} 
+Thus 
+\begin{equation*}
+	\int_{\mathbb{R}^{d}}(F(x))^{p}\;dx = \int_{0}^{\infty}\lambda(a^{1/p})\;dx. 
+\end{equation*} 
+
+
+\subsubsection{The Hardy Spaces} 
+
+In this subsection, we study the \textit{Hardy spaces} $\mathbf{H}^{1}_{r}(\mathbb{R}^{d})$ (notation not to be confused with the \textit{Sobolev spaces}, $H^{p}(\mathbb{R}^{d}) \coloneqq W^{2,p}(\mathbb{R}^{d})$). We begin with the notion of an \textit{atom}. 
+\begin{definition}[Atom]
+	$\mathfrak{a}$ is an \textit{atom} associated to a ball $B\subset \mathbb{R}^{d}$ if $\mathfrak{a}$ is a bounded measurable function on $\mathbb{R}^{d}$ such that \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt, label = (\roman{*})]
+		\item $\mathfrak{a}$ is supported in $B$, with $|\mathfrak{a}(x)| \leq 1/m(B)$ for all $x$, and 
+		\item $\int_{\mathbb{R}^{d}} \mathfrak{a}(x)\;dx = 0$. 
+	\end{enumerate} 
+\end{definition} 
+Then, we define 
+\begin{definition}[Hardy Space]
+	The space $\mathbf{H}_{r}^{1}(\mathbb{R}^{d})$ consists of all functions $f \in L^{1}(\mathbb{R}^{d})$ that can be written as 
+	\begin{equation*}
+		f = \sum_{k = 1}^{\infty}\lambda_{k}\mathfrak{a}_{k}, 
+	\end{equation*} 
+	where the $\mathfrak{a}_{k}$ are atoms, and the $\lambda_{k}$ are scalars with 
+	\begin{equation*}
+		\sum_{k = 1}^{\infty}|\lambda_{k}| < \infty. 
+	\end{equation*}
+\end{definition} 
+Of course, the first thing we must check is if the above sum for $f$ actually converges. By definition of atoms, it follows that for each $k$, $\norm{\mathfrak{a}}_{L^{1}(\mathbb{R})} = 1$. Thus one has that the sum converges in the $L^{1}$ norm. We can turn $\mathbf{H}^{1}_{r}$ into a normed space as follows: 
+\begin{definition}[Hardy Norm]
+	Let $f \in \mathbf{H}^{1}_{r}(\mathbb{R}^{d})$. Then the $\mathbf{H}^{1}_{r}(\mathbb{R}^{d})$ norm of $f$, is defined to be the quantity 
+	\begin{equation*}
+		\norm{f}_{\mathbf{H}^{1}_{r}(\mathbb{R}^{d})}\inf\left\{\sum |\lambda_{k}|: f = \sum_{1}^{\infty} \lambda_{k}\mathfrak{a}_{k}\right\}. 
+	\end{equation*} 
+\end{definition} 
+We make the following observation. \vspace{-0.25cm}
+\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item The space $\mathbf{H}^{1}_{r}$ is complete under the above norm, and thus is a Banach space. If $f \in \mathbf{H}^{1}_{r}$, then $f \in L^{1}$, and $\norm{f}_{L^1(\mathbb{R}^{d})} \leq \norm{f}_{\mathbf{H}^{1}_{r}}$. Moreover, $\int f(x)\;dx = 0$. 
+\end{enumerate}
+
+We also have the following theorem. 
+\begin{prop}[$L^p$, Bounded Support Functions and Hardy Spaces]
+	Suppose $f \in L^{p}(\mathbb{R}^{d})$, $p > 1$, and $f$ has bounded support. Then $f$ belongs to $\mathbf{H}^{1}_{r}(\mathbb{R}^{d})$ if and only if $\int_{\mathbb{R}^{d}}f(x)\;dx = 0$. 
+\end{prop} 
+
+Now we will generalize the notion of atoms to include \textit{$p$-atoms}. 
+\begin{definition}[$p$-Atoms]
+	For any $p$ with $p >1$, define a \textbf{$p$-atom}, associated to a ball $B$ to be a measurable function $\mathfrak{a}$ which satisfies: \vspace{-0.35cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $\mathfrak{a}$ is supported in $B$, and $\norm{\mathfrak{a}}_{L^{p}} \leq m(B)^{-1 + 1/p}$. 
+		\item $\int_{\mathbb{R}^{d}}\mathfrak{a}(x)\;dx = 0$. 
+	\end{enumerate}
+\end{definition}
+Thus in defining $\mathbf{H}^{1}_{r}$, we no longer need to restrict ourselves to just working with atoms, and can instead also consider $p$-atoms, and obtain equivalent norms. Now, we arrive at another reason why the Hardy space is more desirable than $L^{1}$. Recall that the Hilbert transform is not bounded on $L^{1}$ (indeed, the transform is bounded on $L^{p}$ only for $1 < p < \infty$). However, we have the following boundedness result for Hardy spaces. 
+\begin{theorem}[Hilbert Transform and Boundedness]
+	Let $f \in \mathbf{H}^{1}_{r}(\mathbb{R})$. Then $H_{\epsilon}(f) \in L^{1}(\mathbb{R})$ for every $\epsilon > 0$. Moreover, $H_{\epsilon}(f)$ converges in the $L^{1}$ norm, as $\epsilon \to 0$. Its limit, defined as $H(f)$, satisfies 
+	\begin{equation*}
+		\norm{H(f)}_{L^{1}(\mathbb{R})} \leq A \norm{f}_{\mathbf{H}^{1}_{r}(\mathbb{R})}. 
+	\end{equation*}
+\end{theorem} 
 \newpage 
 
 \subsection{Distributions and Generalized Functions} \label{subsec:distributions}
@@ -456,6 +683,45 @@ Thus, one seeks to generalize this to distributions as follows:
 In particular, the Fourier transform of tempered distributions satisfy the same properties as the Fourier transform for functions. 
 
 \subsubsection{Important Examples of Distributions} 
+\begin{example}[Principle Value]
+	Consider the function $f(x)= 1/x$ for $x$ real and nonzero. Since $f$ is not integrable in any neighborhood of the origin, it follows that $f(x)$ does not represent a distribution on $\mathbb{R}$. However, consider instead the linear functional, 
+	\begin{equation*}
+		\varphi \in \mathcal{S}(\mathbb{R}^{d}) \mapsto \lim_{\epsilon \to 0}\int_{|x|\geq \epsilon}\varphi(x)\;\frac{dx}{x}. 
+	\end{equation*} 
+	First, we must check that the limit actually exists. We may assume $\epsilon \leq 1$. Then we write 
+	\begin{equation*}
+		\int_{|x|\geq \epsilon}\varphi(x)\;\frac{dx}{x} = \int_{1 \geq |x| \geq \epsilon} \varphi(x)\frac{dx}{x} + \int_{|x| > 1}\varphi(x)\;\frac{dx}{x}. 
+	\end{equation*} 
+	Since $\varphi$ is Schwartz, clearly the rightmost integral converges. On the other hand, since 
+	\begin{equation*}
+		A\int_{1 \geq |x| \geq \epsilon}\frac{dx}{x} = 0, 
+	\end{equation*} 
+	for any constant $A$ since $1/x$ is an odd function, we can write the first integral on the right side as 
+	\begin{equation*}
+		\int_{1\geq |x| \geq \epsilon}\varphi(x)\;\frac{dx}{x}= \int_{1 \geq |x|\geq \epsilon}\frac{\varphi(x) - \varphi(0)}{x}\;dx. 
+	\end{equation*} 
+	Then 
+	\begin{align*}
+		\begin{split} 
+			\abs{\int_{1 \geq |x| \geq \epsilon}\frac{\varphi(x) - \varphi(0)}{x}\;dx} &\leq \int_{1 \geq |x| \geq \epsilon}\frac{|\varphi(x) -\varphi(0)|}{|x|}\;dx \leq c\int_{1\geq |x| \geq \epsilon} \frac{|x|}{|x|}\;dx < \infty, 
+		\end{split} 
+	\end{align*}
+	where $c = \sup|\varphi'(x)|$. Thus the limit converges; we denote the limit by 
+	\begin{equation*}
+		\operatorname{pv}{\int_{\mathbb{R}}\varphi(x)\;\frac{dx}{x}} \coloneqq \lim_{\epsilon \to 0}\int_{|x|\geq \epsilon}\varphi(x)\;\frac{dx}{x}. 
+	\end{equation*} 
+	In particular, one has that the principal value is bounded above by (some constant multiple of) $\norm{\varphi}_{1}$. Therefore, the above linear functional is a tempered distribution, which we shall henceforth denote by $\operatorname{pv}\left(\frac{1}{x}\right)$. 
+\end{example} 
+
+\begin{example}[Principal Value and Hilbert Transform]
+	Recall that we also defined the Hilbert transform in the form (\ref{eq:HilbertTransform2}); namely, 
+	\begin{equation*}
+		H(f) = \lim_{\epsilon \to 0}\frac{1}{\pi}\int_{|y| \geq \epsilon}f(x  - y)\;\frac{dy}{y}  \eqqcolon \frac{1}{\pi}\operatorname{pv}\left(\frac{1}{x}\right) \ast f, \qquad \forall f \in\mathcal{S}. 
+	\end{equation*} 
+\end{example} 
+
+\paragraph{Fundamental Solutions} 
+Perhaps in these notes, the most striking application of distribution theory is to the notion of \textit{fundamental solutions} to partial differential equations. We begin by presenting a few key ideas of PDEs in this subsection. 
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
 
@@ -554,7 +820,7 @@ Intuitively, the definition for the energy is as we expected: consider an oscill
 	\begin{equation*}
 		\braket{\mathcal{L}'(\phi), \psi} = -\int_{\mathbb{R} \times \mathbb{R}^{n}}(\Box \phi) \psi\;dtdx = 0. 
 	\end{equation*}
-	Thus since $\phi \in C_{c}^{\infty}$ was arbitrary, we conclude that $\phi$ is stationary for $\mathcal{L}$ iff $\Box \phi = 0$. Now, we recall N\"other's theorem, which states that if $\mathcal{L}$ is invariant with respect to a 1-parameter family of diffeomorphisms, then there exists a conservation law for an extreme value of $\mathcal{L}$. We note that $\mathcal{L}$ is time-translation invariant: if $G_{\epsilon}: \phi(t, x) \mapsto \phi(t + \epsilon, x)$, then one observes that $\mathcal{L}(\phi) = \mathcal{L}(G_{\epsilon}\phi)$. Therefore, since the vector field $\partial_{t}$ generates the flow corresponding to time translations, one has 
+	Thus since $\psi \in C_{c}^{\infty}$ was arbitrary, we conclude that $\phi$ is stationary for $\mathcal{L}$ iff $\Box \phi = 0$. Now, we recall N\"other's theorem, which states that if $\mathcal{L}$ is invariant with respect to a 1-parameter family of diffeomorphisms, then there exists a conservation law for an extreme value of $\mathcal{L}$. We note that $\mathcal{L}$ is time-translation invariant: if $G_{\epsilon}: \phi(t, x) \mapsto \phi(t + \epsilon, x)$, then one observes that $\mathcal{L}(\phi) = \mathcal{L}(G_{\epsilon}\phi)$. Therefore, since the vector field $\partial_{t}$ generates the flow corresponding to time translations, one has 
 	\begin{align*}
 		\begin{split}
 			0 &= \phi_{t}\Box \phi \\
@@ -962,9 +1228,10 @@ Now, we can use the forward fundamental solution to craft a solution to (\ref{eq
 
 \begin{prop}[Unique Fundamental Solution]
 	The unique forward fundamental solution is given by 
-	\begin{equation*}
+	\begin{equation}
 		E_{+}(t, x) = -\frac{\pi^{\frac{1 - n}{2}}}{2}\chi_{\{t \geq 0\}}\chi_{+}^{-\frac{n-1}{2}}(t^{2} - |x|^{2}), 
-	\end{equation*}
+		\ref{eq:fund_solution} 
+	\end{equation}
 	where 
 	\begin{equation*}
 		\chi_{+}^{a} \coloneqq \frac{x^{a}\chi_{\{x \geq 0\}}}{\Gamma(a + 1)}. 
@@ -1128,7 +1395,7 @@ Note that this decay bound is not uniform for all $x \in \mathbb{R}^n$.  We can 
 	Now we split into two cases. First assume $t \in [0,1]$. Then $(1 + t)^{-1} \geq 2^{-1}$ so that $2/(1 + t) \geq 1$. Directly bounding $|I(t,x)|$, one has that $|I(t, x)| \leq M_{0}$ for some $M_{0} > 0$, and all $t \in [0,1]$, $x \in \mathbb{R}^{3}$. Thus in this case, $|I| \leq M_{0} \leq \frac{2M_{0}}{1 + t}$. Now for the $t > 1$ case, $2t \geq 1 + t$ so that $2/(1 + t) \geq \frac{1}{t}$. Therefore, $|I| \leq \frac{2M}{1 + t}$. Take $C = \max\{2M_{0}, 2M\}$ so that $|I| \leq C/(1 + t)$ for all $t \in [0,1]$ and $x \in \mathbb{R}^{3}$. The other terms of $\phi(t, x)$ can be controlled the same way. 
 \end{proof}
 
-The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. 
+The key result is the following: for all $n \geq 2$, solutions to (\ref{eq:clwp}) undergo \textit{geometric dispersion}, while no dispersion occurs for $n = 1$. Even more strikedly, we notice that the decay rate inside a bounded ball is \textit{faster} than the globally uniform decay rate. Computationally, this is because we were able to undertake a second integration by parts for the bounded ball case, with each integration by parts adding a power of $t$ (in the case of $n =3$). We can try to understand why this would make sense intuitively. Looking at the fundamental solution, (\ref{eq:fund_solution}), we notice that the decay is primarily ``saturated'' along the wavefront. Consider first the case of $n = 3$. Fix $R > 0$ large enough, and thus fix the ball $B_{R}(0)$ of radius $R$ around the origin. Suppose that at $t = 0$, a light is flashed at the origin. The emitted light waves propagate in a spherical shell at the speed of light ($c = 1$). Because of conservation of energy, we know that the signal weakens as the wavefront approaches $\partial B_{R}(0)$. The moment the wavefront passes $\partial B_{R}(0)$ 
 
 
 \subsection{Solutions to the Linear Wave Equation (Variable Coefficients)} \label{subsec:sol_lin_varco}

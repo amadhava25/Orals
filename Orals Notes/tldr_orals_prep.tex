@@ -65,8 +65,11 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 		Simple Energy Estimates \newline 
 		Bootstrap Arguments \newline 
 		Properties of Fundamental Solutions \newline 
-		Explicit Representation Formulas \newline 
-		Pointwise and Uniform Dispersion Rates ($n \geq 2$) \newline 
+		Explicit Representation Formulas \\
+		\arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} & 
+		Pointwise and Uniform Dispersion Rates ($n \geq 2$) \newline
+		{\small (Faster Decay inside Bounded Ball vs. Globally)} \\
+		\arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} & 
 		Finite Speed of Propagation \newline 
 		Strong Huygens Principle \\ 
 		\arrayrulecolor{black!25}\cline{2-2}\arrayrulecolor{black} 
@@ -150,7 +153,9 @@ The following is a tl;dr version of the lecture notes on nonlinear wave equation
 	\end{equation*}
 	(5) can be used to understand pointwise decay estimates of solutions (pointwise, for every $R > 0$ and $|x| \leq R$, $|E_{+}(t, x)| \sim O(t^{1 - n})$), (6) can be used to derive explicit representation formulas for solutions to the linear wave equation. 
 	
-	\item (\textbf{Explicit Representation Formulas}) Solutions exist to linear wave equation, and are unique. Suffices for the initial data $(\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$. \textbf{Key Facts:} (1) if initial data are continuous and compactly supported, uniform decay rate for $n \geq 2$ is $\lesssim_{(\phi_{0}, \phi_{1})} (1 + t)^{\frac{1 - n}{2}}$, (2) also propagate in time, (3) satisfy the \textbf{Strong Huygens Principle} in odd dimensions at least 3 (solution depends only on data on spherical shells). 
+	\item (\textbf{Explicit Representation Formulas}) Solutions exist to linear wave equation, and are unique. Suffices for the initial data $(\phi_{0}, \phi_{1}) \in H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})$. 
+	
+	\item (\textbf{Decay Rates ($n\geq 2$)}) For homogeneous problem, conservation of energy and propagation of solution implies amplitude of wave decays in time. Locally (on a bounded ball), decay rate $\lesssim (1 + t)^{1 - n}$. Globally uniformly, decay rate $\lesssim (1 + t)^{(1 - n)/2}$. In particular, solution decays faster in a bounded ball than globally. 
 \end{itemize}
 	
 	
