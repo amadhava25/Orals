@@ -49,11 +49,11 @@ In this subsection, we will be introducing some general analytic results in func
 
 \subsection{Introductory Harmonic Analysis} 
 
-In this subsection, we introduce key notions of harmonic analysis. In particular, we introduce the role of $L^{p}$ spaces in harmonic analysis, then turn to \textit{weak-type} estimates which will prove handy when we talk about estimates for (non)linear wave equations. 
+In this subsection, we will see some applications of $L^{p}$ spaces. In particular, we introduce some rudimentary objects in \textbf{harmonic analysis}. Roughly speaking, harmonic analysis had its origins in trying to ``decompose'' functions into basic building blocks composed of elementary waves. In this sense, harmonic analysis closely resembles the related field of \textit{Fourier analysis}. In particular, the theory for Fourier analysis is especially well-developed in Hilbert spaces (e.g., like $L^{2}$), where basic results like orthogonality, Plancherel's theorem, and Parseval's identity make the analysis especially clear to study. But in general, studying only $L^{2}$ functions is incredibly restrictive, and might not necessarily illuminate the full range of properties of various operators that we study (e.g., the Fourier transform). Thus a natural question to ask is if the results that holds in $L^{2}$ (more broadly, Hilbert spaces) either hold, or have analogs in $L^{p}$ for $p \neq 2$. Thus we will begin by trying to develop $L^{p}$-analogs to the foundational \textit{Parseval's identity}, which will lead us to the \textbf{Riesz-Thorin interpolation theorem}. Next we will try to develop the $L^{p}$ equivalent of \textit{conjugate functions} and \textit{allied series}, which will lead to the \textbf{Hilbert transform}, and then we will encounter a few spaces that are better than $L^{1}, L^{\infty}$ spaces, which leads to the theory of \textbf{Hardy spaces}. 
 
-\subsubsection{Motivation} 
+\subsubsection{The Riesz-Thorin Interpolation Theorem} 
 
-We start with the following questions, that lead to our study of harmonic analysis. If $f \in L^{2}([0,2\pi])$ is square integrable, then the $L^{2}$ Parseval relation tells us that 
+If $f \in L^{2}([0,2\pi])$ is square integrable, then the $L^{2}$ Parseval relation tells us that 
 \begin{equation}
 	\sum_{n = -\infty}^{\infty}|a_{n}|^{2} = \frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{2}\;d\theta, 
 	\label{eq:L2_Parseval}
@@ -72,14 +72,12 @@ Likewise, if $\{a_{n}\} \in \ell^{2}(\mathbb{Z})$, then there exists a unique $f
 \end{equation*}
 and 
 \begin{equation*}
-	  \left(\frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{q}\;d\theta\right)^{1/q} \leq \left(\sum |a_{n}|^{p}\right)^{1/p}. 
+	\left(\frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{q}\;d\theta\right)^{1/q} \leq \left(\sum |a_{n}|^{p}\right)^{1/p}. 
 \end{equation*}
 
-Thus in this subsection, we are interested in answering questions of this form, and setting up the framework for other types of estimates. In particular, we are interested in $L^{p}$-type estimates involving a function and its Fourier transform.  
+Thus we need a general way of proving these (and other) results. As we stated, the $p = 2$ case follows immediately from Parseval's identity. Likewise, the $p = 1$ case follows almost immediately. Thus we will now develop a general theorem that enables us to prove these types of results efficiently. 
 
-\subsubsection{Riesz Interpolation Theorem} 
-
-In this subsubsection, we encounter the \textbf{Riesz interpolation theorem}. When establishing various estimates for PDEs, it can be easier to establish corresponding inequalities for certain ``endpoints'', and to ``interpolate'' in the corresponding estimates for all intermediate values. I.e., suppose one has the estimates $A_{0} \leq B_{0}$ and $A_{1} \leq B_{1}$. A natural question to ask is if for any $\theta \in (0,1)$, $A_{\theta} \lesssim_{\theta} B_{\theta}$. In this subsubsection, we will focus on estimates for linear operators between $L^{p}$ spaces, and we will give specific criteria under which interpolation in the above sense holds. In particular, we will answer the following question. 
+More broadly, when establishing various estimates for PDEs, it can be easier to establish corresponding inequalities for certain ``endpoints'', and to ``interpolate'' in the corresponding estimates for all intermediate values. I.e., suppose one has the estimates $A_{0} \leq B_{0}$ and $A_{1} \leq B_{1}$. A natural question to ask is if for any $\theta \in (0,1)$, $A_{\theta} \lesssim_{\theta} B_{\theta}$. In this subsubsection, we will focus on estimates for linear operators between $L^{p}$ spaces, and we will give specific criteria under which interpolation in the above sense holds. In particular, we will answer the following question. 
 
 \begin{quote}
 	Suppose $(p_{0}, q_{0})$ and $(p_{1}, q_{1})$ are two pairs of indices with $ \leq p_{i}, q_{j} \leq \infty$. Assume also that $T$ is a linear operator and that, 
@@ -151,66 +149,66 @@ From this result, we now have the following interpolation theorem for $L^{p}$ sp
 			f_{z} &= |f|^{\gamma(z)}\frac{f}{|f|},  \qquad \gamma(z) = p\left(\frac{1 - z}{p_{0}} + \frac{z}{p_{1}}\right), \\
 			g_{z} &= |g|^{\delta(z)}\frac{g}{|g|}, \qquad \delta(z) = q'\left(\frac{1 - z}{q_{0}'} + \frac{z}{q'_{1}}\right). 
 		\end{align*}
-	These definitions are useful for the following reasons. First, it is straightforward to see that for any $t \in [0,1]$, $f_{t} = f$ and $g_{t} = g$. Next, for $\operatorname{Re}(z) = 0$, we compute
-	\begin{equation*}
-		\norm{f_{z}}_{L^{p_{0}}}^{p_{0}} = \int \abs{|f|^{\gamma(z)}}^{p_{0}}\;d\nu = \int |f|^{p_{0}\cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
-	\end{equation*}
-	Likewise, for $\operatorname{Re}(z) = 1$, we compute 
-	\begin{equation*}
-		\norm{f(z)}_{L^{p_{1}}}^{p_{1}} = \int \abs{|f|^{\gamma(z)}}^{p_{1}}\;d\nu = \int |f|^{p_{1} \cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
-	\end{equation*} 
-	Likewise, one has 
-	\begin{equation*}
-		\norm{g_{z}}_{L^{q'_{0}}} = 1 \qquad \text{ and } \qquad \norm{g_{z}}_{L^{q'_{1}}} = 1. 
-	\end{equation*} 
-	Thus define 
-	\begin{equation*}
-		\Phi(z) = \int (Tf_{z})g_{z}\;d\nu. 
-	\end{equation*} 
-	Since $f, g$ are simple, assume 
-	\begin{equation*}
-		f_{z} = \sum |a_{k}|^{\gamma(z)}\frac{a_{k}}{|a_{k}|}\chi_{E_{k}} \qquad \text{ and }\qquad g_{z} = \sum |b_{j}|^{\delta(z)}\frac{b_{j}}{|b_{j}|}\chi_{F_{j}}, 
-	\end{equation*} 
-	where the $E_{k}$ and $F_{j}$ are sets of finite measure. This implies that 
-	\begin{equation*}
-		\Phi(z) = \sum_{j,k} |a_{k}|^{\gamma(z)}|b_{j}|^{\delta(z)}\frac{a_{k}}{|a_{k}|}\frac{b_{j}}{|b_{j}|}\left(\int T(\chi_{E_{k}})\chi_{F_{j}}\;d\nu\right) 
-	\end{equation*} 
-	so that (a) $\Phi$ is holomorphic on the strip $S$, and bounded, continuous on $\bar{S}$. For $\operatorname{Re}(z) = 0$, one has 
-	\begin{equation*}
-		|\Phi(z)| \leq \int|Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{0}}}\norm{g}_{L^{q_{0}'}} = \norm{Tf_{z}}_{L^{q_{0}}} \leq M_{0}\norm{f}_{L^{p_{0}}} = M_{0}. 
-	\end{equation*}
-	Likewise on $\operatorname{Re}(z) = 1$, one has 
-	\begin{equation*}
-		|\Phi(z)| \leq \int |Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{1}}}\norm{g}_{L^{q_{1}'}} = \norm{Tf_{z}}_{L^{q_{1}}} \leq M_{1}\norm{f}_{L^{p_{1}}}= M_{1}. 
-	\end{equation*}  
-	Therefore, by the three-lines lemma, one has that on the line $\operatorname{Re}(z) = t$ ($t \in [0,1]$), $|\Phi(z)| \leq M_{0}^{1 - t}M_{1}^{t}$. Thus this completes the proof. 
-	
-	\item Now fix some $f \in L^{p}$ for $1 \leq p < \infty$. Choose a sequence $\{f_{n}\}$ of simple functions in $L^{p}$ so that $\norm{f_{n} - f}_{L^{p}} \to 0$. Since $\norm{Tf_{n}}_{L^{q}} \leq M\norm{f_{n}}_{L^{p}}$, $Tf_{n}$ is a Cauchy sequence in $L^{q}$. Thus it suffices to show that $Tf_{n}\to Tf$ a.e. To prove this, let us define, 
-	\begin{equation*}
-		f^{U}(x) \coloneqq 
-		\begin{cases}
-			f(x), & \{x: |f(x)| \geq 1\}, \\
-			0, & \text{otherwise}
-		\end{cases} 
-		\qquad \text{and} \qquad 
-		f^{L}(x) \coloneqq 
-		\begin{cases}
-			f(x), & \{x: |f(x)| < 1\}, \\
-			0, & \text{otherwise}. 
-		\end{cases} 
-	\end{equation*} 
-	Then clearly $f = f^{U} + f^{L}$. Likewise, let $f_{n} = f^{U}_{n} + f^{L}_{n}$ for all $n$. Now wlog assume that $p_{0} \leq p_{1}$ so that $p_{0} \leq p \leq p_{1}$. Since $p_{0} \leq p$, and $1 \leq p$, 
-	\begin{equation*}
-		\int |f^{U}|^{p_{0}} \leq \int |f^{U}|^{p} \leq \int |f|^{p} < \infty, 
-	\end{equation*} 
-	so that $f^{U} \in L^{p_{0}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{U} \to f^{U}$ in $L^{p_{0}}$. Thus there exists a subsequence $\{Tf_{n_{j}}^{U}\}$ that converges to $Tf^{U}$ pointwise a.e. Likewise, we have 
-	\begin{equation*}
-		\int |f^{L}|^{p_{1}} \leq \int |f^{L}|^{p} \leq \int |f|^{p} < \infty, 
-	\end{equation*} 
-	so that $f^{L} \in L^{p_{1}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{L} \to f^{L}$ in $L^{p_{1}}$. Thus the sequence $f_{n_{j}}^{L} \to f^{L}$ in $L^{p_{1}}$ which means that $\{Tf_{n_{j}}^{L}\}$ converges to $Tf^{L}$ in $L^{q_{1}}$. This means there exists a subsubsequence $\{Tf_{n_{j_{k}}}^{L}\}$ that converges to $Tf^{L}$ pointwise a.e.; by construction, $Tf_{n_{j_{k}}}^{U}$ converges to $Tf^{U}$ pointwise a.e. Therefore, renaming this subsubsequence as $\{Tf_{n}\}$, we conclude that $Tf_{n} = Tf_{n}^{U} + Tf_{n}^{L}$ converges to $Tf$ a.e. so that $\norm{Tf}_{L^{q}} \leq M \norm{f}_{L^{p}}$. 
-	
-	\item Now consider the case $q = 1$ and $p = \infty$. Suppose first that $p = \infty$. Necessarily, it follows that $p_{0} = p_{1} = \infty$. Then H\:older's inequality concludes the proof. 
-	\item Suppose $p < \infty$ and $q = 1$. Then $q_{0} = q_{1} = 1$. We can take $g_{z} = g$ for all $z$ and argue as in the case for $q > 1$. 
+		These definitions are useful for the following reasons. First, it is straightforward to see that for any $t \in [0,1]$, $f_{t} = f$ and $g_{t} = g$. Next, for $\operatorname{Re}(z) = 0$, we compute
+		\begin{equation*}
+			\norm{f_{z}}_{L^{p_{0}}}^{p_{0}} = \int \abs{|f|^{\gamma(z)}}^{p_{0}}\;d\nu = \int |f|^{p_{0}\cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
+		\end{equation*}
+		Likewise, for $\operatorname{Re}(z) = 1$, we compute 
+		\begin{equation*}
+			\norm{f(z)}_{L^{p_{1}}}^{p_{1}} = \int \abs{|f|^{\gamma(z)}}^{p_{1}}\;d\nu = \int |f|^{p_{1} \cdot \operatorname{Re}(\gamma(z))} = \int |f|^{p} = \norm{f}_{L^{p}} = 1. 
+		\end{equation*} 
+		Likewise, one has 
+		\begin{equation*}
+			\norm{g_{z}}_{L^{q'_{0}}} = 1 \qquad \text{ and } \qquad \norm{g_{z}}_{L^{q'_{1}}} = 1. 
+		\end{equation*} 
+		Thus define 
+		\begin{equation*}
+			\Phi(z) = \int (Tf_{z})g_{z}\;d\nu. 
+		\end{equation*} 
+		Since $f, g$ are simple, assume 
+		\begin{equation*}
+			f_{z} = \sum |a_{k}|^{\gamma(z)}\frac{a_{k}}{|a_{k}|}\chi_{E_{k}} \qquad \text{ and }\qquad g_{z} = \sum |b_{j}|^{\delta(z)}\frac{b_{j}}{|b_{j}|}\chi_{F_{j}}, 
+		\end{equation*} 
+		where the $E_{k}$ and $F_{j}$ are sets of finite measure. This implies that 
+		\begin{equation*}
+			\Phi(z) = \sum_{j,k} |a_{k}|^{\gamma(z)}|b_{j}|^{\delta(z)}\frac{a_{k}}{|a_{k}|}\frac{b_{j}}{|b_{j}|}\left(\int T(\chi_{E_{k}})\chi_{F_{j}}\;d\nu\right) 
+		\end{equation*} 
+		so that (a) $\Phi$ is holomorphic on the strip $S$, and bounded, continuous on $\bar{S}$. For $\operatorname{Re}(z) = 0$, one has 
+		\begin{equation*}
+			|\Phi(z)| \leq \int|Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{0}}}\norm{g}_{L^{q_{0}'}} = \norm{Tf_{z}}_{L^{q_{0}}} \leq M_{0}\norm{f}_{L^{p_{0}}} = M_{0}. 
+		\end{equation*}
+		Likewise on $\operatorname{Re}(z) = 1$, one has 
+		\begin{equation*}
+			|\Phi(z)| \leq \int |Tf_{z}||g_{z}|\;d\nu \leq \norm{Tf_{z}}_{L^{q_{1}}}\norm{g}_{L^{q_{1}'}} = \norm{Tf_{z}}_{L^{q_{1}}} \leq M_{1}\norm{f}_{L^{p_{1}}}= M_{1}. 
+		\end{equation*}  
+		Therefore, by the three-lines lemma, one has that on the line $\operatorname{Re}(z) = t$ ($t \in [0,1]$), $|\Phi(z)| \leq M_{0}^{1 - t}M_{1}^{t}$. Thus this completes the proof. 
+		
+		\item Now fix some $f \in L^{p}$ for $1 \leq p < \infty$. Choose a sequence $\{f_{n}\}$ of simple functions in $L^{p}$ so that $\norm{f_{n} - f}_{L^{p}} \to 0$. Since $\norm{Tf_{n}}_{L^{q}} \leq M\norm{f_{n}}_{L^{p}}$, $Tf_{n}$ is a Cauchy sequence in $L^{q}$. Thus it suffices to show that $Tf_{n}\to Tf$ a.e. To prove this, let us define, 
+		\begin{equation*}
+			f^{U}(x) \coloneqq 
+			\begin{cases}
+				f(x), & \{x: |f(x)| \geq 1\}, \\
+				0, & \text{otherwise}
+			\end{cases} 
+			\qquad \text{and} \qquad 
+			f^{L}(x) \coloneqq 
+			\begin{cases}
+				f(x), & \{x: |f(x)| < 1\}, \\
+				0, & \text{otherwise}. 
+			\end{cases} 
+		\end{equation*} 
+		Then clearly $f = f^{U} + f^{L}$. Likewise, let $f_{n} = f^{U}_{n} + f^{L}_{n}$ for all $n$. Now wlog assume that $p_{0} \leq p_{1}$ so that $p_{0} \leq p \leq p_{1}$. Since $p_{0} \leq p$, and $1 \leq p$, 
+		\begin{equation*}
+			\int |f^{U}|^{p_{0}} \leq \int |f^{U}|^{p} \leq \int |f|^{p} < \infty, 
+		\end{equation*} 
+		so that $f^{U} \in L^{p_{0}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{U} \to f^{U}$ in $L^{p_{0}}$. Thus there exists a subsequence $\{Tf_{n_{j}}^{U}\}$ that converges to $Tf^{U}$ pointwise a.e. Likewise, we have 
+		\begin{equation*}
+			\int |f^{L}|^{p_{1}} \leq \int |f^{L}|^{p} \leq \int |f|^{p} < \infty, 
+		\end{equation*} 
+		so that $f^{L} \in L^{p_{1}}$. Since $f_{n} \to f$ in $L^{p}$, it follows that $f_{n}^{L} \to f^{L}$ in $L^{p_{1}}$. Thus the sequence $f_{n_{j}}^{L} \to f^{L}$ in $L^{p_{1}}$ which means that $\{Tf_{n_{j}}^{L}\}$ converges to $Tf^{L}$ in $L^{q_{1}}$. This means there exists a subsubsequence $\{Tf_{n_{j_{k}}}^{L}\}$ that converges to $Tf^{L}$ pointwise a.e.; by construction, $Tf_{n_{j_{k}}}^{U}$ converges to $Tf^{U}$ pointwise a.e. Therefore, renaming this subsubsequence as $\{Tf_{n}\}$, we conclude that $Tf_{n} = Tf_{n}^{U} + Tf_{n}^{L}$ converges to $Tf$ a.e. so that $\norm{Tf}_{L^{q}} \leq M \norm{f}_{L^{p}}$. 
+		
+		\item Now consider the case $q = 1$ and $p = \infty$. Suppose first that $p = \infty$. Necessarily, it follows that $p_{0} = p_{1} = \infty$. Then H\:older's inequality concludes the proof. 
+		\item Suppose $p < \infty$ and $q = 1$. Then $q_{0} = q_{1} = 1$. We can take $g_{z} = g$ for all $z$ and argue as in the case for $q > 1$. 
 	\end{enumerate}
 \end{proof} 
 
@@ -299,10 +297,34 @@ Now we are interested in applications of this theorem.
 	where $1/q = 1/p + 1/r - 1$ ($1 \leq q \leq \infty$). 
 \end{corollary} 
 
-\subsubsection{The Hilbert Transform} 
-In this subsection, we introduce the \textit{Hilbert transform}, which we will eventually use to define \textit{weak-type estimates}, and when we discuss distribution theory. We approach the Hilbert transform via an $L^{2}$-formalism, then via the general $L^{p}$-formalism. 
 
-We start with the following definition. 
+\subsubsection{The Hilbert Transform} 
+
+We begin with the following observations for $L^{2}$. Let $f \in L^{2}$, and assume that
+\begin{equation*}
+	f(\theta) \sim \sum_{n = -\infty}^{\infty}a_{n}e^{in\theta}, 
+\end{equation*} 
+where the sum on the right is the Fourier series for $f$. We also define the \textit{conjugate function} or \textit{allied series} of $f$ as follows.
+
+\begin{definition}[Allied Series]
+	Let $f \in L^{2}$, and assume $f(\theta) \sim \sum_{-\infty}^{\infty}a_{n}e^{in\theta}$. Then we define the \textbf{conjugate function} or \textbf{allied series} of $f$ by 
+	\begin{equation*}
+		\ti{f}(\theta) \sum \sum_{n = -\infty}^{\infty}\frac{\operatorname{sign}(n)}{i}a_{n}e^{in\theta}. 
+	\end{equation*} 
+\end{definition}  
+This specific definition is significant for the following reason:
+\begin{equation*}
+	\frac{1}{2}(f(\theta) + i\ti{f}(\theta) + a_{0}) = \sum_{n = 0}^{\infty}a_{n}e^{in\theta} = F(z), 
+\end{equation*} 
+where $F$ is the Cauchy integral (projection), 
+\begin{equation*}
+	F(z) = \frac{1}{2\pi i}\int_{0}^{2\pi}\frac{f(\theta)}{e^{i\theta} - z}ie^{i\theta}\;d\theta. 
+\end{equation*} 
+In particular, it is clear that if $f$ is real-valued (so that $\ti{f}$ is also real-valued), then $\ti{f}$ and $f + a_{0}$ represent, respectively, the real and imaginary parts of the boundary values of the analytic function $2F$ in the unit disc. Moreover, Parseval's identity then gives 
+\begin{equation*}
+	\frac{1}{2\pi}\int_{0}^{2\pi}|\ti{f}(\theta)|^{2}\;d\theta + |a_{0}|^{2}  = \frac{1}{2\pi}\int_{0}^{2\pi}|f(\theta)|^{2}\;d\theta. 
+\end{equation*} 
+Now we would like to generalize this to other $L^{p}$ spaces. This leads to the theory of the \textit{Hilbert transform}. To make the transition clear, we begin with the $L^{2}$ formalism, and then use the Riesz-Thorin Interpolation theorem to generalize this result. We start with the following definition. 
 \begin{definition}[Cauchy Integral]
 	Let $f \in L^{2}(\mathbb{R})$. Then the \textbf{Cauchy integral} of $f$ is defined to be 
 	\begin{equation}
@@ -426,58 +448,15 @@ In particular, the remark is suggestive of the following theorem of Riesz.
 	\textcolor{red}{[!! Complete Later !!]}
 \end{proof} 
 
-\subsubsection{The Maximal Function and Weak-Type Estimates} 
+\subsubsection{Hardy Spaces}
 
-In this subsection, we will now switch to talking about \textit{maximal functions} and \textit{weak-type estimates}. We start with the following definition. 
-
-\begin{definition}[Maximal Function]
-	Let $f$ be an ``appropriate'' function on $\mathbb{R}^{d}$. Define the maximal function of $f$ to be, 
-	\begin{equation}
-		f^{\ast}(x) = \sup_{x \in B}\frac{1}{m(B)}\int_{B}|f(y)|\;dy, 
-		\label{eq:maximal_function} 
-	\end{equation} 
-	where the supremum is taken over all balls $B$ containing $x$, and $m$ is the Lebesgue measure. 
-\end{definition} 
-As before, we are interested in finding if $f^{\ast}$ satisfies any interesting estimates. First, notice the following observation. 
-\begin{prop}[Subadditivity of Maximal Function]
-	The maximal function, (\ref{eq:maximal_function}) is not linear, but is sub-additive: let $f = f_{1} + f_{2}$. Then $f^{\ast} \leq f_{1}^{\ast} + f_{2}^{\ast}$.  
-\end{prop} 
-The proof follows from a simple application of the triangle inequality, and linearity of integration. Then we have the following results. 
-
-\begin{prop}[$L^{1}$ Boundedness Estimate]
-	Let $f \in L^{1}(\mathbb{R}^{d})$. Then $f^{\ast}$ satisfies the $L^{1}$ estimate, 
-	\begin{equation}
-		m(\{x: f^{\ast}(x) > \alpha\}) \leq \frac{A}{\alpha}\norm{f}_{L^{1}(\mathbb{R}^{d})}, \qquad \forall \alpha > 0.
-	\end{equation}
-\end{prop} 
-\begin{theorem}[$L^{p}$ Boundedness Principle]
-	Suppose $f \in L^{p}(\mathbb{R}^{d})$ with $1 < p \leq\infty$. Then $f^{\ast} \in L^{p}(\mathbb{R}^{d})$, and 
-	\begin{equation*}
-		\norm{f^{\ast}}_{L^{p}} \leq A_{p}\norm{f}_{L^{p}}, 
-	\end{equation*}
-	where $A_{p}$ is dependent on $p$, but independent of $f$. 
-\end{theorem}
-\begin{proof}
-	\textcolor{red}{[!! Complete Later !!]}
-\end{proof}
-
-The term on the left side of the maximal is a special type of function, called a \textit{distribution function}. 
-
-\begin{definition}{Distribution Functions}
-	Let $F$ be a nonnegative measurable function. Then its distribution function $\lambda(\alpha) = \lambda_{F}(\alpha)$ is defined for positive $\alpha$ by 
-	\begin{equation*}
-		\lambda(\alpha) = m(\{x: F(x) > \alpha\}). 
-	\end{equation*} 
-\end{definition} 
-Thus 
+Now we turn to the theory of the \textit{Hardy spaces}, $\mathbf{H}^{1}_{r}(\mathbb{R}^{d})$. Recall that many of the results we've been studying thus far have been based on $L^{p}$ space theory. Broadly speaking, we have been interested in one of the following three spaces: $L^{1}, L^{2}$, and $L^{\infty}$. But restricting ourselves to just one of these three spaces are indeed too restrictive. For instance, if $f \in L^{1}(\mathbb{R})$, then the only results we can say about their Fourier transforms is that they are bounded, and vanish at infinity (the \textit{Riemann-Lebesgue lemma}). But these transforms are not guaranteed to be integrable, nor do we have any other important constraints on their ``size''. But if $f \in \mathbf{H}^{1}_{r}$, then we actually have the following estimate (cf. exercises)
 \begin{equation*}
-	\int_{\mathbb{R}^{d}}(F(x))^{p}\;dx = \int_{0}^{\infty}\lambda(a^{1/p})\;dx. 
+	\int_{\mathbb{R}^{d}}|\hat{f}(\xi)|\;\frac{d\xi}{|\xi|^{d}} \leq A \norm{f}_{\mathbf{H}^{1}_{r}}. 
 \end{equation*} 
+Thus the main advantage of working with $\mathbf{H}^{1}_{r}$ is that it is a Banach space that is, in some sense, ``close'' to $L^{1}$, while being more helpful in establishing estimates. Therefore, we will develop this theory now. 
 
-
-\subsubsection{The Hardy Spaces} 
-
-In this subsection, we study the \textit{Hardy spaces} $\mathbf{H}^{1}_{r}(\mathbb{R}^{d})$ (notation not to be confused with the \textit{Sobolev spaces}, $H^{p}(\mathbb{R}^{d}) \coloneqq W^{2,p}(\mathbb{R}^{d})$). We begin with the notion of an \textit{atom}. 
+ We begin with the notion of an \textit{atom}. 
 \begin{definition}[Atom]
 	$\mathfrak{a}$ is an \textit{atom} associated to a ball $B\subset \mathbb{R}^{d}$ if $\mathfrak{a}$ is a bounded measurable function on $\mathbb{R}^{d}$ such that \vspace{-0.25cm}
 	\begin{enumerate}[itemsep =-2pt, label = (\roman{*})]
@@ -528,6 +507,7 @@ Thus in defining $\mathbf{H}^{1}_{r}$, we no longer need to restrict ourselves t
 		\norm{H(f)}_{L^{1}(\mathbb{R})} \leq A \norm{f}_{\mathbf{H}^{1}_{r}(\mathbb{R})}. 
 	\end{equation*}
 \end{theorem} 
+
 \newpage 
 
 \subsection{Distributions and Generalized Functions} \label{subsec:distributions}
@@ -721,7 +701,27 @@ In particular, the Fourier transform of tempered distributions satisfy the same 
 \end{example} 
 
 \paragraph{Fundamental Solutions} 
-Perhaps in these notes, the most striking application of distribution theory is to the notion of \textit{fundamental solutions} to partial differential equations. We begin by presenting a few key ideas of PDEs in this subsection. 
+Perhaps in these notes, the most striking application of distribution theory is to the notion of \textit{fundamental solutions} to partial differential equations. We begin by presenting a few key ideas of PDEs in this subsection. We start by defining \textbf{fundamental solutions}. 
+
+\begin{definition}[Fundamental Solutions]
+	Suppose $L$ is a the partial differential operator 
+	\begin{equation*}
+		L = \sum_{|\alpha| \leq m}a_{\alpha}\partial_{x}^{\alpha} \qquad \text{ on $\mathbb{R}^{d}$}, 
+	\end{equation*}
+	with $a_{\alpha}$ complex constants. A \textbf{fundamental solution} of $L$ is a distribution $F$ so that $L(F) = \delta$, where $\delta$ is the Dirac delta function. Note that a fundamental solution is not necessarily unique since we can always add a solution to the homogeneous problem $Lu = 0$ to $F$. 
+\end{definition} 
+The following calculations show why using the fundamental solution is a ``good'' idea. Let $T: \mathcal{D} \to C^{\infty}$ be the operator defined by $T: f \mapsto F \ast f$, where $F$ is the fundamental solution to $f$. Then we claim that $LT = TL = 1$. Indeed, since $\partial_{x}^{\alpha}(F \ast f) = (\partial_{x}^{\alpha}F) \ast f= F \ast (\partial_{x}^{\alpha}F)$ and $\delta \ast f = f$, we have 
+\begin{equation*}
+	LTf = \sum_{|\alpha| \leq m}a_{\alpha}\partial_{x}^{\alpha}(F \ast f) = \sum_{|\alpha| \leq m}F \ast a_{\alpha}\partial_{x}^{\alpha}f = F \ast Lf = TLf. 
+\end{equation*}
+Thus the fundamental solution can be thought of as an ``inverse'' to a partial differential operator. 
+
+Now, we are interested in actually obtaining the fundamental solution to various PDE explicitly. Thus we start with the following definition. 
+
+\begin{definition}[Characteristic Polynomial]
+	
+\end{definition} 
+
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
 
@@ -1089,6 +1089,7 @@ We can, of course, say more. Using the above estimate, we can control the size o
 	\begin{multline}
 		\sup_{t\in[0,T]}\norm{\phi}_{H^{k}(\mathbb{R}^{n})}(t) + \sup_{t \in [0,T]}\norm{\partial_{t}\phi}_{H^{k -1}(\mathbb{R}^{n})}(t) \\ \leq C(1 + T)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right)\left(\norm{f}_{H^{k}(\mathbb{R}^{n})} 
 		+ \norm{g}_{H^{k - 1}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}(t)\;dt\right.\\ + \left. C\int_{0}^{T}\sum_{|\alpha| + |\beta| \leq k - 1}\norm{\partial\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| + |\beta| \leq k- 1}\norm{\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
+		\label{eq:cor49}
 	\end{multline}
 \end{prop}
 \begin{proof}
@@ -1714,7 +1715,208 @@ and $a^{\alpha\beta}: \mathbb{R} \to \mathbb{R}$ and $F: \mathbb{R}\times \mathb
 		\end{equation*} 
 		as $i \to \infty$ for every $1 \leq s < n + 2$. 
 	\end{enumerate}
+	\label{thm:nlwlwp}
 \end{theorem} 
+
+We note the following difference between the existence and uniqueness results we have already seen in the linear case, and Theorem (\ref{thm:nlwlwp}): in the previous results, the solutions existed on time intervals $[0,T]$ for any arbitrary $T > 0$. However, the above theorem only gives existence of a \textit{classical} solution on some finite interval $[0,T]$, where $T$ is explicitly determined by the initial data. 
+\begin{proof}
+	$ $\newline \vspace{-0.75cm}
+	\begin{enumerate}[itemsep =-2pt]
+		\item We begin by constructing an explicit solution of the wave equation using \textit{Picard iteration}\footnote{Recall that in ODE theory, Picard iteration is as follows: suppose one has the differential equation $y'(t) = f(t, y(t))$, where $y(t)$ is the unknown function, and $y(t_{0}) = y_{0}$. If we simply integrate both sides, then we can extract $y(t) =y_{0} + \int_{t_{0}}^{t}f(s, y(s))\;ds$. However, the integral depends explicitly on the unknown function. Thus we start with an initial ansatz $y_{0}$, and then use the above equation to produce a better estimate for the solution. We then take this estimate and use the above equation to obtain a better estimate. We do this iteratively, obtaining better solutions (under specific conditions).}. By density arguments, it suffices to assume that the initial data are both Schwarz functions. Let $\phi^{(i)}$ be a sequence of smooth functions for $i \geq 1$ such that $\phi^{(1)} = 0$ and each $\phi^{(i)}$ for $i \geq 2$ is defined iteratively as the unique solution to 
+		\begin{equation*}
+			\left\{
+			\begin{alignedat}{1}
+			&\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)}) = F(\phi^{(i -1)}, \partial\phi^{(i - 1)}) \\
+			&(\phi^{(i)}, \partial_{t}\phi^{(i)})\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}). 
+			\end{alignedat}
+			\right.
+		\end{equation*} 
+		What we wish to show is that the sequence converges to some unique limit $\phi$ of desired regularity, and that this limit solves the quasilinear wave equation. Rigorously, this corresponds to showing that (a) for $T > 0$ sufficiently small (depending only on the Sobolev norms of the initial data), the sequence is uniformly bounded (in $i$) in the appropriate function space, and (b) that the sequence is a Cauchy sequence in the function space $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$.
+		
+		\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+			\item (\textsc{Uniformly Bounded}) We recall our goal for this step. We wish to show the following: for all $i \geq 1$, there exists $C = C(n, F, a, \phi_{0}, \phi_{1}) > 0$ such that 
+			\begin{equation*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq C. 
+			\end{equation*}
+			But really, it suffices to show that controlling the norm for just $(i - 1)$ implies controlling the norm for $i$ since by induction the complete argument follows. We will also use the bootstrap method: we start by assuming that the norms satisfy a rougher bound,  
+			\begin{equation}
+				\norm{(\phi^{(i - 1)}, \partial_{t}\phi^{(i-1)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq A, 
+				\tag{$\star_{1}$}
+				\label{eq:star1}
+			\end{equation}
+			and 
+			\begin{equation*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq 4A. 
+				\tag{$\star_{2}$}
+				\label{eq:star2}
+			\end{equation*}
+			and then improve the latter bound. Thus our first goal is to improve the rough upper bound of $4A$. The left side of the inequality looks suspiciously similar to the energy estimate of Corollary (\ref{eq:cor49}), 
+			\begin{multline*}
+				\sup_{t\in[0,T]}\norm{(\phi,\partial_{t}\phi)}_{H^{k}(\mathbb{R}^{n}) \times H^{k -1}(\mathbb{R}^{n})}(t) \\ \leq C(1 + T)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right)\left(\norm{(\phi_{0}, \phi_{1})}_{H^{k}(\mathbb{R}^{n}) \times H^{k - 1}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}(t)\;dt\right.\\ + \left. C\int_{0}^{T}\sum_{|\alpha| + |\beta| \leq k - 1}\norm{\partial\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| + |\beta| \leq k- 1}\norm{\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
+				\label{eq:cor49}
+			\end{multline*}
+		To actually apply this result, we need bounds on the following quantities
+		\begin{align*}
+			\begin{split}
+				&\int_{0}^{T}\sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial \phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t)\;dt, \\
+				&\int_{0}^{T}\sum_{|\gamma| + |\sigma| \leq n + 1}\sum_{\alpha,\beta}\norm{\partial\partial^{\gamma}_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial_{x}^{\sigma}\phi^{(i)}}_{L^{2}(\mathbb{R}^{n})}(t)\;dt \\
+				&\int_{0}^{T}\sum_{\substack{|\gamma| + |\sigma| \leq n + 1 \\ |\sigma|\leq n}}\sum_{\alpha,\beta}\norm{ \partial_{x}^{\gamma}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial\partial^{\sigma}_{x}\phi^{(i)} }_{L^{2}(\mathbb{R}^{n})}(t)\;dt. 
+			\end{split}
+		\end{align*}
+		Note that we have set $k = n + 2$ (such that $k - 1 = n + 1$). Moreover, the Sobolev norm of $F$ is roughly the sum of the $L^{2}$ norms of the derivatives of $F$ up to order $n + 1$. The motivation behind the other two quantities follows identically. Let us begin by establishing an estimate on the first quantity. 
+		
+		\begin{quote}
+			\textbf{Claim 1.} (Bound on the Sobolev Norm of $F$)\textbf{.} There exists $B = B(A, n, F) > 0$ such that for all $t \in [0,T]$, we have 
+			\begin{equation*}
+				\sum_{0\leq |\alpha|\leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial \phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq B. 
+			\end{equation*} 
+			
+			{\color{blue}
+				\begin{proof}
+					We must expand the partial derivatives. We will also make use of the following results, 
+					\begin{equation*}
+						\sum_{|\gamma|\leq N}\sup_{\norm{x}, \norm{p} \leq A}|\partial_{x,p}^{\gamma}F|(x,p) \leq C_{A, N} \qquad \text{and} \qquad \norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{s}(\mathbb{R}^{n})},
+					\end{equation*} 
+					where the latter holds for all $s > n/2$ and $\phi \in H^{s}(\mathbb{R}^{n})$, and is the Sobolev embedding theorem. Then the computations yield\footnote{\textcolor{red}{[!! Check Explicitly !!]}}, 
+					\begin{equation*}
+						\begin{aligned}
+							& \sum_{0 \le |\alpha| \le n+1} \|\partial_x^\alpha F(\phi^{(i-1)}, \partial \phi^{(i-1)})\|_{L^2(\mathbb{R}^n)}(t) \\
+							\le{} & C \left( \sum_{0 \le |\alpha| \le n+1} \|\partial \partial_x^\alpha \phi^{(i-1)}\|_{L^2(\mathbb{R}^n)}(t) + \sum_{0 \le |\alpha_1| + |\alpha_2| \le n+1} \|\partial \partial_x^{\alpha_1} \phi^{(i-1)} \partial \partial_x^{\alpha_2} \phi^{(i-1)}\|_{L^2(\mathbb{R}^n)}(t) \right. \\
+							& \left. + \text{cubic terms} + \dots + \text{terms of order } n+1 \right).
+						\end{aligned}
+					\end{equation*}
+				\end{proof} 	
+				Consider now just the quadratic term. Since $|\alpha_{1}| \leq \frac{n+ 1}{2}$ or $|\alpha_{2}|\leq \frac{n + 1}{2}$, we may assume without loss of generality that $|\alpha_{1}| \leq \frac{n + 1}{2}$.  \textcolor{red}{[!! Fill in the details... !!]} Thus, in this way, using our assumed bound (\ref{eq:star1}), we obtain the desired bound. 
+			}
+			
+			\textbf{Claim 2.} (Bound on the Two Remaining Quantities)\textbf{.} There exists some $B = B(A, n, F) > 0$ such that 
+			\begin{multline*}
+				\int_{0}^{T}\sum_{|\gamma| + |\sigma| \leq n + 1}\sum_{\alpha,\beta}\norm{\partial\partial^{\gamma}_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial_{x}^{\sigma}\phi^{(i)}}_{L^{2}(\mathbb{R}^{n})}(t)\;dt \\ 
+				+ \int_{0}^{T}\sum_{\substack{|\gamma| + |\sigma| \leq n + 1 \\ |\sigma|\leq n}}\sum_{\alpha,\beta}\norm{ \partial_{x}^{\gamma}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial\partial^{\sigma}_{x}\phi^{(i)} }_{L^{2}(\mathbb{R}^{n})}(t)\;dt \leq B.
+			\end{multline*}
+			
+			\textbf{Claim 3.} (Bound on Derivatives of $a$)\textbf{.}
+			\begin{equation*}
+				\sum_{|\gamma| = 1}\norm{\partial_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)}_{L^{\infty}(\mathbb{R}^{n})} \leq B. 
+			\end{equation*}  
+		\end{quote}
+		
+		With these estimates, we can finally use our energy estimate (\ref{eq:cor49}): 
+		\begin{multline*}
+			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \\
+			\leq C\left(\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n} \times H^{n + 1}(\mathbb{R}^{n}))} + BT + CBT^{2}\right)\exp(CBT)
+		\end{multline*} 
+		Let us assume wlog that $C \geq 2$. While the actual constant $B$ can be very large, we can choose sufficiently small $T > 0$ (depending on $A$), so that $(BT + CBT^{2})\exp(CBT) \leq \norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n+ 1}(\mathbb{R}^{n})}$ and $\exp(CBT) \leq 2$. Thus with $T$ chosen as above, we get the bound 
+		\begin{equation*}
+			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}. 
+		\end{equation*} 
+		Let $A = 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}$. Thus we have shown that 
+		\begin{equation*}
+			\norm{(\phi^{(i-1)}, \partial_{t}\phi^{(i-1)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A
+		\end{equation*} 
+		implies 
+		\begin{equation*}
+			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A, 
+		\end{equation*} 
+		provided that $T = T(A)$ is sufficiently small. Thus this portion of the proof concludes. 
+		\item Now we will show that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. For every $i \geq 3$, we consider the difference $\phi^{(i)} - \phi^{(i - 1)}$:
+		\begin{align*}
+			\begin{split}
+				\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i -1)})\partial_{\beta} (\phi^{(i)} - \phi^{(i - 1)})) &= \partial_{\alpha}\left( a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)} - a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)} \right) \\
+				&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}\left(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)}\right) \\
+				&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) + a^{\alpha\beta}(\phi^{(i -2)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}) \\
+				&= F(\phi^{(i)}, \partial \phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial\phi^{(i - 2)}) \\
+				&\qquad  - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}). 
+			\end{split} 
+		\end{align*}
+		We konw that $a$ is continuously differentiable, and thus, satisfies the bound, 
+		\begin{equation*}
+			\sum_{\alpha,\beta}\sum_{|\gamma|\leq N}\sup_{|x|\leq A}|\partial_{x}^{\gamma}(a^{\alpha\beta})|(x)\leq C_{A,N}. 
+		\end{equation*} 
+		Since we also know that 
+		\begin{equation*}
+			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq C,
+		\end{equation*}
+		the Mean Value Theorem tells us that there exists some $C > 0$ (depending on the initial data, but neither on $i$ nor on $T$) such that 
+		\begin{equation*}
+			\abs{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})} \leq C|\partial(\phi^{(i-1)} - \phi^{(i - 2)})|, 
+		\end{equation*} 
+		which implies 
+		\begin{equation*}
+			\norm{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
+		\end{equation*} 
+		for all $t \in [0, T]$. Likewise, one has that 
+		\begin{equation*}
+			\norm{F(\phi^{(i -1)}, \partial\phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial \phi^{(i - 2)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
+		\end{equation*} 
+		and $\norm{\partial (a^{\alpha\beta}(\phi^{(i - 1)}))}_{L^{\infty}(\mathbb{R}^{n})} \leq C$. Thus applying (\ref{eq:cor49}), 
+		we get 
+		\begin{align*}
+			&\sup_{t \in [0,T]} \|(\phi^{(i)} - \phi^{(i-1)}, \partial_t \phi^{(i)} - \partial_t \phi^{(i-1)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \\
+			\le{} &CT \sup_{t \in [0,T]} \|(\phi^{(i-1)} - \phi^{(i-2)}, \partial_t \phi^{(i-1)} - \partial_t \phi^{(i-2)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \leq C_{1}.
+		\end{align*}
+		Thus if we choose $T > 0$ sufficiently small, then 
+		\begin{equation*}
+			\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq \frac{1}{2}\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 2)}}_{H^{1}(\mathbb{R}^{n})}(t), 
+		\end{equation*}
+		whence 
+		\begin{equation*}
+			\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i -1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq 2^{2 - i}C_{1}, 
+		\end{equation*} 
+		so that the Cauchy property follows immediately. 
+		\item Now we will prove existence (uniqueness will follow from the proof of the second part of the theorem). Since we showed that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$, there exists a limit $(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. But by the uniform bound in the other function space, we conclude that $\phi, \partial_{t}\phi$ are both contained in the desired regularity class. 
+		\end{enumerate}
+		\item \textcolor{red}{[!! Complete Proof of Continuous Dependence !!]}
+	\end{enumerate}
+\end{proof} 
+
+For physical theories, we often desire \textit{smooth} solutions. However, the unique solution constructed above is contained in $L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))$ for $T > 0$ sufficiently small. But in some cases, we can also \textit{lose} derivatives and regularity. Thus we desire some type of safeguard against the loss of regularity. The following result establishes this \textit{persistence of regularity}. 
+
+\begin{theorem}[Persistence of Regularity]
+	Given initial data $(\phi_{0}, \phi_{1}) \in H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})$ to (\ref{eq:qlwe}). Furthermore, let 
+	\begin{equation}
+		T_{\ast} \coloneqq \sup\{T > 0: \exists ! \text{ solution } \in L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))\}, 
+		\label{eq:maximal_time}
+	\end{equation}
+	be the \textbf{maximal time of existence}. \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep = -2pt,label = (\alph{*})]
+		\item If $(\phi_{0}, \phi_{1}) \in H^{m}(\mathbb{R}^{n}) \times H^{m-1}(\mathbb{R}^{n})$ for some $m \in \mathbb{N}$ with $m > n +2$, then the solution $(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{m}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{m-1}(\mathbb{R}^{n}))$ for every $T < T_{\ast}$. 
+		\item If $(\phi_{0}, \phi_{1}) \in \bigcap_{m = 1}^{\infty}(H^{m}(\mathbb{R}^{n}) \times H^{m - 1}(\mathbb{R}^{n}))$, then the solution is smooth in $[0, T_{\ast}) \times \mathbb{R}^{n}$. 
+	\end{enumerate}
+\end{theorem} 
+
+However, we are interested in what happens as we approach the maximal time of existence. To study this, we first have the following technical lemma. 
+
+\begin{lemma}[Schauder Estimates I]
+	Let $s \geq 0$, and $F: \mathbb{R}^{m} \to \mathbb{R}$ be a smooth function with $F(0) =0$. Then if $\phi: \mathbb{R}^{n} \to \mathbb{R}^{m}$ belongs to the space $\phi \in L^{\infty}(\mathbb{R}^{n}; \mathbb{R}^{m}) \cap H^{s}(\mathbb{R}^{n}; \mathbb{R}^{m})$, there exists a constant $C = C(F, \norm{\phi}_{L^{\infty}(\mathbb{R}^{n}; \mathbb{R}^{m})}, s, n, m) > 0$ such that 
+	\begin{equation*}
+		\norm{F(\phi)}_{H^{s}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{s}(\mathbb{R}^{n};\mathbb{R}^{m})}. 
+	\end{equation*}
+\end{lemma} 
+\begin{lemma}[Schauder Estimates II]
+	For $s > 0$, there exists $C = C(n, s) > 0$ such that 
+	\begin{equation*}
+		\norm{f \cdot (\partial_{x_{i}}g)}_{H^{s}(\mathbb{R}^{n})} \leq C(\norm{f}_{H^{s + 1}(\mathbb{R}^{n})}\norm{g}_{L^{\infty}(\mathbb{R}^{n})} + \norm{g}_{H^{s}(\mathbb{R}^{n})}\norm{f}_{W^{1,\infty}(\mathbb{R}^{n})}). 
+	\end{equation*}
+\end{lemma} 
+
+\begin{theorem}[Breakdown Criteria]
+	Given initial data $(\phi_{0}, \phi_{1}) \in H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})$ to (\ref{eq:qlwe}), let $T_{\ast}$ be the maximal time of existence. If $T_{\ast} < \infty$, then all of the following hold: \vspace{-0.25cm}
+	\begin{enumerate}[itemsep=-2pt,label = (\roman{*})]
+		\item $$\liminf_{t \to T_{\ast}}\norm{(\phi, \partial_{t}\phi)}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}(t) \to \infty,$$
+		\item $$\limsup_{t \to T_{\ast}}\left(\sum_{|a| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial_{x}^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| \leq \lfloor \frac{n}{2}\rfloor}\norm{\partial_{t}\partial_{x}^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{n})}(t)\right) \to 0$$. 
+		\item $$\limsup_{t \to T_{\ast}}\sum_{|\alpha|\leq 1}\norm{\partial^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{n})}(t) \to \infty$$. 
+	\end{enumerate}
+\end{theorem}
+
+\newpage 
+
+\part{Applications}
+In this part of the notes, we transition from the general theory of (non)linear wave equations and hyperbolic PDE to some physical applications. In particular, we will mostly apply the results from the previous part to understanding the mathematical theory of (in)compressible fluids. 
+\section{Incompressible Fluids}
+
+In this section, we introduce the mathematical theory of incompressible fluids. \cite{Marchioro_Pulvirenti_1993}.  
+
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 

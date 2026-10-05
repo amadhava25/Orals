@@ -34,11 +34,191 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 	
 	\section{Overview}
 	
-	The following document is a compilation of various calculations, computations, and exercises I completed as part of orals prep. The work here is not meant to bean extensive account of my work, by any means. 
+	The following document is a compilation of various calculations, computations, and exercises I completed as part of orals prep. The work here is not meant to be an extensive account of my work, by any means. 
 	
 \newpage 
 \section{Functional and Harmonic Analysis} 
 \subsection{Stein \& Shakarchi} 
+
+\begin{prb}{1.1}
+	Consider $L^{p} = L^{p}(\mathbb{R}^{d})$ with Lebesgue measure. Let $f_{0}(x) = |x|^{-\alpha}$ if $|x| < 1$, $f_{0}(x) = 0$ for $|x|\geq 1$; also let $f_{\infty}(x) = |x|^{-\alpha}$ if $|x|\geq 1$, $f_{\infty}(x) = 0$ when $|x| < 1$. Show that: \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item $f_{0} \in L^{p}$ if and only if $p\alpha < d$. 
+		\item $f_{\infty} \in L^{p}$ if and only if $d < p\alpha$. 
+		\item What happens if in the definitions of $f_{0}$ and $f_{\infty}$ we replace $|x|^{-\alpha}$ by $|x|^{-\alpha}/(\log(2/|x|))$ for $|x| < 1$, and $|x|^{-\alpha}$ by $|x|^{-\alpha}/(\log(2|x|))$ for $|x|\geq 1$? 
+	\end{enumerate}
+\end{prb}
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+	\item Let $p \geq 1$, and define $f_{0}(x):\mathbb{R}^{d} \to \mathbb{R}$ to be the measurable function 
+	\begin{equation*}
+		f_{0}(x) = 
+		\begin{cases}
+			|x|^{-\alpha}, & |x| < 1 \\
+			0, & |x| \geq 1.
+		\end{cases}
+	\end{equation*}
+	Then $f_{0}(x) \in L^{p}$ if and only if $\int_{|x|\leq 1}|f_{0}(x)|^{p}\;dx = \int_{|x|\leq 1}|x|^{-p\alpha}\;dx < \infty$. To evaluate this integral, we will use integration in polar coordinates. Using Theorem 2.49 from Folland, one has 
+	\begin{align*}
+		\begin{split}
+			\int_{|x|\leq 1}\frac{1}{|x|^{p\alpha}}\;dx &= \Gamma(S^{d-1})\cdot \int_{0}^{1}r^{-p\alpha + d - 1}\;dr. 
+		\end{split}
+	\end{align*}
+	By calculus in one dimension, we know that the integral on the right side is finite if and only if $-p\alpha + d - 1 > -1$, which implies $p\alpha < d$. Thus, $f_{0} \in L^{p}$ if and only if $p\alpha < d$. 
+	
+	\item Define $f_{\infty}(x): \mathbb{R}^{d} \to \mathbb{R}$ to be measurable function
+	\begin{equation*}
+		f_{\infty}(x) = 
+		\begin{cases}
+			0, & |x| < 1 \\
+			|x|^{-\alpha}, & |x|\geq 1.
+		\end{cases}
+	\end{equation*}
+	Then $f_{\infty}(x) \in L^{p}$ if and only if $\int_{|x|\geq 1}|f_{\infty}(x)|^{p}\;dx = \int_{|x|\geq 1}|x|^{-p\alpha}\;dx < \infty$. Using Theorem 2.49 from Folland, one has 
+	\begin{equation*}
+		\int_{|x|\geq 1}\frac{1}{|x|^{p\alpha}}\;dx = \Gamma(S^{d-1}) \cdot \int_{1}^{\infty}r^{-p\alpha + d - 1}\;dr. 
+	\end{equation*}
+	By calculus in one dimension, we know that the integral on the right side is finite if and only if $-p\alpha + d - 1 < -1$, which implies $p\alpha > d$. Thus, $f_{\infty}\in L^{p}$ if and only if $p\alpha > d$. 
+	\item Now define $f_{0}(x): \mathbb{R}^{d} \to \mathbb{R}$ to be the modified function 
+	\begin{equation*}
+		f_{0}(x) = 
+		\begin{cases}
+			\displaystyle \frac{|x|^{-\alpha}}{\log(2/|x|)}, & |x| < 1 \\
+			0, & |x| \geq 1. 
+		\end{cases}
+	\end{equation*}
+	As in (a), $f_{0}(x) \in L^{p}$ if and only if 
+	\begin{equation*}
+		\int_{0}^{1}\frac{r^{-p\alpha + d - 1}}{\log(2/r)^{p}}\;dr < \infty. 
+	\end{equation*}
+	Let $k \coloneqq -p\alpha + d - 1$, and define $u = \log(2/r)$. Then the above integral transforms into 
+	\begin{align*}
+		\begin{split}
+			\int_{0}^{1}\frac{r^{-p\alpha + d - 1}}{\log(2/r)^{p}}\;dr &= -\int_{\log(2)}^{\infty}\frac{2^{k}e^{-ku}}{u^{p}}\;(-2e^{-u}\;du) = 2^{k + 1}\int_{\log(2)}^{\infty}\frac{e^{-(k + 1)u}}{u^{p}}\;du. 
+		\end{split}
+	\end{align*}
+	In the limit $u \to \infty$, if $p > 1$, the integrand decays to zero provided $k + 1 \geq 0$. Thus, $f_{0}(x) \in L^{p}$ if and only if $k \geq -1$, which is equivalent to requiring $p\alpha \leq d$. If $p = 1$, then $f_{0}(x) \in L^{p}$ if and only if $p\alpha < d$. Now define the modified function $f_{\infty}(x): \mathbb{R}^{d} \to \mathbb{R}$ by 
+	\begin{equation*}
+		f_{\infty}(x) = 
+		\begin{cases}
+			0, & |x| < 1 \\
+			\displaystyle\frac{|x|^{-\alpha}}{\log(2|x|)}, & |x| \geq 1. 
+		\end{cases}
+	\end{equation*}
+	As in (b), $f_{\infty}(x) \in L^{p}$ if and only if the integral 
+	\begin{equation*}
+		\int_{1}^{\infty}\frac{r^{-p\alpha + d - 1}}{\log(2r)}\;dr < \infty. 
+	\end{equation*}
+	Taking $u = \log(2r)$ this time, the above integral transforms into 
+	\begin{align*}
+		\begin{split}
+			\int_{1}^{\infty}\frac{r^{-p\alpha + d - 1}}{\log(2r)^{p}}\;dr &= \int_{\log(2)}^{\infty}\frac{2^{-k}e^{ku}}{u^{p}}(2^{-1}e^{u}\;du) = 2^{-(k + 1)}\int_{\log(2)}^{\infty}\frac{e^{(k + 1)u}}{u^{p}}\;du. 
+		\end{split}
+	\end{align*}
+	Here, we must consider two cases. First, suppose $p > 1$. Then the integrand decays to zero provided $k + 1 \leq 0$ (corresponding to $p\alpha \geq d$). Thus $f_{\infty}(x) \in L^{p}$ for $p > 1$ if and only if $p\alpha \geq d$. On the other hand, if $p = 1$, then the integral is finite if and only if $k + 1 \lneq 0$, which corresponds to $p\alpha < d$. Thus, 
+	\begin{equation*}
+		f_{\infty}(x) \in L^{p}(\mathbb{R}^{d}) \text{ if and only if }
+		\begin{cases}
+			p\alpha \geq d, & p > 1 \\
+			\alpha > d, & p = 1.
+		\end{cases}
+	\end{equation*}
+\end{enumerate}
+
+\begin{prb}{1.8}
+	Suppose $1 \leq p < \infty$, and that $\mathbb{R}^{d}$ is equipped with Lebesgue measure. Show that if $f \in L^{p}(\mathbb{R}^{d})$, then 
+	\begin{equation*}
+		\norm{f(x + h) - f(x)}_{L^{p}} \to 0 \quad \text{ as $|h| \to 0$}. 
+	\end{equation*}
+	Prove that this fails when $p = \infty$. 
+	
+	[Hint: By the previous exercise, the continuous functions with compact support are dense in $L^{p}(\mathbb{R}^{d})$ for $1 \leq p < \infty$.]
+\end{prb}
+
+Fix $1\leq p < \infty$, and assume that $\mathbb{R}^{d}$ is equipped with Lebesgue measure. Further fix some $f \in L^{p}(\mathbb{R}^{d})$. By the density of $C_{c}(\mathbb{R}^{d})$ in $L^{p}(\mathbb{R}^{d})$, there exists a sequence $\{g_{j}\}_{j = 1}^{\infty}$ of compactly supported continuous functions so that $g_{j} \to f$ under the $L^{p}$-norm. First, we will show that for every $j$, $\norm{g_{j}(h + \cdot) - g_{j}}_{p} \to 0$ as $h \to 0$. Without loss of generality, let $|h| \leq R$ for some $R > 0$. Then by continuity of $g_{j}$, $|g_{j}(x + h) - g_{j}(x)|^{p} \to 0$ pointwise a.e. as $|h| \to 0$. On the other hand, by continuity of $g_{j}$ and the extreme value theorem, one has 
+\begin{equation*}
+	|g_{j}(x + h) - g_{j}(x)|^{p} \leq 2^{p-1}(|g_{j}(x + h)|^{p} + |g_{j}(x)|^{p}) \leq M\chi_{K + B_{R}(0)} \in L^{1}(\mathbb{R}^{d}),
+\end{equation*}
+where $M \eqqcolon 2^{p} \cdot (\max_{K}|g_{j}(x)|)^{p}$. Thus, by the Dominated Convergence Theorem, 
+\begin{equation*}
+	\int_{\mathbb{R}^{d}}|g_{j}(x + h) - g_{j}(x)|^{p}\;dx \xrightarrow{|h| \to 0} 0. 
+\end{equation*}
+
+
+Now fix $\epsilon > 0$, $j$ large enough so that $\norm{f - g_{j}}_{p}^{p} < \epsilon/3$, and let $\delta > 0$ so that for all $|h| < \delta$, one has $\norm{g_{j}(h + \cdot) - g_{j}}_{p}^{p} < \epsilon/3$. Then we observe that 
+\begin{align*}
+	\begin{split}
+		\norm{f(h + \cdot) - f}_{p}^{p} &= \int_{\mathbb{R}^{d}}|f(x + h) - f(x)|^{p}\;dx \\
+		&\hspace{-0.3cm}\leq C\cdot \left[\int_{\mathbb{R}^{d}}|f(x + h) - g_{j}(x + h)|^{p}\;dx + \int_{\mathbb{R}^{d}}|g_{j}(x + h) - g_{j}(x)|^{p}\;dx+ \int_{\mathbb{R}^{d}}|g_{j}(x) - f(x)|^{p}\;dx\right] \\
+		&= 2C\norm{f - g_{j}}_{p}^{p} + C \cdot \norm{g_{j}(h + \cdot) - g_{j}}_{p}^{p} \\
+		&< C\epsilon. 
+	\end{split}
+\end{align*}
+where in going from the second to the third line, we used translation invariance of the $L^{p}$ norms. Since the left side is independent of $\epsilon$, taking the limit $\epsilon \to 0$ shows that $\norm{f(h + \cdot) - f}_{p}^{p} \to 0$ as $|h| \to 0$. 
+
+Now consider the case of $p = \infty$. Let $f \in L^{\infty}(\mathbb{R}^{d})$ be the following function: 
+\begin{equation*}
+	f(x) = 
+	\begin{cases}
+		1, & |x| \geq 1 \\
+		-1, & |x| < 1. 
+	\end{cases}
+\end{equation*}
+Then for any $|h| > 0$, one has that $\norm{f(h + \cdot) - f}_{L^\infty} = 2$ so that this norm cannot converge to zero. 
+
+\begin{prb}{1.12}
+	Suppose the measure space $(X, \mu)$ is separable as defined in Exercise 10. Let $1 \leq p < \infty$ and $1/p + 1/q = 1$. A sequence $\{f_{n}\}$ with $f_{n} \in L^p$ is said to converge to $f \in L^p$ \textbf{weakly} if 
+	\begin{equation*}
+		\int f_{n}g\;d\mu \to \int fg\;d\mu \qquad \text{for every $g \in L^q$}. 
+	\end{equation*}
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item Verify that if $\norm{f - f_{n}}_{L^p} \to 0$, then $f_{n}$ converges to $f$ weakly. 
+		\item Suppose $\sup_{n}\norm{f_{n}}_{L^p} < \infty$. Then, to verify weak convergence, it suffices to check the above convergence for a dense subset of functions $g$ in $L^q$. 
+		\item Suppose $1 < p < \infty$. Show that if $\sup_{n}\norm{f_{n}}_{L^p} <\infty$, then there exists $f \in L^p$ and a subsequence $\{n_{k}\}$ so that $f_{n_{k}}$ converges weakly to $f$. 
+	\end{enumerate}
+\end{prb}
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+	\item Assume that $\norm{f - f_{n}}_{L^p} \to 0$. Fix an arbitrary $g \in L^q$. Then by H\"older's inequality, 
+	\begin{equation*}
+		\abs{\int f_{n}g\;d\mu - \int fg\;d\mu} \leq \int |f_{n} - f||g|\;d\mu \leq \norm{f_{n} - f}_{p}\norm{g}_{q} \xrightarrow{n \to 0} 0. 
+	\end{equation*}
+	Since $g \in L^q$ was arbitrary, we conclude that $f_{n}$ converges to $f$ weakly. 
+	
+	\item Suppose $\sup_{n}\norm{f_{n}}_{L^p} < \infty$, and further assume that the above result holds for some dense subset $\mathcal{A}$ in $L^{q}$. Fix an arbitrary $g \in L^q$, and let $\{g_{j}\}_{j = 1}^{\infty} \subset \mathcal{A}$ so that $\norm{g - g_{j}}_{q} \to 0$ as $j \to \infty$. Then 
+	\begin{align*}
+		\begin{split}
+			\abs{\int f_{n}g - \int fg} &= \abs{\int f_{n}g - \int f_{n}g_{j} + \int f_{n}g_{j} - \int fg_{j} + \int fg_{j} - \int fg} \\
+			&\leq \int |f_{n}||g - g_{j}| + \abs{\int f_{n}g_{j} - \int fg_{j}} + \int |f||g - g_{j}|\\
+			&\leq \norm{f_{n}}_{L^p}\norm{g - g_{j}}_{L^q} + \abs{\int f_{n}g_{j} - \int fg_{j}} + \norm{f}_{L^p}\norm{g - g_{j}}_{L^q} \\
+			&\leq \sup_{n}\norm{f_{n}}_{L^p} \norm{g - g_{j}}_{L^p} + \abs{\int f_{n}g_{j} - \int fg_{j}} + \norm{f}_{L^p}\norm{g - g_{j}}_{L^q}. 
+		\end{split}
+	\end{align*}
+	Thus, taking the limit $n \to \infty$ on both sides, and using the fact that for each $j$, the second term vanishes under the limit by hypothesis, one has 
+	\begin{equation*}
+		\lim_{n \to \infty}\abs{\int f_{n}g -\int fg} \leq \sup_{n}\norm{f_{n}}_{L^p}\norm{g - g_{j}}_{L^p} + \norm{f}_{L^p}\norm{g - g_{j}}_{L^q}. 
+	\end{equation*}
+	Taking the limit $j \to \infty$ shows that $\int f_{n}g \to \int fg$ so that $f_{n}$ converges to $f$ weakly. 
+	\item Suppose $1 < p < \infty$, and assume $\sup_{n}\norm{f_{n}}_{L^p} < \infty$. First, since $X$ was assumed to be separable, then by Exercise 10(b), one has that $L^q(X,\mu)$ is separable. So let $\{g_{j}\}_{j = 1}^{\infty} \subset L^{q}(X,\mu)$ be a countable dense collection. We consider the sequence $\{\int f_{n}g_{1}\;d\mu\}_{n = 1}^{\infty} \subset \mathbb{R}$. First, it follows that this sequence is uniformly bounded: for every $n$, 
+	\begin{equation*}
+		\abs{\int f_{n}g\;d\mu} \leq \int |f_{n}\|g|\;d\mu \leq \norm{f_{n}}_{L^p}\norm{g}_{L^q} \leq \sup_{n}\norm{f_{n}}_{L^p}\norm{g}_{L^q} < \infty. 
+	\end{equation*}
+	Thus there exists a subsequence $\{f^{(1)}_{n_{k}}\}_{k = 1}^{\infty}$ so that $\{\int f_{n_{k}}^{(1)}g_{1}\;d\mu\}_{k = 1}^{\infty}$ converges. Now consider the sequence $\{\int f_{n_{k}}^{(1)}g_{2}\;d\mu\}_{k = 1}^{\infty}$. As before, this sequence is uniformly bounded so that there exists a further subsequence $\{f_{n_{k}}^{(2)}\}_{k = 1}^{\infty}$ such that $\{\int f_{n_{k}}^{(2)}g_{2}\}_{k = 1}^{\infty}$ converges. By construction, $\{\int f_{n_{k}}^{(2)}g_{1}\}$ also converges. In this manner, for each $j$, we can obtain a subsequence $\{f_{n_{k}}^{(j)}\}$ so that $\{\int f_{n_{k}}^{(j)}g_{l}\}_{k = 1}^{\infty}$ converges for all $\ell \leq j$. Now construct the sequence $\{f_{n_{k}}\}_{k = 1}^{\infty} = \{f_{n_{j}}^{(j)}\}_{j = 1}^{\infty}$. By construction, $\{\int f_{n_{k}}g_{j}\}_{k = 1}^{\infty}$ converges for all $j$. Now we claim that $\{\int f_{n_{k}}g\}_{k =1}^{\infty}$ converges for all $g \in L^{q}$. Let $\epsilon > 0$ be fixed, $M \coloneqq \sup_{n}\norm{f_{n}}_{L^p} < \infty$, $j$ large enough so that $\norm{g - g_{j}}_{L^q} < \epsilon/(3M)$, and $N$ large enough so that for all $k,m \geq N$, $|\int f_{n_{k}}g_{j} - \int f_{n_{m}}g_{j}| < \epsilon/3$. Then for all $k, m \geq N$, one has 
+	\begin{align*}
+		\begin{split}
+			\abs{\int f_{n_{k}}g - \int f_{n_{m}}g} &\leq 2\sup_{n}\norm{f_{n}}_{L^p}\cdot \norm{g - g_{j}}_{L^q} + \abs{\int f_{n_{k}}g_{j} - \int f_{n_{m}}g_{j}} \\
+			&< \frac{2\epsilon}{3} + \frac{\epsilon}{3} = \epsilon. 
+		\end{split}
+	\end{align*}
+	Thus taking $\epsilon \to 0$ concludes the proof of the above claim. Now define the linear functional $T: L^{q} \to\mathbb{R}$ as follows: for any $g \in L^q$, let 
+	\begin{equation*}
+		T(g) \coloneqq \lim_{n_{j} \to \infty}\int f_{n_{j}}g. 
+	\end{equation*}
+	It is straightforward to see that this funtional is bounded. Thus since $1 < p, q < \infty$ and $p,q$ are conjugates, by the Riesz Representation Theorem, there exists a unique $f \in L^p$ so that 
+	\begin{equation*}
+		\int fg = T(g) = \lim_{n_{j} \to \infty}\int f_{n_{j}}g \qquad \quad (g \in L^q(X,\mu)). 
+	\end{equation*}
+	Thus the proof concludes. 
+\end{enumerate}
+
 \begin{prb}{2.2}
 	The following are simple generalizations of the Hausdorff-Young inequalities. \vspace{-0.25cm} 
 	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
@@ -429,4 +609,225 @@ in $\mathbb{R}^{n} \times (0,\infty)$.
 		\end{equation*}
 	\end{enumerate}
 \end{enumerate}
+
+\newpage 
+\subsection{Luk Notes} 
+
+\begin{prb}{N.1}
+	(Luk, pg. 3) The Einstein vacuum equations describe the propagation of gravitational waves in the absence of matter and take the form $\operatorname{Ric}(g) = 0$, where the Lorentzian metric $g$ is the unknown. Show that in a coordinate system, these equations take the form 
+	\begin{equation*}
+		\operatorname{Ric}(g)_{\mu\nu} = -\frac{1}{2}g^{\alpha \beta}\partial^{2}_{\alpha\beta}g_{\mu\nu} - \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\mu\nu} g_{\alpha\beta} + \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\alpha \nu}g_{\beta \mu} + \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\beta\mu}g_{\alpha\nu} + F_{\mu\nu}(g, \partial g), 
+	\end{equation*}
+	where $F_{\mu\nu}(g, \partial g)$ is a function of $g$ and its derivatives. 
+\end{prb} 
+Let $(M, g)$ be a Lorentzian manifold, and let $\operatorname{Ric}(g)$ denote the Ricci curvature tensor on $M$. Let $(x^{j})_{j = 1}^{n}$ denote a local coordinate system, and let $(\partial_{j})_{j = 1}^{n}$ be the corresponding vector fields. Let $R$ denote the Riemann curvature tensor. Then if $R$ is given in coordinates by $R = {R_{ijk}}^{\ell}\;dx^{i} \otimes dx^{j} \otimes dx^{k} \otimes \partial_{\ell}$, then 
+\begin{equation*}
+	{R_{ijk}}^{\ell} = \partial_{i}\Gamma^{\ell}_{jk} - \partial_{j}\Gamma^{\ell}_{ik} + \Gamma^{m}_{jk}\Gamma^{\ell}_{im} - \Gamma^{m}_{ik}\Gamma^{\ell}_{jm}, 
+\end{equation*} 
+where the $\Gamma^{\bullet}_{\ast \star}$ are the \textit{Christoffel symbols}. One can also show that in coordinates, 
+\begin{equation*}
+	\Gamma^{i}_{jk} = \frac{1}{2}g^{im}\left(\partial_{k}g_{mj} + \partial_{j}g_{mk} - \partial_{m}g_{jk}\right). 
+\end{equation*}
+Thus, we then compute, 
+\begin{align*}
+	\begin{split}
+		{R_{ijk}}^{\ell} &= \frac{1}{2}g^{\ell m}\left(\partial^{2}_{ki}g_{mj} + \partial^{2}_{ji}g_{mk} - \partial^{2}_{mi}g_{jk}\right) + \{\dotsm\} - \frac{1}{2}g^{\ell m}\left(\partial^{2}_{kj}g_{mi} + \partial^{2}_{ij}g_{mk} - \partial^{2}_{mj}g_{ik}\right) - \{\dotsm\} + \{\dotsm\}. 
+	\end{split} 
+\end{align*}
+Then the component functions of the Ricci curvature tensor in coordinates are, 
+\begin{align*}
+	\begin{split}
+		\operatorname{Ric}(g)_{ij} = {R_{\ell ij}}^{\ell} &= -\frac{1}{2}g^{\ell m}\partial^{2}_{\ell m}g_{ij}  -\frac{1}{2}g^{\ell m}\partial^{2}_{i j}g_{\ell m} + \frac{1}{2}g^{\ell m}\partial^{2}_{im}g_{\ell j} + \frac{1}{2}g^{\ell m}\partial^{2}_{\ell j}g_{im} + F_{ij}(g, \partial g). 
+	\end{split} 
+\end{align*}
+Thus to agree with the format presented in the problem, let $\ell = \alpha$, $m = \beta$, $i = \mu$, and $j = \nu$. 
+
+\begin{prb}{N.2}
+	(Luk, pg. 18) Let $\phi$ be a solution to the Cauchy problem, 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{1}
+			&\partial_{\alpha}(a^{\alpha\beta}\partial_{\beta}\phi) = F \\
+			&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}). 
+		\end{alignedat} 
+		\right. 
+	\end{equation*} 
+	Show that 
+	\begin{equation*}
+		\sup_{t \in [0,T]}\norm{\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \left(\norm{\phi_{0}}_{L^{2}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
+	\end{equation*} 
+\end{prb} 
+Let $\phi$ be a sufficiently regular solution to the aforementioned Cauchy problem. Then the fundamental theorem of calculus tells us that 
+\begin{equation*}
+	\phi(x, t) = \phi_{0}(x) + \int_{0}^{t}\partial_{t}\phi(t', x)\;dt', 
+\end{equation*}
+for any $t \in [0,T]$. Thus, we compute, 
+\begin{align*}
+	\begin{split}
+		|\phi(x, t)|^{2} &\leq |\phi_{0}|^{2} + \abs{\int_{0}^{t}\partial_{t}\phi(t',x)\;dt'}^{2} \\
+		\implies 
+		\norm{\phi}_{L^{2}(\mathbb{R}^{n})}^{2} &\leq 2\norm{\phi_{0}}_{L^{2}(\mathbb{R}^{n})}^{2} + 2\int_{\mathbb{R}^{n}}\abs{\int_{0}^{t}\partial_{t}\phi\;dt'}\;dx \\
+		\implies 
+		\norm{\phi}_{L^{2}(\mathbb{R}^{n})} &\leq 2^{1/2}\norm{\phi_{0}}_{L^{2}(\mathbb{R}^{n})} + 2^{1/2}\left(\int_{\mathbb{R}^{n}}\abs{\int_{0}^{t}\partial_{t}\phi\;dt'}^{2}\;dx\right)^{1/2} \\
+		&\leq 2^{1/2}\norm{\phi_{0}}_{L^{2}(\mathbb{R}^{n})} + 2^{1/2}\int_{0}^{t}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\;dt' \\
+		&\leq 2^{1/2}\left(\norm{\phi_{0}}_{L^{2}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})}\;dt\right), 
+	\end{split}
+\end{align*} 
+where the fourth line follows the Minkowski inequality, and the final line follows from the fact that $\norm{\partial_{t}\phi}_{L^{2}(\mathbb{R}^{n})} \geq 0$. 
+
+\begin{prb}{N.3}
+	Consider the general functional inequality, 
+	\begin{equation*}
+		\norm{\eta}_{H^{s}(\mathbb{R}^{n})} \leq C \norm{\eta}_{H^{s_{1}}(\mathbb{R}^{n})}^{\theta_{1}}\norm{\eta}_{H^{s_{2}}(\mathbb{R}^{n})}^{\theta_{2}}
+	\end{equation*} 
+	for some $C = C(s_{1}, s_{2}, s, n) > 0$, where $0 \leq s_{1} \leq s \leq s_{2}$, $\theta_{1} + \theta_{2} = 1$, and $\theta_{1}s_{1} + \theta_{2}s_{2} = s$. Prove this functional inequality by taking the Fourier transform and using H\"older's inequality. 
+\end{prb} 
+Let $\eta \in H^{s}(\mathbb{R}^{n})$. We recall that 
+\begin{equation*}
+	\norm{\eta}_{H^{s}(\mathbb{R}^{n})}^{2} \coloneqq \int_{\mathbb{R}^{n}}(1 + |\xi|^{2})^{s}|\hat{\eta}|^{2}\;d\xi
+\end{equation*}
+Let $0 \leq s_{1} \leq s \leq s_{2}$, and let $\theta_{1}, \theta_{2}$ such that $\theta_{1} + \theta_{2} = 1$ and $\theta_{1}s_{1} + \theta_{2}s_{2} = s$. Then we can write, 
+\begin{align*}
+	\begin{split} 
+	\norm{\eta}_{H^{s}(\mathbb{R}^{n})}^{2} &= \int_{\mathbb{R}^{n}}(1 + |\xi|^{2})^{\theta_{1}s_{1}}|\hat{\eta}|^{2\theta_{1}}(1 + |\xi|^{2})^{\theta_{2}s_{2}}|\hat{\eta}|^{2\theta_{2}}\;d\xi \\
+	&\leq \left(\int_{\mathbb{R}^{n}}(1 + |\xi|^{2})^{s_{1}}|\hat{\eta}|^{2}\;d\xi\right)^{\theta_{1}}\left(\int_{\mathbb{R}^{n}}(1 + |\xi|^{2})^{s_{2}}|\hat{\eta}|^{2}\;d\xi \right)^{\theta_{2}} \\
+	&= \norm{\eta}_{H^{s_{1}}(\mathbb{R}^{n})}^{2\theta_{1}}\norm{\eta}_{H^{s_{2}}(\mathbb{R}^{n})}^{2\theta_{2}}. 
+	\end{split} 
+\end{align*} 
+
+\begin{prb}{E.1.5}
+	Given smooth and compactly supported initial data to the linear wave equation in any dimension, use the Fourier representation formula to show that the $\dot{H}^{k}$ norm is uniformly bounded in time for any $k \geq 1$. 
+\end{prb} 
+Let $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1})$ be smooth and compactly supported initial data to the linear wave equation in $\mathbb{R}^{1 + n}$, and let $\phi$ be the unique solution to the Cauchy wave problem. In the notes, we explicitly showed that 
+\begin{equation*}
+	\hat{\phi}(t, \xi) = \hat{\phi}_{0}\cos(2\pi t |\xi|) + \frac{\hat{\phi}_{1}}{2\pi |\xi|}\sin(2\pi t |\xi|). 
+\end{equation*}
+We also recall that the norms for the spaces $\dot{H}^{k}$ (i.e., the homogeeous Sobolev spaces $\dot{W}^{k, 2}$) for $1 \leq k < \infty$ are given by
+\begin{equation*}
+	\norm{u}_{\dot{H}^{k}(\mathbb{R}^{n})} \coloneqq \left(\int_{\mathbb{R}^{n}}|\xi|^{2k}|\hat{u}|^{2}\;d\xi\right)^{1/2}. 
+\end{equation*}
+Thus, we compute, 
+\begin{align*}
+	\begin{split}
+		\norm{\phi}_{\dot{H}^{k}(\mathbb{R}^{n})}^{2}(t) &= \int_{\mathbb{R}^{n}}|\xi|^{2k}\abs{\hat{\phi}_{0}\cos(2\pi t |\xi|) + \frac{\hat{\phi}_{1}}{2\pi |\xi|}\sin(2\pi t|\xi|)}^{2}\;d\xi \\
+		&\leq 2\int_{\mathbb{R}^{n}}|\xi|^{2k}|\hat{\phi}_{0}|^{2}\cos^{2}(2\pi t|\xi|)\;d\xi + \frac{1}{2\pi^{2}}\int_{\mathbb{R}^{n}}|\xi|^{2k - 2}|\hat{\phi}_{1}|^{2}\sin^{2}(2\pi t |\xi|)\;d\xi \\
+		&\leq 2\norm{\phi_{0}}_{\dot{H}^{k}(\mathbb{R}^{n})}^{2} + \frac{1}{2\pi^{2}}\norm{\phi_{1}}_{\dot{H}^{k - 1}(\mathbb{R}^{n})}^{2}, 
+	\end{split} 
+\end{align*}
+for all $t \geq 0$. Thus, we conclude that the $\dot{H}^{k}$ is uniformly bounded in time for any $1 \leq k <\infty$. 
+
+\begin{prb}{E.1.8}
+	We used in class the forward fundamental solution to solve the homogeneous wave equation $$\Box\phi = 0.$$ In fact, this can also be used to solve the equation $\Box\phi = F$ for given $F \in C^{\infty}$. Show that if $E_{+}$ is the forward fundamental solution, then $$\phi = -E_{+}\ast (F\mathbb{1}_{\{t\geq 0\}})$$ is a solution to $\Box\phi = F$ with zero data; i.e., $(\phi,\partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (0,0)$. 
+\end{prb} 
+Let $E_{+}$ denote the forward fundamental solution to $\Box\psi = 0$, and let 
+\begin{equation*}
+	\phi = -E_{+} \ast (F\mathbb{1}_{\{t \geq 0\}}) = -\frac{\pi^{\frac{1 -n}{2}}}{2}\mathbb{1}_{\{t \geq 0\}}\chi_{+}^{\frac{1 - n}{2}}(t^{2} - |x|^{2}) \ast (F\mathbb{1}_{\{t \geq 0\}}), 
+\end{equation*} 
+where 
+\begin{equation*}
+	\chi_{+}^{\frac{1 - n}{2}}(t^{2} - |x|^{2}) \coloneqq \frac{(t^{2} - |x|^{2})^{(1 - n)/2}\chi_{\{|x|\leq t\}}}{\Gamma((3 - n)/2)}. 
+\end{equation*} 
+First, we need to verify that $\phi$ satisfies the initial (zero) data. 
+\newpage 
+\subsection{Random Computations} 
+\begin{prb}{2}
+	Analyze the modified energy, $E_{p}(t)$, defined by: for each $p \in (0,\infty)$, define 
+	\begin{equation*}
+		E_{p}(t) \coloneqq \norm{\partial_{t}\phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t) + \norm{\nabla \phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t). 
+	\end{equation*}
+	For $p = \infty$, define 
+	\begin{equation*}
+		E_{\infty}(t) = \norm{\partial_{t}\phi}_{L^{\infty}(\mathbb{R}^{n})}(t) + \norm{\nabla \phi}_{L^{\infty}(\mathbb{R}^{n})}(t). 
+	\end{equation*}
+\end{prb} 
+Let $\phi$ be a sufficiently regular solution to the linear, homogeneous wave equation $\Box\phi = 0$ on $\mathbb{R}^{1 + n}$, and for $0 < p < \infty$, let 
+\begin{equation*}
+	E_{p}(t) = \int_{\mathbb{R}^{n}}|\partial_{t}\phi|^{p} + |\nabla \phi|^{p}\;dx, 
+\end{equation*}
+and for $p = \infty$, let 
+\begin{equation*}
+	E_{\infty}(t) = \norm{\partial_{t}\phi}_{L^{\infty}(\mathbb{R}^{n})} + \norm{\nabla \phi}_{L^{\infty}(\mathbb{R})}. 
+\end{equation*}
+We have already seen that when $p = 2$, $E_{p}(t)$ is constant in time for all $n \geq 1$. Our goal is to see if this conservation law extends to other $p$. First, let us consider $p = \infty$. We recall the pointwise dispersive estimates, 
+\begin{equation*}
+	\sup_{x \in \mathbb{R}^{n}}|\phi(x, t)| \lesssim \frac{1}{(1 + t)^{\frac{n-1}{2}}}. 
+\end{equation*}
+Since derivatives commute, we have that $\partial_{t}\phi$ and $\nabla \phi$ are both solutions to the linear, homogeneous wave equation. So in fact, one has 
+\begin{equation*}
+	\sup_{x \in \mathbb{R}^{n}}|\partial_{t}\phi(x, t)|, \sup_{x \in \mathbb{R}^{n}}|\nabla \phi(x, t)| \lesssim \frac{1}{(1 + t)^{\frac{n - 1}{2}}}
+\end{equation*}
+Therefore for $n \geq 2$, 
+\begin{align*}
+	\begin{split}
+		E_{\infty}(t) = \norm{\partial_{t}\phi}_{L^{\infty}(\mathbb{R}^{n})} + \norm{\nabla \phi}_{L^{\infty}(\mathbb{R}^{n})} \lesssim \frac{1}{(1 + t)^{\frac{n - 1}{2}}} \to 0 \text{ as $t \to \infty$}, 
+	\end{split}
+\end{align*}
+so that $E_{\infty}(t)$ is not constant in time. Now consider $n= 1$. We can easily disprove the conservation law via an example. Consider the Cauchy wave problem, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box\phi = 0,\\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = ((-1 + x^{2})\chi_{[-1,1]}, 0)
+	\end{alignedat}
+	\right.
+\end{equation*}
+Then $E_{\infty}(0) = \norm{\nabla \phi}_{L^{\infty}}(0) = 2$. However, in the period $0 < t < 1/2$, $\norm{\nabla \phi}_{L^{\infty}(\mathbb{R})}> 1$ so that $E_{\infty}(t) > 2$ for all $t \in (0,1/2)$. Thus $E_{\infty}(t)$ cannot be conserved. This rules out any energy conservation law for $p = \infty$. 
+
+Now let us consider $p = 1$, 
+\begin{equation*}
+	E_{1}(t) = \int_{\mathbb{R}^{n}}|\partial_{t}\phi| + |\nabla \phi|\;dx \eqqcolon \norm{\partial_{t}\phi}_{L^{1}(\mathbb{R})} + \norm{\nabla \phi}_{L^{1}(\mathbb{R})}. 
+\end{equation*}
+We will consider the case $n = 1$ first. Consider the Cauchy wave problem, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box\phi = 0,\\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = ((-1 + |x|)\chi_{[-1,1]}, 0)
+	\end{alignedat}
+	\right.
+\end{equation*}
+Then $E_{1}(0) = \norm{\nabla \phi}_{L^{1}(\mathbb{R})} = 2$. Now let $t \in (0,1/2)$. Then 
+\begin{align*}
+	\begin{split}
+		\norm{\nabla \phi}_{L^{1}(\mathbb{R})}(t) &= \int_{-1-t}^{-1 + t}\frac{1}{2}\;dt + \int_{-1 + t}^{-t}\;dt + \int_{t}^{1 - t}\;dt + \int_{1 - t}^{1 + t}\frac{1}{2}\;dt \\
+		&= 2 - 2t. 
+	\end{split}
+\end{align*}
+Likewise, we compute $\norm{\partial_{t}\phi}_{L^{1}(\mathbb{R})}(t) = 4t$. Therefore, $E_{1}(t) = 4t + 2 - 2t = 2 + 2t > 2$. Evidently, $E_{1}(t)$ is not, in general, conserved in $n = 1$. Now we consider $n \geq 2$. We modify the Cauchy problem from above as follows, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box\phi = 0,\\
+		&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = ((-1 + |x|)\chi_{\{|x| \leq 1\}}, 0), 
+	\end{alignedat}
+	\right.
+\end{equation*}
+where $x = (x_{1}, \ldots, x_{n}) \in\mathbb{R}^{n}$. Then we compute $E_{1}(0) = \norm{\nabla \phi}_{L^{1}(\mathbb{R}^{n})}(0) = \omega_{n}$, where $\omega_{n}$ is the volume of the unit $n$-ball. On the other hand, for $t \in (0,1/2)$, switching to radial coordinates and using the dispersion of solutions to the wave equation, we can show that the energy exceeds the initial energy. Thus $E_{1}(t)$ is not conserved for any $n \geq 2$. This rules out any energy conservation law for $p = 1$. Going one step further, we have the following. 
+\begin{definition}[Energy]
+	Let $n \geq 1$ be a positive integer, and let $\phi$ be a solution to the linear, homogeneous wave equation 
+	\begin{equation}
+		\left\{
+		\begin{alignedat}{1}
+			&\Box\phi = 0, \\
+			&(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = ((-1 + |x|)\chi_{\{|x| \leq 1\}}, 0)
+		\end{alignedat}
+		\right. 
+		\label{eq:linhomwe}
+	\end{equation}
+	in $\mathbb{R}^{1 + n}$. For each $p \in (0,\infty)$, define 
+	\begin{equation*}
+		E_{p}(t) \coloneqq \norm{\partial_{t}\phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t) + \norm{\nabla \phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t). 
+	\end{equation*}
+	For $p = \infty$, define 
+	\begin{equation*}
+		E_{\infty}(t) = \norm{\partial_{t}\phi}_{L^{\infty}(\mathbb{R}^{n})}(t) + \norm{\nabla \phi}_{L^{\infty}(\mathbb{R}^{n})}(t). 
+	\end{equation*}
+\end{definition}
+\begin{conj*}
+	Let $n \geq 1$ be a positive integer, and let $\phi$ be a (nontrivial) solution to (\ref{eq:linhomwe}). For all $p \in (0, \infty]\setminus\{2\}$, 
+	\begin{equation*}
+		\sup_{t \in (0,1/2)}E_{p}(t) > E_{p}(0). 
+	\end{equation*}
+	If $p = 2$, then $E_{p}(t)$ is constant for all $t \geq 0$. 
+\end{conj*}
 \end{document}
