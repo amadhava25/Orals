@@ -18,7 +18,7 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 ]{todonotes}
 \rhead{Nonlinear Wave Equations}
 \om 
-\title{Random Exercises}
+\title{Homework Problems}
 \author{\me}
 \date{Fall 2026}
 
@@ -716,18 +716,124 @@ Thus, we compute,
 \end{align*}
 for all $t \geq 0$. Thus, we conclude that the $\dot{H}^{k}$ is uniformly bounded in time for any $1 \leq k <\infty$. 
 
-\begin{prb}{E.1.8}
-	We used in class the forward fundamental solution to solve the homogeneous wave equation $$\Box\phi = 0.$$ In fact, this can also be used to solve the equation $\Box\phi = F$ for given $F \in C^{\infty}$. Show that if $E_{+}$ is the forward fundamental solution, then $$\phi = -E_{+}\ast (F\mathbb{1}_{\{t\geq 0\}})$$ is a solution to $\Box\phi = F$ with zero data; i.e., $(\phi,\partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (0,0)$. 
+\begin{prb}{E.1.6}
+	(Decay for Klein-Gordon equation) Suppose $\phi$ satisfies the Klein-Gordon equation; i.e., $$\Box\phi - \phi =0$$ on $\mathbb{R} \times \mathbb{R}^{n}$ with initial data given by $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in C_{c}^{\infty} \times C_{c}^{\infty}$. \vspace{-0.35cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item First, show using the Fourier transform that if the solution is sufficiently regular, it is given by the formula 
+		\begin{equation*}
+			\hat{\phi}(t, \xi) = \hat{\phi}_{0}(\xi)\cos(\sqrt{4\pi^{2}|\xi|^{2} + 1}t) + \frac{\hat{\phi}_{1}(\xi)}{\sqrt{4\pi^{2}|\xi|^{2} + 1}}\sin(\sqrt{4\pi^{2}|\xi|^{2} + 1}t). 
+		\end{equation*}
+		\item For the $n = 1$ case, prove that $(\sup_{x}|\phi|)(t) \leq \frac{C}{(1 + t)^{\frac{1}{2}}}$, where $C = C(\phi_{0}, \phi_{1}) > 0$ is independent of $t$. Note that it suffices (why?) to show that 
+		\begin{equation*}
+			\abs{\int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x \cdot \xi}{t} + \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right) \hat{\phi}_{0}(\xi);d\xi} \leq \frac{C}{t^{1/2}}
+		\end{equation*} 
+		for $t$ large. Let 
+		\begin{equation*}
+			\varphi \coloneqq \frac{2\pi x \xi}{t} + \sqrt{4\pi^{2}|\xi|^{2} + 1}. 
+		\end{equation*} 
+		Show that $$\displaystyle \frac{\partial}{\partial \xi}\varphi = 0 \implies \xi^{2} = \frac{x^{2}}{4\pi^{2}(t^{2} - x^{2})}.$$ Show also that 
+		\begin{equation*}
+			\frac{\partial^{2}}{\partial \xi^{2}} \varphi \geq \frac{4\pi^{2}}{(4\pi^{2}\xi^{2} + 1)^{\frac{3}{2}}}. 
+		\end{equation*}
+		Now split the integral into $\int_{|\xi^{2} - \frac{x^{2}}{4\pi^{2}(t^{2} - x^{2})}| \leq \delta} + \int_{|\xi^{2} - \frac{x^{2}}{4\pi^{2}(t^{2} - x^{2})}| \geq \delta}$, estimate each part with the above observations and optimized in $\delta$ to obtain the desired decay result. 
+		\item Finally, can you prove that 
+		\begin{equation*}
+			|\phi| \leq \frac{C}{(1 + t)^{\frac{n}{2}}}
+		\end{equation*} 
+		holds for some $C = C(\phi_{0}, \phi_{1}) > 0$ for arbitrary dimensions? 
+	\end{enumerate}
 \end{prb} 
-Let $E_{+}$ denote the forward fundamental solution to $\Box\psi = 0$, and let 
-\begin{equation*}
-	\phi = -E_{+} \ast (F\mathbb{1}_{\{t \geq 0\}}) = -\frac{\pi^{\frac{1 -n}{2}}}{2}\mathbb{1}_{\{t \geq 0\}}\chi_{+}^{\frac{1 - n}{2}}(t^{2} - |x|^{2}) \ast (F\mathbb{1}_{\{t \geq 0\}}), 
-\end{equation*} 
-where 
-\begin{equation*}
-	\chi_{+}^{\frac{1 - n}{2}}(t^{2} - |x|^{2}) \coloneqq \frac{(t^{2} - |x|^{2})^{(1 - n)/2}\chi_{\{|x|\leq t\}}}{\Gamma((3 - n)/2)}. 
-\end{equation*} 
-First, we need to verify that $\phi$ satisfies the initial (zero) data. 
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+	\item Consider the Klein-Gordon equation $\Box\phi - \phi = 0$ on $\mathbb{R} \times \mathbb{R}^{n}$, with compactly supported smooth initial data. Assume that a solution exists and that it is sufficiently regular. Then taking the Fourier transform of the equation, one obtains 
+	\begin{equation*}
+		-\partial_{t}^{2}\hat\phi - (4\pi^{2}|\xi|^{2} + 1)\hat{\phi} = 0 \implies \partial_{t}^{2}\hat{\phi} = (4\pi^{2}|\xi|^{2} + 1)\hat{\phi}. 
+	\end{equation*} 
+	Thus solving the ODE and using the initial data, we obtain (as desired)
+	\begin{equation*}
+		\hat{\phi}(t, \xi) = \hat{\phi}_{0}\cos(\sqrt{4\pi^{2}|\xi|^{2} + 1}t) + \frac{\hat{\phi}_{1}}{\sqrt{4\pi^{2}|\xi|^{2} + 1}}\sin(\sqrt{4\pi^{2}|\xi|^{2} + 1}t). 
+	\end{equation*} 
+	\item Rewriting the formula for $\hat{\phi}$ (from (a)) in a more convenient way, we obtain 
+	\begin{equation*}
+		\hat{\phi}(t, \xi) = \exp\left(i\sqrt{4\pi^{2}\xi^{2} + 1}t\right)\left(\frac{\hat{\phi}_{0}}{2} + \frac{\hat{\phi}_{1}}{2i\sqrt{4\pi^{2}\xi^{2} + 1}}\right) + \exp\left(-i\sqrt{4\pi^{2}\xi^{2} + 1}t\right)\left(\frac{\hat{\phi}_{0}}{2} - \frac{\hat{\phi}_{1}}{2i\sqrt{4\pi^{2}\xi^{2} + 1}}\right). 
+	\end{equation*} 
+	Thus taking the inverse Fourier transform, 
+	\begin{align*}
+		\begin{split}
+			\phi(t, x) &= I_{1} + I_{2} + I_{3} + I_{4}, 
+		\end{split} 
+	\end{align*} 
+	where 
+	\begin{equation*}
+		\begin{matrix}
+			\displaystyle I_{1} = \int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x\xi}{t}  + \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right)\frac{\hat{\phi}_{0}}{2}\;d\xi && \displaystyle I_{2} = \int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x\xi}{t}  + \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right)\frac{\hat{\phi}_{1}}{2i\sqrt{4\pi^{2}\xi^{2} + 1}}\;d\xi \\
+			\displaystyle I_{3} = \int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x\xi}{t}  - \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right)\frac{\hat{\phi}_{0}}{2}\;d\xi && \displaystyle I_{4} = \int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x\xi}{t}  - \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right)\frac{\hat{\phi}_{1}}{2i\sqrt{4\pi^{2}\xi^{2} + 1}}\;d\xi
+		\end{matrix}
+		. 
+	\end{equation*} 
+	As suggested in the problem, it suffices to consider just $t\geq 1$. Since $\phi_{0}, \phi_{1}$ are compactly supported smooth functions, their Fourier trannsfoms are Schwartz (thus integrable). This means there exist $M_{j} > 0$, for $j = 1, 2, 3, 4$ such that $|I_{j}| \leq M_{j}$. Thus, taking $M > M_{1} + \dotsm + M_{4}$, we have that for all $x \in \mathbb{R}$, $|\phi| \leq M$. Taking $C > 0$ large enough so that $C \geq M \cdot 2^{1/2}$, we have $|\phi(t, x)| \leq C/(1 + t)^{1/2}$ for all $t \geq 0$ and $x \in \mathbb{R}$ so that the result follows. Thus we focus on the case for $t\geq 1$. As in the lecture notes, we also only focus on showing the bound for $I_{1}$. The bound for $I_{3}$ will follow nearly identically. As hinted in the problem, define 
+	\begin{equation*}
+		\varphi = \frac{2\pi x \xi}{t} + \sqrt{4\pi^{2}\xi^{2} + 1}, 
+	\end{equation*}
+	and assume that $\partial\varphi/\partial\xi = 0$. I.e., 
+	\begin{equation*}
+		0 = \frac{\partial \varphi}{\partial \xi} = \frac{2\pi x}{t} + \frac{1}{2}(4\pi^{2}\xi^{2} + 1)^{-1/2} \cdot 8\pi^{2}\xi \implies \frac{\pi^{2}x^{2}}{t^{2}} = \frac{4\pi^{4}\xi^{2}}{4\pi^{2}\xi^{2} + 1}  \implies \xi^{2} = \frac{x^{2}}{4\pi^{2}(t^{2} - x^{2})}. 
+	\end{equation*} 
+	Moreover, we compute, 
+	\begin{align*}
+		\begin{split}
+			\partial^{2}_{\xi}\varphi &= \frac{4\pi^{2}}{\sqrt{4\pi^{2}\xi^{2} + 1}} -\frac{4\pi^{2}\xi}{(4\pi^{2}\xi^{2} + 1)^{3/2}} \cdot 8\pi^{2}\xi = \frac{4\pi^{2}}{\sqrt{4\pi^{2}\xi^{2} + 1}} - \frac{16\pi^{4}\xi^{2}}{(4\pi^{2}\xi^{2} + 1)^{3/2}} \\
+			&= \frac{4\pi^{2}}{(4\pi^{2}\xi^{2} + 1)^{3/2}}. 
+		\end{split} 
+	\end{align*} 
+	Now we consider the integral 
+	\begin{equation*}
+		I_{1} = \int_{\mathbb{R}}\exp\left(it\left(\frac{2\pi x \cdot \xi}{t} + \sqrt{4\pi^{2}\xi^{2} + 1}\right)\right) \hat{\phi}_{0}(\xi)\;d\xi = \int_{\mathbb{R}}e^{i\varphi t}\hat{\phi}_{0}(\xi)\;d\xi. 
+	\end{equation*} 
+	Taylor expanding $\varphi$ around $\xi_{0}$ (where $\xi_{0}^{2} = x^{2}/(4\pi(t^{2} - x^{2}))$), we have 
+	\begin{equation*}
+		\varphi =  \left(\frac{2\pi x \xi_{0}}{t} + \sqrt{4\pi^{2}\xi_{0}^{2} + 1}\right) + \frac{2\pi^{2}}{(4\pi^{2}\xi_{0}^{2} + 1)^{3/2}}(\xi - \xi_{0})^{2} + \dotsm. 
+	\end{equation*}
+	Therefore, 
+	\begin{align*}
+		\begin{split}
+			I_{1} \approx \hat{\phi}_{0}(\xi_{0})\exp\left(it \cdot \left[\frac{2\pi x \xi_{0}}{t} + \sqrt{4\pi^{2}\xi_{0}^{2} + 1}\right]\right)\cdot \int_{\mathbb{R}}\exp\left(it \cdot \frac{2\pi^{2}}{(4\pi^{2}\xi_{0}^{2} + 1)^{3/2}}(\xi - \xi_{0})^{2}\right)\;d\xi 
+		\end{split} 
+	\end{align*} 
+	The latter integral, which we denote by $J$, evaluates to 
+	\begin{align*}
+		\begin{split}
+			J &= \int_{\mathbb{R}} \exp\left(i \cdot \frac{2\pi^{2}(t^{2} - x^{2})^{3/2}}{t^{2}}(\xi - \xi_{0})^{2}\right)\;d\xi = \left(\frac{2\pi}{|c|}\right)^{1/2}e^{i (\pi/4)}, 
+		\end{split} 
+	\end{align*} 
+	where 
+	\begin{equation*}
+		c = \frac{4\pi^{2}(t^{2} - x^{2})^{3/2}}{t^{2}}
+	\end{equation*}
+	Therefore, one has that 
+	\begin{equation*}
+		|I_{1}|  \approx |\hat{\phi}_{0}(\xi_{0})| \cdot \left(\frac{t^{2}}{2\pi(t^{2} - x^{2})^{3/2}}\right)^{1/2} \sim  \frac{1}{t^{1/2}}
+	\end{equation*} 
+	where we use the fact that $\hat{\phi}_{0}$ is Schwartz, and thus, bounded. For $t > 1$, we have $1 + t \leq 2t \implies (1 + t)^{1/2} \leq \sqrt{2}\sqrt{t} \implies \frac{\sqrt{2}}{(1 + t)^{1/2}} \geq \frac{1}{t^{1/2}}$. Thus, $|I_{1}| \lesssim \frac{1}{(1 + t)^{1/2}}$, where the constant was dependent only on the initial data. Note that we used the idea of \textit{stationary phase approximations}\footnote{\href{https://en.wikipedia.org/wiki/Stationary\_phase\_approximation}{https://en.wikipedia.org/wiki/Stationary\_phase\_approximation}}. 
+	
+	\item We can simply generalize the entire above argument to show that the desired decay rate is satisfied. 
+\end{enumerate}
+
+\begin{prb}{E.1.9}
+	Show that the bound $\sup_{t, x}|\partial \phi|\leq C$ for the solutions to the wave equation in $\mathbb{R} \times \mathbb{R}$ with smooth and compactly supported data is sharp in the following sense: suppose the initial data are given by $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}) \in C_{c}^{\infty} \times C_{c}^{\infty}$. Then if there exists a non-increasing function $A(t)$ such that $\lim_{t \to \infty}A(t) = 0$ and 
+	\begin{equation*}
+		(\sup_{x}|\partial \phi|)(t) \leq A(t), 
+	\end{equation*}
+	then $\phi_{0} = \phi_{1} =0$. 
+\end{prb} 
+
+\begin{prb}{E.1.12}
+	Show using the fundamental solution that solutions to the linear wave equation in $(1 + 1)$-dimensions; i.e., $\mathbb{R} \times \mathbb{R}$, satisfy $$\sup_{t,x}|\partial \phi| \leq C\sup_{x}|\partial \phi|(0,x)$$ for some $C > 0$ independent of $\phi$. Show that the corresponding estimate fails in $\mathbb{R} \times \mathbb{R}^{3}$ (in fact, all dimensions $n \geq 2$!); i.e., 
+	\begin{equation*}
+		\sup_{\{(\phi_{0}, \phi_{1}): \sup_{x}|\partial\phi|(0,x) = 1\}}\left(\sup_{t,x}|\partial \phi|\right) = \infty. 
+	\end{equation*} 
+	This shows that unlike the $L^{2}$ norm for the derivatives of $\phi$, which is propagated by the equation in all dimensions, the $L^{\infty}$ norm for the derivative of $\phi$ is not propagated. 
+\end{prb} 
+
 \newpage 
 \subsection{Random Computations} 
 \begin{prb}{2}
