@@ -825,6 +825,17 @@ for all $t \geq 0$. Thus, we conclude that the $\dot{H}^{k}$ is uniformly bounde
 	\end{equation*}
 	then $\phi_{0} = \phi_{1} =0$. 
 \end{prb} 
+Let $\phi$ be a solution to the linear wave equation in $\mathbb{R} \times \mathbb{R}$ with compactly supported smooth data, and such that $\sup_{t, x}|\partial \phi| \leq C$. We recall d'Alembert's formula, which states that 
+\begin{equation*}
+	\phi(t, x) = \frac{1}{2}[\phi_{0}(x + t) + \phi_{0}(x - t)] + \frac{1}{2}\int_{x -t}^{x + t}\phi_{1}(y)\;dy. 
+\end{equation*} 
+We then compute, 
+\begin{align*}
+	\begin{split}
+		|\partial \phi|^{2}(t, x) = \frac{1}{2}\left[ (\phi_0')^2(x+t) + (\phi_0')^2(x-t) + \phi_1^2(x+t) + \phi_1^2(x-t) \right] + \phi_0'(x+t)\phi_1(x+t) - \phi_0'(x-t)\phi_1(x-t). 
+	\end{split} 
+\end{align*}
+Let $[a, b]^{\text{cpt}} \subseteq \mathbb{R}$ be a compact interval large enough to contain the support of the initial data. Fix an arbitrary point $x_{0} \in [a, b]$, and let $x_{1}(t) = x_{0} + t$ and $x_{2}(t) = x_{0} - t$. Then it is easily shown that $$\lim_{t \to \infty}|\partial \phi|^{2}(t, x_{1}(t)) = \frac{1}{2}[(\phi'_{0})^{2}(x_{0}) + (\phi_{1})^{2}(x_{0}) - \phi'_{0}(x_{0})\phi_{1}(x_{0})]$$ and $$\lim_{t \to \infty}|\partial \phi|^{2}(t, x_{2}(t)) = \frac{1}{2} [(\phi'_{0})^{2}(x_{0}) + (\phi_{1})^{2}(x_{0}) + \phi'_{0}(x_{0})\phi_{1}(x_{0})].$$ By our hypothesis on the decay rate, we must also have $\lim_{t \to \infty}|\partial \phi|^{2}(t, x) = 0$ for every fixed $x \in \mathbb{R}$. Thus both of the above limits are zero. This yields $\phi'_{0}(x_{0}), \phi_{1}(x_{0}) = 0$. But since $x_{0} \in [a, b]$ was arbitrary, $\phi'_{0}, \phi_{1} \equiv 0$. Thus $\phi_{0}(x) \equiv c$ is a constant. But since the energy decays to zero as $t \to \infty$, but energy is also conserved, we must have $c \equiv 0$. Thus the conclusion follows. 
 
 \begin{prb}{E.1.12}
 	Show using the fundamental solution that solutions to the linear wave equation in $(1 + 1)$-dimensions; i.e., $\mathbb{R} \times \mathbb{R}$, satisfy $$\sup_{t,x}|\partial \phi| \leq C\sup_{x}|\partial \phi|(0,x)$$ for some $C > 0$ independent of $\phi$. Show that the corresponding estimate fails in $\mathbb{R} \times \mathbb{R}^{3}$ (in fact, all dimensions $n \geq 2$!); i.e., 

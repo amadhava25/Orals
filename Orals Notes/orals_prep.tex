@@ -719,8 +719,71 @@ Thus the fundamental solution can be thought of as an ``inverse'' to a partial d
 Now, we are interested in actually obtaining the fundamental solution to various PDE explicitly. Thus we start with the following definition. 
 
 \begin{definition}[Characteristic Polynomial]
-	
+	Let $L$ be the partial differential operator, 
+	\begin{equation*}
+		L = \sum_{|\alpha|\leq m}a_{\alpha}\partial_{x}^{\alpha}. 
+	\end{equation*} 
+	Then the \textbf{characteristic polynomial} of the operator $L$ is the polynomial, 
+	\begin{equation*}
+		P(\xi) = \sum_{|\alpha|\leq m}a_{\alpha}(2\pi i \xi)^{\alpha}. 
+	\end{equation*} 
 \end{definition} 
+The significance is as follows: we know that if a fundamental solution $F$ exists for $L$, then $LF = \delta$. On the other hand, for any $f \in \mathcal{S}$, one has that $(Lf)^{\hat{}} = P \cdot \hat{f}$. This would imply that $1 = (LF)^{\hat{}} = P \cdot \hat{F}$. Thus it would be desirable to just proclaim the fundamental solution $F$ to be given by $\hat{F}(\xi) = 1/P(\xi)$, or 
+\begin{equation*}
+	F = \int_{\mathbb{R}^{d}}\frac{1}{P(\xi)}e^{2\pi i x \cdot \xi}\;d\xi. 
+\end{equation*}
+However, the issues with this definition is that we must account for the zeros of $P$ (and the difficulty with defining $1/P$ as a distribution arising from the zeros). There are a few cases where this definition follows naturally. Consider, for example, the case of Laplace's equation. 
+
+\begin{theorem}{Fundamental Solution to Laplace's Equation ($d\geq 3$)}
+	For $d \geq 3$, the locally integrable function $F$ defined by $F(x) = C_{d}|x|^{-d + 2}$ is a fundamental solution for the operator $\Delta$, with $C_{d} = - \frac{\Gamma(\frac{d}{2} - 1)}{4\pi^{\frac{d}{2}}}$. 
+\end{theorem} 
+
+\begin{theorem}[Fundamental Solution to Laplace's Equation ($d = 2$)]
+	When $d = 2$, the locally integrable function $\frac{1}{2\pi}\log(|x|)$ is a fundamental solution of $\Delta$. 
+\end{theorem} 
+
+
+\subsubsection{Calder{\'o}n-Zygmund Distributions}
+In this subsubsection, we introduce the notion of \textit{Calder{\'o}n-Zygmund distributions}, which are natural generalizations of the Hilbert transform. In particular, we will mostly be considering distributions $K$ that are ``regular'' in the sense that there exists a function $k$ that is smooth away from the origin such that $K$ agrees with $k$ away from the origin $(\star_{1})$. We start with the following definitions. 
+
+\begin{definition}[$C^{(n)}$-Normalized Bump Function]
+	Given an integer $n$, $\varphi$ is a \textbf{$C^{(n)}$-normalized bump function} if $\varphi$ is a smooth function supported in the unit ball and 
+	\begin{equation}
+		\sup_{x}|\partial_{x}^{\alpha}\varphi(x)| \leq 1, \qquad \forall |\alpha|\leq n. 
+		\label{eq:NormBumpFunction}
+	\end{equation} 
+\end{definition} 
+
+\begin{definition}[Cancelation Condition]
+	Let $K$ be a distribution on $\mathbb{R}^{d}$. Let $\varphi$ be a $C^{(n)}$-normalized bump function for an integer $n$. Define $\varphi_{r}(x) = \varphi(rx)$ for $r > 0$. Then we define the following \textbf{cancelation condition} for $K$: for fixed $n \geq 1$, there exists an $A$ such that 
+	\begin{equation}
+		\sup_{0 < r}|K(\varphi_{r})| \leq A, 
+		\label{eq:cancelation_cond}
+	\end{equation} 
+	for all $C^{(n)}$-normalized bump functions. 
+\end{definition} 
+
+Now we provide the definition of Calder{\'o}n-Zygmund distributions. 
+
+\begin{prop}[Calder{\'o}n-Zygmund Distributions]
+	The following three properties of a distribution $K$ are equivalent. \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $K$ is regular in the sense of ($\star_{1}$), and satisfies the differential equality $$|\partial_{x}^{\alpha}k(x)| \leq c_{\alpha}|x|^{-d-|\alpha|}, \qquad \forall\alpha$$ and the cancelation condition (\ref{eq:cancelation_cond}). 
+		\item $K$ is tempered, and $m = K^{\hat{}}$ is a function that is smooth away from the origin that satisfies 
+		\begin{equation*}
+			|\partial_{\xi}^{\alpha}m(\xi)| \leq c'_{\alpha}|\xi|^{-\alpha}, \qquad \forall \alpha. 
+		\end{equation*}
+		\item $K$ is a regular distribution that satisfies the the regularity condition ($\star_{1}$) and $\hat{K}$ is a bounded function. 
+	\end{enumerate}
+	Distributions that satisfy these properties are called \textbf{Calder{\'o}n-Zygmund distributions.}
+\end{prop} 
+
+\newpage 
+\subsection{Oscillatory Integrals in Fourier Analysis}
+In this subsection, we consider \textit{oscillatory integrals} and their applications in Fourier analysis. As we will see, the idea of oscillatory integrals are indispensable for PDEs, in particular, for dispersion equations. For example, consider the Klein-Gordon equation $\Box \phi - \phi = 0$, with compactly supported smooth initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}}$, on $\mathbb{R}^{1 + d}$. Then one can show that the solution $\phi$ satisfies the dispersion estimate, 
+\begin{equation*}
+	\sup_{x}|\phi|(t, x) \lesssim_{(\varphi_{0}, \varphi_{1})}\frac{1}{\left(1 + t\right)^{\frac{d}{2}}}. 
+\end{equation*} 
 
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
@@ -1916,6 +1979,79 @@ In this part of the notes, we transition from the general theory of (non)linear 
 \section{Incompressible Fluids}
 
 In this section, we introduce the mathematical theory of incompressible fluids. \cite{Marchioro_Pulvirenti_1993}.  
+
+\subsection{Introduction to the Euler Equation}
+
+In this subsection, we introduce the \textbf{Euler equations} for ideal, incompressible fluids. In general, we will work in $\mathbb{R}^{3}$ unless stated otherwise. We start with a definition of \textit{incompressible displacements}. 
+
+\begin{definition}[Incompressible Displacements]
+Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region with sufficiently regular boundary $\partial \Omega$. Further assume that $\Omega$ contains a fluid. An \textbf{incompressible displacement} of the fluid is a transformation $\sigma: \Omega \to \Omega$ such that \vspace{-0.35cm} 	
+\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+	\item $\sigma$ is invertible, and $\sigma(D) = D$; 
+	\item $\sigma, \sigma^{-1} \in C^{1}(D)$ (i.e., $\sigma$ is a diffeomorphism on $\Omega$), 
+	\item $\sigma$ preserves the Lebesgue measure (in the sense that $m(\sigma(A)) = m(A)$, where $m$ is the $3$-dimensional Lebesgue measure, and $A \subseteq \Omega$). 
+\end{enumerate}
+\end{definition}
+\begin{remark}
+	Point (iii) makes \textit{incompressibility} explicitly clear to see; intuitively, a subvolume $A$ of fluid in $\Omega$ cannot be compressed or stretched (which could change the Lebesgue measure).
+\end{remark} 
+In particular, it is clear to see that the set $S$ of all incompressible displacements on $D$ forms a group under function composition as the product. Using this as a guide, we define \textbf{incompressible motion} as follows. 
+\begin{definition}[Incompressible Motion]
+	Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region with sufficiently regular boundary $\partial \Omega$. Further assume that $\Omega$ contains a fluid. An \textbf{incompressible motion} is a function $s, t \in \mathbb{R} \mapsto \Phi_{s, t} \in S$ such that \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $\Phi_{s, t}(\Phi_{t,r}(x)) = \Phi_{s, r}(x)$; 
+		\item $\Phi_{t, s}(\Phi_{s, t}(x)) = x$; 
+		\item $\Phi_{s, t}$ is continuously differentiable in $t$ and $s$. 
+	\end{enumerate}
+\end{definition}  
+
+\subsubsection{Derivation of the Fluid Equations} 
+
+Using the above results, we derive the PDEs satisfied by systems of \textit{ideal}, incompressible fluids. We begin with the equation for the \textit{density field}. Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region with sufficiently regular boundary $\partial \Omega$. Further assume that $\Omega$ contains a fluid. Let $\rho = \rho(x, t) \in C^{1}(\Omega)$ denote the \textit{density fluid} of the fluid (the mass of the fluid contained in the element of volume $dx$ at time $t$ is $\rho(x, t)\;dx$). Fix some subregion $V_{0} \subset \Omega$, and let 
+\begin{equation*}
+	V_{t} \coloneqq \{\Phi_{t}(x): x \in V_{0}\}. 
+\end{equation*}
+Note, we define $\Phi_{t}(x) \coloneqq \Phi_{t,0}(x)$. Also let $u(\Phi_{t}(x), t) = \frac{d}{dt}\Phi_{t}(x)$ denote the velocity field associated with this incompressible motion. Conservation of mass tells us that 
+\begin{equation*}
+	\frac{d}{dt}\int_{V_{t}}\rho(x, t)\;dx = 0. 
+\end{equation*}
+Thus making a ``change of variables'', we have that 
+\begin{equation*}
+	0 = \frac{d}{dt}\int_{V_{t}}\rho(x, t)\;dx = \frac{d}{dt}\int_{V_{0}}\rho(\Phi_{t}(x), t)J_{t}(x)\;dx = \frac{d}{dt}\int_{V_{0}}\rho(\Phi_{t}(x),t)\;dx, 
+\end{equation*} 
+where $J_{t}(x)$ is  the Jacobian of the transformation $x \mapsto \Phi_{t}(x)$. Since $\Phi_{t}$ is an incompressible motion, the Jacobian must identically be one. Passing the time derivative inside the integral (which we can do because of the assumed regularity of $\rho$ and boundedness of $V_{0}$), we then obtain 
+\begin{equation*}
+	0 = \frac{d}{dt}\int_{V_{0}}\rho(\Phi_{t}(x),t)\;dx = \int_{V_{0}}\frac{\partial}{\partial t}\rho(\Phi_{t}(x),t)\;dx = \int_{V_{0}}\partial_{t}\rho(\Phi_{t}(x),t) + u \cdot \nabla \rho(\Phi_{t}(x),t)\;dx. 
+\end{equation*} 
+Since $V_{0}$ was arbitrary, we obtain the PDE, $$(\partial_{t} + u \cdot \nabla)\rho(\Phi_{t}(x), t) = 0,$$  which is identically the linear first-order transport equation; we call this equation the \textit{continuity equation}. For the most part, however, we will assume the density to be constant $(\rho \equiv 1)$, so that the above equation is not immediately useful. Instead, we have the more important variation of the \textit{continuity equation}. 
+
+\begin{prop}[Continuity Equation for Incompressible Flows]
+	Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region containing a fluid. Let $V_{0}$ be a fixed subregion in $\Omega$, and let $V_{t} = \{\Phi_{t}(x): x \in V_{0}\}$, where $\Phi_{t} = \Phi_{t,0} \in S$ is an incompressible motion. Let $u(\Phi_{t}(x), t) = \frac{d}{dt}\Phi_{t}(x)$ denote the velocity field for the motion. Then the \textbf{continuity equation} is given by 
+	\begin{equation}
+		\operatorname{div}(u(x,t)) = \nabla \cdot u(x, t) \qquad (\forall x \in \Omega, t \in \mathbb{R}). 
+		\label{eq:conteq_incompressibleflows}
+	\end{equation}
+\end{prop} 
+Hereafter in this subsubsection, we will assume that $u \in C^{1}(\Omega \times \mathbb{R})$ and $u(t, \cdot) \in C(\bar{\Omega})$. So far, we have only given a PDE for $u$, but have not yet assigned any additional constraints. Recall that for PDEs describing physical systems, boundary conditions tell us how the system interacts with the boundaries of its environment. Thus we are interested in giving $u$ a boundary condition based on its interaction with $\partial \Omega$. By the definition of incompressible flow, we assume that no fluid particle can cross $\partial \Omega$. Thus if $v(x)$ denotes the velocity of the boundary $\partial \Omega$ at $x$, we must have $u(x, t) \cdot n = v(x) \cdot n$, where $n$ is the outward unit normal to $\partial \Omega$. Thus once we have the velocity field $u(x, t)$, the trajectories $\Phi_{t}(x)$ can be uniquely determined. 
+
+\subsubsection{Equations of Motion for an Incompressible Fluid} 
+
+In the previous subsubsection, we studied how the density, and more importantly, the velocity fields behaved. In doing so, we wrote the continuity equation, which is a statement about mass conservation. If we assume the density is constant (as we shall), then this equation enables us to uniquely construct the incompressible motions for the fluid. In this subsubsection, we turn to the actual fluid. In particular, we will derive the \textit{Euler equations} for the fluid. We make some simplifying assumptions for our model. 
+
+\begin{definition}[Ideal Fluids]
+	Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region containing a fluid. We assume that the fluid is \textbf{ideal}, or \textbf{perfect}, in the sense that the only interaction between the fluid particles is that induced by our incompressibility condition (namely that two particles may not simultaneously occupy the same position). I.e., we will ignore any interactive forces (e.g., electromagnetic forces) between two distinct fluid particles. 
+\end{definition} 
+
+To derive the equations of motion, we will use the \textit{Principle of Stationary Action}. The Lagrangian for the system is the kinetic energy, 
+\begin{equation*}
+	\mathcal{L} = \frac{1}{2}\int_{\Omega}\left(\frac{d}{dt}\Phi_{t}(x)\right)^{2}\;dx. 
+\end{equation*} 
+Thus, the action is given by 
+\begin{equation*}
+	A(\Phi; t_{1}, t_{2}) \coloneqq \int_{t_{1}}^{t_{2}}\int_{\Omega}\left(\frac{d}{dt}\Phi_{t}(x)\right)^{2}\;dxdt. 
+\end{equation*} 
+
+
 
 \newpage 
 \appendix
