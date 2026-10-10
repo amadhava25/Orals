@@ -432,6 +432,60 @@ where the final equality follows from the fact that $\int_{\mathbb{R}^{d}} \math
 	\end{split} 
 \end{align*} 
 
+
+\begin{prb}{3.1}
+	Suppose $F$ is a distribution on $\Omega$ and $F = f$, with $f$ a $C^{k}$ function in $\Omega$. Show that $\partial_{x}^{\alpha}F$, taken in the sense of distributions, agrees with $\partial_{x}^{\alpha}f$ for each $|\alpha|\leq k$. 
+\end{prb}
+Let $\Omega \subseteq \mathbb{R}^{d}$, and let $F$ be a distribution on $\Omega$ such that $F = f$, where $f \in C^{k}(\Omega)$. Recall that we defined $\partial_{x}^{\alpha}F$ as the distribution, 
+\begin{equation*}
+	(\partial_{x}^{\alpha}F)(\varphi) \coloneqq (-1)^{|\alpha|}F(\partial_{x}^{\alpha}\varphi), \qquad \forall \varphi \in C_{c}^{\infty}(\Omega). 
+\end{equation*}
+When $|\alpha| = 1$, we compute, 
+\begin{align*}
+	\begin{split}
+		\int_{\Omega}(\partial_{x_{j}}f)\varphi\;dx &= f\varphi\bigg|_{\partial \Omega} - \int_{\Omega}f\partial_{x_{j}}\varphi\;dx  \\
+		&= -\int_{\Omega}f\partial_{x_{j}}\varphi\;dx = -F(\partial_{x_{j}}\varphi), 
+	\end{split}
+\end{align*} 
+where the boundary term is zero since $\operatorname{supp}(\varphi) \subset \Omega$. Now for each $1 \leq |\alpha| \leq k$, applying induction on the above steps (by ``swapping'' one derivative at a time), we obtain, 
+\begin{equation*}
+	\int_{\Omega}(\partial_{x}^{\alpha}f)\varphi\;dx = (-1)^{|\alpha|}\int_{\Omega}f\partial_{x}^{\alpha}\varphi\;dx  \eqqcolon (-1)^{|\alpha|}F(\partial_{x}^{\alpha}\varphi), 
+\end{equation*}
+for all $\varphi \in C_{c}^{\infty}(\Omega)$. 
+
+\begin{prb}{3.11}
+	Suppose that $\varphi_{1}, \varphi_{2} \in \mathcal{S}$. \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item Verify that $\varphi_{1} \cdot \varphi_{2}$ belongs to $\mathcal{S}$. 
+		\item Using the Fourier transform, prove that $\varphi_{1} \ast \varphi_{2} \in \mathcal{S}$. 
+		\item Show directly from the definition of convolution that $\varphi_{1} \ast \varphi_{2}\in \mathcal{S}$. 
+	\end{enumerate}
+\end{prb} 
+Let $\varphi_{1}, \varphi_{2} \in \mathcal{S}$. \vspace{-0.25cm} 
+\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+	\item Let $N$ be an arbitrary fixed positive integer. For any $x \in \mathbb{R}^{d}$, and $|\alpha|, |\beta| \leq N$, one has that 
+	\begin{equation*}
+		x^{\beta}\partial_{x}^{\alpha}(\varphi_{1} \cdot \varphi_{2})(x) = x^{\beta}\sum_{\gamma \leq \alpha}\binom{\alpha}{\gamma}(\partial^{\gamma}\varphi_{1})(\partial^{\alpha - \gamma}\varphi_{2}). 
+	\end{equation*}
+	This means that 
+	\begin{align*}
+		\begin{split}
+			|x^{\beta}\partial_{x}^{\alpha}(\varphi_{1} \cdot \varphi_{2})(x)| &\leq \sum_{\gamma \leq \alpha}\binom{\alpha}{\gamma}\abs{x^{\beta}(\partial_{x}^{\gamma}\varphi_{1})(x)(\partial_{x}^{\alpha - \gamma}\varphi_{2})(x)} \\
+			&\leq \sum_{\gamma \leq \alpha}\binom{\alpha}{\gamma}|x^{\beta}(\partial_{x}^{\gamma}\varphi_{1}(x))|\norm{\partial_{x}^{\alpha - \gamma}\varphi_{2}}_{L^{\infty}(\mathbb{R}^{d})}. 
+		\end{split} 
+	\end{align*}
+	Thus taking the supremum over all $x \in \mathbb{R}^{d}$ and $|\alpha|,|\beta| \leq N$ gives $\norm{\varphi_{1} \cdot \varphi_{2}}_{N} <\infty$. Since this is true for all positive integers $N$, the proof concludes. 
+	\item Since $\varphi_{1,2}$ are Schwartz, both of their Fourier transforms are also Schwartz. Thus by (a), $\hat{\varphi}_{1} \cdot \hat{\varphi}_{2}$ is also Schwartz. But $\hat{\varphi}_{1} \cdot \hat{\varphi}_{2} = (\varphi_{1} \ast \varphi_{2})^{\hat{}}$. Therefore, $(\varphi_{1} \ast \varphi_{2})^{\hat{}} \in \mathcal{S}$. Since the inverse Fourier transform also takes Schwartz functions to Schwartz functions, we conclude that $\varphi_{1} \ast \varphi_{2}$ is Schwartz. 
+	\item Recall that 
+	\begin{equation*}
+		(\varphi_{1} \ast \varphi_{2})(x) = \int_{\mathbb{R}^{d}}\varphi_{1}(x - y)\varphi_{2}(y)\;dy. 
+	\end{equation*}
+	Therefore, for any $x \in \mathbb{R}^{d}$, fixed positive integer $N$, and $|\alpha|,|\beta| \leq N$, 
+	\begin{equation*}
+		|x^{\beta}\partial_{x}^{\alpha}(\varphi_{1}\ast\varphi_{2})(x)|  = \abs{x^{\beta}\int_{\mathbb{R}^{d}}\partial_{x}^{\alpha}\varphi_{1}(x - y)\varphi_{2}(y)\;dy} \leq \int_{\mathbb{R}^{d}}|x^{\beta}\partial_{x}^{\alpha}\varphi_{1}(x - y)||\varphi_{2}(y)|\;dy
+	\end{equation*} 
+\end{enumerate}
+
 \newpage 
 
 \subsection{Evans} 

@@ -784,6 +784,37 @@ In this subsection, we consider \textit{oscillatory integrals} and their applica
 \begin{equation*}
 	\sup_{x}|\phi|(t, x) \lesssim_{(\varphi_{0}, \varphi_{1})}\frac{1}{\left(1 + t\right)^{\frac{d}{2}}}. 
 \end{equation*} 
+Likewise, for the linear wave equation, $\Box \phi = 0$ on $\mathbb{R}^{1 + d}$, one has the dispersion rate 
+\begin{equation*}
+	\sup_{x}|\phi|(t, x) \lesssim_{(\phi_{0}, \phi_{1})} \frac{1}{(1 + t)^{\frac{d - 1}{2}}}. 
+\end{equation*}
+Proving these estimates requires us to study the asymptotics of oscillatory integrals. Thus, we turn to the theory of oscillatory integrals in this subsection. 
+
+\subsubsection{Oscillatory Integrals}
+
+We begin with the following definition.
+
+\begin{definition}[Oscillatory Integrals]
+	By \textbf{oscillatory integrals}, we mean integrals of the form 
+	\begin{equation*}
+		I(\lambda) = \int_{\mathbb{R}^{d}}e^{i\lambda \Phi(x)}\psi(x)\;dx. 
+	\end{equation*}
+\end{definition} 
+The types of questions we are interested in studying is the behavior of $I(\lambda)$ for large $\lambda$. Here, we assume that both the parameter $\lambda$ and the \textbf{phase} $\Phi$ are real-valued, but in general, $\psi$ may be complex-valued. The main idea behind attaining decay estimates for these oscillatory integrals is the idea of \textbf{stationary phase}. Essentially, if the gradient of the phase is nonvanishing, then the integral is rapidly decreasing in $\lambda$ (and thus negligible). Therefore, the only meaningful contributions are from the critical points of $\Phi$ (i.e., when the gradient vanishes). We will see this procedure in detail over the course of this section. But we begin with the following opening estimate. 
+
+\begin{prop}[First Estimate for Oscillatory Integrals]
+	Let $I(\lambda)$ be the oscillatory integral from above. Suppose $|\nabla \Phi(x)| \geq c > 0$ for all $x$ in the support of $\psi$. Then for every $N \geq 0$, 
+	\begin{equation*}
+		|I(\lambda)| \leq C_{N}\lambda^{-N}, \qquad \text{whenever $\lambda > 0$}. 
+	\end{equation*} 
+\end{prop} 
+\begin{proof}
+	Start by considering the vector field, 
+	\begin{equation*}
+		L = \frac{1}{i\lambda}\sum_{k = 1}^{d}a_{k}\frac{\partial}{\partial x_{k}} = \frac{1}{i\lambda} (a \cdot \nabla), 
+	\end{equation*} 
+	where $a = (a_{1}, \ldots, a_{d}) = \frac{\nabla \Phi}{|\nabla \Phi|^{2}}$. 
+\end{proof} 
 
 \newpage 
 \section{Linear Wave Equation}\label{sec:lwe}
@@ -2050,9 +2081,83 @@ Thus, the action is given by
 \begin{equation*}
 	A(\Phi; t_{1}, t_{2}) \coloneqq \int_{t_{1}}^{t_{2}}\int_{\Omega}\left(\frac{d}{dt}\Phi_{t}(x)\right)^{2}\;dxdt. 
 \end{equation*} 
+This defines a functional $\Phi \mapsto A(\Phi; t_{1}, t_{2})$ on the space $M$ of all incompressible motions. To determine a physical law, we will consider variations in this class $M$ as follows: we require that the action be stationary for variations $\Phi \mapsto \Phi + \delta \Phi$ which are compatible with incompressiblity, and to satisfy $\delta \Phi_{t_1}(x) = \delta\Phi_{t_{2}}(x) = 0$ for all $x \in \Omega$. Moreover, we require the variation to satisfy the boundary conditions, $\frac{d}{dt}\Phi^{\epsilon}_{t}(x) \cdot n = 0$, for all $x \in \partial \Omega$ (i.e., the velocity of $\Omega$ is assumed to be zero so that no fluid particle can cross the boundary). By $\Phi^{\epsilon}$, where $\epsilon \in [0,\epsilon_{0}]$, we denote a family of motions tangent to $\partial \Omega$ such that $\Phi^{0} = \Phi$, $\Phi_{t_{1}}^{\epsilon} =\Phi_{t_{1}}$, and $\Phi^{\epsilon}_{t_{2}} = \Phi_{t_{2}}$. We want the action $A$ to be stationary on $\Phi$, which is to say that we want 
+\begin{equation*}
+	\frac{d}{d\epsilon}A(\Phi^{\epsilon}; t_{1}, t_{2})|_{\epsilon =0} = 0. 
+\end{equation*}
+Using the definition of $A$, it follows that 
+\begin{align*}
+	\begin{split}
+		0 = \frac{d}{d\epsilon}A(\Phi^{\epsilon};t_{1}, t_{2})|_{\epsilon = 0} &= \frac{d}{d\epsilon}\int_{t_{1}}^{t_{2}}\int_{\Omega}\left(\frac{d}{dt}\Phi_{t}^{\epsilon}(x)\right)^{2}\;dxdt\bigg|_{\epsilon = 0} \\
+		&= \int_{t_{1}}^{t_{2}}\int_{\Omega}2\left(\frac{d}{dt}\Phi_{t}^{\epsilon}(x)\right)\frac{d}{dt}\frac{d}{d\epsilon}\Phi_{t}^{\epsilon}(x)\bigg|_{\epsilon = 0}\;dxdt \\
+		\implies 
+		\int_{t_{1}}^{t_{2}}\int_{\Omega}\frac{d}{dt}\Phi_{t}(x) \cdot \frac{d}{dt}\gamma_{t}(\Phi_{t}(x))\;dxdt &= 0, 
+	\end{split} 
+\end{align*} 
+where for $\epsilon \in [0,\epsilon_{0}]$, we define 
+\begin{equation*}
+	\gamma_{t}^{\epsilon}(\Phi_{t}(x)) = \frac{d}{d\epsilon}\Phi_{t}^{\epsilon}(x), 
+\end{equation*}
+and denote $\gamma_{t} \coloneqq \gamma_{t}^{0}$. In other words, $\gamma_{t}^{\epsilon}$ is the vector field transversal to the motion that generates a flow parametrized by $\epsilon$: $\Phi_{t}(x) \mapsto \Phi_{t}^{\epsilon}(x)$. Then using integration by parts\footnote{\textcolor{red}{[!! Fill in the details later !!]}}, we obtain the equation $D_{t}u = -\nabla p$, where $p: \mathbb{R} \times \Omega  \to \mathbb{R}$ is some function, and $D_{t} = \partial_{t} + (u \cdot \nabla)$ is the \textit{material} or \textit{convective derivative}. Thus we have concluded the derivation of the incompressible Euler equations. 
 
+\begin{prop}[Incompressible Ideal Euler Equations]
+	Let $\Omega \subset \mathbb{R}^{3}$ be an open and bounded region of $\mathbb{R}^{3}$ containing an incompressible fluid. Let $u$ denote the velocity field of the fluid. Then $u$ satisfies the \textbf{incompressible ideal Euler equations}, 
+	\begin{equation}
+		\left\{
+		\begin{alignedat}{1}
+			&\partial_{t}u + (u \cdot \nabla) u = -\nabla p, \\
+			&\nabla \cdot u = 0, \\
+			&u \cdot n = 0 \qquad (\text{on $\partial \Omega$}).
+		\end{alignedat} 
+		\right. 
+	\end{equation}
+\end{prop} 
 
+The equations above are a direct generaliation of the physical equations of motion for incompressible ideal fluids. In particular $D_{t}u$ can be thought of as the ``acceleration'' of the fluid, and the scalar function $p = p(x, t)$ as the \textit{scalar pressure} (thus, the first equation in the system is a direct analog of Newton's law). The second equation is a statement of mass conservation; the third equation is a statement of the boundary conditions for our system of PDEs. 
 
+\subsubsection{Vorticity and Stream Functions}
+In the previous subsection, we were looking at physical models that describe the motion of a fluid in a bounded open region $\Omega$ of $\mathbb{R}^{3}$. In this subsubsection, we dive deeper and study more specific properties of fluid motion. We start with the definition of \textit{vorticity}. 
+
+\begin{definition}[Vorticity Field]
+	Let $\Omega$ be an open bounded region of $\mathbb{R}^{3}$ containing an incompressible ideal fluid, and let $u = u(t, x)$ be the velocity field of the fluid. Then we define the \textbf{vorticity field} of $u$ as the vector field, 
+	\begin{equation}
+		\omega(t,x) = \operatorname{curl}{u(t,x)} = \nabla \wedge u(t, x), 
+	\end{equation}
+	where $\nabla$ is taken with respect to the space variables only.
+\end{definition} 
+Physically, the \textit{vorticity} is a measure of how the fluid is rotating. We also define the following. 
+
+\begin{definition}[Deformation Tensor]
+	Let $\Omega \subset \mathbb{R}^{3}$ be an open and bounded region containing an incompressible ideal fluid, and let $u$ denote the velocity field of the fluid. Let $D$ be the matrix defined as 
+	\begin{equation*}
+		D = \frac{1}{2}(\nabla u + (\nabla u)^{\perp}). 
+	\end{equation*}
+	Then $D$ is said to be the \textbf{deformation tensor}. 
+\end{definition} 
+\begin{prop}[Local Motion of a Fluid]
+	Let $\Omega \subset \mathbb{R}^{3}$ be an open and bounded region containing an incompressible ideal fluid, and let $u$ denote the velocity field of the fluid. Then 
+	\begin{equation}
+		u(x + h, t) = u(x, t) + D \cdot h + \frac{1}{2}\omega(x, t) \times h + O(h^{2}), 
+		\label{eq:local_motion}
+	\end{equation}
+	where $D$ is the deformation tensor. 
+\end{prop} 
+I.e., locally, the velocity field of the fluid consists of three motions: (1) a translation motion, (2) a rotation with angular velocity $\frac{1}{2}\omega$, and (3) a deformation. One can see why $D$ is called the \textbf{deformation tensor} by considering rigid motion, in which case, $D = 0$, and the angular velocity of the fluid is exactly $\Omega = \frac{1}{2}\omega$. 
+
+\paragraph{Constructing Solution to 2D Euler Equations from Vorticity} Suppose that the vorticity $\omega = \omega(x) \in C(\Omega)$ is a given vector field, where $\Omega \subset \mathbb{R}^{2}$, and let $u(x)$ denote the velocity field of the fluid. Then $u$ satisfies the system, 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		\nabla \times u &= \omega, \\
+		\nabla \cdot u&= 0. 
+	\end{alignedat} 
+	\right. 
+\end{equation*} 
+Thus we wish to know under what circumstances we can deduce $u$ given $\omega$. In general, even if a solution exists to the above system, it may not necessarily be unique. For instance, consider a solution $u'$, and let $u = u' + \nabla \varphi$, where $\varphi$ is a harmonic function. Then clearly $u$ also satisfies the above system as does $u'$. Thus to force uniqueness, we must at least introduce some boundary conditions. Thus the motivation for the following section is to consider various cases for $\Omega$ and its consequences on solutions to the system above. 
+
+\begin{enumerate}[itemsep =-2pt,label = (\arabic{*})]
+	\item (\textbf{$\Omega \subset \mathbb{R}^{2}$; $\Omega$ is simply connected and bounded}):
+\end{enumerate}
 \newpage 
 \appendix
 \section{Explicit Representation Formulas} 
