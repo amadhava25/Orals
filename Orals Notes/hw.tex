@@ -37,8 +37,9 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 	The following document is a compilation of various calculations, computations, and exercises I completed as part of orals prep. The work here is not meant to be an extensive account of my work, by any means. 
 	
 \newpage 
-\section{Functional and Harmonic Analysis} 
-\subsection{Stein \& Shakarchi} 
+\part{Functional and Harmonic Analysis} 
+\section{Stein \& Shakarchi} 
+\subsection{\texorpdfstring{$L^p$}{Lp} Spaces}
 
 \begin{prb}{1.1}
 	Consider $L^{p} = L^{p}(\mathbb{R}^{d})$ with Lebesgue measure. Let $f_{0}(x) = |x|^{-\alpha}$ if $|x| < 1$, $f_{0}(x) = 0$ for $|x|\geq 1$; also let $f_{\infty}(x) = |x|^{-\alpha}$ if $|x|\geq 1$, $f_{\infty}(x) = 0$ when $|x| < 1$. Show that: \vspace{-0.25cm}
@@ -218,6 +219,8 @@ Then for any $|h| > 0$, one has that $\norm{f(h + \cdot) - f}_{L^\infty} = 2$ so
 	\end{equation*}
 	Thus the proof concludes. 
 \end{enumerate}
+
+\subsection{Introductory Harmonic Analysis}
 
 \begin{prb}{2.2}
 	The following are simple generalizations of the Hausdorff-Young inequalities. \vspace{-0.25cm} 
@@ -488,7 +491,8 @@ Let $\varphi_{1}, \varphi_{2} \in \mathcal{S}$. \vspace{-0.25cm}
 
 \newpage 
 
-\subsection{Evans} 
+\section{Evans} 
+\subsection{Linear Wave Equation}
 \begin{prb}{2.18}
 	(Stokes' rule) Assume $u$ solves the initial-value problem 
 	\begin{equation*}
@@ -665,8 +669,8 @@ in $\mathbb{R}^{n} \times (0,\infty)$.
 \end{enumerate}
 
 \newpage 
-\subsection{Luk Notes} 
-
+\section{Luk} 
+\subsection{Notes}
 \begin{prb}{N.1}
 	(Luk, pg. 3) The Einstein vacuum equations describe the propagation of gravitational waves in the absence of matter and take the form $\operatorname{Ric}(g) = 0$, where the Lorentzian metric $g$ is the unknown. Show that in a coordinate system, these equations take the form 
 	\begin{equation*}
@@ -748,7 +752,7 @@ Let $0 \leq s_{1} \leq s \leq s_{2}$, and let $\theta_{1}, \theta_{2}$ such that
 	&= \norm{\eta}_{H^{s_{1}}(\mathbb{R}^{n})}^{2\theta_{1}}\norm{\eta}_{H^{s_{2}}(\mathbb{R}^{n})}^{2\theta_{2}}. 
 	\end{split} 
 \end{align*} 
-
+\subsection{Example Sheets}
 \begin{prb}{E.1.5}
 	Given smooth and compactly supported initial data to the linear wave equation in any dimension, use the Fourier representation formula to show that the $\dot{H}^{k}$ norm is uniformly bounded in time for any $k \geq 1$. 
 \end{prb} 
@@ -900,8 +904,9 @@ Let $[a, b]^{\text{cpt}} \subseteq \mathbb{R}$ be a compact interval large enoug
 \end{prb} 
 
 \newpage 
-\subsection{Random Computations} 
-\begin{prb}{2}
+\section{Random Computations} 
+\subsection{09/23/2026}
+\begin{prb}{1}
 	Analyze the modified energy, $E_{p}(t)$, defined by: for each $p \in (0,\infty)$, define 
 	\begin{equation*}
 		E_{p}(t) \coloneqq \norm{\partial_{t}\phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t) + \norm{\nabla \phi}_{L^{p}(\mathbb{R}^{n})}^{p}(t). 
@@ -1001,4 +1006,58 @@ where $x = (x_{1}, \ldots, x_{n}) \in\mathbb{R}^{n}$. Then we compute $E_{1}(0) 
 	\end{equation*}
 	If $p = 2$, then $E_{p}(t)$ is constant for all $t \geq 0$. 
 \end{conj*}
+
+\newpage 
+\subsection{10/07/2026}
+\begin{prb}{2}
+	Let $\phi$ be a solution to the linear wave equation $\Box\phi = 0$ in $\mathbb{R}^{1 + 1}$, with sufficiently regular initial data $(\phi, \partial_{t}\phi)\upharpoonright|_{\{t = 0\}} = (\phi_{0}, \phi_{1})$. Then for all $t > 0$ and $p \in [1, 2) \cup (2, \infty)$
+	\begin{equation*}
+		\int_{\Sigma_{t}} |\partial \phi|^{p}\;dx \lesssim \int_{\Sigma_{0}}|\partial x|^{p}\;dx, 
+	\end{equation*}
+	where $|\partial \phi|^{p} \coloneqq |\partial_{t}\phi|^{p} + |\partial_{x}\phi|^{p}$. Likewise, for $p = \infty$, $\norm{\partial \phi}_{L^{\infty}(\mathbb{R})}(t) \lesssim \norm{\partial \phi}_{L^{\infty}(\mathbb{R})}(0)$. 
+\end{prb}
+Let $\phi$ be a solution to the linear wave equation $\Box\phi = 0$ in $\mathbb{R}^{1 + 1}$ with sufficiently regular initial data $(\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1})$. First fix $p \in [1,2) \cup (2, \infty)$. d'Alembert's formula gives, 
+\begin{align*}
+	\begin{split}
+		\partial_{t}\phi &= F(x + t) + G(x - t), \\
+		\partial_{x}\phi &= F(x + t) - G(x - t), 
+	\end{split} 
+\end{align*} 
+where $F(x) \coloneqq \frac{1}{2}(\phi'_{0}(x) + \phi_{1}(x))$, and $G(x) \coloneqq \frac{1}{2}(-\phi'_{0}(x) + \phi_{1}(x))$. Then we compute, 
+\begin{align*}
+	\begin{split} 
+		|F(x + t)|^{p} &\leq 2^{-1} |\phi_{0}'(x + t)|^{p} + 2^{-1}|\phi_{1}(x + t)|^{p}. \\
+		|G(x - t)|^{p} &\leq 2^{-1}|\phi'_{0}(x - t)|^{p} + 2^{-1}|\phi_{1}(x - t)|^{p}. \\
+		|\partial_{t}\phi|^{p} &\leq 2^{p-1}|F(x + t)|^{p} + 2^{p - 1}|G(x - t)|^{p} \\
+		&\leq 2^{p - 2}\left(|\phi'_{0}(x + t)|^{p} + |\phi_{1}(x + t)|^{p} + |\phi'_{0}(x-t)|^{p} + |\phi_{1}(x - t)|^{p}\right) \\
+		|\partial_{x}\phi|^{p} &\leq 2^{p - 2}\left(|\phi'_{0}(x + t)|^{p} + |\phi_{1}(x + t)|^{p} + |\phi'_{0}(x-t)|^{p} + |\phi_{1}(x - t)|^{p}\right)
+	\end{split} 
+\end{align*} 
+Thus using translation invariance of the Lebesgue integral on $\mathbb{R}$, 
+\begin{align*}
+	\begin{split}
+		\int_{\Sigma_{t}}|\partial \phi|^{p}\;dx &\leq 2^{p}\int_{\mathbb{R}}|\phi'_{0}(y)|^{p} + |\phi_{1}(y)|^{p}\;dy  = 2^{p}\int_{\Sigma_{0}}|\partial \phi|^{p}\;dx. 
+	\end{split} 
+\end{align*}
+Now we consider the case $p = \infty$. For any fixed $x \in \mathbb{R}$, one has 
+\begin{align*}
+	\begin{split} 
+	|\partial\phi|(x, t) &= |\partial_{t}\phi|(x, t) + |\partial_{x}\phi|(x, t) \\
+	&\leq 2|F(x + t)| + 2|G(x - t)| \\
+	&\leq |\phi'_{0}(x+ t)| + |\phi_{1}(x + t)| + |\phi'_{0}(x -t)| + |\phi_{1}(x -t )|. 
+	\end{split} 
+\end{align*} 
+Since $t$ is fixed, taking the supremum over all $x \in \mathbb{R}$ and using translation invariance of the $L^{\infty}$ norm over $\mathbb{R}$, one gets the upper bound, 
+\begin{equation*}
+	\norm{\partial \phi}_{L^{\infty}(\mathbb{R})}(t) \leq 2(\norm{\phi'_{0}}_{L^{\infty}(\mathbb{R})}(t) + \norm{\phi_{1}}_{L^{\infty}(\mathbb{R})}(t)) \leq 4\norm{\partial \phi}_{L^{\infty}(\mathbb{R})}(0). 
+\end{equation*}
+Thus the proof concludes. 
+
+\begin{prb}{3}
+	Consider solutions to $\Box\phi = 0$ in $\mathbb{R}^{n + 1}$. Show that that for all $M > 0$ and $T > 0$, there exist initial data $(\partial_{t}\phi, \partial_{t}\phi)\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1})$ such that 
+	\begin{equation*}
+		\int_{\Sigma_{0}}|\partial \phi|^{p}\;dx = 1 \qquad \text{and} \qquad \int_{\Sigma_{T}}|\partial \phi|^{p}\;dx \geq M, 
+	\end{equation*} 
+	for all $p \in [1,2) \cup (2, \infty]$. (Hint: take $n = 3$, and assume spherical symmetry.)
+\end{prb} 
 \end{document}

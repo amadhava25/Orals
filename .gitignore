@@ -10,7 +10,9 @@
 !*.bib 
 !*.sty
 !*.ttf
-
+!*.JPG
+!*.jpeg
+!*.jpg
 
 # Do not ignore the gitignore file itself
 !.gitignore
