@@ -16,6 +16,7 @@ colorinlistoftodos,
 textsize=small,          % Sets the text to the smallest LaTeX font size
 textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 ]{todonotes}
+\setlength{\droptitle}{-2cm}
 \rhead{Nonlinear Wave Equations}
 \om 
 \title{Nonlinear Wave Equations}
@@ -37,7 +38,7 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 The following notes are a (brief) introduction into the theory of nonlinear wave equations, and mathematical fluids that I've written in preparation for the mathematics PhD oral examination at Stony Brook. These notes cover a few fundamental results on the (local) well-posedness of (non)linear wave equations, energy estimates, Strichartz estimates, and related results in harmonic analysis and fluids. The content reflects my most current understanding of the key ideas, and were written alongside discussions with my advisor, Professor John Anderson. Moreover, these notes are strongly based on the corresponding notes of Professors Holzegel, Lawrie, and Luk. It goes without saying that any errors in the following notes are entirely my responsibility. 
 
 \newpage 
-\part{Nonlinear Wave Equations}
+\part{Functional and Harmonic Analysis}
 \section{General Analytic Results}
 
 In this subsection, we will be introducing some general analytic results in functional analysis and harmonic analysis, that we will later use in our study of the (non)linear wave equations (and hyperbolic PDE, in general) \cite{Stein}. 
@@ -443,6 +444,7 @@ In particular, the remark is suggestive of the following theorem of Riesz.
 		\norm{H(f)}_{L^{p}(\mathbb{R})} \leq A_{p}\norm{f}_{L^{p}(\mathbb{R})}, \qquad \forall f \in L^{2} \cap L^{p}(\mathbb{R}), 
 	\end{equation}
 	where $A_{p}$ is independent of $f$. Thus the Hilbert transform has a unique extension to all of $L^{p}$ satisfying the same bound. 
+	\label{thm:RieszThmHilbertTrans}
 \end{theorem} 
 \begin{proof}
 	\textcolor{red}{[!! Complete Later !!]}
@@ -744,39 +746,105 @@ However, the issues with this definition is that we must account for the zeros o
 
 
 \subsubsection{Calder{\'o}n-Zygmund Distributions}
-In this subsubsection, we introduce the notion of \textit{Calder{\'o}n-Zygmund distributions}, which are natural generalizations of the Hilbert transform. In particular, we will mostly be considering distributions $K$ that are ``regular'' in the sense that there exists a function $k$ that is smooth away from the origin such that $K$ agrees with $k$ away from the origin $(\star_{1})$. We start with the following definitions. 
 
-\begin{definition}[$C^{(n)}$-Normalized Bump Function]
-	Given an integer $n$, $\varphi$ is a \textbf{$C^{(n)}$-normalized bump function} if $\varphi$ is a smooth function supported in the unit ball and 
-	\begin{equation}
-		\sup_{x}|\partial_{x}^{\alpha}\varphi(x)| \leq 1, \qquad \forall |\alpha|\leq n. 
-		\label{eq:NormBumpFunction}
-	\end{equation} 
+In this subsubsection, we cover some rudimentary principles of \textit{Calder{\'o}n-Zygmund theory}. For motivation, consider Poisson's equation $\Delta \phi = F$ under sufficient regularity assumptions on $\phi$ and $F$. Suppose that we wish to estimate the partial derivatives of $\phi$ (e.g., assume we wish to estimate the second derivatives of $\phi$). Taking the Fourier transform of the Poisson equation, we obtain 
+\begin{equation*}
+	-4\pi^{2}|\xi|^{2}\hat{\phi} = \hat{F} \iff \hat{\phi} = -\frac{1}{4\pi^{2}|\xi|^{2}}\hat{F}. 
+\end{equation*}
+Then to study the $L^{p}$ norms of $\partial_{ij}^{2}\phi$ for $1 < p < \infty$, it suffices to study $\mathcal{F}^{-1}(-4\pi^{2}\xi_{i}\xi_{j}\hat{\phi})$, which we can write as
+\begin{equation*}
+	\mathcal{F}^{-1}\left(-4\pi^{2}\xi_{i}\xi_{j}\hat{\phi}\right) = \mathcal{F}^{-1}\left(\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}\hat{F}\right). 
+\end{equation*} 
+We note that the kernel, $\hat{K} = (\xi_{i}\xi_{j})^{-1}/|\xi|^{2}$ is locally integrable, smooth away from the origin, is bounded, tempered, and satisfies the bound $|\partial_{\xi}^{\alpha}\hat{K}| \leq c'_{\alpha}|\xi|^{-\alpha}$ for all multiindices. Thus if $K_{ij} = \mathcal{F}^{-1}(\hat{K})$, by the convolution theorem, we have 
+\begin{equation*}
+	\mathcal{F}^{-1}\left(\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}\hat{F}\right) = K \ast F. 
+\end{equation*} 
+Therefore, if we can show that the operator $T$ defined by $TF = K \ast F$, initially just defined on $\mathcal{S}(\mathbb{R}^{d})$, then we will have shown that $T$ extends to a bounded operator on all of $L^{p}(\mathbb{R}^{d})$ (for all $1 < p < \infty$), from which we will have deduced the corresponding $L^{p}$ estimates on the second partial derivatives of $\phi$. 
+
+The theory developed in this subsubsection will identify the specific hypotheses on $K$ that enables us to make such estimates. Therefore, the material in this subsubsection is an extension of our discussion of the Hilbert transform.  We begin with the following regularity assumption that we will be using throughout this subsubsection. 
+
+\begin{definition}[Regularity Assumption]
+	Let $K$ be a distribution on $\mathbb{R}^{d}$. $K$ is said to be \textbf{regular} in the Calder{\'o}n-Zygmund sense if there exists a function $k$ that is smooth away from the origin, $K = k$ away from the origin, and $|\partial_{x}^{\alpha}k(x)| \leq C_{\alpha}|x|^{-d-\alpha}$ for all $\alpha$ (in particular, when $\alpha = 0$, one has that $K$ is a tempered distribution). 
 \end{definition} 
 
-\begin{definition}[Cancelation Condition]
-	Let $K$ be a distribution on $\mathbb{R}^{d}$. Let $\varphi$ be a $C^{(n)}$-normalized bump function for an integer $n$. Define $\varphi_{r}(x) = \varphi(rx)$ for $r > 0$. Then we define the following \textbf{cancelation condition} for $K$: for fixed $n \geq 1$, there exists an $A$ such that 
+Moreover, we require the following definitions. 
+
+\begin{definition}[$C^{(n)}$-Normalized Bump Functions]
+	Fix an integer $n$. Then $\varphi$ is said to be a \textbf{$C^{(n)}$-normalized bump function} if $\varphi$ is supported in the unit ball $B_{1}(0)$, and for all multiindices $|\alpha|\leq n$, $\sup_{x}|\partial_{x}^{\alpha}\varphi(x)|\leq 1$. 
+\end{definition} 
+\begin{definition}[Cancellation Condition]
+	For any $C^{(n)}$-normalized bump function $\varphi$, define $\varphi_{r}(x) = \varphi(rx)$ for all $r > 0$. Then $K$ is said to satisfy the \textbf{cancellation condition} in the sense of Calder{\'o}n-Zygmund if 
 	\begin{equation}
 		\sup_{0 < r}|K(\varphi_{r})| \leq A, 
-		\label{eq:cancelation_cond}
-	\end{equation} 
-	for all $C^{(n)}$-normalized bump functions. 
+	\end{equation}
+	for all such functions $\varphi$. 
+\end{definition} 
+Then we define \textit{Calder{\'on}-Zygmund distributions} as the following. 
+\begin{definition}[Calder\'on-Zygmund Distribution]
+	A distribution $K$ on $\mathbb{R}^{d}$ is said to be a \textbf{Calder\'on-Zygmund distribution} if it is regular and satisfies the cancellation condition outlined above. 
 \end{definition} 
 
-Now we provide the definition of Calder{\'o}n-Zygmund distributions. 
-
-\begin{prop}[Calder{\'o}n-Zygmund Distributions]
-	The following three properties of a distribution $K$ are equivalent. \vspace{-0.25cm} 
-	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
-		\item $K$ is regular in the sense of ($\star_{1}$), and satisfies the differential equality $$|\partial_{x}^{\alpha}k(x)| \leq c_{\alpha}|x|^{-d-|\alpha|}, \qquad \forall\alpha$$ and the cancelation condition (\ref{eq:cancelation_cond}). 
-		\item $K$ is tempered, and $m = K^{\hat{}}$ is a function that is smooth away from the origin that satisfies 
-		\begin{equation*}
-			|\partial_{\xi}^{\alpha}m(\xi)| \leq c'_{\alpha}|\xi|^{-\alpha}, \qquad \forall \alpha. 
-		\end{equation*}
-		\item $K$ is a regular distribution that satisfies the the regularity condition ($\star_{1}$) and $\hat{K}$ is a bounded function. 
-	\end{enumerate}
-	Distributions that satisfy these properties are called \textbf{Calder{\'o}n-Zygmund distributions.}
+\begin{prop}[Equivalent Formulations of Calder\'on-Zygmund Distributions]
+	A distribution $K$ is a Calder\'on-Zygmund distribution on $\mathbb{R}^{d}$ if and only if it is a tempered distribution such that $\hat{K} \in C^{\infty}(\mathbb{R}^{d}\setminus \{0\}) \cap L^{\infty}(\mathbb{R}^{d}\setminus \{0\})$, and $|\partial_{\xi}^{\alpha}\hat{K}(\xi)| \leq c'_{\alpha}|\xi|^{-\alpha}$. 
 \end{prop} 
+
+Then one immediately obtains the following result. 
+\begin{theorem}[Calder\'on-Zygmund Distributions and $L^p$ Estimates]
+	Let $T$ be the linear operator on $L^{p}(\mathbb{R}^{d})$, initially only defined on $\mathcal{S}(\mathbb{R}^{d})$, defined by $Tf = f \ast K$, where $K$ is a Calder\'on-Zygmund distribution. Then $T$ extends to a bounded operator on $L^{p}(\mathbb{R}^{d})$ for $1 < p < \infty$; i.e., for $1 < p < \infty$, there exists $A_{p} = A_{p}(p)$ such that for all $f \in L^{p}(\mathbb{R}^{d})$, 
+	\begin{equation*}
+		\norm{Tf}_{L^{p}(\mathbb{R}^{d})} \leq A_{p}\norm{f}_{L^{p}(\mathbb{R}^{d})}. 
+	\end{equation*}
+\end{theorem} 
+
+Let us consider some examples. 
+
+\begin{example}[Hilbert Transform]
+	Recall the following definition of the Hilbert transform, 
+	\begin{equation*}
+		H(f)(x) \coloneqq \int_{\mathbb{R}^{d}}-i\hat{f}(\xi)\operatorname{sign}(\xi)e^{2\pi i x \cdot \xi}\;d\xi = \mathcal{F}^{-1}(-i\operatorname{sign}(\xi)\hat{f}(\xi)). 
+	\end{equation*} 
+	Consider the distribution $K$ such that $\hat{K} = -i\operatorname{sign}(\xi)$. It follows that $\hat{K} \in C^{\infty}(\mathbb{R}^{d}\setminus \{0\}) \cap L^{\infty}(\mathbb{R}^{d}\setminus \{0\})$. To show that $K$ is a tempered distribution, it suffices to show that $\hat{K}$ is a tempered distribution. Suppose $\{\varphi_{n}\}_{n = 1}^{\infty}, \varphi \in \mathcal{S}(\mathbb{R}^{d})$ such that $\varphi_{n} \to \varphi$ in $\mathcal{S}(\mathbb{R}^{d})$. Then
+	\begin{align*}
+		\begin{split}
+			\abs{\int_{\mathbb{R}^{d}}\hat{K}(\xi)\varphi(\xi) - \hat{K}(\xi)\varphi_{n}(\xi)\;d\xi} &\leq \int_{\mathbb{R}^{d}}|\hat{K}(\xi)||\varphi(\xi) - \varphi_{n}(\xi)|\;d\xi = \norm{\varphi - \varphi_{n}}_{L^{1}(\mathbb{R}^{d})}\xrightarrow{n \to \infty} 0. 
+		\end{split} 
+	\end{align*} 
+	Thus, $\hat{K}(\varphi_{n}) \to \hat{K}(\varphi)$ so that $\hat{K}$ (and therefore, $K$) is tempered. This means that $K$ is a Calder\'on-Sygmund distribution. Therefore, by the convolution theorem, it follows that for all $f \in L^{p}(\mathbb{R}^{d})$ ($1 < p < \infty$), 
+	\begin{equation*}
+		H(f)(x) \coloneqq (f \ast K)(x). 
+	\end{equation*}
+	Thus by the preceding theorem, we conclude that the Hilbert transform is a bounded operator on $L^{p}(\mathbb{R}^{d})$ for all $1 < p < \infty$, which was precisely the conclusion of Theorem \ref{thm:RieszThmHilbertTrans}. 
+\end{example} 
+\begin{example}[Estimates for Poisson's Equation]
+	Consider again the Poisson equation, $\Delta \phi = F$, where $\phi$ and $F$ are assumed to be sufficiently regular and contained in the appropriate function spaces (e.g., assume $F \in L^{p}(\mathbb{R}^{d})$ for some $1 < p < \infty$). As we saw above, one has that 
+	\begin{equation*}
+		\hat{\phi} = -\frac{1}{4\pi^{2}|\xi|^{2}}\hat{F} \qquad \text{and} \qquad \mathcal{F}^{-1}(-4\pi^{2}\xi_{i}\xi_{j}\hat{\phi}) = \mathcal{F}^{-1}\left(\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}\hat{F}\right),
+	\end{equation*}
+	for all $1 \leq i, j \leq d$. Consider the distribution $K_{ij}$ on $\mathbb{R}^{d}$ so that $\hat{K}_{ij} = \frac{\xi_{i}\xi_{j}}{|\xi|^{2}}$ is locally integrable. Since for any $1 \leq i, j \leq d$, $|\xi|_{i}\leq |\xi|$, it follows that $\hat{K}_{ij} \in C^{\infty}(\mathbb{R}^{d}\setminus \{0\}) \cap L^{\infty}(\mathbb{R}^{d}\setminus \{0\})$. It is also straightforward to check that the derivatives of $\hat{K}_{ij}$ satisfy the differential inequality stated in the definition of Calder\'on-Zygmund distributions. Thus it remains to be seen that $\hat{K}_{ij}$ is tempered. Let $\{\varphi_{n}\}, \varphi \in \mathcal{S}(\mathbb{R}^{d})$ so that $\varphi_{n} \to \varphi$ in $\mathcal{S}(\mathbb{R}^{d})$. Then we compute 
+	\begin{equation*}
+		\abs{\int_{\mathbb{R}^{d}}\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}(\varphi - \varphi_{n})\;d\xi} \leq \int_{\mathbb{R}^{d}}\abs{\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}}|\varphi - \varphi_{n}|\;d\xi \leq \norm{\hat{K}_{ij}}_{L^{\infty}(\mathbb{R}^{d})}\norm{\varphi - \varphi_{n}}_{L^{1}(\mathbb{R}^{d})} \xrightarrow{n \to \infty} 0. 
+	\end{equation*}
+	Thus this establishes that $\hat{K}_{ij}$ (and therefore, $K_{ij}$) is tempered; $K_{ij}$ is a Calder\'on-Zygmund distribution. From the theorem above, it follows that for any $1 < p < \infty$ and for any $1 \leq i, j \leq d$, 
+	\begin{equation*}
+		\norm{\partial_{ij}^{2}\phi}_{L^{p}(\mathbb{R}^{d})} \leq A_{p}\norm{F}_{L^{p}(\mathbb{R}^{d})}. 
+	\end{equation*} 
+	This gives us a $W^{2,p}(\mathbb{R}^{d})$ regularity estimate for the Poisson equation. We can use this result to establish $W^{k + 2,p}(\mathbb{R}^{d})$ regularity estimates for the Poisson equation. Start by assuming $F \in W^{k,p}(\mathbb{R}^{d})$ for some fixed $k \geq 0$. Let $\alpha$ be a multiindex with $|\alpha| = d$. Then if we let $\beta = \alpha + e_{i} + e_{j}$ (so that $|\beta| = k$), one has that 
+	\begin{equation*}
+		\norm{\partial_{x}^{\alpha}\phi}_{L^{p}(\mathbb{R}^{d})} = \norm{\partial_{ij}^{2}(\partial_{x}^{\beta}\phi)}_{L^{p}(\mathbb{R}^{d})} \leq A_{p}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}. 
+	\end{equation*}
+	Then, by definition of the $W^{k + 2, p}(\mathbb{R}^{d})$ norm, one has that 
+	\begin{align*}
+		\begin{split}
+		\norm{\phi}_{W^{k + 2,p}(\mathbb{R}^{d})} = \left(\sum_{|\alpha|\leq k + 2}\norm{\partial^{\alpha}_{x}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}^{p}_{L^{p}(\mathbb{R}^{d})} + C_{p}\sum_{0 \leq |\beta|\leq k}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}  \\
+		&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} + C_{p}'\left(\sum_{0\leq |\beta|\leq k}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} \\
+		&= \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p}' \norm{F}_{W^{k, p}(\mathbb{R}^{d})}. 
+		\end{split} 
+	\end{align*} 
+	Thus, we obtain the $W^{k + 2, p}$ regulartiy estimate, 
+	\begin{equation*}
+		\norm{\phi}_{W^{k + 2, p}(\mathbb{R}^{d})} \leq \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p}'\norm{F}_{W^{k, 2}(\mathbb{R}^{d})}. 
+	\end{equation*}
+\end{example} 
 
 \newpage 
 \subsection{Oscillatory Integrals in Fourier Analysis}
@@ -817,6 +885,7 @@ The types of questions we are interested in studying is the behavior of $I(\lamb
 \end{proof} 
 
 \newpage 
+\part{Nonlinear Wave Equations}
 \section{Linear Wave Equation}\label{sec:lwe}
 
 \subsection{Introduction} 
@@ -2385,6 +2454,64 @@ In particular, we have additional invariant factors of ideal fluids under the ac
 \end{itemize}
 
 \subsubsection{Potential and Irrotational Flows}
+In this subsubsection, we investigate the properties of specific solutions to the Euler equations, namely irrotational ideals fluids. We start with the following definition. 
+\begin{definition}[Potential Flow]
+	A solution $u = u(x, t)$, to the Euler equations is called a \textbf{potential flow} if there exists some sufficiently regular function $\varphi(x, t)$ such that $u(x, t) = \nabla \varphi(x, t)$. 
+\end{definition} 
+Since under the right conditions of regularity, the curl of $u = \nabla \varphi$ is identically zero, $u$ is irrotational. Thus every potential flow is irrotational. However, the converse might not necessarily be true for nonsimply connected domains. We begin with a qualitative analysis of irrotational flows. 
+
+\begin{prop}[Irrotational Flows on Bounded, Simply Connected Domains]
+	On a bounded, simply connnected domain $\Omega$, all the irrotational flows reduce to the trivial one: $u = 0$. 
+\end{prop} 
+\begin{proof}
+	The proof of this statement is essentially straightforward. Since $u$ is divergence free, and $u = \nabla \varphi$, one has that $\Delta \varphi = 0$. And since $u \cdot n = 0$ on $\partial \Omega$, $\partial u/\partial n = 0$ on $\partial \Omega$. Thus, $\varphi = \text{const.}$, whence $u \equiv 0$. Gometrically, this corresponds to the idea that it is impossible to extend to the interior of a bounded simply connected domain $\Omega$, a vector field tangent to $\partial \Omega$ in a smooth, divergence-free, curl-free way. 
+\end{proof} 
+Therefore, if we wish to study \textit{nontrivial} irrotational fields, we must either consider nonsimply connected or unbounded regions. In particular, we are interested in the notion of \textit{external domains}. 
+\begin{definition}[External Domains]
+	\textbf{External domains} are defined as the complement of a finite union of simply connected bounded regions (e.g., \textit{obstacles}). 
+\end{definition} 
+
+The consequences of such domains can significantly vary based on the dimension of the ambient space. E.g., consider the region depicted below. 
+\begin{figure}[h!]
+	\centering 
+	\includegraphics[width=0.5\textwidth]{External_DomainI}
+\end{figure}
+In $\mathbb{R}^{2}$, the external domain is not simply connected so that irrotational flows are not necessarily potential flows. On the other hand, in $\mathbb{R}^{3}$, the external domain is simply connected. So any irrotational flow $u$ is a potential flow: $u = \nabla \varphi$, where $\varphi$ satisfies the boundary condition $\partial u/\partial n = 0$ on $\partial \Omega$. Thus if we specify the asymptotic behavior $\lim_{|x| \to \infty}u(x) = U_{\infty}$, the uniqueness theorem for Neumann problems gives us a unique potential flow up to a constant. 
+
+\newpage 
+\subsection{Construction of Solutions to the Euler Equations}
+In this subsection, we study the theory of existence and uniqueness for the Euler equations. Thus far, we have deduced numerous qualitative and quantitative properties of solutions to the Euler equations, \textit{if} they exist. But since the Euler equations were constructed with a specific physical model in mind, it behooves us to determine whether or not (unique) solutions exist (thus informing us if the model is reasonable). Unless otherwise specified, we will assume that our fluid moves in a three-dimensional torus $\Omega = [-\pi, \pi]^{3}$. First, we will provide some general analysis results/theory that will prove essential. Then we will prove one estimate for a solution to the Euler equations. 
+
+\subsubsection{Some General Analysis Results}
+We start with the following definitions. 
+\begin{definition}[Pre-Hilbert Structure on $C^{\infty}(\Omega)$]
+	Let $f, g \in C^{\infty}(\Omega)$. For any $m \in \mathbb{N}$, we define 
+	\begin{equation*}
+		(f, g)_{m} = \sum_{0 \leq |\alpha|\leq m}(D^{\alpha}f, D^{\alpha}g), 
+	\end{equation*} 
+	where $\alpha$ is a multiindex, and $(\empspace, \empspace)$ denotes the inner product 
+	\begin{equation*}
+		(f, g)= (f, g)_{0} = \int_{\Omega}f(x)g(x)\;dx. 
+	\end{equation*}
+	Thus $C^{\infty}(\Omega)$ equipped with this inner product becomes a pre-Hilbert space. 
+\end{definition} 
+\begin{definition}[Sobolev Spaces]
+	We define $H^{m}(\Omega)$ to be the completion of $C^{\infty}(\Omega)$; we call the spaces $H^{m}(\Omega)$, \textbf{Sobolev spaces}. We define the norm on $H^{m}(\Omega)$ by 
+	\begin{equation*}
+		|u|_{m} = \sqrt{(u, u)_{m}}. 
+	\end{equation*}
+\end{definition} 
+\begin{definition}[``$L^{m}$'' Norms of Vector Fields]
+	Given two vector fields $u = \{u_{j}\}_{j = 1}^{3}$ and $v = \{v_{j}\}_{j = 1}^{3}$, we define their inner product as 
+	\begin{equation*}
+		(u, v)_{m} \coloneqq \sum_{1}^{3}(u_{j}, v_{j})_{m}. 
+	\end{equation*}
+\end{definition} 
+\begin{definition}[Hilbert Space of Functions with Components n $H^{m}$]
+	By $\mathbb{H}^{m}$, we denote the Hilbert space associated with the vector fields with components in $H^{m}$. 
+\end{definition} 
+
+Now assume that \textit{a priori}, we have a solution $u \in C^{\infty}(\Omega \times [0,T])$ to the Euler equation. Then we are now able to make an estimate on the norm $|u_{t}|_{m}$. 
 \newpage 
 \part{Appendix} 
 \appendix
