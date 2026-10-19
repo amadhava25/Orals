@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{../header}
 \usepackage{datetime2}
+\usepackage{subcaption}
 \def\Xint#1{\mathchoice
 	{\XXint\displaystyle\textstyle{#1}}%
 	{\XXint\textstyle\scriptstyle{#1}}%
@@ -35,7 +36,7 @@ textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
 
 \section{Overview}
 
-The following notes are a (brief) introduction into the theory of nonlinear wave equations, and mathematical fluids that I've written in preparation for the mathematics PhD oral examination at Stony Brook. These notes cover a few fundamental results on the (local) well-posedness of (non)linear wave equations, energy estimates, Strichartz estimates, and related results in harmonic analysis and fluids. The content reflects my most current understanding of the key ideas, and were written alongside discussions with my advisor, Professor John Anderson. Moreover, these notes are strongly based on the corresponding notes of Professors Holzegel, Lawrie, and Luk. It goes without saying that any errors in the following notes are entirely my responsibility. 
+The following notes are an introduction into the theory of nonlinear wave equations, and mathematical fluids that I've written in preparation for the mathematics PhD oral examination at Stony Brook. These notes cover a few fundamental results on the (local) well-posedness of (non)linear wave equations, energy estimates, Strichartz estimates, and related results in harmonic analysis and fluids. In some sense, these notes are meant to be an extensive log of everything I have studied, and therefore, does not contain many novel ideals. The content reflects my most current understanding of the key ideas, and were written alongside discussions with my advisor, Professor John Anderson. Moreover, these notes are strongly based on the corresponding notes of Professors Holzegel, Lawrie, and Luk. It goes without saying that any errors in the following notes are entirely my responsibility. 
 
 \newpage 
 \part{Functional and Harmonic Analysis}
@@ -820,7 +821,7 @@ Let us consider some examples.
 	\begin{equation*}
 		\hat{\phi} = -\frac{1}{4\pi^{2}|\xi|^{2}}\hat{F} \qquad \text{and} \qquad \mathcal{F}^{-1}(-4\pi^{2}\xi_{i}\xi_{j}\hat{\phi}) = \mathcal{F}^{-1}\left(\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}\hat{F}\right),
 	\end{equation*}
-	for all $1 \leq i, j \leq d$. Consider the distribution $K_{ij}$ on $\mathbb{R}^{d}$ so that $\hat{K}_{ij} = \frac{\xi_{i}\xi_{j}}{|\xi|^{2}}$ is locally integrable. Since for any $1 \leq i, j \leq d$, $|\xi|_{i}\leq |\xi|$, it follows that $\hat{K}_{ij} \in C^{\infty}(\mathbb{R}^{d}\setminus \{0\}) \cap L^{\infty}(\mathbb{R}^{d}\setminus \{0\})$. It is also straightforward to check that the derivatives of $\hat{K}_{ij}$ satisfy the differential inequality stated in the definition of Calder\'on-Zygmund distributions. Thus it remains to be seen that $\hat{K}_{ij}$ is tempered. Let $\{\varphi_{n}\}, \varphi \in \mathcal{S}(\mathbb{R}^{d})$ so that $\varphi_{n} \to \varphi$ in $\mathcal{S}(\mathbb{R}^{d})$. Then we compute 
+	for all $1 \leq i, j \leq d$. Consider the distribution $K_{ij}$ on $\mathbb{R}^{d}$ so that $\hat{K}_{ij} = \frac{\xi_{i}\xi_{j}}{|\xi|^{2}}$ is locally integrable. Since for any $1 \leq i, j \leq d$, $|\xi_{i}|\leq |\xi|$, it follows that $\hat{K}_{ij} \in C^{\infty}(\mathbb{R}^{d}\setminus \{0\}) \cap L^{\infty}(\mathbb{R}^{d}\setminus \{0\})$. It is also straightforward to check that the derivatives of $\hat{K}_{ij}$ satisfy the differential inequality stated in the definition of Calder\'on-Zygmund distributions. Thus it remains to be seen that $\hat{K}_{ij}$ is tempered. Let $\{\varphi_{n}\}, \varphi \in \mathcal{S}(\mathbb{R}^{d})$ so that $\varphi_{n} \to \varphi$ in $\mathcal{S}(\mathbb{R}^{d})$. Then we compute 
 	\begin{equation*}
 		\abs{\int_{\mathbb{R}^{d}}\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}(\varphi - \varphi_{n})\;d\xi} \leq \int_{\mathbb{R}^{d}}\abs{\frac{\xi_{i}\xi_{j}}{|\xi|^{2}}}|\varphi - \varphi_{n}|\;d\xi \leq \norm{\hat{K}_{ij}}_{L^{\infty}(\mathbb{R}^{d})}\norm{\varphi - \varphi_{n}}_{L^{1}(\mathbb{R}^{d})} \xrightarrow{n \to \infty} 0. 
 	\end{equation*}
@@ -828,21 +829,21 @@ Let us consider some examples.
 	\begin{equation*}
 		\norm{\partial_{ij}^{2}\phi}_{L^{p}(\mathbb{R}^{d})} \leq A_{p}\norm{F}_{L^{p}(\mathbb{R}^{d})}. 
 	\end{equation*} 
-	This gives us a $W^{2,p}(\mathbb{R}^{d})$ regularity estimate for the Poisson equation. We can use this result to establish $W^{k + 2,p}(\mathbb{R}^{d})$ regularity estimates for the Poisson equation. Start by assuming $F \in W^{k,p}(\mathbb{R}^{d})$ for some fixed $k \geq 0$. Let $\alpha$ be a multiindex with $|\alpha| = d$. Then if we let $\beta = \alpha + e_{i} + e_{j}$ (so that $|\beta| = k$), one has that 
+	This gives us a $W^{2,p}(\mathbb{R}^{d})$ regularity estimate for the Poisson equation. We can use this result to establish $W^{k + 2,p}(\mathbb{R}^{d})$ regularity estimates for the Poisson equation. Start by assuming $F \in W^{k,p}(\mathbb{R}^{d})$ for some fixed $k \geq 0$. Let $\alpha$ be a multiindex with $|\alpha| = k + 2$. Then if we let $\beta = \alpha - e_{i} - e_{j}$ (so that $|\beta| = k$), one has that 
 	\begin{equation*}
 		\norm{\partial_{x}^{\alpha}\phi}_{L^{p}(\mathbb{R}^{d})} = \norm{\partial_{ij}^{2}(\partial_{x}^{\beta}\phi)}_{L^{p}(\mathbb{R}^{d})} \leq A_{p}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}. 
 	\end{equation*}
 	Then, by definition of the $W^{k + 2, p}(\mathbb{R}^{d})$ norm, one has that 
 	\begin{align*}
 		\begin{split}
-		\norm{\phi}_{W^{k + 2,p}(\mathbb{R}^{d})} = \left(\sum_{|\alpha|\leq k + 2}\norm{\partial^{\alpha}_{x}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}^{p}_{L^{p}(\mathbb{R}^{d})} + C_{p}\sum_{0 \leq |\beta|\leq k}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}  \\
-		&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} + C_{p}'\left(\sum_{0\leq |\beta|\leq k}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} \\
-		&= \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p}' \norm{F}_{W^{k, p}(\mathbb{R}^{d})}. 
+		\norm{\phi}_{W^{k + 2,p}(\mathbb{R}^{d})} = \left(\sum_{|\alpha|\leq k + 2}\norm{\partial^{\alpha}_{x}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}^{p}_{L^{p}(\mathbb{R}^{d})} + \sum_{0 \leq |\beta|\leq k}C_{p}^{p}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p}  \\
+		&\leq \left(\sum_{|\alpha| < 2}\norm{\partial_{x}^{\alpha}\phi}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} + C_{p}\left(\sum_{0\leq |\beta|\leq k}\norm{\partial_{x}^{\beta}F}_{L^{p}(\mathbb{R}^{d})}^{p}\right)^{1/p} \\
+		&= \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p} \norm{F}_{W^{k, p}(\mathbb{R}^{d})}. 
 		\end{split} 
 	\end{align*} 
-	Thus, we obtain the $W^{k + 2, p}$ regulartiy estimate, 
+	Thus, we obtain the $W^{k + 2, p}$ regularity estimate, 
 	\begin{equation*}
-		\norm{\phi}_{W^{k + 2, p}(\mathbb{R}^{d})} \leq \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p}'\norm{F}_{W^{k, 2}(\mathbb{R}^{d})}. 
+		\norm{\phi}_{W^{k + 2, p}(\mathbb{R}^{d})} \leq \norm{\phi}_{W^{1,p}(\mathbb{R}^{d})} + C_{p} \norm{F}_{W^{k, p}(\mathbb{R}^{d})}. 
 	\end{equation*}
 \end{example} 
 
@@ -1838,6 +1839,7 @@ It follows that this system satisfies an $L^{2}$ estimate of the following form.
 	\end{enumerate}
 \end{proof} 
 
+
 \newpage 
 
 \section{Local Theory for Nonlinear Wave Equations}
@@ -1860,7 +1862,7 @@ where $k \in \mathbb{N}$ is specified later, $a^{\alpha\beta}$ is symmetric and 
 \end{equation} 
 and $a^{\alpha\beta}: \mathbb{R} \to \mathbb{R}$ and $F: \mathbb{R}\times \mathbb{R}^{n} \to \mathbb{R}$ are smooth functions. As we will see, unlike the linear wave equation, (\ref{eq:qlwe}) is only \textit{locally} (in time) well-posed. We will first state the main result of this section, then prove a couple of technical results that will then enable us to prove the theorem. 
 
-\begin{theorem}[Local Well-Posedness of the Quasilinear Wave Equations]
+\begin{theorem}[Local Existence Theorem]
 	Fix $a$ and $F$ satisfying assumptions (\ref{eq:assumptions-aF}). Then the Cauchy problem (\ref{eq:qlwe}) is locally well-posed in the following sense. \vspace{-0.2cm} 
 	\begin{enumerate}
 		\item (\textsc{Existence and Uniqueness of Local-in-time Solutions}) There exists 
@@ -1880,158 +1882,177 @@ and $a^{\alpha\beta}: \mathbb{R} \to \mathbb{R}$ and $F: \mathbb{R}\times \mathb
 	\end{enumerate}
 	\label{thm:nlwlwp}
 \end{theorem} 
-
-We note the following difference between the existence and uniqueness results we have already seen in the linear case, and Theorem (\ref{thm:nlwlwp}): in the previous results, the solutions existed on time intervals $[0,T]$ for any arbitrary $T > 0$. However, the above theorem only gives existence of a \textit{classical} solution on some finite interval $[0,T]$, where $T$ is explicitly determined by the initial data. 
+Before we can prove this theorem, we need the following estimates. 
+\begin{lemma}
+	There exists $B = B(A, n, F) > 0$ such that for $t \in [0,T]$, we have 
+	\begin{equation*}
+		\sum_{0 \leq |\alpha|\leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial \phi^{(i - 1)})}_{L^{2}}(t) \leq B. 
+	\end{equation*} 
+	\label{lemm:bound_F}
+\end{lemma} 
 \begin{proof}
-	$ $\newline \vspace{-0.75cm}
-	\begin{enumerate}[itemsep =-2pt]
-		\item We begin by constructing an explicit solution of the wave equation using \textit{Picard iteration}\footnote{Recall that in ODE theory, Picard iteration is as follows: suppose one has the differential equation $y'(t) = f(t, y(t))$, where $y(t)$ is the unknown function, and $y(t_{0}) = y_{0}$. If we simply integrate both sides, then we can extract $y(t) =y_{0} + \int_{t_{0}}^{t}f(s, y(s))\;ds$. However, the integral depends explicitly on the unknown function. Thus we start with an initial ansatz $y_{0}$, and then use the above equation to produce a better estimate for the solution. We then take this estimate and use the above equation to obtain a better estimate. We do this iteratively, obtaining better solutions (under specific conditions).}. By density arguments, it suffices to assume that the initial data are both Schwarz functions. Let $\phi^{(i)}$ be a sequence of smooth functions for $i \geq 1$ such that $\phi^{(1)} = 0$ and each $\phi^{(i)}$ for $i \geq 2$ is defined iteratively as the unique solution to 
+	To establish this theorem, we need to first expand the partial derivatives, and use the chain rule. First, since $F$ was assumed to be smooth, by the Extreme Value Theorem, one has that for any $A > 0$, 
+	\begin{equation*}
+		\sum_{|\gamma|\leq N}\sup_{|x|, \norm{p}\leq A}|\partial^{\gamma}_{x,p}(F)|(x, p) \leq C_{A, N}. 
+	\end{equation*} 
+	Thus expanding the partial derivatives using the chain rule, one gets 
+	\begin{multline*} 
+			\sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial\phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \\
+			\leq C\left(\sum_{0 \leq |\alpha|\leq n + 1}\norm{\partial\partial_{x}^{\alpha}\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{0 \leq |\alpha_{1}| + |\alpha_{2}| \leq n + 1}\norm{\partial\partial_{x}^{\alpha_{1}}\phi^{(i-1)}\partial\partial_{x}^{\alpha_{2}}\phi^{(i -1)}}_{L^{2}}(\mathbb{R}^{n})(t)\right. \\
+			\left. + \text{cubic terms} + \dotsm + \text{terms of order $n + 1$} \right). 
+	\end{multline*} 
+	Thus we need to bound each of the terms on the right side of the estimate above. Consider first the quadratic term. It follows that either $|\alpha_{1}| \leq \frac{n + 1}{2}$ or $|\alpha_{2}| \leq \frac{n + 1}{2}$. So without loss of generality, assume that $|\alpha_{1}| \leq \frac{n + 1}{2}$. Then since $\frac{n + 1}{2} + \frac{n}{2} \leq n + 1$, the Sobolev embedding theorem tells us that 
+	\begin{equation*}
+		\sum_{0 \leq |\alpha_{1}|\leq \frac{n + 1}{2}}\norm{\partial\partial_{x}^{\alpha_{1}}\phi^{(i - 1)}}_{L^{\infty}(\mathbb{R}^{n})} \leq C \cdot \sum_{0 \leq |\alpha|\leq n + 1}\norm{\partial\partial_{x}^{\alpha}\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})}. 
+	\end{equation*}
+	Thus, 
+	\begin{equation*}
+		\sum_{0 \leq |\alpha_{1}| + |\alpha_{2}| \leq n + 1}\norm{\partial\partial_{x}^{\alpha_{1}}\phi^{(i - 1)}\partial \partial_{x}^{\alpha_{2}}\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \cdot \sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial\partial_{x}^{\alpha}\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})}^{2}(t). 
+	\end{equation*}
+	Thus if we treat the higher-order terms in the above expansion analogously, we derive the estimate, 
+	\begin{multline*}
+		\sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial\phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \\
+		C\left(1 + \norm{\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})} + \sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial\partial_{x}^{\alpha}\phi^{(i - 1)}}_{L^{2}(\mathbb{R}^{n})}\right)^{n + 1} \leq B. 
+	\end{multline*} 
+\end{proof} 
+
+\begin{lemma}[Bound on the Two Remaining Quantities] There exists some $B = B(A, n, F) > 0$ such that 
+\begin{multline*}
+	\int_{0}^{T}\sum_{|\gamma| + |\sigma| \leq n + 1}\sum_{\alpha,\beta}\norm{\partial\partial^{\gamma}_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial_{x}^{\sigma}\phi^{(i)}}_{L^{2}(\mathbb{R}^{n})}(t)\;dt \\ 
+	+ \int_{0}^{T}\sum_{\substack{|\gamma| + |\sigma| \leq n + 1 \\ |\sigma|\leq n}}\sum_{\alpha,\beta}\norm{ \partial_{x}^{\gamma}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial\partial^{\sigma}_{x}\phi^{(i)} }_{L^{2}(\mathbb{R}^{n})}(t)\;dt \leq B.
+	\end{multline*}
+\end{lemma} 
+\begin{lemma}[Bound on Derivatives of $a$]
+	\begin{equation*}
+		\sum_{|\gamma| = 1}\norm{\partial_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)}_{L^{\infty}(\mathbb{R}^{n})} \leq B. 
+	\end{equation*}  
+\end{lemma} 
+\begin{proof}
+	The proof of this theorem follows in two main steps; in the first step, we prove the existence of a solution. In the second, we prove continuous dependence on the initial data, and thus uniqueness of solutions. It is not immediately clear how to construct a solution to this general nonlinear system. But we recall from the previous section that we have a global-in-time existence and uniqueness solution for nonconstant coefficient linear wave equations. Thus if we can find a way to link the quasilinear system above to linear systems, then we can work from there. Luckily, we already have a tool that assists in this approach (namely, \textit{Picard iteration}\footnote{Recall that in ODE theory, Picard iteration is as follows: suppose one has the differential equation $y'(t) = f(t, y(t))$, where $y(t)$ is the unknown function, and $y(t_{0}) = y_{0}$. If we simply integrate both sides, then we can extract $y(t) =y_{0} + \int_{t_{0}}^{t}f(s, y(s))\;ds$. However, the integral depends explicitly on the unknown function. Thus we start with an initial ansatz $y_{0}$, and then use the above equation to produce a better estimate for the solution. We then take this estimate and use the above equation to obtain a better estimate. We do this iteratively, obtaining better solutions (under specific conditions).}).  \vspace{-0.25cm} 
+	
+	\begin{enumerate}[itemsep =-2pt,label = (\arabic{*})]
+		\item By density arguments, it suffices to assume that the initial data are Schwarz functions. Let $\phi^{(1)} \in C^{\infty}$ be an initial guess, and for $i \geq 2$, define $\phi^{(i)}$ as the unique smooth solution to the \textit{linear} system 
 		\begin{equation*}
 			\left\{
 			\begin{alignedat}{1}
-			&\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)}) = F(\phi^{(i -1)}, \partial\phi^{(i - 1)}) \\
-			&(\phi^{(i)}, \partial_{t}\phi^{(i)})\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}). 
-			\end{alignedat}
-			\right.
+			&\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)}) = F(\phi^{(i - 1)}, \partial \phi^{(i - 1)}) \\
+			&(\phi^{(i)}, \partial_{t}\phi^{(i)})\upharpoonright_{\{t = 0\}} = (\phi_{0}, \phi_{1}).
+			\end{alignedat} 
+			\right. 
 		\end{equation*} 
-		What we wish to show is that the sequence converges to some unique limit $\phi$ of desired regularity, and that this limit solves the quasilinear wave equation. Rigorously, this corresponds to showing that (a) for $T > 0$ sufficiently small (depending only on the Sobolev norms of the initial data), the sequence is uniformly bounded (in $i$) in the appropriate function space, and (b) that the sequence is a Cauchy sequence in the function space $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$.
-		
-		\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
-			\item (\textsc{Uniformly Bounded}) We recall our goal for this step. We wish to show the following: for all $i \geq 1$, there exists $C = C(n, F, a, \phi_{0}, \phi_{1}) > 0$ such that 
+		To prove existence for the quasilinear system, it suffices to show that for $T > 0$ (sufficiently small, and depending only on the initial data), the sequence is uniformly bounded in the space $L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))$, and is Cauchy in some larger function space. Thus we tackle each step at a time. 
+		\begin{enumerate}
+			\item (\textsc{Uniformly Bounded}) What we wish to show is that for all $i \geq 1$, there exists a $C = C(n,a, F_{0}, \phi_{0}, \phi_{1})> 0$ such that 
 			\begin{equation*}
-				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq C. 
+				\norm{(\phi^{(i)}, \partial_{t}^{(i)}\phi)}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))} \leq C. 
 			\end{equation*}
-			But really, it suffices to show that controlling the norm for just $(i - 1)$ implies controlling the norm for $i$ since by induction the complete argument follows. We will also use the bootstrap method: we start by assuming that the norms satisfy a rougher bound,  
-			\begin{equation}
-				\norm{(\phi^{(i - 1)}, \partial_{t}\phi^{(i-1)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq A, 
-				\tag{$\star_{1}$}
-				\label{eq:star1}
-			\end{equation}
-			and 
+			To show uniform boundedness, it suffices to show that the estimate holding for some $i -1$ implies the result holds for $i$. Thus for some $i \geq 1$, we will assume there exists some $A > 0$ such that 
 			\begin{equation*}
-				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq 4A. 
-				\tag{$\star_{2}$}
-				\label{eq:star2}
+				\norm{(\phi^{(i - 1)}, \partial_{t}\phi^{(i - 1)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))} \leq A. 
 			\end{equation*}
-			and then improve the latter bound. Thus our first goal is to improve the rough upper bound of $4A$. The left side of the inequality looks suspiciously similar to the energy estimate of Corollary (\ref{eq:cor49}), 
+			The principle of bootstrap arguments tells us that we can also assume that 
+			\begin{equation*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))} \leq 4A, 
+			\end{equation*}
+			as long as the bound can be proved (which our theorem says is possible). Now we note that the bounds that we require look a lot like the estimates in (\ref{eq:cor49}), 
 			\begin{multline*}
-				\sup_{t\in[0,T]}\norm{(\phi,\partial_{t}\phi)}_{H^{k}(\mathbb{R}^{n}) \times H^{k -1}(\mathbb{R}^{n})}(t) \\ \leq C(1 + T)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right)\left(\norm{(\phi_{0}, \phi_{1})}_{H^{k}(\mathbb{R}^{n}) \times H^{k - 1}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}(t)\;dt\right.\\ + \left. C\int_{0}^{T}\sum_{|\alpha| + |\beta| \leq k - 1}\norm{\partial\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| + |\beta| \leq k- 1}\norm{\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
-				\label{eq:cor49}
+				\sup_{t\in[0,T]}\norm{(\phi, \partial_{t}\phi)}_{H^{k}(\mathbb{R}^{n}) \times H^{k -1}(\mathbb{R}^{n})}(t) \\ \leq C(1 + T)\exp\left(C\int_{0}^{T}\norm{\partial a}_{L^{\infty}(\mathbb{R}^{n})}(t)\;dt\right)\left(\norm{f}_{H^{k}(\mathbb{R}^{n})} 
+				+ \norm{g}_{H^{k - 1}(\mathbb{R}^{n})} + \int_{0}^{T}\norm{F}_{H^{k - 1}(\mathbb{R}^{n})}(t)\;dt\right.\\ + \left. C\int_{0}^{T}\sum_{|\alpha| + |\beta| \leq k - 1}\norm{\partial\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t) + \sum_{|\alpha| + |\beta| \leq k- 1}\norm{\partial_{x}^{\alpha}a\partial\partial_{x}^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right). 
 			\end{multline*}
-		To actually apply this result, we need bounds on the following quantities
-		\begin{align*}
-			\begin{split}
-				&\int_{0}^{T}\sum_{0 \leq |\alpha| \leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial \phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t)\;dt, \\
-				&\int_{0}^{T}\sum_{|\gamma| + |\sigma| \leq n + 1}\sum_{\alpha,\beta}\norm{\partial\partial^{\gamma}_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial_{x}^{\sigma}\phi^{(i)}}_{L^{2}(\mathbb{R}^{n})}(t)\;dt \\
-				&\int_{0}^{T}\sum_{\substack{|\gamma| + |\sigma| \leq n + 1 \\ |\sigma|\leq n}}\sum_{\alpha,\beta}\norm{ \partial_{x}^{\gamma}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial\partial^{\sigma}_{x}\phi^{(i)} }_{L^{2}(\mathbb{R}^{n})}(t)\;dt. 
-			\end{split}
-		\end{align*}
-		Note that we have set $k = n + 2$ (such that $k - 1 = n + 1$). Moreover, the Sobolev norm of $F$ is roughly the sum of the $L^{2}$ norms of the derivatives of $F$ up to order $n + 1$. The motivation behind the other two quantities follows identically. Let us begin by establishing an estimate on the first quantity. 
-		
-		\begin{quote}
-			\textbf{Claim 1.} (Bound on the Sobolev Norm of $F$)\textbf{.} There exists $B = B(A, n, F) > 0$ such that for all $t \in [0,T]$, we have 
+			With these estimates, we can finally use our energy estimate (\ref{eq:cor49}): 
+			\begin{multline*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \\
+				\leq C\left(\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n} \times H^{n + 1}(\mathbb{R}^{n}))} + BT + CBT^{2}\right)\exp(CBT)
+			\end{multline*} 
+			Let us assume wlog that $C \geq 2$. While the actual constant $B$ can be very large, we can choose sufficiently small $T > 0$ (depending on $A$), so that $(BT + CBT^{2})\exp(CBT) \leq \norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n+ 1}(\mathbb{R}^{n})}$ and $\exp(CBT) \leq 2$. Thus with $T$ chosen as above, we get the bound 
 			\begin{equation*}
-				\sum_{0\leq |\alpha|\leq n + 1}\norm{\partial_{x}^{\alpha}F(\phi^{(i - 1)}, \partial \phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq B. 
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}. 
 			\end{equation*} 
-			
-			{\color{blue}
-				\begin{proof}
-					We must expand the partial derivatives. We will also make use of the following results, 
-					\begin{equation*}
-						\sum_{|\gamma|\leq N}\sup_{\norm{x}, \norm{p} \leq A}|\partial_{x,p}^{\gamma}F|(x,p) \leq C_{A, N} \qquad \text{and} \qquad \norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{s}(\mathbb{R}^{n})},
-					\end{equation*} 
-					where the latter holds for all $s > n/2$ and $\phi \in H^{s}(\mathbb{R}^{n})$, and is the Sobolev embedding theorem. Then the computations yield\footnote{\textcolor{red}{[!! Check Explicitly !!]}}, 
-					\begin{equation*}
-						\begin{aligned}
-							& \sum_{0 \le |\alpha| \le n+1} \|\partial_x^\alpha F(\phi^{(i-1)}, \partial \phi^{(i-1)})\|_{L^2(\mathbb{R}^n)}(t) \\
-							\le{} & C \left( \sum_{0 \le |\alpha| \le n+1} \|\partial \partial_x^\alpha \phi^{(i-1)}\|_{L^2(\mathbb{R}^n)}(t) + \sum_{0 \le |\alpha_1| + |\alpha_2| \le n+1} \|\partial \partial_x^{\alpha_1} \phi^{(i-1)} \partial \partial_x^{\alpha_2} \phi^{(i-1)}\|_{L^2(\mathbb{R}^n)}(t) \right. \\
-							& \left. + \text{cubic terms} + \dots + \text{terms of order } n+1 \right).
-						\end{aligned}
-					\end{equation*}
-				\end{proof} 	
-				Consider now just the quadratic term. Since $|\alpha_{1}| \leq \frac{n+ 1}{2}$ or $|\alpha_{2}|\leq \frac{n + 1}{2}$, we may assume without loss of generality that $|\alpha_{1}| \leq \frac{n + 1}{2}$.  \textcolor{red}{[!! Fill in the details... !!]} Thus, in this way, using our assumed bound (\ref{eq:star1}), we obtain the desired bound. 
-			}
-			
-			\textbf{Claim 2.} (Bound on the Two Remaining Quantities)\textbf{.} There exists some $B = B(A, n, F) > 0$ such that 
-			\begin{multline*}
-				\int_{0}^{T}\sum_{|\gamma| + |\sigma| \leq n + 1}\sum_{\alpha,\beta}\norm{\partial\partial^{\gamma}_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial_{x}^{\sigma}\phi^{(i)}}_{L^{2}(\mathbb{R}^{n})}(t)\;dt \\ 
-				+ \int_{0}^{T}\sum_{\substack{|\gamma| + |\sigma| \leq n + 1 \\ |\sigma|\leq n}}\sum_{\alpha,\beta}\norm{ \partial_{x}^{\gamma}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)\partial\partial\partial^{\sigma}_{x}\phi^{(i)} }_{L^{2}(\mathbb{R}^{n})}(t)\;dt \leq B.
-			\end{multline*}
-			
-			\textbf{Claim 3.} (Bound on Derivatives of $a$)\textbf{.}
+			Let $A = 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}$. Thus we have shown that 
 			\begin{equation*}
-				\sum_{|\gamma| = 1}\norm{\partial_{x}\left(a^{\alpha\beta}(\phi^{(i - 1)})\right)}_{L^{\infty}(\mathbb{R}^{n})} \leq B. 
-			\end{equation*}  
-		\end{quote}
-		
-		With these estimates, we can finally use our energy estimate (\ref{eq:cor49}): 
+				\norm{(\phi^{(i-1)}, \partial_{t}\phi^{(i-1)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A
+			\end{equation*} 
+			implies 
+			\begin{equation*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A, 
+			\end{equation*} 
+			provided that $T = T(A)$ is sufficiently small. Thus this portion of the proof concludes. 
+			\item Now we will show that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. For every $i \geq 3$, we consider the difference $\phi^{(i)} - \phi^{(i - 1)}$:
+			\begin{align*}
+				\begin{split}
+					\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i -1)})\partial_{\beta} (\phi^{(i)} - \phi^{(i - 1)})) &= \partial_{\alpha}\left( a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)} - a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)} \right) \\
+					&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}\left(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)}\right) \\
+					&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) + a^{\alpha\beta}(\phi^{(i -2)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}) \\
+					&= F(\phi^{(i)}, \partial \phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial\phi^{(i - 2)}) \\
+					&\qquad  - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}). 
+				\end{split} 
+			\end{align*}
+			We know that $a$ is continuously differentiable, and thus, satisfies the bound, 
+			\begin{equation*}
+				\sum_{\alpha,\beta}\sum_{|\gamma|\leq N}\sup_{|x|\leq A}|\partial_{x}^{\gamma}(a^{\alpha\beta})|(x)\leq C_{A,N}. 
+			\end{equation*} 
+			Since we also know that 
+			\begin{equation*}
+				\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq C,
+			\end{equation*}
+			the Mean Value Theorem tells us that there exists some $C > 0$ (depending on the initial data, but neither on $i$ nor on $T$) such that 
+			\begin{equation*}
+				\abs{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})} \leq C|\partial(\phi^{(i-1)} - \phi^{(i - 2)})|, 
+			\end{equation*} 
+			which implies 
+			\begin{equation*}
+				\norm{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
+			\end{equation*} 
+			for all $t \in [0, T]$. Likewise, one has that 
+			\begin{equation*}
+				\norm{F(\phi^{(i -1)}, \partial\phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial \phi^{(i - 2)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
+			\end{equation*} 
+			and $\norm{\partial (a^{\alpha\beta}(\phi^{(i - 1)}))}_{L^{\infty}(\mathbb{R}^{n})} \leq C$. Thus applying (\ref{eq:cor49}), 
+			we get 
+			\begin{align*}
+				&\sup_{t \in [0,T]} \|(\phi^{(i)} - \phi^{(i-1)}, \partial_t \phi^{(i)} - \partial_t \phi^{(i-1)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \\
+				\le{} &CT \sup_{t \in [0,T]} \|(\phi^{(i-1)} - \phi^{(i-2)}, \partial_t \phi^{(i-1)} - \partial_t \phi^{(i-2)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \leq C_{1}.
+			\end{align*}
+			Thus if we choose $T > 0$ sufficiently small, then 
+			\begin{equation*}
+				\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq \frac{1}{2}\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 2)}}_{H^{1}(\mathbb{R}^{n})}(t), 
+			\end{equation*}
+			whence 
+			\begin{equation*}
+				\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i -1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq 2^{2 - i}C_{1}, 
+			\end{equation*} 
+			so that the Cauchy property follows immediately. 
+			\item Now we will prove existence (uniqueness will follow from the proof of the second part of the theorem). Since we showed that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$, there exists a limit $(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. But by the uniform bound in the other function space, we conclude that $\phi, \partial_{t}\phi$ are both contained in the desired regularity class. 
+			\end{enumerate}
+		\item Now we will show a proof of continuous dependence on the initial data. Pick $i \in \mathbb{N}$ sufficiently large, and consider the difference $\phi^{(i)} - \phi$. Then we compute 
 		\begin{multline*}
-			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \\
-			\leq C\left(\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n} \times H^{n + 1}(\mathbb{R}^{n}))} + BT + CBT^{2}\right)\exp(CBT)
+				\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i)} - \phi)) \\
+				= -\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i)}) - a^{\alpha\beta}(\phi))\partial_{\beta}\phi) + F(\phi^{(i)}, \partial \phi^{(i)}) - F(\phi, \partial \phi). 
+		\end{multline*}
+		Applying (\ref{eq:cor49}), one obtains 
+		\begin{multline*}
+			\sup_{s \in [0,T]}\norm{(\phi^{(i)} - \phi, \partial_{t}\phi^{(i)} - \partial_{t}\phi)}_{H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})}(s) \\
+			\leq 
+			C\left(\norm{(\phi_{0}^{(i)} - \phi_{0},\phi_{1}^{(i)} - \phi_{1})}_{H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})} + \int_{0}^{t}\norm{ \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi))\partial_{\beta}\phi) }_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right. \\
+			\left.+ \int_{0}^{t}\norm{F(\phi^{(i)}, \partial \phi^{(i)}) - F(\phi,\partial\phi)}_{L^{2}(\mathbb{R}^{n})}(t)\;dt\right) 
 		\end{multline*} 
-		Let us assume wlog that $C \geq 2$. While the actual constant $B$ can be very large, we can choose sufficiently small $T > 0$ (depending on $A$), so that $(BT + CBT^{2})\exp(CBT) \leq \norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n+ 1}(\mathbb{R}^{n})}$ and $\exp(CBT) \leq 2$. Thus with $T$ chosen as above, we get the bound 
+		Then the proof of (1) gives the following estimate, 
+		\begin{multline*}
+			\sup_{s \in [0,t]}\norm{ (\phi^{(i)} - \phi,\partial_{t}\phi^{(i)} - \partial_{t}\phi) }_{H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})}(s) \\
+			\leq C\left( \norm{(\phi_{0}^{(i)} - \phi_{0}, \phi_{1}^{(i)} - \phi_{1})}_{H^{1}(\mathbb{R}^{n} \times L^{2}(\mathbb{R}^{n}))} + \int_{0}^{t}\norm{(\phi^{(i)} - \phi, \partial_{t}\phi^{(i)} - \partial_{t}\phi)}_{H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})}(t)\;dt \right). 
+		\end{multline*} 
+		Thus by Gr\"onwall's inequality, one has that for some $C = C(T) > 0$, 
 		\begin{equation*}
-			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}. 
-		\end{equation*} 
-		Let $A = 4C_{0}\norm{(\phi_{0}, \phi_{1})}_{H^{n + 2}(\mathbb{R}^{n}) \times H^{n + 1}(\mathbb{R}^{n})}$. Thus we have shown that 
-		\begin{equation*}
-			\norm{(\phi^{(i-1)}, \partial_{t}\phi^{(i-1)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A
-		\end{equation*} 
-		implies 
-		\begin{equation*}
-			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n}))} \leq A, 
-		\end{equation*} 
-		provided that $T = T(A)$ is sufficiently small. Thus this portion of the proof concludes. 
-		\item Now we will show that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. For every $i \geq 3$, we consider the difference $\phi^{(i)} - \phi^{(i - 1)}$:
-		\begin{align*}
-			\begin{split}
-				\partial_{\alpha}(a^{\alpha\beta}(\phi^{(i -1)})\partial_{\beta} (\phi^{(i)} - \phi^{(i - 1)})) &= \partial_{\alpha}\left( a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i)} - a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)} \right) \\
-				&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}\left(a^{\alpha\beta}(\phi^{(i - 1)})\partial_{\beta}\phi^{(i - 1)}\right) \\
-				&= F(\phi^{(i - 1)}, \partial\phi^{(i - 1)}) - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) + a^{\alpha\beta}(\phi^{(i -2)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}) \\
-				&= F(\phi^{(i)}, \partial \phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial\phi^{(i - 2)}) \\
-				&\qquad  - \partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)}). 
-			\end{split} 
-		\end{align*}
-		We konw that $a$ is continuously differentiable, and thus, satisfies the bound, 
-		\begin{equation*}
-			\sum_{\alpha,\beta}\sum_{|\gamma|\leq N}\sup_{|x|\leq A}|\partial_{x}^{\gamma}(a^{\alpha\beta})|(x)\leq C_{A,N}. 
-		\end{equation*} 
-		Since we also know that 
-		\begin{equation*}
-			\norm{(\phi^{(i)}, \partial_{t}\phi^{(i)})}_{L^{\infty}([0, T];H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T];H^{n + 1}(\mathbb{R}^{n}))} \leq C,
+			\sup_{t \in [0,T]}\norm{ (\phi^{(i)} - \phi_{0}, \phi_{1}^{(i)} - \phi_{1}) }_{H^{1}(\mathbb{R}^{n}) \times L^{2}(\mathbb{R}^{n})}(t) \leq C\norm{(\phi^{(i)}_{0} - \phi_{0}, \phi_{1}^{(i)} - \phi_{1})}_{H^{1}(\mathbb{R}^{n} \times L^{2}(\mathbb{R}^{n}))} \xrightarrow{i \to \infty} 0. 
 		\end{equation*}
-		the Mean Value Theorem tells us that there exists some $C > 0$ (depending on the initial data, but neither on $i$ nor on $T$) such that 
+		Then to get the general estimate for $1 \leq s < n + 2$, we can simply use the bound 
 		\begin{equation*}
-			\abs{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})} \leq C|\partial(\phi^{(i-1)} - \phi^{(i - 2)})|, 
+			\norm{\eta}_{H^{s}(\mathbb{R}^{n})} \leq C \norm{\eta}_{H^{s_{1}}(\mathbb{R}^{n})}^{\theta_{1}}\norm{\eta}_{H^{s_{2}}(\mathbb{R}^{n})}^{\theta_{2}}
 		\end{equation*} 
-		which implies 
-		\begin{equation*}
-			\norm{\partial_{\alpha}((a^{\alpha\beta}(\phi^{(i - 1)}) - a^{\alpha\beta}(\phi^{(i - 2)}))\partial_{\beta}\phi^{(i - 1)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
-		\end{equation*} 
-		for all $t \in [0, T]$. Likewise, one has that 
-		\begin{equation*}
-			\norm{F(\phi^{(i -1)}, \partial\phi^{(i - 1)}) - F(\phi^{(i - 2)}, \partial \phi^{(i - 2)})}_{L^{2}(\mathbb{R}^{n})}(t) \leq C\|\partial(\phi^{(i-1)} - \phi^{(i - 2)})\|_{L^{2}(\mathbb{R}^{n})}(t), 
-		\end{equation*} 
-		and $\norm{\partial (a^{\alpha\beta}(\phi^{(i - 1)}))}_{L^{\infty}(\mathbb{R}^{n})} \leq C$. Thus applying (\ref{eq:cor49}), 
-		we get 
-		\begin{align*}
-			&\sup_{t \in [0,T]} \|(\phi^{(i)} - \phi^{(i-1)}, \partial_t \phi^{(i)} - \partial_t \phi^{(i-1)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \\
-			\le{} &CT \sup_{t \in [0,T]} \|(\phi^{(i-1)} - \phi^{(i-2)}, \partial_t \phi^{(i-1)} - \partial_t \phi^{(i-2)})\|_{H^1(\mathbb{R}^n) \times L^2(\mathbb{R}^n)}(t) \leq C_{1}.
-		\end{align*}
-		Thus if we choose $T > 0$ sufficiently small, then 
-		\begin{equation*}
-			\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq \frac{1}{2}\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i - 2)}}_{H^{1}(\mathbb{R}^{n})}(t), 
-		\end{equation*}
-		whence 
-		\begin{equation*}
-			\sup_{t \in [0, T]}\norm{\phi^{(i)} - \phi^{(i -1)}}_{H^{1}(\mathbb{R}^{n})}(t) \leq 2^{2 - i}C_{1}, 
-		\end{equation*} 
-		so that the Cauchy property follows immediately. 
-		\item Now we will prove existence (uniqueness will follow from the proof of the second part of the theorem). Since we showed that the sequence is Cauchy in $L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$, there exists a limit $(\phi, \partial_{t}\phi) \in L^{\infty}([0,T]; H^{1}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; L^{2}(\mathbb{R}^{n}))$. But by the uniform bound in the other function space, we conclude that $\phi, \partial_{t}\phi$ are both contained in the desired regularity class. 
-		\end{enumerate}
-		\item \textcolor{red}{[!! Complete Proof of Continuous Dependence !!]}
+		for some $C = C(s_{1}, s_{2}, s, n) > 0$, where $0 \leq s_{1} \leq s \leq s_{2}$, $\theta_{1} + \theta_{2} = 1$, and $\theta_{1}s_{1} + \theta_{2}s_{2} = s$ (proven in the homework). 
 	\end{enumerate}
-\end{proof} 
+\end{proof}
+We note the following difference between the existence and uniqueness results we have already seen in the linear case, and Theorem (\ref{thm:nlwlwp}): in the previous results, the solutions existed on time intervals $[0,T]$ for any arbitrary $T > 0$. However, the above theorem only gives existence of a \textit{classical} solution on some finite interval $[0,T]$, where $T$ is explicitly determined by the initial data. 
 
 For physical theories, we often desire \textit{smooth} solutions. However, the unique solution constructed above is contained in $L^{\infty}([0,T]; H^{n + 2}(\mathbb{R}^{n})) \times L^{\infty}([0,T]; H^{n + 1}(\mathbb{R}^{n}))$ for $T > 0$ sufficiently small. But in some cases, we can also \textit{lose} derivatives and regularity. Thus we desire some type of safeguard against the loss of regularity. The following result establishes this \textit{persistence of regularity}. 
 
@@ -2072,6 +2093,182 @@ However, we are interested in what happens as we approach the maximal time of ex
 	\end{enumerate}
 \end{theorem}
 
+\subsubsection{Global Regularity for Subcritical Equations} 
+In this subsubsection, we study the following nonlinear equation 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{1}
+		&\Box\phi = |\phi|^{2}\phi, \\
+		&(\phi,\partial_{t}\phi)\upharpoonright|_{\{t = 0\}} = (\phi_{0}, \phi_{1}), 
+	\end{alignedat} 
+	\right. 
+	\label{eq:global_reg_subcritical}
+\end{equation}
+where $\phi: I \times \mathbb{R}^{3} \to \mathbb{R}$, and $I \subseteq \mathbb{R}$ is an interval. While the energy function, (\ref{eq:energy_lwp}), is not conserved for solutions $\phi$ to the above system, we have the following conserved quantity. 
+\begin{prop}
+	As long as the solution to (\ref{eq:global_reg_subcritical}) remains sufficiently regular, the following quantity is independent of time, 
+	\begin{equation}
+		E(t) \coloneqq \int_{\mathbb{R}^3}\frac{1}{2}(\partial_{t}\phi)^{2} + \frac{1}{2}\sum_{1}^{3}(\partial_{i}\phi)^{2} + \frac{1}{4}|\phi|^{4}\;dx. 
+		\label{eq:conserved_energy_subcritical}
+	\end{equation} 
+\end{prop} 
+\begin{proof}
+	As long as the solution remains \textit{sufficiently} regular, differentiating yields, 
+	\begin{align*}
+		\begin{split}
+			\frac{d}{dt}E(t) &= \int_{\mathbb{R}^{3}}(\partial_{t}\phi)(\partial_{tt}^{2}\phi)\;dx + \sum_{1}^{3}\int_{\mathbb{R}^{3}}\partial_{i}(\partial_{t}\phi)(\partial_{i}\phi)\;dx  + \int_{\mathbb{R}^{3}}\phi^{3}\;dx  \\
+			&= \int_{\mathbb{R}^{3}}(\partial_{t}\phi)\cdot \left(\sum_{1}^{3}\partial^{2}_{ii}\phi - \phi^{3}\right)\;dx - \int_{\mathbb{R}^{3}}(\partial_{t}\phi) \cdot \sum_{1}^{3}(\partial_{i}^{2}\phi) + \int_{\mathbb{R}^{3}}\phi^{3}\;dx = 0, 
+		\end{split} 
+	\end{align*} 
+	where the second term in the second line follows from using integration by parts. 
+\end{proof} 
+It is important to remember that just because we have a conserved quantity, the solution $\phi$ need \textit{not} be globally regular. But we have the following result. 
+
+\begin{prop}[Control over Solutions]
+	There exists a constant $C > 0$ such that for every $\phi: \mathbb{R}^{3} \to \mathbb{R}$, we have $$\norm{\phi}_{L^{6}(\mathbb{R}^{3})} \leq C\norm{\phi}_{\dot{H}^{1}(\mathbb{R}^{3})}.$$  
+\end{prop} 
+\begin{proof}
+	This is a consequence of the Sobolev embedding theorems. 
+\end{proof} 
+\begin{theorem}[Global-in-Time Solutions]
+	Assume $(\phi_{0}, \phi_{1}) \in (H^{5}(\mathbb{R}^{3}) \times H^{4}(\mathbb{R}^{3}))\cap (C^{\infty}(\mathbb{R}^{3}) \times C^{\infty}(\mathbb{R}^{3}))$. Then (\ref{eq:global_reg_subcritical}) has a global-in-time solution. 
+\end{theorem}
+\begin{remark}
+	Notice that the local well-posedness result for nonlinear wave equations only guaranteed us local-in-time solutions to the general nonlinear wave equation, with no additional information about whether a global-in-time solution exists. The above theorem states that for the specific nonlinear equation (\ref{eq:global_reg_subcritical}), we, in fact, have a global-in-time solution. 
+\end{remark} 
+\begin{proof}
+	By the local existence theorem for nonlinear wave equations, we know that we have a smooth local-in-time solution to (\ref{eq:global_reg_subcritical}). Thus it suffices for us to show that this solution is global-in-time. Therefore, we must show that for every $T > 0$, the following bound is satisfied. 
+	\begin{equation*}
+		\sum_{|\alpha|\leq 2}\norm{\partial_{x}^{\alpha}\phi}_{L^{\infty}([0,T]\times \mathbb{R}^{3})} +  \sum_{|\alpha|\leq 1}\norm{\partial_{t}^{\alpha}\partial_{x}^{\alpha}\phi}_{L^{\infty}([0,T] \times \mathbb{R}^{3})} \leq C(T). 
+	\end{equation*}
+	But by the Sobolev embedding theorem ($H^{s_{1}}(\mathbb{R}^{3}) \subset H^{s_{2}}(\mathbb{R}^{3})$ for all $s_{1}\geq s_{2}$), it suffices to prove that 
+	\begin{equation*}
+		\norm{(\phi, \partial_{t}\phi)}_{L^{\infty}([0,T]; H^{4}(\mathbb{R}^{3})) \times L^{\infty}([0,T];H^{3}(\mathbb{R}^{3}))} \leq C(T). 
+	\end{equation*}
+	We start by showing that, at minimum, 
+	$$\norm{(\phi, \partial_{t}\phi)}_{L^{\infty}([0,T]; H^{2}(\mathbb{R}^{3})) \times L^{\infty}([0,T];H^{1}(\mathbb{R}^{3}))} \leq C(T).$$ 
+	We start by computing, 
+	\begin{align*}
+		\begin{split}
+			&\norm{(\phi, \partial_{t}\phi)}_{L^{\infty}([0,T]; H^{2}(\mathbb{R}^{3})) \times L^{\infty}([0,T];H^{1}(\mathbb{R}^{3}))} \\
+			&\leq C(T) \cdot \left(\norm{(\phi_{0},\phi_{1})}_{H^{2}(\mathbb{R}^{3}) \times H^{1}(\mathbb{R}^{3})} + \int_{0}^{T}\norm{\phi \cdot \phi \cdot \partial\phi}_{L^{2}(\mathbb{R}^{3})}\;dt\right) \\
+			&\leq C(T)\cdot \left(\norm{\phi_{0}, \phi_{1}}_{H^{2}(\mathbb{R}^{3}) \times H^{3}(\mathbb{R}^{3})} + \int_{0}^{T}\norm{\phi}_{L^{6}(\mathbb{R}^{3})}(t)\norm{\phi}_{L^{6}(\mathbb{R}^{3})}(t)\norm{\partial\phi}_{L^{6}(\mathbb{R}^{3})}(t)\;dt\right) \\
+			&\leq C(T)\cdot \left(\norm{(\phi_{0},\phi_{1})}_{H^{2}(\mathbb{R}^{3})\times H^{1}(\mathbb{R}^{3})} + \int_{0}^{T}(E(t))^{2}\norm{(\phi,\partial_{t}\phi)}_{H^{2}(\mathbb{R}^{3}) \times H^{1}(\mathbb{R}^{3})}(t)\;dt\right). 
+		\end{split}
+	\end{align*} 
+	Since $E(t)$ is \textit{a priori} controlled by the conservation law, we can just use Gr\"onwall's inequality to establish the bound on the $H^{2}$ norms. Thus, one also has that $(\phi,\partial_{t}\phi)$ is bounded in $L^{\infty}([0,T] \times \mathbb{R}^{3})$. Likewise, we can also establish the appropriate bound on the $H^{4}$ norm, thus establishing the proof. 
+\end{proof} 
+\textcolor{red}{[!! Try to think about why it \textbf{suffices} to show the bounds that were shown above !!]}
+
+\paragraph{Scaling and Criticality} In this section, we introduce the notion of \textit{scaling}, and \textit{criticality}. First suppose $\phi$ is a solution to (\ref{eq:global_reg_subcritical}). Then for $\lambda > 0$, we claim that $\phi_{\lambda}(t, x) = \lambda \phi(\lambda t, \lambda x)$ is also a solution: 
+\begin{align*}
+	\begin{split}
+		\partial_{t}^{2}\phi_{\lambda} &= \lambda^{3}(\partial_{t}^{2}\phi)(\lambda t, \lambda x). \\
+		\partial_{x}^{2}\phi_{\lambda} &= \lambda^{3}(\partial_{x}^{2}\phi)(\lambda t, \lambda x). \\
+		|\phi_{\lambda}|^{2}\phi_{\lambda} &= \phi_{\lambda}^{3} = \lambda^{3}(|\phi|^{2}\phi)(\lambda t,\lambda x). 
+	\end{split} 
+\end{align*} 
+Thus since $\phi$ is a solution to (\ref{eq:global_reg_subcritical}), we have that $\phi_{\lambda}$ is also a solution. To get a sense of criticality, let us consider the $\dot{H}^{1}$ seminorm of $\phi_{\lambda}$. We compute, 
+\begin{equation*}
+	\norm{\phi_{\lambda}}_{\dot{H}^{1}}(t) = \left(\int |\nabla \phi_{\lambda}|^{2}(t,x)\;dx\right)^{1/2}  = \left(\int \lambda^{4}|(\nabla \phi)|^{2}(\lambda t,\lambda x)\;dx\right)^{1/2} = \left(\int \lambda|\nabla \phi|^{2}(\lambda t, \ti{x})\;d\ti{x}\right)^{1/2} = \lambda^{1/2}\norm{\phi}_{\dot{H}^{1}}(\lambda t). 
+\end{equation*}
+Thus in the limit $\lambda \to \infty$, we notice that the $\dot{H}^{1}$ norm also tends to infinity. Thus it becomes clear that conservation laws because much more important at the smaller scales. Thus we have the following classification of equations. An equation is said to be \vspace{-0.25cm}
+\begin{itemize}[itemsep =-2pt]
+	\item \textbf{subcritical} if the ``conservation law becomes more useful at smaller scales'', 
+	\item \textbf{supercritical} if the opposite is true, 
+	\item \textbf{critical} if the conservation law scales in the same way as the scaling of the equation. 
+\end{itemize}
+The classification is useful since generally speaking, \vspace{-0.25cm}
+\begin{itemize}[itemsep =-2pt]
+	\item most subcritical equations have a global regular solution, 
+	\item critical equations vary a lot in terms of having global regular solutions/finite-time blow up, 
+	\item very little is known for supercritical equations. 
+\end{itemize}
+For instance, for the given equation, 
+\begin{equation}
+	\Box\phi = |\phi|^{p - 1}\phi. 
+	\label{eq:mod_crit_eq}
+\end{equation}
+in $\mathbb{R} \times \mathbb{R}^{3}$, one observes that the $\dot{H}^{1}$ norm is always controlled by the conservation law, while the equation itself is invariant under the the scaling 
+\begin{equation*}
+	\phi_{\lambda}(t, x) = \lambda^{\frac{2}{p - 1}}\phi(\lambda t,\lambda x). 
+\end{equation*} 
+Then, we have the following. 
+\begin{prop}
+	For the equation (\ref{eq:mod_crit_eq}) in $\mathbb{R} \times \mathbb{R}^{3}$, the equation is \textbf{subcritical} if $p < 5$, \textbf{critical} if $p = 5$, and supercritical if $p > 5$. 
+\end{prop} 
+\begin{proof}
+	A straightforward computation yields, 
+	\begin{equation*}
+		\norm{\phi_{\lambda}}_{\dot{H^{1}}}(t) = \lambda^{\frac{5 - p}{p - 1}}\norm{\phi}_{\dot{H}^{1}}(\lambda t). 
+	\end{equation*}
+	Thus for $p < 5$, the exponent of $\lambda$ is positive so that the $\dot{H}^{1}$ norm tends to infinity as $\lambda \to \infty$ (meaning the equation is subcritical), is exactly 0 at $p = 5$ (so that the equation is critical), and is negative for $p > 5$ (so that the equation is supercritical). 
+\end{proof} 
+\newpage 
+
+\section{An Introduction to Einstein Vacuum Equations in Wave Coordinates} 
+In this section, we look at the \textit{Einstein vaccum equations}. In particular, this requires us to cover some initial definitions in geometry. Thus we start with some basic definitions from the theory of Lorentzian manifolds. 
+
+\begin{definition}[Christoffel Symbols]
+	Let $(M, g)$ be a Lorentzian manifold, where $g$ is a Lorentzian metric on $M$. Then we define the \textbf{Christoffel symbols} on $M$ to be the smooth functions, 
+	\begin{equation*}
+		\Gamma^{\mu}_{\alpha\beta} = \frac{1}{2}g^{\mu\nu}(g_{\alpha\nu,\beta} + g_{\beta\nu,\alpha} - g_{\alpha\beta,\nu}). 
+	\end{equation*}
+	Roughly speaking, the Christoffel symbol $\Gamma^{\mu}_{\alpha\beta}$ denotes the $\alpha$th component of the derivative of a local basis vector field $E_{\beta}$ in the direction of $E_{\alpha}$. 
+\end{definition} 
+
+\begin{definition}[Levi-Civita Connection]
+	Let $(M, g)$ be a Lorentzian manifold, where $g$ is a Lorentzian metric on the smooth manifold $M$. Then there exists a unique connection, $\nabla$, on $M$, called the \textbf{Levi-Civita connection} on $M$ defined by 
+	\begin{equation*}
+		\nabla_{X^{\alpha}\partial_{x^{\alpha}}}(Y^{\beta}\partial_{x^{\beta}})= X^{\alpha}\partial_{x^{\alpha}}Y^{\beta}\partial_{x^{\beta}} + \Gamma^{\mu}_{\alpha\beta}X^{\alpha}Y^{\beta}\partial_{x^{\mu}},
+	\end{equation*}
+	that is \textbf{compatible} with $g$ (in the sense that $\nabla g = 0$) and is \textbf{torsion-free} (in the sense that $\nabla_{X}Y - \nabla_{Y}X -[X,Y] = 0$). 
+\end{definition} 
+
+\begin{definition}[Riemann Curvature Tensor]
+	Let $(M, g)$ be a Lorentzian manifold, where $g$ i a Lorentzian metric on $M$. Then we define the \textbf{Riemann curvature tensor} on $M$ to be the $(1,3)$-tensor field given by 
+	\begin{equation*}
+		{R^{\gamma}}_{\alpha\mu\nu}\partial_{\gamma} = \nabla_{\mu}\nabla_{\nu}\partial_{\alpha}- \nabla_{\nu}\nabla_{\mu}\partial_{\alpha}. 
+	\end{equation*}
+	We can also think of the Riemann curvature tensor as a $(0,4)$-tensor field obtained by lowering an index:
+	\begin{equation*}
+		R_{\gamma\alpha\mu\nu} = g_{\gamma\eta}{R^{\eta}}_{\alpha\mu\nu}. 
+	\end{equation*}
+\end{definition} 
+The Riemann curvature tensor has the following properties (of which we omit the proofs). 
+\begin{prop}[Properties of the Riemann Curvature Tensor]
+	Let $(M, g)$ be a Lorentzian manifold, and let $R$ denote the Riemann curvature tensor on $M$. Then $R$ satisfies the following properties. \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item (\textsc{(Anti)Symmetricity}) $R_{\mu\nu\alpha\beta} = R_{\alpha\beta\mu\nu} =-R_{\nu\mu\alpha\beta} = -R_{\mu\nu\beta\alpha}$. 
+		\item (\textsc{Algebraic Bianchi Identity}) $R_{\mu\nu\alpha\beta} + R_{\alpha\mu\nu\beta} + R_{\nu\alpha\mu\beta} = 0$. 
+		\item (\textsc{Differential Bianchi Identity}) $\nabla_{\sigma}R_{\mu\nu\alpha\beta} + \nabla_{\mu}R_{\nu\sigma\alpha\beta} + \nabla_{\nu}R_{\sigma\mu\alpha\beta} = 0$. 
+	\end{enumerate}
+\end{prop}
+We also have the \textit{Ricci curvature tensor}, which is a symmetric $(0,2)$-tensor field. 
+\begin{definition}[Ricci Curvature Tensor]
+	Let $(M, g)$ be a Lorentzian manifold, and let the \textbf{Ricci curvature tensor}, $\operatorname{Ric}(g)$, on $M$ be the $(0,2)$-tensor field on $M$ obtained by taking the trace over 2 indices of the Riemann curvature tensor as follows:
+	\begin{equation*}
+		\operatorname{Ric}(g)_{\mu\nu} = g^{\alpha\beta}R_{\mu\alpha\nu \beta}. 
+	\end{equation*}
+\end{definition} 
+
+In the homework, we showed that in local coordinates, $\operatorname{Ric}(g)$ can be written in the form, 
+\begin{equation*}
+	\operatorname{Ric}(g)_{\mu\nu} = -\frac{1}{2}g^{\alpha \beta}\partial^{2}_{\alpha\beta}g_{\mu\nu} - \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\mu\nu} g_{\alpha\beta} + \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\alpha \nu}g_{\beta \mu} + \frac{1}{2}g^{\alpha\beta}\partial^{2}_{\beta\mu}g_{\alpha\nu} + F_{\mu\nu}(g, \partial g), 
+\end{equation*}
+where $F_{\mu\nu}(g, \partial g)$ is a function of $g$ and its derivatives. In particular, if only the first term remains, then the PDE (i.e., the Einstein vacuum equations) corresponding to $\operatorname{Ric}(g)_{\mu\nu} = 0$ becomes the wave equation so that the local existence theorem for quasilinear systems can be applied. Indeed, one has the following result: under certain (i.e., \textit{wave coordinate} conditions), the Einstein vacuum equations turn into a system of nonlinear wave equations. In particular, the Ricci curvature tensor can be expressed as the sum of a quasilinear wave operator and two terms that consist of the first derivatives of the metric. We formalize this result now. 
+\begin{definition}[Wave Coordinate Condition]
+	Let $(M, g)$ be a Lorentzian manifold. A local coordinate system $(x^{\mu})$ is said to satisfy the \textbf{wave coordinate condition} on $M$ if the following is true, 
+	\begin{equation*}
+	0 = \Box_{g}x^{\alpha} \coloneqq \frac{1}{\sqrt{-g}}\partial_{\mu}
+	\end{equation*}
+\end{definition} 
+\begin{prop}
+	Let $(M, g)$ be a Lorentzian manifold, and let $\operatorname{Ric}(g)$ be the Ricci curvature tensor on $M$. 
+\end{prop}  
+
+
+
 \newpage 
 
 \part{Applications}
@@ -2088,7 +2285,7 @@ In this subsection, we introduce the \textbf{Euler equations} for ideal, incompr
 Let $\Omega \subseteq \mathbb{R}^{3}$ be an open and bounded region with sufficiently regular boundary $\partial \Omega$. Further assume that $\Omega$ contains a fluid. An \textbf{incompressible displacement} of the fluid is a transformation $\sigma: \Omega \to \Omega$ such that \vspace{-0.35cm} 	
 \begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
 	\item $\sigma$ is invertible, and $\sigma(D) = D$; 
-	\item $\sigma, \sigma^{-1} \in C^{1}(D)$ (i.e., $\sigma$ is a diffeomorphism on $\Omega$), 
+	\item $\sigma, \sigma^{-1} \in C^{1}(\Omega)$ (i.e., $\sigma$ is a diffeomorphism on $\Omega$), 
 	\item $\sigma$ preserves the Lebesgue measure (in the sense that $m(\sigma(A)) = m(A)$, where $m$ is the $3$-dimensional Lebesgue measure, and $A \subseteq \Omega$). 
 \end{enumerate}
 \end{definition}
@@ -2190,7 +2387,7 @@ In the previous subsection, we were looking at physical models that describe the
 \begin{definition}[Vorticity Field]
 	Let $\Omega$ be an open bounded region of $\mathbb{R}^{3}$ containing an incompressible ideal fluid, and let $u = u(t, x)$ be the velocity field of the fluid. Then we define the \textbf{vorticity field} of $u$ as the vector field, 
 	\begin{equation}
-		\omega(t,x) = \operatorname{curl}{u(t,x)} = \nabla \wedge u(t, x), 
+		\omega(t,x) = \operatorname{curl}{u(t,x)} = \nabla \times u(t, x), 
 	\end{equation}
 	where $\nabla$ is taken with respect to the space variables only.
 \end{definition} 
@@ -2225,7 +2422,7 @@ I.e., locally, the velocity field of the fluid consists of three motions: (1) a 
 Thus we wish to know under what circumstances we can deduce $u$ given $\omega$. In general, even if a solution exists to the above system, it may not necessarily be unique. For instance, consider a solution $u'$, and let $u = u' + \nabla \varphi$, where $\varphi$ is a harmonic function. Then clearly $u$ also satisfies the above system as does $u'$. Thus to force uniqueness, we must at least introduce some boundary conditions. Thus the motivation for the following section is to consider various cases for $\Omega$ and its consequences on solutions to the system above. 
 
 \begin{enumerate}[itemsep =-2pt,label = (\arabic{*})]
-	\item (\textbf{$\Omega \subset \mathbb{R}^{2}$; $\Omega$ is simply connected and bounded}): Since $\Omega$ is simply connected and bounded, and $u$ is divergence free, there exists a function $\Psi$, called the \textbf{stream function}, such that $u = \nabla^{\perp}\Psi$, where $\nabla^{\perp} \coloneqq (\partial_{x_{2}}, -\partial_{x_{1}})$. Then we compute, 
+	\item (\textbf{$\Omega \subset \mathbb{R}^{2}$; $\Omega$ is simply connected and bounded}): Since $\Omega$ is simply connected and bounded, and $u$ is divergence free, there exists\footnote{via the Poincar\'e Lemma} a function $\Psi$, called the \textbf{stream function}, such that $u = \nabla^{\perp}\Psi$, where $\nabla^{\perp} \coloneqq (\partial_{x_{2}}, -\partial_{x_{1}})$. Then we compute, 
 	\begin{equation*}
 		\Delta \Psi = \partial^{2}_{x_{1}}\Psi + \partial^{2}_{x_{2}}\Psi = \partial_{x_{1}}(-u_{2}) + \partial_{x_{2}}(u_{1}) = \partial_{x_{2}}(u_{1}) - \partial_{x_{1}}(u_{2}). 
 	\end{equation*} 
@@ -2476,42 +2673,204 @@ The consequences of such domains can significantly vary based on the dimension o
 	\centering 
 	\includegraphics[width=0.5\textwidth]{External_DomainI}
 \end{figure}
-In $\mathbb{R}^{2}$, the external domain is not simply connected so that irrotational flows are not necessarily potential flows. On the other hand, in $\mathbb{R}^{3}$, the external domain is simply connected. So any irrotational flow $u$ is a potential flow: $u = \nabla \varphi$, where $\varphi$ satisfies the boundary condition $\partial u/\partial n = 0$ on $\partial \Omega$. Thus if we specify the asymptotic behavior $\lim_{|x| \to \infty}u(x) = U_{\infty}$, the uniqueness theorem for Neumann problems gives us a unique potential flow up to a constant. 
+In $\mathbb{R}^{2}$, the external domain is not simply connected so that irrotational flows are not necessarily potential flows. On the other hand, in $\mathbb{R}^{3}$, the external domain is simply connected. So any irrotational flow $u$ is a potential flow: $u = \nabla \varphi$, where $\varphi$ satisfies the boundary condition $\partial u/\partial n = 0$ on $\partial \Omega$. Thus if we specify the asymptotic behavior $\lim_{|x| \to \infty}u(x) = U_{\infty}$, the uniqueness theorem for Neumann problems gives us a unique potential flow up to a constant.
+
+Now let us return back to the case of $\mathbb{R}^{2}$ by considering the external domain to be the space $\Omega = \{x \in \mathbb{R}^{2}: x > 1\}$. Let $\varphi$ be the potential function associated with the velocity field $u$. We know that as $|x| \to \infty$, the obstruction becomes negligible so that $\partial \varphi/\partial x \sim 1$ as $|x| \to \infty$, which means that $\varphi \sim x = \rho\cos(\theta)$, where $(\rho, \theta)$ are polar coordinates on $\mathbb{R}^{2}$. Thus consider an initial ansatz of $\varphi(\rho,\theta) = A(\rho)\cos(\theta)$. Since $\varphi$ must be harmonic, we have the following: 
+\begin{align*}
+	\begin{split}
+		\frac{\partial^{2}}{\partial r^{2}}(A(\rho)\cos(\theta)) + \frac{1}{r}\frac{\partial}{\partial r}(A(\rho)\cos(\theta)) + \frac{1}{r^{2}}\frac{\partial^{2}}{\partial \theta^{2}}(A(\rho)\cos(\theta)) &= 0 \\
+		\implies 
+		A''(\rho)\cos(\theta) + \frac{1}{r}A'(\rho)\cos(\theta) - \frac{1}{r^{2}}A(\rho)\cos(\theta) = 0. 
+	\end{split} 
+\end{align*} 
+Thus we obtain the following ODE, 
+\begin{equation*}
+	\rho^{2}A''(\rho) + \rho A'(\rho) - A(\rho) = 0. 
+\end{equation*}
+Solving this ODE, we obtain a solution of the form 
+\begin{equation*}
+	\varphi(\rho,\theta) = \left(A\rho + \frac{B}{\rho}\right)\cos(\theta). 
+\end{equation*}
+Because of the obstruction at the unit circle, we require $\partial \varphi/\partial \rho = 0$ when $\rho = 1$. We compute, 
+\begin{equation*}
+	0 = \frac{\partial \varphi}{\partial \rho}\bigg|_{\rho = 1} = \left(A - \frac{B}{\rho^{2}}\right)\cos(\theta)\bigg|_{\rho = 1}  \iff A - B = 0 \iff A = B. 
+\end{equation*}
+Moreover, we want $\varphi \sim \rho\cos(\theta)$ as $\rho \to \infty$. Thus we get $A = 1$, whence $B= 1$. Therefore, the solution we obtain is 
+\begin{equation*}
+	\varphi(\rho,\theta) = (\rho + \rho^{-1})\cos(\theta). 
+\end{equation*}
+Figure (\ref{fig:external_domain_circle}) depicts the associated fluid flow around this obstruction. 
+
+\begin{figure*}[h!]
+	\centering 
+	\begin{subfigure}[t]{0.48\textwidth}
+	\includegraphics[height=3.2in]{fluid_flow_obstacleI}
+	\caption{Fluid flow in the external domain without circulation.}
+	\end{subfigure} 
+	~
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering 
+		\includegraphics[height=3.2in]{fluid_flow_obstacleII}
+		\caption{Fluid flow in the external domain, with circulation.}
+	\end{subfigure} 
+	\caption{Fluid flows in external domain consisting of the space outide the unit circle in the plane.}
+	\label{fig:external_domain_circle}
+\end{figure*}
+
+Here, it is clear that the circulation around the obstacle identically vanishes. 
+
+Now we can also consider an irrotational flow with circulation $\alpha$ in the same external domain. The corresponding stream function is 
+\begin{equation*}
+	\Psi(x) = -\frac{\alpha}{2\pi}\ln(|x|). 
+\end{equation*} 
+Thus taking the perpendicular gradient, we have the (constant-in-time) velocity field 
+\begin{equation*}
+	u(x) = \frac{\alpha}{2\pi}\frac{x^{\perp}}{|x|^{2}}. 
+\end{equation*} 
+Then indeed, it is straightforward to check that the circulation around $\partial\Omega$ is $\alpha$. Then we can consider the sum of the two flows, 
+\begin{equation*}
+	\varphi(x, y) + \Psi(x, y) = \left(1 + \frac{1}{x^{2} + y^{2}}\right)x -\frac{\alpha}{2\pi}\ln(|x|). 
+\end{equation*}
+Then we get the flow depicted in 
 
 \newpage 
 \subsection{Construction of Solutions to the Euler Equations}
 In this subsection, we study the theory of existence and uniqueness for the Euler equations. Thus far, we have deduced numerous qualitative and quantitative properties of solutions to the Euler equations, \textit{if} they exist. But since the Euler equations were constructed with a specific physical model in mind, it behooves us to determine whether or not (unique) solutions exist (thus informing us if the model is reasonable). Unless otherwise specified, we will assume that our fluid moves in a three-dimensional torus $\Omega = [-\pi, \pi]^{3}$. First, we will provide some general analysis results/theory that will prove essential. Then we will prove one estimate for a solution to the Euler equations. 
 
 \subsubsection{Some General Analysis Results}
-We start with the following definitions. 
-\begin{definition}[Pre-Hilbert Structure on $C^{\infty}(\Omega)$]
-	Let $f, g \in C^{\infty}(\Omega)$. For any $m \in \mathbb{N}$, we define 
-	\begin{equation*}
-		(f, g)_{m} = \sum_{0 \leq |\alpha|\leq m}(D^{\alpha}f, D^{\alpha}g), 
-	\end{equation*} 
-	where $\alpha$ is a multiindex, and $(\empspace, \empspace)$ denotes the inner product 
-	\begin{equation*}
-		(f, g)= (f, g)_{0} = \int_{\Omega}f(x)g(x)\;dx. 
-	\end{equation*}
-	Thus $C^{\infty}(\Omega)$ equipped with this inner product becomes a pre-Hilbert space. 
-\end{definition} 
-\begin{definition}[Sobolev Spaces]
-	We define $H^{m}(\Omega)$ to be the completion of $C^{\infty}(\Omega)$; we call the spaces $H^{m}(\Omega)$, \textbf{Sobolev spaces}. We define the norm on $H^{m}(\Omega)$ by 
-	\begin{equation*}
-		|u|_{m} = \sqrt{(u, u)_{m}}. 
-	\end{equation*}
-\end{definition} 
-\begin{definition}[``$L^{m}$'' Norms of Vector Fields]
-	Given two vector fields $u = \{u_{j}\}_{j = 1}^{3}$ and $v = \{v_{j}\}_{j = 1}^{3}$, we define their inner product as 
-	\begin{equation*}
-		(u, v)_{m} \coloneqq \sum_{1}^{3}(u_{j}, v_{j})_{m}. 
-	\end{equation*}
-\end{definition} 
-\begin{definition}[Hilbert Space of Functions with Components n $H^{m}$]
-	By $\mathbb{H}^{m}$, we denote the Hilbert space associated with the vector fields with components in $H^{m}$. 
-\end{definition} 
+We start with some basic estimates for the Euler equations, inspired by functional analysis. In the space $C^{\infty}(\Omega)$ of smooth functions on $\Omega$, we define the inner product 
+\begin{equation*}
+	\braket{f, g}_{m} \coloneqq \sum_{0 \leq |\alpha|\leq m}\int (D^{\alpha}f) \cdot (D^{\alpha}g)\;d, 
+\end{equation*}
+where $\alpha = (\alpha_{1}, \alpha_{2}, \alpha_{3})$ is a multiindex, and $|\alpha| = \alpha_{1} + \alpha_{2} + \alpha_{3}$. Thus this inner product defines $C^{\infty}(\Omega)$ as a \textbf{pre-Hilbert space}. However, crucially, $C^{\infty}(\Omega)$ is \textit{not} complete under the norm induced by the inner product. Thus, completing the space $C^{\infty}(\Omega)$ under this norm, we obtain the \textit{Sobolev spaces}, 
+\begin{equation*}
+	H^{m}(\Omega) \coloneqq W^{m,2}(\Omega) = \{f \in L^{2}(\Omega): \norm{f}_{H^{m}(\Omega)} < \infty\}, 
+\end{equation*} 
+where $\norm{f}_{H^{m}(\Omega)} \coloneqq \braket{f, g}_{m}^{1/2}$. We can also extend this definition to vector fields in the natural way: given two vector fields $u = \{u_{j}\}_{1}^{3}$ and $v = \{v_{j}\}_{1}^{3}$, we define 
+\begin{equation*}
+	\braket{u,v}_{m} \coloneqq \sum_{j = 1}^{3}\braket{u_{j},v_{j}}_{3}. 
+\end{equation*}
+Thus by $\mathcal{H}^{m}$, we denote the Hilbert space consisting of all vector fields whose components are in $H^{m}$. Now we make note of the following inequalities from functional analysis. 
 
-Now assume that \textit{a priori}, we have a solution $u \in C^{\infty}(\Omega \times [0,T])$ to the Euler equation. Then we are now able to make an estimate on the norm $|u_{t}|_{m}$. 
+\begin{prop}[Some Functional Analysis Estimates]
+	For $f, g \in C^{\infty}(\Omega)$, the following estimates hold: \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $\norm{f}_{L^{\infty}} \leq C_{m}\norm{f}_{H^{m}}$ if $m \geq 2$ (Sobolev Embedding Theorem) 
+		\item $\norm{fg}_{H^{m}} \leq C_{m}\norm{f}_{H^{m}}\norm{g}_{H^{m}}$  if $m \geq 2$ 
+		\item $\norm{fg}_{L^{1}} \leq C\norm{f}_{H^{2}}\norm{g}_{L^{1}}$. 
+		\item $\norm{fg}_{L^{1}} \leq C\norm{f}_{L^{1}}\norm{g}_{L^{1}}$. 
+	\end{enumerate}
+	\label{eq:useful_inequals_euler}
+\end{prop} 
+Much of this section will be spent trying to derive different (\textit{a priori}) estimates for solutions to the Euler equations, and trying to understand their consequences. We begin with the following \textit{a priori} estimate to demonstrate some of the techniques we will use. Assume, for now, that a solution $u$ exists to the Euler equations. Then by the Euler equation, one has 
+\begin{align*}
+	\begin{split}
+		\frac{1}{2}\frac{d}{dt}\braket{D^{\alpha}u, D^{\alpha}u} &= \frac{1}{2}\frac{d}{dt}\int_{\Omega} (D^{\alpha}u) \cdot (D^{\alpha}u)\;dx \\
+		&= \int_{\Omega}(D^{\alpha}u) \cdot D^{\alpha}(\partial_{t}u)\;dx \\
+		&= \int_{\Omega}(D^{\alpha}u) \cdot D^{\alpha}(-(u \cdot \nabla)u - \nabla p). 
+	\end{split} 
+\end{align*} 
+Now recall that since $u$ is divergence-free, $D^{\alpha}u$ is divergence-free. We recall the calculus identity, $\mathbf{F} \cdot \nabla f = \nabla \cdot (f\mathbf{F}) - f(\nabla \cdot \mathbf{F})$. Thus using this, one computes,  
+\begin{align*}
+	\begin{split}
+		\int_{\Omega}(D^{\alpha}u) \cdot \nabla p\;dx &= \int_{\Omega}\nabla \cdot (pD^{\alpha}u)\;dx - \int_{\Omega} p (\nabla \cdot D^{\alpha}u)\;dx \\
+		&= \int_{\Omega}\nabla \cdot (pD^{\alpha}u)\;dx\\
+		& = \int_{\partial \Omega} pD^{\alpha}u \cdot n\;d\sigma = 0, 
+	\end{split} 
+\end{align*}
+where the second line follows from the divergence-free condition on $D^{\alpha}u$, and the final line follows from the fact that $\Omega = [-\pi,\pi]^{3}$ is periodic. Thus one has 
+\begin{equation*}
+	\frac{1}{2}\frac{d}{dt}\braket{D^{\alpha}u,D^{\alpha}u} = -\braket{D^{\alpha}u,D^{\alpha}(u \cdot \nabla)u}. 
+\end{equation*}
+Using the general Leibniz rule for differentiating with multiindices, one has that 
+\begin{equation*}
+	\braket{D^{\alpha}u, D^{\alpha}(u \cdot \nabla)u} = \sum_{\beta}C_{\alpha,\beta}\braket{D^{\alpha}u, [D^{\beta}u \cdot \nabla]D^{\alpha - \beta}u}. 
+\end{equation*}
+Here, the sum is made over all the terms with $\beta = \{\beta_{i}\}_{i =1 }^{3}$ such that $0 \leq \beta_{i} \leq \alpha_{i}$; the $C_{\alpha,\beta}$ are positive (combinatorial) constants. Since $\braket{D^{\alpha}u, u \cdot \nabla D^{\alpha}u} = 0$, the term with $\beta = 0$ identically vanishes in the sum above. Now we use the Cauchy-Schwarz inequality to write, 
+\begin{equation*}
+	|\braket{D^{\alpha}u, D^{\alpha}(u \cdot \nabla)u}| \leq \norm{D^{\alpha}u}_{L^{1}} \cdot \left(\sum_{0 < |\beta|\leq \alpha}C_{\alpha,\beta}|(D^{\beta}u \cdot \nabla)D^{\alpha -\beta}u|\right)_{L^{1}}. 
+\end{equation*} 
+Now we will use the inequalities in Proposition \ref{eq:useful_inequals_euler} to bound the above terms. \vspace{-0.25cm}
+\begin{itemize}[itemsep =-2pt]
+	\item ($|\beta| \geq 3$) Using (iii), we have the bound 
+	\begin{equation*}
+		\norm{(D^{\beta}u \cdot \nabla)D^{\alpha - \beta}u}_{L^{1}} \leq C \norm{u}_{H^{|\beta|}}|u|_{H^{|\alpha| - |\beta| + 3}} \leq C(|u|_{H^{|\alpha|}})^{2}. 
+	\end{equation*}
+	\item ($|\beta| = 1$) Using (iii), we have the bound, 
+	\begin{equation*}
+		\norm{(D^{\beta}u \cdot \nabla)D^{\alpha - \beta}}_{L^{1}} \leq C\norm{u}_{H^{3}}\norm{u}_{H^{|\alpha|}}. 
+	\end{equation*}
+	\item ($|\beta| = 2$) Using (iv), we have the same bound as above. 
+\end{itemize}
+Thus using the three bounds found above, we conclude that 
+\begin{equation*}
+	\frac{d}{dt}\norm{u}_{H^{m}}^{2} \leq C_{m}\norm{u}_{H^{m}}^{3}, \qquad (m \geq 3). 
+\end{equation*}
+Thus by Gr\"onwall's inequality, we conclude that 
+\begin{equation*}
+	\norm{u}_{H^{m}(\Omega)}(t) \leq \frac{1}{1/\norm{u_{0}}_{H^{m}} - \frac{1}{2}C_{m}t}. 
+\end{equation*}
+Thus we make the following observation: the smaller the $H^{m}$ norm of the initial data, the longer the solution $u$ stays in $H^{m}(\Omega)$; the larger this norm is, the shorter the ``time of existence''. We will use this estimate when constructing solutions to the Euler equations. 
+
+\subsubsection{Lagrangian Representation of the Vorticity}
+In this subsubsection, we will derive some explicit representation formulas for the time evolution of the vorticity field (which falls into line with our previous remark that knowing this field can help us determine the velocity field). Let $\omega_{t}\coloneqq \omega(\cdot,t)$ and $u_{t}\coloneqq u(\cdot,t)$. In terms of the vorticity, the Euler equations read 
+\begin{equation}
+	\left\{
+	\begin{alignedat}{1}
+		&D_{t}\omega = (\omega \cdot \nabla)u, \\
+		&\nabla \cdot u = 0, \\
+		&\omega = \nabla \times u. 
+	\end{alignedat} 
+	\right. 
+	\label{eq:vorticity_formulation}
+\end{equation} 
+In two dimensions, the construction of $\omega$ is straightforward. In two dimensions, the vorticity field can be thought of as a scalar function, $\omega = \omega_{3}$, and moreover, $(\omega \cdot \nabla)u = 0$. Thus, we have $D_{t}\omega = (\partial_{t} + u \cdot \nabla)\omega = 0$. I.e., the derivative along the particle paths vanish identically: 
+\begin{equation*}
+	\frac{d}{dt}\omega_{t}(\Phi_{t}(x)) = 0. 
+\end{equation*} 
+Thus integrating with respect to time, we obtain 
+\begin{equation}
+	\omega_{t}(\Phi_{t}(x)) = \omega_{0}(x). 
+\end{equation}
+I.e., the vorticity in two dimensions is conserved along the particle paths. In particular, for all $p \in \mathbb{N}\cup \{\infty\}$, one has that $\norm{\omega_{t}}_{L^{p}} = \norm{\omega_{0}}_{L^{p}}$. Now we wish to generalize the above result to three-dimensions. We present the result first, then provide the proof. 
+\begin{theorem}[Representation Formula for the Vorticity in 3D]
+	Let $u = u(x,t)$, $u \in C^{1}(\Omega,[0,T])$ be a solution of the Euler equation, and let $\omega_{t} = \nabla \times u_{t}$. Then 
+	\begin{equation}
+		\omega_{t}(\Phi_{t}(x)) = \nabla \Phi_{t}(x) \cdot \omega_{0}(x). 
+	\end{equation}
+\end{theorem} 
+\begin{proof}
+	We start with the ansatz $\omega_{t}(\Phi_{t}(x)) = A \cdot \omega_{0}(x)$, where $A = A(x, t)$ is some matrix field. Also assume that a smooth solution to the Euler equations exists. Taking the time derivative, we obtain 
+	\begin{equation*}
+		D_{t}\omega_{t}(\Phi_{t}(x)) = \partial_{t}A \cdot \Phi_{0}(x). 
+	\end{equation*}
+	The left side can be simplified as follows using the Euler equations: 
+	\begin{equation*}
+		D_{t}\omega_{t}(\Phi_{t}(x)) = (\omega_{t}\cdot \nabla)u_{t}(\Phi_{t}(x)) = [(A \cdot \omega_{0}) \cdot \nabla]u_{t}(\Phi_{t}(x)). 
+	\end{equation*}
+	Thus we have the equation, 
+	\begin{equation*}
+		[(A \cdot \omega_{0}) \cdot \nabla]u_{t}(\Phi_{t}(x))=\partial_{t}A\cdot \omega_{0}(x).
+	\end{equation*} 
+	Expanding in coordinates and using the arbitrariness of $\omega_{0}$, we have the expression 
+	\begin{equation*}
+		\frac{\partial}{\partial t}A_{ik}(x, t) = \sum_{j}\partial_{i}u_{j}(\Phi_{t}(x), t)A_{jk}(x,t). 
+	\end{equation*} 
+	If $u$ is sufficiently regular, then the above formula has a unique solution (e.g., via the standard existence and uniqueness theorem for ODEs: the Picard-Lindel\"of theorem). But consider $\Phi_{t}(x)$. By definition, 
+	\begin{equation*}
+		\frac{\partial}{\partial t}\Phi_{t}(x) = u(\Phi_{t}(x), t) \implies \partial_{i}\Phi_{t}^{j}(x) = \sum_{k}\partial_{k}u_{j}(\Phi_{t}(x),t) \cdot \partial_{i}\Phi^{k}_{t}(x). 
+	\end{equation*}
+	But then one observes that 
+	\begin{equation*}
+		(\nabla \Phi_{t}(x))_{ji} = \partial_{i}\Phi_{t}(x)^{j}. 
+	\end{equation*} 
+	Therefore, uniqueness of solutions to the ODE finally implies that $A = (\nabla \Phi_{t})$. Thus the proof concludes. 
+\end{proof} 
+The geometric information contained in the solution is interesting. The vorticity field is transported along the path lines (via the term $(u \cdot \nabla)\omega$), while the field is deformed under the action of the matrix $\nabla \Phi_{t}$ (via the term $(\omega \cdot \nabla)u$, which is identically the identity in two-dimensions). 
+
+\subsubsection{Global Existence and Uniqueness (2 Dimensions)}
+\newpage 
+
 \newpage 
 \part{Appendix} 
 \appendix
