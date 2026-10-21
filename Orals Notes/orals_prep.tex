@@ -511,6 +511,139 @@ Thus in defining $\mathbf{H}^{1}_{r}$, we no longer need to restrict ourselves t
 	\end{equation*}
 \end{theorem} 
 
+\subsubsection{Maximal Functions} 
+In this subsubsection, we introduce the notion of \textit{maximal functions}, which will become more useful when we investigate oscillatory integrals. We start with the following ``rough'' definition. 
+
+\begin{definition}[Maximal Function]
+	For appropriate functions $f$ given on $\mathbb{R}^{d}$, define the \textbf{maximal function} $f^{\ast}$ by 
+	\begin{equation}
+		f^{\ast}(x) \coloneqq \sup_{x \in B}\frac{1}{m(B)}\int_{B}|f(y)|\;dy, 
+	\end{equation}
+	where the supremum is taken over all balls $B$ containing $x$, and $m, dy$ denote the Lebesgue measure on $\mathbb{R}^{d}$. 
+\end{definition} 
+
+Then we have the following $L^{p}$ inequality. 
+\begin{theorem}[$L^{p}$ Inequality for the Maximal Function]
+	Suppose $f \in L^{p}(\mathbb{R}^{d})$ with $1 < p \leq \infty$. Then $f^{\ast} \in L^{p}(\mathbb{R}^{d})$, and 
+	\begin{equation*}
+		\norm{f^{\ast}}_{L^{p}} \leq A_{p}\norm{f}_{L^{p}}, 
+	\end{equation*} 
+	where $A_{p}$ depends on $p$, but is independent of $f$. 	
+\end{theorem} 
+\begin{remark}
+	The proof for the case $p = \infty$ follows immediately: 
+	\begin{equation*}
+		|f^{\ast}(x)| = \sup_{x \in B}\frac{1}{m(B)}\int_{B}|f(y)|\;dy \leq \norm{f}_{L^{\infty}}\cdot \sup_{x \in B}\frac{1}{m(B)}\;dy = \norm{f}_{L^{\infty}}. 
+	\end{equation*} 
+	Since this is true for any $x \in \mathbb{R}^{d}$, $\norm{f^{\ast}}_{L^{\infty}} \leq \norm{f}_{L^{\infty}}$. What about for the case $p = 1$? Let $f$ be the characteristic function of the unit ball $B$ so that $f \in L^{1}(\mathbb{R}^{d})$. Let $f^{\ast}$ be the maximal function for $f$. Fix $x \in B$, and define $B'$ to be the ball centered at the origin of radius $1 + |x|$. Then 
+	\begin{equation*}
+		\frac{1}{m(B')}\int_{B'}|f(y)|\;dy = \frac{m(B \cap B')}{m(B')} = \frac{1}{(1 + |x|)^{d}}. 
+	\end{equation*} 
+	Thus by definition of the maximal function, $|f^{\ast}(x)| \geq 1/(1 + |x|^{d})$. But the right side of the estimate is not integrable at infinity. However, we do have a class of \textit{weak-type inequalities}. 
+\end{remark} 
+\begin{prop}[Weak-Type Inequalities]
+	Let $f \in L^{1}(\mathbb{R}^{d})$. Then there is a bound $A$ (independent of $f$) such that 
+	\begin{equation*}
+		m(\{x: f^{\ast}(x) >\alpha\}) < \frac{A}{\alpha}\norm{f}_{L^{1}(\mathbb{R}^{d})}. 
+	\end{equation*}
+	The proof follows using the Vitali covering lemma. 
+\end{prop} 
+
+Now we will turn to the application of Hardy space theory to maximal functions. The maximal function we defined above is not immediately applicable to here, since it requires the absolute value of $f$, and does not adequately exploit the properties of being contained in $\textbf{H}^{1}_{r}$. Moreover, the characteristic functions of balls is not smooth enough for our purposes. Thus we begin with approximations of identity. 
+
+\begin{lemma}[Approximation to Identity]
+	Fix $\Phi$ be a bounded function with compact support such that $\int \Phi = 1$, and for every $\epsilon > 0$, set $\Phi_{\epsilon}(x) = \epsilon^{-d}\Phi(x/\epsilon)$. Then for any $f \in L^{1}$, $$(f \ast \Phi_{\epsilon}(x)) \to f(x), \qquad \text{as $\epsilon \to 0$ for a.e. $x$}.$$ 
+\end{lemma} 
+Thus we define the \textit{maximal function} in the following new (albeit related) way. 
+\begin{definition}[Maximal Function]
+	Having fixed $\Phi$ as above, and $f \in L^{1}$, we define the \textbf{maximal function} of $f$ by 
+	\begin{equation*}
+		M(f)(x) = \sup_{\epsilon > 0}|(f \ast \Phi_{\epsilon})(x)|. 
+	\end{equation*} 
+\end{definition}
+Thus we have the following theorem. 
+\begin{theorem}[Maximal Function is a Bounded Operator]
+	Suppose $\Phi$ is a $C^{1}$ function with compact support on $\mathbb{R}^{d}$. With $M$ defined as above, $M(f) \in L^{1}(\mathbb{R}^{d})$, whenever $f \in \mathbf{H}^{1}_{r}(\mathbb{R}^{d})$. Moreover, 
+	\begin{equation*}
+		\norm{M(f)}_{L^{1}(\mathbb{R}^{d})} \leq A\norm{f}_{\mathbf{H}^{1}_{r}(\mathbb{R}^{d})}. 
+	\end{equation*}
+\end{theorem} 
+\begin{proof}
+	Suppose $f \in \mathbf{H}^{1}_{r}(\mathbb{R}^{d})$ and $f = \sum \lambda_{k}\frak{a}_{k}$ is an atomic decomposition. Then 
+	\begin{align*}
+		\begin{split}
+			|(f \ast \Phi_{\epsilon})(x)| &= \abs{\left(\left(\sum_{1}^{\infty}\lambda_{k}\mathfrak{a}_{k}\right) \ast \Phi_{\epsilon}\right)(x)} \\
+			&= \abs{\sum_{1}^{\infty}\left(\lambda_{k}(\frak{a}_{k} \ast \Phi_{\epsilon})(x)\right)} \\
+			&\leq \sum_{1}^{\infty}|\lambda_{k}||(\frak{a}_{k} \ast \Phi_{\epsilon})(x)|. 
+		\end{split} 
+	\end{align*} 
+	Thus taking the suprema of both sides over all $\epsilon > 0$, we conclude that $M(f) \leq \sum_{1}^{\infty}|\lambda_{k}|M(\frak{a}_{k})$. Thus it suffices to prove the bound when $f$ is an atom $\frak{a}$. Now we observe the following property of atoms: for $r > 0$, if $\frak{a}_{r}(x) = r^{d}\frak{a}(rx)$, then $(\frak{a}_{r}\ast\Phi_{\epsilon})(x) = r^{d}(\frak{a}\ast \Phi_{\epsilon r})(rx)$ so that $M(\frak{a}_{r})(x) = r^{d}M(\frak{a})(rx)$. Moreover, the mapping $\frak{a} \mapsto M(\frak{a})$ commutes with translations. Thus, it suffices to assume that the atom $\frak{a}$ is associated to the unit ball centered at the origin. Now we consider the following two steps. \vspace{-0.25cm}
+	\begin{enumerate}
+		\item ($|x| \leq 2$) Since $M(\frak{a})(x) \leq c$, $\int_{|x|\leq 2}M(\frak{a})(x)\;dx \leq c'$. 
+		\item ($|x| > 2$) We start by writing 
+		\begin{align*}
+			\begin{split}
+				(a \ast \Phi_{\epsilon})(x) &= \epsilon^{-d}\int_{\mathbb{R}^{d}}\frak{a}(y)\Phi\left(\frac{x - y}{\epsilon}\right)\;dy \\
+				&= \epsilon^{-d}\int_{\mathbb{R}^{d}}\frak{a}(y)\left[\Phi\left(\frac{x - y}{\epsilon}\right) - \Phi\left(\frac{x}{\epsilon}\right)\right]\;dy, 
+			\end{split} 
+		\end{align*} 
+		where we used the fact that $\int_{\mathbb{R}^{d}}\frak{a}(y)\;dy = 0$. However, since $|x|\geq 2$, and $|y| \leq 1$, $|x - y|\geq |x|/2$. Moreover, since $\Phi \in C^{1}$ we have that 
+		\begin{equation*}
+			\abs{\Phi\left(\frac{x - y}{\epsilon}\right) - \Phi\left(\frac{x}{\epsilon}\right)} \leq \frac{c|y|}{\epsilon} \leq \frac{c}{\epsilon}. 
+		\end{equation*}
+		Since $\Phi$ has compact support, $(\frak{a} \ast \Phi_{\epsilon})(x)$ vanishes unless $|(x - y)/\epsilon| \leq A$ for some bound $A$. This then implies $\epsilon > |x|/(2A)$.
+	\end{enumerate}
+	Thus this concludes the proof. 
+\end{proof} 
+\paragraph{The Space $\text{BMO}$}
+In this section, we introduce the space \textit{BMO}, which we will show is a natural substitute for the space $L^{\infty}(\mathbb{R}^{d})$. We begin with the following definition of what it means for a function to be of \textit{bounded mean oscillation}. 
+
+\begin{definition}[BMO Function]
+	A locally integrable function $f$ on $\mathbb{R}^{d}$ is said to be of \textbf{bounded mean oscillation} (\textbf{BMO}) if 
+	\begin{equation}
+		\norm{f}_{\textup{BMO}} = \sup_{B}\frac{1}{m(B)}\int_{B}|f(x) - f_{B}|\;dx < \infty, 
+		\label{eq:BMOnorm}
+	\end{equation} 
+	where 
+	\begin{equation*}
+		f_{B} \coloneqq \dashint_{B}f(x)\;dx. 
+	\end{equation*}
+	$\norm{\empspace}_{\textup{BMO}}$ defines a norm on the space of all BMO functions. 
+\end{definition} 
+I.e., the space BMO consists of all locally integrable functions with the property that on any ball $B$, the average difference between $f$ and its average on the ball is bounded. We make the following observations about this space. 
+\begin{itemize}[itemsep =-2pt]
+	\item The null elements of the norm are the constant functions. To see this, assume $\norm{f}_{\text{BMO}} = 0$. Then on any ball $B$, 
+	\begin{equation*}
+		\int_{B}|f(x) - f_{B}|\;dx = 0, 
+	\end{equation*} 
+	which means $|f(x)- f_{B}| = 0$ a.e. But this means that $f = f_{B}$ a.e. so that $f$ is constant a.e. 
+	\item $L^{\infty}$ functions are contained in BMO. To see this, assume that $f \in L^{\infty}(\mathbb{R}^{d})$ be locally integrable. Then fix an arbitrary ball $B$, and let $f_{B}$ be the average of $f$ over $B$. Then 
+	\begin{equation}
+		\frac{1}{m(B)} \int_{B}|f(x) - f_{B}|\;dx \leq \frac{1}{m(B)}\int_{B}\norm{f}_{L^{\infty}(\mathbb{R}^{d})} + |f_{B}|\;dx = \norm{f}_{L^{\infty}(\mathbb{R}^{d})} + |f_{B}|. 
+		\label{eq:bmo_Linfty_bound1}
+	\end{equation} 
+	On the other hand, one has that 
+	\begin{equation*}
+		|f_{B}| \leq \frac{1}{m(B)}\int_{B}|f(x)|\;dx \leq \norm{f}_{L^{\infty}(\mathbb{R}^{d})}. 
+	\end{equation*} 
+	Thus, since the upper bound for (\ref{eq:bmo_Linfty_bound1}) is independent of $B$, taking the supremum over all balls, we conclude that $\norm{f}_{\text{BMO}}\leq 2\norm{f}_{L^{\infty}(\mathbb{R}^{d})} < \infty$. 
+\end{itemize} 
+The spaces BMO and $\mathbf{H}^{1}_{r}$ are actually more connected than it would originally seem. In particular, we will soon show that BMO is the dual space of $\mathbf{H}^{1}_{r}$. 
+
+\begin{theorem}[BMO as the Dual of $\mathbf{H}_{r}^{1}$]
+	Suppose $g \in \textup{BMO}$. Then the linear functional $\ell$ defined by 
+	\begin{equation*}
+		\ell(f) = \int_{\mathbb{R}^{d}}f(x)g(x)\;dx, 
+	\end{equation*} 
+	initially considered for $f \in H_{0}^{1}$ (the dense subspace of $\mathbf{H}^{1}_{r}$ consisting of finite linear combinations of atoms), has a unique extension to $\mathbf{H}^{1}_{r}$ that satisfies 
+	\begin{equation*}
+		\norm{\ell} \leq c\norm{g}_{\textup{BMO}}. 
+	\end{equation*} 
+	Conversely, every bounded linear functional $\ell$ on $\mathbf{H}^{1}_{r}$ can be written in the form of the linear functional above with $g \in \text{BMO}$ and 
+	\begin{equation*}
+		\norm{g}_{\text{BMO}} \leq c'\norm{\ell} \coloneqq \norm{\ell}_{(\mathbf{H}^{1}_{r})^{\ast}}. 
+	\end{equation*}
+\end{theorem} 
 \newpage 
 
 \subsection{Distributions and Generalized Functions} \label{subsec:distributions}
@@ -790,6 +923,19 @@ Then we define \textit{Calder{\'on}-Zygmund distributions} as the following.
 \end{prop} 
 
 Then one immediately obtains the following result. 
+\begin{theorem}[Calder\'on-Zygmund Decomposition Lemma]
+	Roughly speaking, every integrable function can be split into a ``good'' and a ``bad'' term. I.e., for very $f \in L^{1}(\mathbb{R}^{d})$ and $\alpha > 0$, we can find an open set $E_{\alpha}$ and a decomposition $f = g + b$ so that: \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item $\displaystyle m(E_{\alpha}) \leq \frac{c}{\alpha}\norm{f}_{L^{1}(\mathbb{R}^{d})}$. 
+		\item $|g(x)| \leq c\alpha$, for all $x$. 
+		\item $E_{\alpha}$ is a union $\bigcup Q_{k}$ of cubes $Q_{k}$ whose interiors are disjoint. Moreover $b = \sum_{k}b_{k}$, with each function $\operatorname{supp}(b_{k}) \subseteq Q_{k}$ and 
+		\begin{equation*}
+			\int |b_{k}(x)|\;dx \leq c\alpha m(k) \qquad \text{and} \qquad \int_{Q_{k}}b_{k}(x)\;dx = 0. 
+		\end{equation*}
+		I.e., $b$ is supported in $E_{\alpha}$, so that $g(x) = f(x)$ if $x \notin E_{\alpha}$. Moreover, each $b_{k}$ is of the form $c\alpha m(Q_{k})\frak{a}_{k}$, where $\frak{a}_{k}$ is a 1-atom. 
+	\end{enumerate}
+\end{theorem} 
+I.e., the theorem tells us that every integrable function can be exressed as the sum of a good function $g$, which is bounded, and a bad function $b = \sum b_{k}$, where each $b_{k}$ is supported in a small cube so that the support of the bad function $b$ is contained in a measurable set $E_{\alpha}$ which is bounded in size. 
 \begin{theorem}[Calder\'on-Zygmund Distributions and $L^p$ Estimates]
 	Let $T$ be the linear operator on $L^{p}(\mathbb{R}^{d})$, initially only defined on $\mathcal{S}(\mathbb{R}^{d})$, defined by $Tf = f \ast K$, where $K$ is a Calder\'on-Zygmund distribution. Then $T$ extends to a bounded operator on $L^{p}(\mathbb{R}^{d})$ for $1 < p < \infty$; i.e., for $1 < p < \infty$, there exists $A_{p} = A_{p}(p)$ such that for all $f \in L^{p}(\mathbb{R}^{d})$, 
 	\begin{equation*}
@@ -878,12 +1024,85 @@ The types of questions we are interested in studying is the behavior of $I(\lamb
 	\end{equation*} 
 \end{prop} 
 \begin{proof}
-	Start by considering the vector field, 
+	We start by considering the vector field 
 	\begin{equation*}
-		L = \frac{1}{i\lambda}\sum_{k = 1}^{d}a_{k}\frac{\partial}{\partial x_{k}} = \frac{1}{i\lambda} (a \cdot \nabla), 
-	\end{equation*} 
-	where $a = (a_{1}, \ldots, a_{d}) = \frac{\nabla \Phi}{|\nabla \Phi|^{2}}$. 
+		L = \frac{1}{i\lambda}\sum_{k = 1}^{d}a_{k}\frac{\partial}{\partial x_{k}} = \frac{1}{i\lambda}(a \cdot \nabla), 
+	\end{equation*}
+	where $a = (a_{1}, \ldots, a_{n}) = \nabla \Phi/|\nabla \Phi|^{2}$. This is because we then observe that 
+	\begin{equation*}
+		L(e^{i\lambda \Phi(x)})= \frac{a}{i\lambda}\cdot \nabla(e^{i\lambda \Phi(x)}) = \frac{a}{i\lambda}\cdot \left(i\lambda e^{i\lambda \Phi(x)}\nabla \Phi\right) = e^{i\lambda \Phi(x)}. 
+	\end{equation*}
+	Thus for any positive integer $N$, $L^{N}(e^{i\lambda \Phi}) = e^{i\lambda \Phi}$. We then compute the transpose $L^{\top}$ of $L$ to be 
+	\begin{equation*}
+		L^{\top}(f) = -\frac{1}{i\lambda}\sum_{k = 1}^{d}\frac{\partial}{\partial x_{k}}(a_{k}f) = -\frac{1}{i\lambda}\nabla \cdot (af). 
+	\end{equation*}
+	Since we assume that $|\nabla \Phi(x)|\geq c > 0$ for all $x$ in the support of $\psi$, the $a_j$ and all of their partial derivatives are each bounded on the support of $\psi$. Thus, we compute, 
+	\begin{align*}
+		\begin{split}
+			|I(\lambda)| &\leq \int_{\mathbb{R}^{d}}\abs{L^{N}(e^{i\lambda \Phi})\psi}\;dx  = \int_{\mathbb{R}^{d}}|e^{i\lambda \Phi}||(L^{\top})^{N}(\psi)|\;dx = \int_{\mathbb{R}^{d}}|(L^{\top})^{N}(\psi)|\;dx 
+		\end{split} 
+	\end{align*}
+	Thus by smoothness and compact support of $\psi$, we conclude that $|I(\lambda)| \leq c_{N}\lambda^{-N}$, where the prefactor $C$ follows from bounds on the derivatives of $a$ and $\psi$. 
 \end{proof} 
+
+In dimension one, we can actually get more precise estimates at the cost of simpler hypotheses. 
+
+\begin{prop}[Oscillatory Estimate in One Dimension]
+	Let $I_{1}(\lambda)$ be the following integral, 
+	\begin{equation*}
+		I_{1}(\lambda) = \int_{a}^{b}e^{i\lambda \Phi(x)}\;dx, 
+	\end{equation*} 
+	where $a$, $b$ are any real numbers, $\Phi \in C^{2}$, and $\Phi'(x)$ is monotonic (either increasing or decreasing) with $|\Phi'(x)| \geq 1$ on $[a, b]$. Then 
+	\begin{equation*}
+		|I_{1}(\lambda)| \leq c\lambda^{-1},
+	\end{equation*} 
+	for all $\lambda > 0$, with $c = 3$. 
+\end{prop} 
+\begin{proof}
+	We use an operator $L$ similar to the operator used in the proof above. Without loss of generality, we may assume that $\Phi'(0) > 0$ on $[a, b]$ since the case for $\Phi' < 0$ follows by taking the complex conjugates. Then in this case, $L = (-i/\lambda) (1/\Phi'(x))\frac{d}{dx}$, and likewise, $L^{\top}(f) = \frac{i}{\lambda}\frac{d}{dx}\left(\frac{f}{\Phi'}\right)$. Then, we compute 
+	\begin{align*}
+		\begin{split}
+			I_{1}(\lambda) &= \int_{a}^{b}L(e^{i\lambda \Phi})\;dx = \int_{a}^{b}e^{i\lambda \Phi}L^{t}(1)\;dx + \left[e^{i\lambda \phi}\frac{1}{i\lambda \Phi'}\right]_{a}^{b}, 
+		\end{split} 
+	\end{align*}
+	where the boundary terms appear since the amplitude does not identically vanish at the endpoints. Focus first on the boundary terms. Since $|\Phi'| \geq 1$, 
+	\begin{equation*}
+		\abs{\left[e^{i\lambda\Phi}\frac{1}{i\lambda \Phi'}\right]_{a}^{b}} \leq \frac{1}{\lambda |\Phi'(b)|} + \frac{1}{\lambda |\Phi'(a)|} \leq \frac{2}{\lambda}. 
+	\end{equation*} 
+	On the other hand, the first term can be majorized as follows: 
+	\begin{equation*}
+		\abs{\int_{a}^{b}L^{\top}(1)\;dx} \leq \frac{1}{\lambda}\int_{a}^{b}\abs{\frac{d}{dx}\left(\frac{1}{\Phi'}\right)}\;dx = \frac{1}{\lambda}\abs{\int_{a}^{b}\frac{d}{dx}\left(\frac{1}{\Phi'}\right)\;dx} = \frac{1}{\lambda} \cdot \abs{\frac{1}{\Phi'(b)} - \frac{1}{\Phi'(a)}}, 
+	\end{equation*} 
+	where the first equality follows from the fact that $\Phi'$ is monotonic and continuous on the interval $[a, b]$ and $|\Phi'(x)| \geq 1$ so that the derivative does not change signs on the interval. Thus this concludes the proof. 
+\end{proof} 
+
+We have a similar result when $\Phi$ has a \textit{nondegenerate critical point} at $x_{0}$. 
+\begin{prop}[van der Corput's Estimate]
+	Let $I_{1}(\lambda)$ be the oscillatory integral defined above. Assume $\Phi \in C^{2}([a,b])$, with nondegenerate critical point $x_{0}$, and $|\Phi''(x)| \geq 1$. Then for all $\lambda > 0$ and with $c' = 8$, the following estimate applies 
+	\begin{equation*}
+		|I_{1}(\lambda)| \leq c'\lambda^{-1/2}. 
+	\end{equation*} 
+\end{prop} 
+\begin{corollary}
+	Under the same hypotheses as in van der Corput's estimate, one has the estimate 
+	\begin{equation*}
+		\abs{\int_{a}^{b}e^{i\lambda \Phi(x)}\psi(x)\;dx} \leq c_{\psi}\lambda^{-1/2}, 
+	\end{equation*} 
+	where 
+	\begin{equation*}
+		c_{\psi} = 8\left(\int_{a}^{b}|\psi'(x)|\;dx + |\psi(b)|\right). 
+	\end{equation*}
+\end{corollary} 
+While there are no direct analogs of the above strict estimates for $\mathbb{R}^{d}$ ($d > 1$), we have the following generalization. 
+\begin{prop}[Generalization of Decay in Higher Dimensions]
+	Suppose $\Phi$ and $\psi$ are smooth, $\psi$ has compact support, and $\det\{\nabla^{2}\Phi\} \neq 0$ on $\operatorname{supp}(\Psi)$. Then 
+	\begin{equation*}
+		I(\lambda) = \int_{\mathbb{R}^{d}}e^{i\lambda \Phi(x)}\psi(x)\;dx = \mathcal{O}(\lambda^{-d/2}), \qquad \text{as } \lambda \to \infty. 
+	\end{equation*}
+\end{prop} 
+
+\paragraph{Fourier Transform of Surface-Carried Measures}
+
 
 \newpage 
 \part{Nonlinear Wave Equations}
@@ -2260,14 +2479,65 @@ where $F_{\mu\nu}(g, \partial g)$ is a function of $g$ and its derivatives. In p
 \begin{definition}[Wave Coordinate Condition]
 	Let $(M, g)$ be a Lorentzian manifold. A local coordinate system $(x^{\mu})$ is said to satisfy the \textbf{wave coordinate condition} on $M$ if the following is true, 
 	\begin{equation*}
-	0 = \Box_{g}x^{\alpha} \coloneqq \frac{1}{\sqrt{-g}}\partial_{\mu}
+	0 = \Box_{g}x^{\alpha} \coloneqq \frac{1}{\sqrt{-g}}\partial_{\mu}\partial_{\mu}(g^{\mu\nu}\sqrt{-g}\partial_{\nu}x^{\alpha}). 
 	\end{equation*}
 \end{definition} 
 \begin{prop}
-	Let $(M, g)$ be a Lorentzian manifold, and let $\operatorname{Ric}(g)$ be the Ricci curvature tensor on $M$. 
+	Let $(M, g)$ be a Lorentzian manifold, and let $\operatorname{Ric}(g)$ be the Ricci curvature tensor on $M$. Then 
+	\begin{equation*}
+		\operatorname{Ric}(g)_{\mu\nu} = \ti{\operatorname{Ric}}(g)_{\mu\nu} + \frac{1}{2}\partial_{\mu}\lambda_{\nu} + \frac{1}{2}\partial_{\nu}\lambda_{\mu}, 
+	\end{equation*} 
+	where $\ti{Ric}(g)_{\mu\nu}$ is the \textbf{reduced Ricci curvature tensor} defined by 
+	\begin{align*}
+		\begin{split} 
+			\ti{Ric}(g)_{\mu\nu} &= -\frac{1}{2}g^{\alpha\beta}g_{\mu\nu,\alpha\beta} + \frac{1}{2}g^{\beta\rho}g_{\sigma\rho,\mu}g_{\alpha\nu,\beta} + \frac{1}{2}g^{\alpha\sigma}g^{\beta \rho}g_{\sigma\rho,\nu}g_{\beta\mu,\alpha}- \frac{1}{2}g^{\alpha\sigma}g^{\beta\rho}g_{\sigma\rho,\mu}g_{\alpha\beta,\nu} + F_{\mu\nu}(g,\partial g). 
+		\end{split} 
+	\end{align*} 
 \end{prop}  
+\begin{proof}
+	Recall the matrix identities, 
+	\begin{equation*}
+		\partial_{\alpha}g^{\mu\nu} = -g^{\mu\beta}g^{\sigma\nu}\partial_{\alpha}g_{\sigma\beta} \qquad \text{and} \qquad \partial_{\alpha}(\log|\det(g)|) = g^{\mu\nu}\partial_{\alpha}g_{\mu\nu}. 
+	\end{equation*} 
+	\textcolor{red}{[!! Complete Later !!]}
+\end{proof} 
+Thus if the wave condition holds, then the Einstein vacuum equations reduce to a nonlinear system of wave equations, for which we have the general local existence theorem from above. But we must ensure that the wave condition actually holds. We have the following results to that end. 
 
+\begin{lemma}[Ricci Identity]
+	Let $(M, g)$ be a Lorentzian manifold, and let $\operatorname{Ric}(g)$ be the Ricci curvature on $M$. Then the following identity holds: 
+	\begin{equation*}
+		\nabla^{\mu}(\operatorname{Ric}_{\mu\nu} - \frac{1}{2}g_{\mu\nu}R) = 0. 
+	\end{equation*} 
+\end{lemma} 
+\begin{proof}
+	From the differential Bianchi identity, we have 
+	\begin{align*}
+		\begin{split}
+			\nabla^{\mu}R_{\mu\alpha\nu\beta} &= g^{\mu\sigma}\nabla_{\sigma}R_{\mu\nu\alpha\beta} = g^{\mu\sigma}\nabla_{\alpha}R_{\mu\nu\beta\sigma} - g^{\mu\sigma}\nabla_{\beta}R_{\mu\nu\sigma\alpha} \\
+			&= \nabla_{\alpha}\operatorname{Ric}_{\beta\nu}  - \nabla_{\beta}\operatorname{Ric}_{\alpha\nu}. 
+		\end{split} 
+	\end{align*} 
+	Thus taking the trace over $\alpha,\nu$, we get the above identity. 
+\end{proof} 
+\begin{prop}[Wave Equation]
+	Given a Lorentzian metric $g$ such that the reduced Einstein vacuum equations are satisfied, i.e., $\operatorname{Ric}(g) = 0$, $\lambda$ satisfies a wave equation 
+	\begin{equation*}
+		\frac{1}{2}g^{\sigma\mu}\partial_{\sigma\mu}^{2}\lambda_{\nu} + c_{\nu}^{\alpha\beta}\partial_{\alpha}\lambda_{\beta} =0, 
+	\end{equation*} 
+	where $c_{\nu}^{\alpha\beta}$ are smooth functions of $g$ and its derivatives. 
+\end{prop} 
+From this result, we have the following theorem of Choquet-Bruhat. 
 
+\begin{theorem}[Local Well-Posedness of Einstein Vacuum Equations]
+	Given initial data $(\hat{g}_{ij}, \hat{k}_{ij})$ on $\mathbb{R}^{n}$ satisfying the constraint equations, 
+	\begin{equation}
+		\begin{alignedat}{1}
+			\hat{\nabla}_{i}{\hat{k}^{i}}_{j} - \hat{\nabla}_{j}{\hat{k}^{i}}_{j} &= 0, \\
+			\hat{R}(\hat{g}) + ({\hat{k}^{i}}_{i})^{2} - {\hat{k}^{i}}_{j}{\hat{k}^{j}}_{i} &= 0,
+		\end{alignedat} 
+	\end{equation}
+	and such that $\sum_{i,j}|\hat{g}_{ij} - \delta_{ij}| \leq \frac{1}{20}$, there exists a metric $g$ in $I \times \mathbb{R}^{n}$ which solves the Einstein vacuum equations such that the induced metric and the induced second fundamental form on $\{0\} \times \mathbb{R}^{n}$ coincide with $\hat{g}_{ij}$ and $\hat{k}_{ij}$, respectively. 
+\end{theorem} 
 
 \newpage 
 
@@ -2731,7 +3001,7 @@ Then indeed, it is straightforward to check that the circulation around $\partia
 \begin{equation*}
 	\varphi(x, y) + \Psi(x, y) = \left(1 + \frac{1}{x^{2} + y^{2}}\right)x -\frac{\alpha}{2\pi}\ln(|x|). 
 \end{equation*}
-Then we get the flow depicted in 
+Then we get the flow depicted in Figure \ref{fig:external_domain_circle}. 
 
 \newpage 
 \subsection{Construction of Solutions to the Euler Equations}
@@ -2869,6 +3139,47 @@ I.e., the vorticity in two dimensions is conserved along the particle paths. In 
 The geometric information contained in the solution is interesting. The vorticity field is transported along the path lines (via the term $(u \cdot \nabla)\omega$), while the field is deformed under the action of the matrix $\nabla \Phi_{t}$ (via the term $(\omega \cdot \nabla)u$, which is identically the identity in two-dimensions). 
 
 \subsubsection{Global Existence and Uniqueness (2 Dimensions)}
+
+In this subsubsection, we will show that (classical/weak) solutions to the Euler equations in two dimensions actually exist. The setting will be as follows: we consider the Euler equations on an open regular bounded domain $\Omega \subset \mathbb{R}^{2}$, and we will study the equations 
+\begin{equation*}
+	\left\{
+	\begin{alignedat}{1}
+		&D_{t}\omega = (\partial_{t} + u \cdot \nabla)\omega = 0, \\
+		&\omega = \nabla \times u, \quad \nabla \cdot u = 0, \\
+		&u \cdot n = 0, \qquad (\text{on $\partial\Omega$}) \\
+		&u(x,0) = u_{0}(x). 
+	\end{alignedat} 
+	\right. 
+\end{equation*} 
+Our strategy for this subsubsection is as follows. First, we will show that the equations above have \textit{weak} solutions. Then we will consider some specific circumstances under which these weak solutions may be extended into classical solutions of the Euler equations. First, we define the notion of \textit{weak solutions} to the Euler equations. 
+
+\begin{definition}[Weak Solutions to the Euler Equations]
+	Let $\Omega \subset \mathbb{R}^{2}$ be an open, bounded, regular domain in the two-plane. Then if by $\Phi_{t}(x)$ we denote the path lines starting at $x \in \Omega$; i.e., the solution of the ODE 
+	\begin{equation*}
+		\left\{
+		\begin{alignedat}{1}
+			&\frac{d}{dt}\Phi_{t}(x) = u(\Phi_{t}(x),t) \\
+			&\Phi_{0}(x) = x,  
+		\end{alignedat} 
+		\right. 
+		\tag{$\ast_{2}$}
+		\label{eq:diffeq}
+	\end{equation*} 
+	for a fixed $\omega_{0}$, a \textbf{weak solution} to the Euler equations is a triple $(\Phi_{t}, u_{t}, \omega_{t})$ such that $\Phi_{t}$ solves the above ODE, $\omega_{t}(x) = \omega_{0}(\Phi_{-t}(x))$, and 
+	\begin{equation}
+		u_{t}(x) = K_{\Omega} \ast \omega_{t}(x) = \int_{\Omega}K_{\Omega}(x,y)\omega(y,t)\;dy, 
+		\tag{$\ast_{3}$}
+		\label{eq:green}
+	\end{equation} 
+	where $K_{\Omega}(x,y) = \nabla^{\perp}G_{\Omega}(x,y)$ and $G_{\Omega}$ is the fundamental solution of the Poisson equation with Dirichlet condition on $\partial \Omega$.
+\end{definition} 
+We have the following existence result. 
+\begin{theorem}[Existence of Weak Solutions to the Euler Equations]
+	Let $\omega_{0} \in L^{\infty}(\Omega)$. There exists a unique triple $(\Phi_{t}, u_{t}, \omega_{t})$ satisfying (\ref{eq:diffeq}) and (\ref{eq:green}), where $\omega \in L^{\infty}([0,T], L^{\infty}(\Omega))$. 
+\end{theorem} 
+\begin{proof}
+	The argument will mostly be constructive. 
+\end{proof} 
 \newpage 
 
 \newpage 
