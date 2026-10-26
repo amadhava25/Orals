@@ -1102,7 +1102,123 @@ While there are no direct analogs of the above strict estimates for $\mathbb{R}^
 \end{prop} 
 
 \paragraph{Fourier Transform of Surface-Carried Measures}
+In this section, we study the \textit{Fourier transform of surface-carried measures}. In particular, we restrict our analysis to a $C^{\infty}$ hypersurface $M$. On this hypersurface, at each $x^{0} \in M$, we introduce a new coordinate system written as $(x', x_{d}) \in \mathbb{R}^{d - 1} \times \mathbb{R}$ so that in a ball center at $x_{0}$, the surface $M$ can be represented by 
+\begin{equation*}
+	M = \{(x', x_{d}) \in \ti{B}: x_{d} = \varphi(x')\}, 
+\end{equation*} 
+where $\ti{B}$ is the corresponding ball centered at the origin, and $\varphi \in C^{\infty}$ with $\varphi(0) = 0$ and $\nabla_{x'}\varphi(x')|_{x' = 0} =0$. Thus via this coordinate system, we can represent $M$ as the zero level set corresponding to a defining function $\rho_{1}(x) = \varphi(x') - x_{d}$. Since the defining function is not unique, we will adopt the convention that the defining function is normalized by the condition $|\nabla \rho| = 1$ on $M$; this can be done by setting $\rho = \rho_{1}/|\nabla \rho_{1}|$. Then we make the following geometric definitions. 
 
+
+\begin{definition}[Curvature Form/Second Fundamental Form]
+	Let $M$ be a $C^{\infty}$ hypersurface, and introduce the coordinate system described above at each $x^{0} \in M$. Let $\rho$ be the unique defining function described above. Then we define the \textbf{curvature form} of $M$ at $x \in M$ (also called the \textbf{second fundamental form}) to be the form 
+	\begin{equation*}
+		\sum_{1 \leq k, j \leq d}\xi_{k}\xi_{j}\frac{\partial^{2}\rho}{\partial x_{k}\partial x_{j}}(x), 
+	\end{equation*}
+	restricted to the vectors $\sum \xi_{k}\frac{\partial}{\partial x_{k}}$ tangent to $M$ at $x$.  
+\end{definition} 
+We recall that in Riemannian geometry, we defined the second fundamental form on a hypersurface by $\text{II}(X, Y) \coloneqq \braket{\nabla_{X}N, Y}$, where $\nabla$ is the Levi-Civita connection on the ambient manifold, and $N$ is the unit normal vector field to the hypersurface. In our case, it follows that $N_{k} = \frac{\partial \rho}{\partial x_{k}}$ for each $1 \leq k \leq d$. Suppose $X = \sum \xi_{j}\frac{\partial}{\partial x_{k}}$ is a tangent vector to $M$ at $x$ so that $X(\rho) = 0$; i.e., 
+\begin{equation*}
+	0 = X(\rho) = \sum_{k =1}^{d}\xi_{k}\frac{\partial (\nabla \rho)}{\partial x_{k}}. 
+\end{equation*} 
+Now let $Y = \sum_{j = 1}^{d}\xi_{j}\frac{\partial}{\partial \xi_{j}}$. Then we compute, 
+\begin{align*}
+	\begin{split}
+		\sum_{k = 1}^{d}\xi_{k} \frac{\partial (\nabla \rho)}{\partial x_{k}} &= \sum_{k = 1}^{d}\xi_{k} \frac{\partial}{\partial x_{k}}\left(\sum_{1}^{d}\frac{\partial \rho}{\partial x_{\ell}}\frac{\partial}{\partial x_{\ell}}\right) \\
+		&= \sum_{1 \leq k, \ell \leq d}\xi_{k}\frac{\partial^{2}\rho}{\partial x_{k}x_{\ell}}\frac{\partial}{\partial x_{\ell}}. \\
+		\text{II}(X,Y) &= \braket{\nabla_{X}N, Y} \\
+		&= \sum_{1 \leq k, \ell \leq d} \xi_{k}\xi_{j}\frac{\partial^{2}\rho}{\partial x_{k}x_{\ell}}\eta_{j}^{\ell} \\
+		&= \sum_{1 \leq k, j \leq d}\xi_{k}\xi_{j}\frac{\partial^{2}\rho}{\partial x_{k}x_{j}}, 
+	\end{split} 
+\end{align*} 
+which is precisely the definition made above. We define the \textbf{principal curvatures} of $M$ at $x^{0}$ to be the eigenvalues of $\varphi$ at $x^{0}$, and the \textbf{Gauss curvature} to be the product of these eigenvalues. But now we introduce the notion of a \textit{surface-carried measure on $M$}. First, we consider the induced Lebesgue measure $d\sigma$ on $M$. If $f$ is a continuous function on $M$ with compact support, then we define $F$ to be the continuous extension of $f$ into a neighborhood of $M$, and let $\{x: d(x, M) < \epsilon\}$ be the ``collar'' of points at a distance $< \epsilon$ from $M$. Then we have 
+\begin{equation*}
+	\int_{M}f\;d\sigma= \lim_{\epsilon \to 0}\frac{1}{2\epsilon}\int_{d(x, M) < \epsilon}F\;dx, 
+\end{equation*} 
+where $dx$ is the Lebesgue measure on $\mathbb{R}^{d}$. In particular, we can show that $d\sigma = (1 + |\nabla_{x'}\varphi|^{2})^{1/2}\;dx'$ so that 
+\begin{equation*}
+	\int_{M}f\;d\sigma = \int_{\mathbb{R}^{d - 1}}f(x',\varphi(x'))(1 + |\nabla_{x'}\varphi|^{2})\;dx'. 
+\end{equation*} 
+
+\begin{definition}[Surface-Carried Measure on $M$]
+	A measure $d\mu$ on $M$ is a \textbf{surface-carried measure on $M$} with \textbf{smooth density} if $d\mu$ is of the form $d\mu = \psi\;d\sigma$, where $\psi$ is a $C^{\infty}$ function of compact support. 
+\end{definition} 
+If $d\mu$ is a surface-carried measure on $M$, then we define its Fourier transform as follows, 
+\begin{equation}
+	\wh{d\mu}(\xi) \coloneqq \int_{M}e^{-2\pi i x \cdot \xi}\;d\mu. 
+\end{equation}
+First, we note that $\wh{d\mu}(\xi)$ is bounded on $\mathbb{R}^{d}$: assume $d\mu = \psi\;d\sigma$, where $\psi \in C^{\infty}_{c}(M)$ with $\operatorname{supp}(\psi) \subset K^{\text{cpt}} \subset M$. Then 
+\begin{equation*}
+\int_{M}\;d\mu = \int_{M}\psi\;d\sigma = \int_{K}\psi\;d\sigma. 
+\end{equation*} 
+Since $\psi$ is smooth compactly supported, it is bounded on $K$; i.e., there exists some $L > 0$ such that $|\psi| \leq L$ on $K$. On the other hand, since $d\sigma$ is a Lebesgue measure on $M$ and $K$ is a compact subset of $M$, $\sigma(K) < \infty$. Thus, 
+\begin{equation*}
+	|\mu(M)| = \abs{\int_{M}\;d\mu} \leq \int_{M}|\psi|\;d\sigma \leq L \cdot \sigma(K) < \infty. 
+\end{equation*}
+Thus, we compute for all $\xi$, 
+\begin{equation*}
+	|\wh{d\mu}|(\xi)| \leq \int_{M}\;d\mu = \mu(M) < \infty. 
+\end{equation*}
+Before we can present the main results regarding the Fourier transform of surface-carried measures, we first consider the following remarks. 
+\begin{itemize}
+	\item Without loss of generality, we can assume that the support of $\psi$ is contained in a sufficiently small ball in $M$ so that the coordinate system from above holds inside this ball. 
+	\item Any estimates we wish to show for surface-carried measures on $\mathbb{R}^{d}$ can be shown in these coordinates since the change of coordinates involves only a multiplication by a factor of absolute 1 (because of translation and rotation). 
+\end{itemize}
+Thus we have the following results. 
+\begin{theorem}[Decay of Fourier Transform of Surface-Carried Meeasures]
+	Suppose the surface $M$ has nonvanishing Gauss curvature at each point of the support of $d\mu$. Then 
+	\begin{equation*}
+		|\wh{d\mu}(\xi)| = \mathcal{O}(|\xi|^{-(d - 1)/2}) \quad \text{as $|\xi| \to \infty$}. 
+	\end{equation*}
+\end{theorem} 
+\begin{corollary}
+	If $M$ has at least $m$ non-vanishing principal curvatures at each point of the support of $d\mu$, then 
+	\begin{equation*}
+		|\wh{d\mu}(\xi)| = \mathcal{O}(|\xi|^{-m/2}), \qquad \text{as $|\xi| \to \infty$}. 
+	\end{equation*}
+\end{corollary} 
+In particular, we have a better decay estimate if $M$ is a bounded region. 
+\begin{theorem}[Decay of Surface-Carried Measure on a Bounded Region]
+	If $M = \partial \Omega$ has nonvanishing Gauss curvature at each point, whre $\Omega$ is a bounded region with boundary, then 
+	\begin{equation*}
+		\hat{\chi}_{\Omega}(\xi) = \mathcal{O}(|\xi|^{-\frac{d + 1}{2}}), \qquad \text{as $|\xi| \to \infty$}. 
+	\end{equation*} 
+\end{theorem} 
+Now we apply these results to the averaging operator. We make the following definition. 
+\begin{definition}[Averaging Operator]
+	Given a hypersurface $M$ in $\mathbb{R}^{d}$ and a surface-carried measure $d\mu = \psi\;d\sigma$ with smooth density of compact support, we set 
+	\begin{equation*}
+		A(f)(x) = \int_{M}f(x-y)\;d\mu(y)
+	\end{equation*}
+	to be a more general \textbf{averaging operator}. 
+\end{definition} 
+Then we have the following results. 
+\begin{theorem}[Boundedness of the Averaging Operator]
+	Suppose the Gauss curvature is nonvanishing at each point $x \in M$ in the support of $d\mu$. Then \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item The map $A$ takes $L^{2}(\mathbb{R}^{d})$ to $W^{k,2}(\mathbb{R}^{d})$, with $k = \frac{d - 1}{2}$. 
+		\item The map extends to a bounded linear transformation from $L^{p}(\mathbb{R}^{d})$ to $L^{q}(\mathbb{R}^{d})$ with $p = \frac{d + 1}{2}$, and $q = d + 1$. 
+	\end{enumerate}
+\end{theorem} 
+
+\paragraph{Applications to Dispersion Equations} 
+
+In this paragraph, we apply all of the results we obtained above to establish some dispersion estimates for dispersion equations (like the Schr\"odinger equation). 
+
+We first consider the \textit{Schr\"odinger equation}. 
+\begin{definition}[Schr\"odinger Equation]
+	The \textbf{Schr\"odinger equation} is the equation 
+	\begin{equation}
+		\frac{1}{i}\frac{\partial u}{\partial t} = \Delta u, 
+	\end{equation} 
+	for $u(x, t)$, and $(x, t) \in \mathbb{R}^{d + 1}$, with initial data $u(x,0)= f(x)$. 
+\end{definition} 
+We then define the operator, 
+\begin{definition}[Operator for Schr\"odinger Equation]
+	Define the operators 
+	\begin{equation*}
+		(e^{it\Delta}f)^{\hat{}}(\xi) \coloneqq e^{-it4\pi^{2}|\xi|^{2}}\hat{f}(\xi). 
+	\end{equation*} 
+\end{definition} 
 
 \newpage 
 \part{Nonlinear Wave Equations}
@@ -2539,6 +2655,186 @@ From this result, we have the following theorem of Choquet-Bruhat.
 	and such that $\sum_{i,j}|\hat{g}_{ij} - \delta_{ij}| \leq \frac{1}{20}$, there exists a metric $g$ in $I \times \mathbb{R}^{n}$ which solves the Einstein vacuum equations such that the induced metric and the induced second fundamental form on $\{0\} \times \mathbb{R}^{n}$ coincide with $\hat{g}_{ij}$ and $\hat{k}_{ij}$, respectively. 
 \end{theorem} 
 
+\newpage 
+\section{More Dispersive Estimates for Linear Wave Equations and the Method of Klainerman}
+
+In this section, we consider again the linear wave equation $\Box\phi = 0$ on $\mathbb{R}^{n + 1}$, and present another proof of dispersion (in dimensions $\geq 2$) via the energy method. This will require us to use the techniques of Klainerman. We start with the following lemma. 
+
+\begin{lemma}
+	If $\Box\phi = 0$, then $\Box(\Gamma\phi) = 0$, where $\Gamma$ is one of the following fields, 
+	\begin{equation*}
+		\Gamma \in \{\partial_{t}, \partial_{i}, \Omega_{ij}, S, \Omega_{0i}\}, 
+	\end{equation*} 
+	where 
+	\begin{align*}
+		\begin{split} 
+			\Omega_{ij} &\coloneqq x_{i}\partial_{j} - x_{j}\partial_{i}, \\
+			S &\coloneqq t\partial_{t}+ \sum_{1}^{n}x_{i}\partial_{i}, \\
+			\Omega_{0,i} &\coloneqq t\partial_{i} + x_{i}\partial_{t}. 
+		\end{split} 
+	\end{align*} 
+	\label{eq:invarianceUnderCommutingFields}
+\end{lemma} 
+Note that this lemma tells us that the wave operator $\Box$ is invariant under time translation, spatial translation, rotations in the spatial dimension, scaling transformations, and (Lorentzian) boosts. Each of the admissible vector fields $\Gamma$ is then called a \textbf{commuting vector field}. Before we proceed with using this lemma to establish decay estimates, we first make the following definitions. 
+
+\begin{definition}[Multiindex Notation]
+	For the multiindex 
+	\begin{equation*}
+		\alpha = \left(\alpha_{1}, \alpha_{2}, \ldots, \alpha_{2n + 2 + \frac{n(n-1)}{2}}\right), 
+	\end{equation*}
+	we define 
+	\begin{equation*}
+		\Gamma^{\alpha} = \Gamma_{1}^{\alpha_{1}}\Gamma_{2}^{\alpha_{2}}\dotsm {\Gamma}^{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}_{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}. 
+	\end{equation*}
+	Here, each $\Gamma_{j}$ is an arbitrary ordering of the vector fields in the above lemma. 
+\end{definition}
+Then immediately, we obtain the following energy estimate. 
+\begin{corollary}[Energy Estimate for the Linear Homogeneous Wave Equation]
+	Given smooth and compactly supported initial data $(\phi_{0}, \phi_{1})$ to the linear wave equation in $(n + 1)$-dimensions, we have 
+	\begin{equation*}
+		\sup_{t \in[0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
+	\end{equation*} 
+	for some $C = C(n,k) > 0$. 
+\end{corollary}  
+\begin{proof}
+	From the proof of the estimate in Theorem \ref{eq:clwp_nc_ebound} (with constant metric $a$ and $F \equiv 0$), it follows that since for each $\alpha$,  $\Gamma^{\alpha}\phi$ is a solution of the linear homogeneous wave equation, 
+	\begin{equation*}
+		\sup_{t \in [0,\infty)}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C'\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0) 
+	\end{equation*} 
+	Thus taking the sum over all $|\alpha| \leq k$ for some $k \geq 1$, 
+	\begin{equation*}
+		\sup_{t \in [0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
+	\end{equation*} 
+	where $C$ now depends on $n$ and $k$. 
+\end{proof} 
+Before we can continue with proving two decay estimates for the linear wave equation, we present the following results. 
+\begin{lemma}[Homogeneous ``Dispersion'']
+	There exists $C(n,k) > 0$ such that for $t \geq 0$, it holds that 
+	\begin{equation*}
+		\sum_{|\alpha| = k}|\partial^{\alpha}\phi| \leq \frac{C}{|t - r|^{k}}\sum_{|\alpha|\leq k}|\Gamma^{\alpha}\phi| 
+	\end{equation*}
+	for every $C^{k}$ function $\phi: \mathbb{R}^{n + 1} \to \mathbb{R}$. 
+\end{lemma} 
+\begin{lemma}[Scale-Invariant Sobolev Embedding Theorem]
+	For $k \in \mathbb{Z}$, $k >\frac{n}{2}$, there exists $C = C(n,k) > 0$ such that the following holds for all functions $\phi \in H^{k}(\mathbb{R}^{n})$: 
+	\begin{equation}
+		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{L^{2}(\mathbb{R}^{n})}^{\frac{2k - n}{2k}}\cdot \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{\frac{n}{2k}}. 
+	\end{equation}
+\end{lemma} 
+\begin{proof}
+	The standard Sobolev embedding theorem states the following: 
+	\begin{equation*}
+		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{k}(\mathbb{R}^{n})} \leq C\left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right), 
+	\end{equation*} 
+	under the given hypotheses. Now we can introduce a scaling parameter $\lambda$ and rescale $\phi$ as follows, 
+	\begin{equation*}
+		\phi_{\lambda}(x) = \phi(\lambda x). 
+	\end{equation*}
+	For every $m \in \mathbb{Z}$, we note that 
+	\begin{equation*}
+		\sum_{|\alpha|= m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})} = \lambda^{m - \frac{n}{2}}\sum_{|\alpha| = m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})}. 
+	\end{equation*}
+	Thus using the standard Sobolev embedding theorem, we have 
+	\begin{equation*}
+		\norm{\phi}_{L^{\infty}} \leq C\left(\lambda^{-\frac{n}{2}}\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \lambda^{k - \frac{n}{2}}\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right). 
+	\end{equation*}
+	Thus now define
+	\begin{equation*}
+		\lambda = \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{-1/k}\cdot \left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{1/k}. 
+	\end{equation*}
+	Then the claim follows. 
+\end{proof} 
+These lemmas lead up to the \textit{Klainerman-Sobolev inequality}.
+\begin{theorem}[Klainerman-Sobolev Inequality]
+	There exists $C = C(n) > 0$ such that the following holds for all functions $\phi \in H^{\lfloor \frac{n + 2}{2}\rfloor}(\mathbb{R}^{n})$ for all $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x}(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{\frac{1}{2}}|\phi|(t, x) \leq C\sum_{|\alpha|\leq \lfloor \frac{n + 2}{2}\rfloor }\norm{\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t). 
+	\end{equation*} 
+\end{theorem} 
+Then the Klainerman-Sobolev inequalities can be used to derive the following decay estimates for the wave equation. 
+\begin{corollary}[Sharp Decay Rate I]
+	Given data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$ for the wave equation in $(n + 1)$-dimensions, we have the following decay estimates for $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
+	\end{equation*} 
+\end{corollary} 
+\begin{proof}
+	By the first lemma in this section, one has that if $\phi$ is a solution to the linear homogeneous wave equation with initial data $(\phi_{0}, \phi_{1})$, then for any multiindex $\alpha$, $\partial^{\alpha}\phi$ is also a solution to the equation. Thus the Klainerman-Sobolev inequality tells us that 
+	\begin{align*}
+		\begin{split} 
+		\sup_{x}|\partial^{\alpha}\phi|(t, x) &\leq \frac{C}{(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{1/2}} \cdot \sum_{|\beta| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
+		&\leq \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha} \phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
+		&\lesssim \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor} \norm{\partial \Gamma^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)  \\
+		&\lesssim \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
+		\end{split} 
+	\end{align*} 
+	where the second line comes from recognizing that $(1 + t + r)^{(1 - n)/2} \leq (1 + t)^{(1 - n)/2}$ and $(1 + |t - r|)^{-1/2} \leq 1$, the third line follows from expanding our $\Gamma^{\beta}\partial^{\alpha}\phi$, and the final line follows from the energy estimate we found above. Thus the proof concludes. 
+\end{proof} 
+And as before, we have an improved decay rate in some cases. 
+\begin{lemma}
+	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation with initial data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$. For every $\epsilon > 0$, there exists $C = C(n, \epsilon) > 0$ such that the following decay estimate holds in $S_{t} \coloneqq \{x: |x| < (1 - \epsilon)t \text{ or } |x| > (1 + \epsilon)t\}$ for $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x \in S_{t}}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n}{2}}} \cdot \sum_{|\alpha|\leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
+	\end{equation*} 
+\end{lemma} 
+\begin{corollary}[Consequence of Finite Speed of Propagation]
+	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation such that the initial data $(\phi_{0}, \phi_{1}) \subset C_{c}^{\infty}(B(0,R))$. Then there exists $C = C(n,R) > 0$ such that 
+	\begin{equation*}
+		\sup_{x}(1 + t + r)^{\frac{n- 1}{2}}(1 + |t - r|)^{-\frac{1}{2}}|\phi|(t,x) \leq C \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
+	\end{equation*}
+	for all $t \geq 0$. 
+\end{corollary}
+A slightly better decay estimate can be had under certain conditions. First, w define 
+\begin{definition}[Angular Part of Derivatives]
+	Let $v = t + r$ and $u = t - r$, where $r = |x|$. Then we define $\cancel\nabla \phi$ to be the \textbf{angular part of the derivatives} so that 
+	\begin{equation*}
+		(\partial_{t}\phi)^{2} + \sum_{i = 1}^{n}(\partial_{i}\phi)^{2} = (\partial_{t}\phi)^{2} + (\partial_{r}\phi)^{2} + |\cancel\nabla \phi|^{2} = 2(\partial_{v}\phi)^{2} + 2(\partial_{u}\phi)^{2} + |\cancel \nabla \phi|^{2}, 
+	\end{equation*} 
+	where 
+	\begin{equation*}
+		|\cancel\nabla \phi|^{2} \coloneqq \frac{1}{2}\sum_{i,j = 1}^{n}\left(\frac{x_{i}}{r}\partial_{j}\phi - \frac{x_{j}}{r}\partial_{i}\phi\right)^{2}. 
+	\end{equation*} 
+\end{definition}  
+\begin{definition}[The Derivative, $\bar{\partial}$]
+	We define the ``good'' derivative $\bar{\partial}$ as follows: 
+	\begin{equation*}
+		|\bar{\phi}|^{2} \coloneqq 2(\partial_{v}\phi)^{2} + |\cancel\nabla \phi|^{2}. 
+	\end{equation*} 
+\end{definition} 
+
+\section{Small Data Global Regularity of Solutions (Nonlinear)}
+In this section, we will return to our study of nonlinear equations with ``small'' initial data. In this case, we have much to say about solutions to supercritical equations since the nonlinear terms are smaller, enabling the linear terms to dominate. So we can control the nonlinear terms. But we need to show that the solution actually decays sufficiently fast and that the error terms are integrable. Thus we will be examining the different methods associated with this technique. The emphasis will be on the wave map equation. 
+
+\begin{theorem}[Smoothness of Unique Solution to Wave Map]
+	Let $k \geq 6$, and consider the wave map equation 
+	\begin{equation*}
+		\Box\phi = \phi\left(\partial_{t}\phi^{\top}\partial_{t}\phi - \sum_{i = 1}^{4}\partial_{i}\phi^{\top}\partial_{i}\phi\right)
+	\end{equation*} 
+	in $\mathbb{R} \times \mathbb{R}^{4}$ with initial data  
+	\begin{equation*}
+		(\phi_{0}, \phi_{1})\upharpoonright_{\{t  = 0\}} \in C_{c}^{\infty}(B(0,R)) \times C_{c}^{\infty}(B(0,R)) 
+	\end{equation*} 
+	such that 
+	\begin{equation*}
+		\sum_{|\alpha|\leq k}\norm{\partial\partial^{\alpha}\phi_{0}}_{L^{2}(\mathbb{R}^{4})} + \norm{\partial^{\alpha}\phi_{1}}_{L^{2}(\mathbb{R}^{4})} < \epsilon. 
+	\end{equation*} 
+	Then for every $R > 0$, there exists $\epsilon_{0} = \epsilon_{0}(R) > 0$ sufficiently small such that if $\epsilon \leq \epsilon_{0}$, the unique solution remains smooth for all time. 
+\end{theorem} 
+We can make sense of the theorem as follows. Above, we mentioned that nonlinear equations can have nonlinearities of higher orders. These nonlinearities can cause a solution to quickly lose ``derivatives'' leading to undesirable behavior. Here, our hypothesis assumes that not only is our initia data smooth and compactly supported, but that the initial data itself does not ``look too much'' like a blow-up solution. The above statements make this idea rigorous. Then what we get from this theorem is that if the initial data is ``small'' enough, then the solution is smooth globally in time. 
+\begin{proof}
+	Our strategy for proving this result is the bootstrap method. The argument has the following form: (1) we assume that some weighted energy functional is bounded. (2) Next, we will use the Klainerman-Sobolev inequality to show that the functional is actually bounded by some better constant. (3) Then we exploit continuity to show that the solution exists for all time. We consider each step at a time. \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item The weighted energy that we will consider in this proof is 
+			\begin{equation*}
+				\ti{E} = \sup_{t \in [0,T]}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \leq \epsilon^{\frac{3}{4}}
+			\end{equation*} 
+			for $T < T_{\ast}$, where $T_{\ast}$ is the maximal time of existence. This is a valid assumption to make since if $\epsilon$ is sufficiently small, then $\epsilon \ll \epsilon^{\frac{3}{4}}$ so that the inequality is consistent with our hypotheses on the initial data. 
+			\item Then since $k \geq 6$ so that $k/2 \geq 3$ (and $\lfloor \frac{4 + 2}{2} \rfloor = 3$), the Klainerman-Sobolev inequality tells us that 
+			\begin{equation*}
+				\sum_{|\alpha| \leq \frac{k}{2}}\norm{(1 + t + |x|)^{\frac{3}{2}}\partial\Gamma^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{4})}(t) \leq C\epsilon^{\frac{3}{4}}. 
+			\end{equation*} 
+	\end{enumerate}
+\end{proof} 
 \newpage 
 
 \part{Applications}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{../header}
+\usepackage{datetime2}
+\usepackage{subcaption}
+\def\Xint#1{\mathchoice
+	{\XXint\displaystyle\textstyle{#1}}%
+	{\XXint\textstyle\scriptstyle{#1}}%
+	{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+	{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+	\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+		\vcenter{\hbox{$#2#3$ }}\kern-0.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\usepackage[
+colorinlistoftodos,
+textsize=small,          % Sets the text to the smallest LaTeX font size
+textwidth=0.7in        % Sets note width slightly smaller than the 1-inch margin
+]{todonotes}
+\setlength{\droptitle}{-2cm}
+\rhead{Summary Nonlinear Wave Equations}
+\om 
+\title{A Summary of Nonlinear Wave Equations}
+\author{\me}
+\date{Fall 2026}
+
+\begin{document}
+	\maketitle
+	\fullline 
+	\tableofcontents
+	\xappto\thefootnote{\relax}
+	\footnotetext{Last updated: \today\ at \DTMcurrenttime}
+	\halfline 
+	\newpage 
+	\setlength{\parskip}{0.55em}
+	\section{Overview}
+	This document is meant to be a very short and concise summary of the main ideas, results, and tecniques developed in the main notes. The emphasis is not on including every material/result studied, but rather the general ideas and intuition (thus representing the ``heuristics'' behind the theory of nonlinear wave equations and its applications). This document is meant to be read together with the actual set of notes. 
+	
+	\newpage 
+	\part{Nonlinear Wave Equations} 
+	\section{Energy Estimates} 
+\end{document}
