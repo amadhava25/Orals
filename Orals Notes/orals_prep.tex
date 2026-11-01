@@ -1200,6 +1200,69 @@ Then we have the following results.
 	\end{enumerate}
 \end{theorem} 
 
+\paragraph{Restriction Theorems} 
+In this paragraph, we study the theory of \textit{restriction theorems}. Our underlying motivation is as follows: suppose we have a function in some ambient space of appropriate regularity, and further assume that we know its Fourier transform in this ambient space. What can we say about the properties of the Fourier transform of the function restricted to a \textit{lower dimensional surface}. We begin with the theory for \textit{radial functions}. To understand the significance of radial functions, we begin some basic properties of the Fourier transform. Recall that if $f \in L^{1}(\mathbb{R}^{d})$, then $\hat{f}$ is continuous. Moreover, if $p \in [1, 2]$ (and $q$ is its conjugate), then $\hat{f} \in L^{q}$ if $f \in L^{p}$. Since $L^{q}$ functions are in general determined only almost everywhere, it becomes hard to meaningfully define the Fourier transform of such functions on a lower dimensional subset (this is the case for $p= 2$). However, for $1 < p < 2$, if $f$ is radial, in $L^{p}$, and $d\geq 2$, then the Fourier transform is continuous away from the origin. Thus one has the following proposition. 
+\begin{prop}[Continuity of Fourier Transform]
+	Suppose $f \in L^{p}(\mathbb{R}^{d})$ is radial. Then $\hat{f}$ is continuous for $\xi \neq 0$ whenever $1 \leq p < \frac{2d}{d + 1}$. 
+\end{prop} 
+But what about when $f$ is radial? Our central question is as follows. Suppose $M$ is a fixed (local) hypersurface in $\mathbb{R}^{d}$, $d\mu$ is a surface carried measure $d\mu = \psi\;d\sigma$ with smooth nonnegative density $\psi$ of compact support. Then for $1 < p < 2$, does there exist \textit{some} $q$ so that the \textit{a priori} inequality, 
+\begin{equation*}
+	\left(\int_{M}|\hat{f}(\xi)|^{q}\;d\mu(\xi)\right)^{1/q} \leq c \norm{f}_{L^{p}(\mathbb{R}^{d})}. 
+\end{equation*}
+If yes, then we say that the $(L^{p}, L^{q})$ \textbf{restriction} holds for $M$. Thus we seek to answer this question. Thus we first introduce the following \textit{restriction operator}.
+\begin{definition}[Restriction Operator]
+	Let $\mathcal{R}$ denote the restriction operator, 
+	\begin{equation*}
+		\mathcal{R}(f) = \hat{f}(\xi)|_{M} = \int_{\mathbb{R}^{d}}e^{-2\pi i x \cdot \xi}f(x)\;dx\bigg|_{M}, 
+	\end{equation*}
+\end{definition} 
+which is initially defined to map continuous functions $f$ of compact support on $\mathbb{R}^{d}$ to continuous functions on $M$. We also let $\mathcal{R}^{\ast}$ denote its dual,
+\begin{equation*}
+	\mathcal{R}^{\ast}(F)(x) \coloneqq \int_{M}e^{2\pi i x \cdot \xi}F(\xi)\;d\mu(\xi).
+\end{equation*} 
+ This is made formal in the following sense, 
+\begin{align*}
+	\begin{split}
+		(f,\mathcal{R}^{\ast}(F))_{\mathbb{R}^{d}} &= \int_{\mathbb{R}^{d}}f(x)\overline{\mathcal{R}^{\ast}(F)}(x)\;dx \\
+		&= \int_{\mathbb{R}^{d}}f(x)\overline{\int_{M}e^{2\pi i x \cdot \xi}F(\xi)\;d\mu(\xi)}dx \\
+		&= \int_{\mathbb{R}^{d}}\int_{M}f(x)e^{-2\pi i x  \cdot \xi}\bar{F}(\xi)\;d\mu(\xi)dx \\
+		&= \int_{M}\int_{\mathbb{R}^{d}}f(x)e^{-2\pi i x \cdot \xi}\bar{F}(\xi)\;dxd\mu(\xi) = \int_{M}\hat{f}(\xi)\bar{F}(\xi)\;d\mu(\xi) = \int_{M}\mathcal{R}(f)(\xi)\bar{F}(\xi)\;d\mu(\xi) = (\mathcal{R}(f), F)_{M}. 
+	\end{split} 
+\end{align*}
+Then, we can also look at the composition, $\mathcal{R}^{\ast}\mathcal{R}$, which is given by  
+\begin{align*}
+	\begin{split} 
+	\mathcal{R}^{\ast}\mathcal{R}(f)(x) &= \int_{M}e^{2\pi i x \cdot \xi}\left\{\int_{\mathbb{R}^{d}}e^{-2\pi i y \cdot \xi}f(y)\;dy\right\}\;d\mu(\xi) \\
+	&= \int_{M}\int_{\mathbb{R}^{d}}e^{-2\pi i (y - x)\cdot \xi}f(y)\;dyd\mu(\xi) \\
+	&= \int_{\mathbb{R}^{d}}\int_{M}e^{-2\pi i (y - x) \cdot \xi}d\mu(\xi)\;f(y)dy = \int_{\mathbb{R}^{d}}\wh{d\mu}(y - x)f(y)\;dy. 
+	\end{split} 
+\end{align*} 
+Thus, we can write $\mathcal{R}^{\ast}\mathcal{R}(f) = f \ast k$, where $k(x) = \wh{d\mu}(-x)$. Then we have the following proposition, which gives rise to the $T^{\ast}T$ method in harmonic analysis. 
+\begin{prop}[The $\mathcal{R}^{\ast}\mathcal{R}$ Proposition]
+	For a given $p$ with $p \geq 1$, the three norm estimates below are equivalent: \vspace{-0.25cm} 
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $\norm{\mathcal{R}(f)}_{L^{2}(M, d\mu)} \leq c \norm{f}_{L^{p}(\mathbb{R}^{d})}$. 
+		\item $\norm{\mathcal{R}^{\ast}(F)}_{L^{p'}(\mathbb{R}^{d})} \leq c \norm{F}_{L^{2}(M, d\mu)}$, where $1/p + 1/p' = 1$. 
+		\item $\norm{\mathcal{R}^{\ast}\mathcal{R}(f)}_{L^{p'}(\mathbb{R}^{d})} \leq c^{2}\norm{f}_{L^{p}(\mathbb{R}^{d})}$. 
+	\end{enumerate}
+\end{prop} 
+\begin{proof}
+	That (i) and (ii) are equivalent follows directly from the definition of dual spaces. So now take $F = \mathcal{R}(f)$. Then we compute, 
+	\begin{align*}
+		\begin{split}
+			\norm{\mathcal{R}^{\ast}(\mathcal{R}(f))}_{L^{p'}(\mathbb{R}^{d})} &\leq c \norm{\mathcal{R}(f)}_{L^{2}(M, d\mu)} \leq c^{2}\norm{f}_{L^{p}(\mathbb{R}^{d})}. 
+		\end{split} 
+	\end{align*} 
+	Conversely, suppose we have that (iii) holds. Then 
+	\begin{equation*}
+		(\mathcal{R}^{\ast}\mathcal{R}(f), f)_{\mathbb{R}^{d}} = \int_{\mathbb{R}^{d}}\mathcal{R}^{\ast}\mathcal{R}(f)\bar{f}\;dx \leq \norm{\mathcal{R}^{\ast}\mathcal{R}(f)}_{L^{p'}(\mathbb{R}^{d})}\norm{f}_{L^{p}(\mathbb{R}^{d})} \leq c^{2}\norm{f}_{L^{p}(\mathbb{R}^{d})}. 
+	\end{equation*} 
+	But since $(\mathcal{R}^{\ast}\mathcal{R}(f), f)_{\mathbb{R}^{d}} = (\mathcal{R}(f), \mathcal{R}(f))_{M}$, the conclusion follows. 
+\end{proof} 
+Thus with this, we have the following restriction theorem. 
+\begin{theorem}[Restriction Theorem]
+	
+\end{theorem} 
 \paragraph{Applications to Dispersion Equations} 
 
 In this paragraph, we apply all of the results we obtained above to establish some dispersion estimates for dispersion equations (like the Schr\"odinger equation). 
@@ -1219,7 +1282,60 @@ We then define the operator,
 		(e^{it\Delta}f)^{\hat{}}(\xi) \coloneqq e^{-it4\pi^{2}|\xi|^{2}}\hat{f}(\xi). 
 	\end{equation*} 
 \end{definition} 
+Then we have the following proposition. 
+\begin{prop}[Schr\"odinger Operator]
+	For each $t$, \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item $e^{it\Delta}$ maps $\mathcal{S}$ to $\mathcal{S}$. 
+		\item If $f \in \mathcal{S}$, and $u(x,t) = e^{it\Delta}(f)(x)$, with $f \in \mathcal{S}$, then $u$ is a $C^{\infty}$ function of $(x, t)$ that satisfies the Cauchy problem for the Schr\"odinger equation. 
+		\item $e^{it\Delta}(f) = f \ast K_{t}$, if $t \neq 0$, where $K_{t}(x) = (4\pi i t)^{-d/2}e^{-|x|^{2}/(4it)}$. 
+		\item $\norm{e^{it\Delta}(f)}_{L^{\infty}} \leq (4\pi |t|)^{-d/2}\norm{f}_{L^{1}}$. 
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	Here, we only present the proof of the fourth statement, since the proof of the other statements are standard arguments. We recall that for Gaussians, the following property holds 
+	\begin{equation*}
+		(u^{-d/2}e^{-\pi|x|^{2}/u})^{\hat{}}(\xi) = e^{-u\pi|\xi|^{2}}, \qquad (\text{when $u$ > 0}). 
+	\end{equation*} 
+	Let $u = 4\pi s$. By analytic continuation, we can extend the above equation to complex $s = \sigma + it$, where $\sigma > 0$ since the functions are rapidly decreasing. This means that 
+	\begin{equation*}
+		((4\pi s)^{-d/2}e^{-|x|^{2}/(4s)})^{\hat{}} = e^{-4\pi^{2}s|\xi|^{2}}. 
+	\end{equation*} 
+	If $t \neq 0$ is fixed, then letting $\sigma \to 0$, the functions on either side converge pointwise and boundedly (in the sense of tempered distributions) to $\hat{K}_{t}(\xi)$ and $e^{-it4\pi|\xi|^{2}}$, respectively. Thus this gives us (iii). From here, we note that 
+	\begin{equation*}
+		\norm{e^{it\Delta}(f)}_{L^{\infty}} = \norm{f \ast K_{t}}_{L^{\infty}} \leq \norm{K_{t}}_{L^{\infty}}\norm{f}_{L^{1}} = (4\pi |t|)^{-d/2}\norm{f}_{1}. 
+	\end{equation*}
+\end{proof} 
+In the specific context of $L^{2}$, we have the following results. 
+\begin{prop}[The Schr\"odinger Operator on $L^{2}$]
+	For each $t$, \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item The operator $e^{it\Delta}$ is unitary on $L^{2}(\mathbb{R}^{d})$. 
+		\item For every $f$, the mapping $t \mapsto e^{it(\Delta)f}$ is continuous in the $L^{2}(\mathbb{R}^{d})$ norm. 
+		\item If $f \in L^{2}(\mathbb{R}^{d})$, then $u(x, t) = e^{it\Delta}(f)(x)$ satisfies the Schr\"odinger equation in the sense of distributions. 
+	\end{enumerate}
+\end{prop} 
+Thus if we combine the case for $p = 1$, then the Riesz interpolation theorem tells us that 
+\begin{equation*}
+	\norm{e^{it\Delta}f}_{L^{q}(\mathbb{R}^{d})} \lesssim |t|^{-d(1/p - 1/2)}\norm{f}_{L^{p}(\mathbb{R}^{d})}, 
+\end{equation*}
+if $(p,q)$ are conjugates with $1 \leq p \leq 2$.
 
+Now recall that we've been assuming that $f$ is Schwartz thus far. But perhaps we are also interested in exploring if we can get any decay estimates in the case that $f$ is merely in $L^{2}$. I.e., we are interested in the following \textit{Strichartz estimate}, 
+\begin{equation*}
+	\norm{u(x,t)}_{L^{q}(\mathbb{R}^{d} \times \mathbb{R})} \leq c\norm{f}_{L^{2}(\mathbb{R}^{d})}. 
+\end{equation*}
+The following theorem tells us when this is possible. 
+\begin{theorem}[Strichartz Estimate I for Schr\"odinger]
+	If $u(x, t) = e^{it\Delta}(f)(x)$, with $f \in L^{2}(\mathbb{R}^{d})$, then 
+	\begin{equation*}
+		\norm{u(x,t)}_{L^{q}(\mathbb{R}^{d} \times \mathbb{R})} \leq c\norm{f}_{L^{2}(\mathbb{R}^{d})}
+	\end{equation*}
+	when $q = \frac{2d + 4}{d}$. 
+\end{theorem} 
+\begin{proof}
+	
+\end{proof} 
 \newpage 
 \part{Nonlinear Wave Equations}
 \section{Linear Wave Equation}\label{sec:lwe}
@@ -2538,9 +2654,359 @@ Then, we have the following.
 		\norm{\phi_{\lambda}}_{\dot{H^{1}}}(t) = \lambda^{\frac{5 - p}{p - 1}}\norm{\phi}_{\dot{H}^{1}}(\lambda t). 
 	\end{equation*}
 	Thus for $p < 5$, the exponent of $\lambda$ is positive so that the $\dot{H}^{1}$ norm tends to infinity as $\lambda \to \infty$ (meaning the equation is subcritical), is exactly 0 at $p = 5$ (so that the equation is critical), and is negative for $p > 5$ (so that the equation is supercritical). 
-\end{proof} 
-\newpage 
+\end{proof}
 
+\newpage 
+\subsection{More Dispersive Estimates for Linear Wave Equations and the Method of Klainerman}
+
+In this section, we consider again the linear wave equation $\Box\phi = 0$ on $\mathbb{R}^{n + 1}$, and present another proof of dispersion (in dimensions $\geq 2$) via the energy method. This will require us to use the techniques of Klainerman. We start with the following lemma. 
+
+\begin{lemma}
+	If $\Box\phi = 0$, then $\Box(\Gamma\phi) = 0$, where $\Gamma$ is one of the following fields, 
+	\begin{equation*}
+		\Gamma \in \{\partial_{t}, \partial_{i}, \Omega_{ij}, S, \Omega_{0i}\}, 
+	\end{equation*} 
+	where 
+	\begin{align*}
+		\begin{split} 
+			\Omega_{ij} &\coloneqq x_{i}\partial_{j} - x_{j}\partial_{i}, \\
+			S &\coloneqq t\partial_{t}+ \sum_{1}^{n}x_{i}\partial_{i}, \\
+			\Omega_{0,i} &\coloneqq t\partial_{i} + x_{i}\partial_{t}. 
+		\end{split} 
+	\end{align*} 
+	\label{eq:invarianceUnderCommutingFields}
+\end{lemma} 
+\begin{proof}
+	The proof is immediately clear for $\Gamma = \partial_{t}, \partial_{i}$. Now fix $i, j$. Then 
+	\begin{align*}
+		\begin{split}
+			\Box(\Omega_{ij}\phi) &= \partial_{t}^{2}(x_{i}\partial_{j}\phi - x_{j}\partial_{i}\phi) - \sum_{k = 1}^{n}\partial_{k}^{2}(x_{i}\partial_{j}\phi - x_{j}\partial_{i}\phi)  \\
+			&= \Omega_{ij}\partial_{t}^{2}\phi - \sum_{k = 1}^{n}\partial_{k}\left[\delta_{ik}\partial_{j}\phi + x_{i}\partial_{j}\partial_{k}\phi - \delta_{jk}\partial_{i}\phi - x_{j}\partial_{i}\partial_{k}\phi\right] \\
+			&= \Omega_{ij}\partial_{t}^{2}\phi - \sum_{k = 1}^{n}\left[\delta_{ik}\partial_{j}\partial_{k}\phi + \delta_{ik} \partial_{j}\partial_{k}\phi + x_{i}\partial_{j}\partial_{k}^{2}\phi - \delta_{jk}\partial_{i}\partial_{k}\phi - \delta_{jk}\partial_{i}\partial_{k}\phi -x_{j}\partial_{i}\partial_{k}^{2}\phi\right] \\
+			&= \Omega_{ij}\partial_{t}^{2}\phi - \sum_{k = 1}^{n}\left[\Omega_{ij}\partial_{k}^{2}\phi + 2\delta_{ik}\partial_{j}\partial_{k}\phi -2\delta_{jk}\partial_{i}\partial_{k}\phi \right] \\
+			&= \Omega_{ij}\Box\phi = 0. 
+		\end{split} 
+	\end{align*} 
+	The other computations follow nearly identically. 
+\end{proof} 
+Note that this lemma tells us that the wave operator $\Box$ is symmetric under time translation, spatial translation, rotations in the spatial dimension, scaling transformations, and (Lorentzian) boosts. Each of the admissible vector fields $\Gamma$ is then called a \textbf{commuting vector field}. Before we proceed with using this lemma to establish decay estimates, we first make the following definitions. 
+
+\begin{definition}[Multiindex Notation]
+	For the multiindex 
+	\begin{equation*}
+		\alpha = \left(\alpha_{1}, \alpha_{2}, \ldots, \alpha_{2n + 2 + \frac{n(n-1)}{2}}\right), 
+	\end{equation*}
+	we define 
+	\begin{equation*}
+		\Gamma^{\alpha} = \Gamma_{1}^{\alpha_{1}}\Gamma_{2}^{\alpha_{2}}\dotsm {\Gamma}^{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}_{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}. 
+	\end{equation*}
+	Here, each $\Gamma_{j}$ is an arbitrary ordering of the vector fields in the above lemma. 
+\end{definition}
+Then immediately, we obtain the following energy estimate. 
+\begin{corollary}[Energy Estimate for the Linear Homogeneous Wave Equation]
+	Given smooth and compactly supported initial data $(\phi_{0}, \phi_{1})$ to the linear wave equation in $(n + 1)$-dimensions, we have 
+	\begin{equation*}
+		\sup_{t \in[0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
+	\end{equation*} 
+	for some $C = C(n,k) > 0$. 
+\end{corollary}  
+\begin{proof}
+	From the proof of the estimate in Theorem \ref{eq:clwp_nc_ebound} (with constant metric $a$ and $F \equiv 0$), it follows that since for each $\alpha$,  $\Gamma^{\alpha}\phi$ is a solution of the linear homogeneous wave equation, 
+	\begin{equation*}
+		\sup_{t \in [0,\infty)}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C'\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0) 
+	\end{equation*} 
+	Thus taking the sum over all $|\alpha| \leq k$ for some $k \geq 1$, 
+	\begin{equation*}
+		\sup_{t \in [0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
+	\end{equation*} 
+	where $C$ now depends on $n$ and $k$. 
+\end{proof} 
+Before we can continue with proving two decay estimates for the linear wave equation, we present the following results. 
+\begin{lemma}[Homogeneous ``Dispersion'']
+	There exists $C(n,k) > 0$ such that for $t \geq 0$, it holds that 
+	\begin{equation*}
+		\sum_{|\alpha| = k}|\partial^{\alpha}\phi| \leq \frac{C}{|t - r|^{k}}\sum_{|\alpha|\leq k}|\Gamma^{\alpha}\phi| 
+	\end{equation*}
+	for every $C^{k}$ function $\phi: \mathbb{R}^{n + 1} \to \mathbb{R}$. 
+\end{lemma} 
+The key observation for this lemma is that replacing a derivative with one of the vector fields $\Gamma$ introduces a singular factor that is a function of $t$ and $r$. Doing this for $\partial^{\alpha}$, where $|\alpha| = k$, contributes a factor of $|t - r|^{-k}$. In other words, we ``trade'' the partial derivatives for a singular factor in $t$ and $r$ which tells us about the decay rate. 
+\begin{lemma}[Scale-Invariant Sobolev Embedding Theorem]
+	For $k \in \mathbb{Z}$, $k >\frac{n}{2}$, there exists $C = C(n,k) > 0$ such that the following holds for all functions $\phi \in H^{k}(\mathbb{R}^{n})$: 
+	\begin{equation}
+		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{L^{2}(\mathbb{R}^{n})}^{\frac{2k - n}{2k}}\cdot \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{\frac{n}{2k}}. 
+	\end{equation}
+\end{lemma} 
+\begin{proof}
+	The standard Sobolev embedding theorem states the following: 
+	\begin{equation*}
+		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{k}(\mathbb{R}^{n})} \leq C\left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right), 
+	\end{equation*} 
+	under the given hypotheses. Now we can introduce a scaling parameter $\lambda$ and rescale $\phi$ as follows, 
+	\begin{equation*}
+		\phi_{\lambda}(x) = \phi(\lambda x). 
+	\end{equation*}
+	For every $m \in \mathbb{Z}$, we note that 
+	\begin{equation*}
+		\sum_{|\alpha|= m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})} = \lambda^{m - \frac{n}{2}}\sum_{|\alpha| = m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})}. 
+	\end{equation*}
+	Thus using the standard Sobolev embedding theorem, we have 
+	\begin{equation*}
+		\norm{\phi}_{L^{\infty}} \leq C\left(\lambda^{-\frac{n}{2}}\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \lambda^{k - \frac{n}{2}}\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right). 
+	\end{equation*}
+	Thus now define
+	\begin{equation*}
+		\lambda = \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{-1/k}\cdot \left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{1/k}. 
+	\end{equation*}
+	Then the claim follows. 
+\end{proof} 
+These lemmas lead up to the \textit{Klainerman-Sobolev inequality}.
+\begin{theorem}[Klainerman-Sobolev Inequality]
+	There exists $C = C(n) > 0$ such that the following holds for all functions $\phi \in H^{\lfloor \frac{n + 2}{2}\rfloor}(\mathbb{R}^{n})$ for all $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x}(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{\frac{1}{2}}|\phi|(t, x) \leq C\sum_{|\alpha|\leq \lfloor \frac{n + 2}{2}\rfloor }\norm{\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t). 
+	\end{equation*} 
+\end{theorem} 
+\begin{proof}
+	The following proof is of H\"olzegel \cite{Holzegel2021}. The idea is that we split $\mathbb{R}^{n + 1}$ into the following regions, 
+	\begin{figure}[h!]
+		\centering 
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (6,0) node[anchor=north]{$r$}; \draw[->] (0,0) -- (0,6) node[anchor=east]{$t$};
+			\draw[-] (0,0) -- (6,6) node[anchor=north west]{$t = r$};
+			\draw[-] (0,0) -- (3,6) node[anchor=north west]{$r = t/2$};
+			\draw[-] (0,0) -- (6,3) node[anchor=north west]{$r = 2t$};
+			\draw[-] (1,0) -- (0,1) node[anchor=south east]{$t + r = 1$};
+			\draw[-] (1,2) -- (5,6) node[anchor=south     ]{$t = r + 1$};
+			\draw[-] (2,1) -- (6,5) node[anchor=north west]{$t = r - 1$};
+			\draw (1,4) node{(I)}; \draw (4,1) node{(II)};
+			\draw (3,5) node{(III)}; \draw (5,3) node{(IV)};
+			\draw (4.5,5) node{(V)}; \draw(5,4.5) node{(VI)};
+		\end{tikzpicture}
+	\end{figure}
+	
+	By Sobolev embedding\footnote{Explain this!}, we can assume that $t + r\geq 1$ everywhere. We consider each of the regions in the above diagram separately. \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\Roman{*})]
+		\item (\textsc{The Region $\{r \leq t/2\}$}) The idea is that we want to use the dispersion inequality from above to exchange $\partial$ by $\Gamma$ so that we can extract a power of $t$ in this region. Let $\chi\left(\frac{r}{t}\right)$ be a smooth cut-off function such that $\chi(x) = 1$ for $x \leq 1/2$ and $\chi(x) = 0$ for $x \geq \frac{3}{4}$ (i.e., is one for $r \leq t/2$ and zero for $r \geq 3t/4$). We exploit the fact that $|\partial^{\alpha}\chi\left(\frac{r}{t}\right)| \lesssim \frac{1}{t^{|\alpha|}}$. Then, we compute, 
+		\begin{equation*}
+			\sum_{|\alpha| = k}\norm{\partial^{\alpha}(\chi\phi)}_{L^{2}(\mathbb{R}^{n})} \leq C \sum_{|\alpha|\leq k}	t^{-k + |\alpha|}\left(\int_{\{r \leq \frac{3}{4}t\}}|\partial^{\alpha}\phi|^{2}(x)\;dx\right)^{1/2} \leq C\sum_{|\alpha|\leq k}t^{-k}\left(\int_{\{r \leq \frac{3}{4}t\}}|\Gamma^{\alpha}\phi|^{2}|\;dx\right)^{1/2}. 
+		\end{equation*}
+		Using this in the inequality from the scale-invariant Sobolev embedding theorem, we conclude that 
+		\begin{equation*}
+			\norm{\chi\phi}_{L^{\infty}} \leq C \norm{\chi\phi}_{L^{2}}^{\frac{2k -n}{2k}} \cdot \left(\sum_{|\alpha| \leq k}t^{-k}\left(\int_{\{r \leq \frac{3}{4}t\}}|\Gamma^{\alpha}\phi|^{2}\;dx\right)^{1/2}\right)^{n/2k} = Ct^{-n/2}\norm{\chi\phi}_{L^{2}}^{\frac{2k - n}{2k}} \cdot \left(\sum_{|\alpha|\leq k}\norm{\Gamma^{\alpha\phi}}_{L^{2}(\{r \leq 3t/4\})}\right)^{\frac{n}{2k}}. 
+		\end{equation*}
+		Then since in this region, $(1 + t + r)^{\frac{n-1}{2}}(1 + |t - r|)^{1/2} \leq Ct^{n/2}$, we have shown that the Klainerman-Sobolev inequality holds for this region. 
+		
+		\item (\textsc{The Region $\{r \geq 2t\}$}) We will use the same principle as for region (I). Namely, let $\chi\left(\frac{r}{t}\right)$ be a smooth cut-off function such that $\chi(x) = 1$ if $x \geq 2$ and $\chi(x) = 0$ if $x \leq \frac{4}{3}$. As before, we have that $|\partial^{\alpha}\chi\left(\frac{r}{t}\right)| \leq \frac{C}{t^{|\alpha|}}$. Therefore, repeating the same analysis as before gets us, 
+		\begin{equation*}
+			\sum_{|\alpha| = k}\norm{\partial^{\alpha}(\chi\phi)}_{L^{2}(\mathbb{R}^{n})} \leq C \sum_{|\alpha|\leq k}	t^{-k + |\alpha|}\left(\int_{\{r > \frac{4}{3}t\}}|\partial^{\alpha}\phi|^{2}(x)\;dx\right)^{1/2} \leq C\sum_{|\alpha|\leq k}t^{-k}\left(\int_{\{r > \frac{4}{3}t\}}|\Gamma^{\alpha}\phi|^{2}|\;dx\right)^{1/2}. 
+		\end{equation*}
+		Using this in the inequality from the scale-invariant Sobolev embedding theorem, we conclude that 
+		\begin{equation*}
+			\norm{\chi\phi}_{L^{\infty}} \leq C \norm{\chi\phi}_{L^{2}}^{\frac{2k -n}{2k}} \cdot \left(\sum_{|\alpha| \leq k}t^{-k}\left(\int_{\{r \geq  \frac{4}{3}t\}}|\Gamma^{\alpha}\phi|^{2}\;dx\right)^{1/2}\right)^{n/2k} = Ct^{-n/2}\norm{\chi\phi}_{L^{2}}^{\frac{2k - n}{2k}} \cdot \left(\sum_{|\alpha|\leq k}\norm{\Gamma^{\alpha\phi}}_{L^{2}(\{r \geq \frac{4}{3}t\})}\right)^{\frac{n}{2k}}. 
+		\end{equation*} 
+		Thus using the same reasoning as before the conclusion follows. 
+		\item (\textsc{The Region $\{\frac{t}{2} \leq r \leq 2t\} \cap \{t - r \geq 1\}$}) As before, we must work with smooth cutoff functions, albeit with more care. Let $\chi\left(\frac{r}{t}\right)$ be a smooth cutoff function such that $\chi(t) = 1$ if $\frac{1}{2}\leq x \leq 2$ Let $x = (r,\theta)$, where $\theta \in S^{n-1}$. Let $d\sigma_{\theta}$ denote the measure on the unit sphere $S^{n-1}$. Then the volume form on $S^{n-1}$ can be written as $dx = r^{n-1}\;drd\sigma_{\theta}$. We also have the standard Sobolev embedding on $S^{n-1}$, which states 
+		\begin{equation*}
+			\sup_{S^{n-1}}|\phi|\leq C\left(\sum_{|\alpha|\leq \lfloor \frac{n + 1}{2} \rfloor}\int_{S^{n-1}}|\Omega_{ij}^{\alpha}\phi|^{2}(\theta)\;d\sigma_{\theta}\right)^{\frac{1}{2}}. 
+		\end{equation*}
+		Then using the fundamental theorem of calculus, the scale-invariant Sobolev embedding, and Cauchy-Schwarz, one can establish the desired result in this region. 
+		\item (\textsc{The Remaining Regions}) The proofs for the remaining regions follow nearly analogously to the proof of region (III). 
+	\end{enumerate}
+\end{proof} 
+Then the Klainerman-Sobolev inequalities can be used to derive the following decay estimates for the wave equation. 
+\begin{corollary}[Sharp Decay Rate I]
+	Given data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$ for the wave equation in $(n + 1)$-dimensions, we have the following decay estimates for $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
+	\end{equation*} 
+\end{corollary} 
+\begin{proof}
+	By the first lemma in this section, one has that if $\phi$ is a solution to the linear homogeneous wave equation with initial data $(\phi_{0}, \phi_{1})$, then for any multiindex $\alpha$, $\partial^{\alpha}\phi$ is also a solution to the equation. Thus the Klainerman-Sobolev inequality tells us that 
+	\begin{align*}
+		\begin{split} 
+		\sup_{x}|\partial^{\alpha}\phi|(t, x) &\leq \frac{C}{(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{1/2}} \cdot \sum_{|\beta| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
+		&\leq \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha} \phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
+		&\lesssim \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor} \norm{\partial \Gamma^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)  \\
+		&\lesssim \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
+		\end{split} 
+	\end{align*} 
+	where the second line comes from recognizing that $(1 + t + r)^{(1 - n)/2} \leq (1 + t)^{(1 - n)/2}$ and $(1 + |t - r|)^{-1/2} \leq 1$, the third line follows from expanding our $\Gamma^{\beta}\partial^{\alpha}\phi$, and the final line follows from the energy estimate we found above. Thus the proof concludes. 
+\end{proof} 
+And as before, we have an improved decay rate in some cases. 
+\begin{lemma}
+	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation with initial data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$. For every $\epsilon > 0$, there exists $C = C(n, \epsilon) > 0$ such that the following decay estimate holds in $S_{t} \coloneqq \{x: |x| < (1 - \epsilon)t \text{ or } |x| > (1 + \epsilon)t\}$ for $t \geq 0$: 
+	\begin{equation*}
+		\sup_{x \in S_{t}}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n}{2}}} \cdot \sum_{|\alpha|\leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
+	\end{equation*} 
+\end{lemma} 
+\begin{corollary}[Consequence of Finite Speed of Propagation]
+	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation such that the initial data $(\phi_{0}, \phi_{1}) \subset C_{c}^{\infty}(B(0,R))$. Then there exists $C = C(n,R) > 0$ such that 
+	\begin{equation*}
+		\sup_{x}(1 + t + r)^{\frac{n- 1}{2}}(1 + |t - r|)^{-\frac{1}{2}}|\phi|(t,x) \leq C \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
+	\end{equation*}
+	for all $t \geq 0$. 
+\end{corollary}
+A slightly better decay estimate can be had under certain conditions. First, w define 
+\begin{definition}[Angular Part of Derivatives]
+	Let $v = t + r$ and $u = t - r$, where $r = |x|$. Then we define $\slashed\nabla \phi$ to be the \textbf{angular part of the derivatives} so that 
+	\begin{equation*}
+		(\partial_{t}\phi)^{2} + \sum_{i = 1}^{n}(\partial_{i}\phi)^{2} = (\partial_{t}\phi)^{2} + (\partial_{r}\phi)^{2} + |\slashed\nabla \phi|^{2} = 2(\partial_{v}\phi)^{2} + 2(\partial_{u}\phi)^{2} + |\cancel \nabla \phi|^{2}, 
+	\end{equation*} 
+	where 
+	\begin{equation*}
+		|\slashed\nabla \phi|^{2} \coloneqq \frac{1}{2}\sum_{i,j = 1}^{n}\left(\frac{x_{i}}{r}\partial_{j}\phi - \frac{x_{j}}{r}\partial_{i}\phi\right)^{2}. 
+	\end{equation*} 
+\end{definition}  
+\begin{definition}[The Derivative, $\bar{\partial}$]
+	We define the ``good'' derivative $\bar{\partial}$ as follows: 
+	\begin{equation*}
+		|\bar{\phi}|^{2} \coloneqq 2(\partial_{v}\phi)^{2} + |\slashed\nabla \phi|^{2}. 
+	\end{equation*} 
+\end{definition} 
+
+To get a sense of why these derivatives are ``good,'' we have the following corollary. 
+
+\begin{corollary}[Decay Rate for the Good Derivatives]
+	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation such that the initial data $(\phi_{0}, \phi_{1})$ are compactly supported in $B(0,R) \subset \mathbb{R}^{n}$. Then there exists $C = C(n, R) > 0$ such that 
+	\begin{equation*}
+		(1 + t + |x|)^{\frac{n + 1}{2}}(1 + |t - |x||)^{-\frac{1}{2}}| \bar{\partial}\phi|(t,x) \leq C \cdot \sum_{|\alpha|\leq \lfloor \frac{n + 4}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), \qquad \forall t\geq 0. 
+	\end{equation*} 
+\end{corollary} 
+In particular, in $\mathbb{R}^{3 + 1}$, it follows that $\sup_{x}|\partial \phi|(t,x)$ is generally not integrable in time, but $\sup_{x}|\bar{\partial}\phi|(t,x)$ is!
+
+\subsection{Small Data Global Regularity of Solutions (Nonlinear)}
+In this section, we will return to our study of nonlinear equations with ``small'' initial data. In this case, we have much to say about solutions to supercritical equations since the nonlinear terms are smaller, enabling the linear terms to dominate. So we can control the nonlinear terms. But we need to show that the solution actually decays sufficiently fast and that the error terms are integrable. Thus we will be examining the different methods associated with this technique. The emphasis will be on the wave map equation. 
+
+\begin{theorem}[Smoothness of Unique Solution to Wave Map]
+	Let $k \geq 6$, and consider the wave map equation 
+	\begin{equation*}
+		\Box\phi = \phi\left(\partial_{t}\phi^{\top}\partial_{t}\phi - \sum_{i = 1}^{4}\partial_{i}\phi^{\top}\partial_{i}\phi\right)
+	\end{equation*} 
+	in $\mathbb{R} \times \mathbb{R}^{4}$ with initial data  
+	\begin{equation*}
+		(\phi_{0}, \phi_{1})\upharpoonright_{\{t  = 0\}} \in C_{c}^{\infty}(B(0,R)) \times C_{c}^{\infty}(B(0,R)) 
+	\end{equation*} 
+	such that 
+	\begin{equation*}
+		\sum_{|\alpha|\leq k}\norm{\partial\partial^{\alpha}\phi_{0}}_{L^{2}(\mathbb{R}^{4})} + \norm{\partial^{\alpha}\phi_{1}}_{L^{2}(\mathbb{R}^{4})} < \epsilon. 
+	\end{equation*} 
+	Then for every $R > 0$, there exists $\epsilon_{0} = \epsilon_{0}(R) > 0$ sufficiently small such that if $\epsilon \leq \epsilon_{0}$, the unique solution remains smooth for all time. 
+\end{theorem} 
+We can make sense of the theorem as follows. Above, we mentioned that nonlinear equations can have nonlinearities of higher orders. These nonlinearities can cause a solution to quickly lose ``derivatives'' leading to undesirable behavior. Here, our hypothesis assumes that not only is our initia data smooth and compactly supported, but that the initial data itself does not ``look too much'' like a blow-up solution. The above statements make this idea rigorous. Then what we get from this theorem is that if the initial data is ``small'' enough, then the solution is smooth globally in time. 
+\begin{proof}
+	Our strategy for proving this result is the bootstrap method. The argument has the following form: (1) we assume that some weighted energy functional is bounded. (2) Next, we will use the Klainerman-Sobolev inequality to show that the functional is actually bounded by some better constant. (3) Then we exploit continuity to show that the solution exists for all time. We consider each step at a time. \vspace{-0.25cm}
+	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
+		\item The weighted energy that we will consider in this proof is 
+			\begin{equation*}
+				\ti{E} = \sup_{t \in [0,T]}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \leq \epsilon^{\frac{3}{4}}
+			\end{equation*} 
+			for $T < T_{\ast}$, where $T_{\ast}$ is the maximal time of existence. This is a valid assumption to make since if $\epsilon$ is sufficiently small, then $\epsilon \ll \epsilon^{\frac{3}{4}}$ so that the inequality is consistent with our hypotheses on the initial data. 
+			\item Then since $k \geq 6$ so that $k/2 \geq 3$ (and $\lfloor \frac{4 + 2}{2} \rfloor = 3$), the Klainerman-Sobolev inequality tells us that 
+			\begin{equation*}
+				\sum_{|\alpha| \leq \frac{k}{2}}\norm{(1 + t + |x|)^{\frac{3}{2}}\partial\Gamma^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{4})}(t) \leq C\epsilon^{\frac{3}{4}}. 
+			\end{equation*} 
+			This follows due to the following: the Klainerman-Sobolev inequality tells us that 
+			\begin{equation*}
+				\sup_{x}(1 + t + |x|)^{\frac{3}{2}}(1 + |t - x|)^{\frac{1}{2}}|\phi|(t, x) \leq C \sum_{|\alpha|\leq 3}\norm{\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) = C\sum_{|\alpha| \leq \frac{k}{2}}\norm{\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t). 
+			\end{equation*} 
+			In particular, for any $t, x \in \mathbb{R}^{4 + 1}$, 
+			\begin{equation*}
+				(1 + t + |x|)^{\frac{3}{2}}|\partial\Gamma^{\alpha}\phi|(t,x) \leq \frac{C}{(1 + |t - x|)^{1/2}}\sum_{|\beta|\leq \frac{k}{2}}\norm{\Gamma^{\beta}\left(\partial \Gamma^{\alpha}\phi\right)}_{L^{2}(\mathbb{R}^{4})}(t) \leq C\sum_{|\beta|\leq \frac{k}{2}}\norm{\Gamma^{\beta}\left(\partial\Gamma^{\alpha}\phi\right)}_{L^{2}(\mathbb{R}^{4})}(t). 
+			\end{equation*} 
+			But then, one has that on the right side of the inequality, 
+			\begin{equation*}
+				\sum_{|\beta|\leq \frac{k}{2}}\norm{\Gamma^{\beta}(\partial \Gamma^{\alpha}\phi)}_{L^{2}(\mathbb{R}^{4})}(t) \leq C\sum_{|\gamma|\leq k}\norm{\Gamma^{\gamma}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \leq C\epsilon^{\frac{3}{4}}. 
+			\end{equation*} 
+			Thus, since this is true for all $t, x$, we have 
+			\begin{equation*}
+				\norm{(1 + t + |x|)^{\frac{3}{2}}\partial \Gamma^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{4})} \leq C\epsilon^{\frac{3}{4}}. 
+			\end{equation*}
+			Then summing over all multiindices $\alpha$ with $|\alpha| \leq \frac{k}{2}$, and incorporating an additional constant into $C$, we obtain the inequality above. Then since we have the bound 
+			\begin{equation*}
+				\sum_{1 \leq |\alpha| \leq \frac{k}{2} + 1}|\Gamma^{\alpha}\phi| \leq C(1 + t + |x|)\cdot \sum_{|\alpha|\leq \frac{k}{2}}|\partial \Gamma^{\alpha}\phi|, 
+			\end{equation*} 
+			so that 
+			\begin{equation*}
+				\sum_{1 \leq |\alpha| \leq \frac{k}{2} + 1}\norm{(1 + t + |x|)^{\frac{1}{2}} \Gamma^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{4})} \leq C\epsilon^{\frac{3}{4}}. 
+			\end{equation*}
+		\item Then, focusing on the energy (and ``using the fundamental theorem of calculus''), one has the bound 
+		\begin{multline*}
+			\sup_{t \in [0,T]}\sum_{|\alpha| \leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \\
+			\leq 
+			C(k)\left(\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(0) + \int_{0}^{T}\sum_{|\alpha|\leq k}\norm{\Gamma^{\alpha}\left(\phi\left((\partial_{t}\phi)^{\top}(\partial_{t}\phi) - \sum_{i = 1}^{n}(\partial_{i}\phi)^{\top}(\partial_{i}\phi)\right)\right)}_{L^{2}(\mathbb{R}^{4})}(t)\;dt\right). 
+		\end{multline*} 
+		Expanding out this inequality, we thus obtained a much \textit{better} estimate along the lines of 
+		\begin{equation*}
+			\sup_{t \in [0,T]}\sum_{|\alpha| \leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \leq C\epsilon. 
+		\end{equation*} 
+		Thus by continuity the argument concludes. The main argument that enabled a simplification of the inequality was the fact that $1/(1 + t)^{3/2}$ is integrable in time so that a term could be bounded independent of $T$. 
+	\end{enumerate}
+\end{proof} 
+If we were to use the same proof in the case for the wave map equation on $\mathbb{R}^{3 + 1}$, then the proof would fail as we would obtain a term with $1/(1 + t)$, which is not integrable. 
+\subsection{The Null Condition} 
+In this section, we continue the types of calculations from the previous section. In fact, we will show that the same decay rate we found above in $\mathbb{R}^{4 + 1}$ for the wave map equation continues to hold in $\mathbb{R}^{3 + 1}$. In particular, our goal is to show that in some specific cases, we can show existence of global-in-time smooth solutions to quasilinear equations if we can control the ``badness'' of the nonlinear arguments. This control will come in the form of the \textit{null condition} which we will state shortly. First, we begin with a lemma. 
+\begin{lemma}[Differential Identities]
+	The following identity holds 
+	\begin{equation*}
+		(\partial_{t}\phi)(\partial_{t}\psi) -\sum_{i = 1}^{3}(\partial_{i}\phi)(\partial_{i}\psi) = 2(\partial_{u}\phi)(\partial_{v}\psi) + 2(\partial_{v}\phi)(\partial_{u}\psi) - \slashed\nabla\phi \cdot \slashed\nabla \psi, 
+	\end{equation*} 
+	where 
+	\begin{equation*}
+		\slashed\nabla_{i}\phi \coloneqq \partial_{i}\phi - \frac{x_{i}}{r}\partial_{r}\phi = \sum_{j = 1}^{n}\frac{x_{j}}{r^{2}}\Omega_{ij}\phi. 
+	\end{equation*} 
+	In particular, 
+	\begin{equation*}
+		\slashed\nabla \phi \cdot \slashed\nabla \psi = \frac{1}{2r^{2}}\sum_{i,j=1}^{3}\Omega_{ij}\phi\Omega_{ij}\psi. 
+	\end{equation*} 
+\end{lemma} 
+The consequence of this result is as follows: in any quadratic term contained in the nonlinearity, at least one of the derivatives is a $\bar{\partial}$ derivative (where $\bar{\partial} \in \{\partial_{\nu}, \slashed\nabla\}$). Since the decay in $|\bar{\partial}\phi|$ is integrable in time, this is already a good signal that we can say something substantial about global-in-time solutions to a specific class of nonlinear equations. But we also have the following proposition to help us. 
+\begin{prop}
+	Let $\Box\phi = F$. For every $\delta > 0$, there exists $C = C(\delta) > 0$ such that 
+	\begin{equation*}
+		\left(\int_{0}^{T}\int_{\mathbb{R}^{3}}\frac{|\bar{\partial}\phi|^{2}}{(1 + |t- |x||)^{1 + \delta}}\;dxdt\right)^{1/2} \leq C\left(\norm{(\phi_{0}, \phi_{1})}_{\dot{H}^{1}(\mathbb{R}^{3}) \times L^{2}(\mathbb{R}^{3})} + \int_{0}^{T}\norm{F}_{L^{2}(\mathbb{R}^{3})}(t)\;dt\right). 
+	\end{equation*} 
+\end{prop} 
+
+Before we can actually do the analysis for the wave map equation in $\mathbb{R}^{3 + 1}$, we need a few more final controls on the nonlinear terms. Thus we have the definition, 
+\begin{definition}[Classical Null Condition]
+	Let $q^{\alpha\beta}$ be constants. Then $Q(\phi,\psi) = q^{\alpha\beta}\partial_{\alpha}\phi\partial_{\beta}\psi$ satisfies the \textbf{classical null condition} if 
+	\begin{equation*}
+		q^{\alpha\beta}\xi_{\alpha}\xi_{\beta} = 0 \quad \text{whenever} \quad m^{\alpha\beta}\xi_{\alpha}\xi_{\beta} = 0. 
+	\end{equation*} 
+	When $Q$ satisfies the classical null condition, we say that $Q$ is a \textbf{classical null form}. 
+\end{definition} 
+We observe that if $Q$ is a classical null form, then the symbol for the form vanishes identically on the light cone. Since we can get very bad singularities from the nonlinearities if two waves have parallel wave vectors on the light cone, satisfying the above condition helps eliminate these threats. In particular, we have two types of classical null forms, which are the following. 
+\begin{lemma}[Classical Null Forms]
+	Let $Q$ be a classical null form. Then it is a linear combination of $Q_{0}(\phi,\psi) \coloneqq m^{\alpha\beta}\partial_{\alpha}\phi\partial_{\beta}\psi$ and $Q_{\mu\nu}(\phi,\psi)\coloneqq \partial_{\mu}\partial_{\nu}\psi - \partial_{\nu}\partial_{\mu}\psi$. Moreover, 
+	\begin{equation*}
+		|Q(\phi,\psi)| \leq C(|\partial \phi||\bar{\partial}\psi| + |\bar{\partial}\phi||\partial \psi|). 
+	\end{equation*}
+\end{lemma} 
+\begin{lemma}[Differentiation by $\Gamma$ Preserves Null Structure]
+	Given a classical null form $Q$, for every commuting vector field $\Gamma \in \{\partial_{t}, \partial_{i}, \Omega_{ij}, \Omega_{0i}, S\}$, 
+	\begin{equation*}
+		\Gamma(Q(\phi, \psi)) = Q(\Gamma\phi,\psi) + Q(\phi, \Gamma\psi) + \ti{Q}(\phi, \psi), 
+	\end{equation*}
+	where $\ti{Q}$ is some classical null form. 
+\end{lemma} 
+Thus, using these results, we finally have our main theorem, 
+\begin{theorem}
+	Consider the wave map equation 
+	\begin{equation*}
+		\Box\phi = \phi\left(\partial_{t}\phi^{\top}\partial_{t}\phi - \sum_{i = 1}^{3}\partial_{i}\phi^{\top}\partial_{i}\phi\right)
+	\end{equation*} 
+	in $\mathbb{R} \times \mathbb{R}^{3}$ with initial data  
+	\begin{equation*}
+		(\phi_{0}, \phi_{1})\upharpoonright_{\{t  = 0\}} \in C_{c}^{\infty}(B(0,R)) \times C_{c}^{\infty}(B(0,R)) 
+	\end{equation*} 
+	such that 
+	\begin{equation*}
+		\sum_{|\alpha|\leq 5}\norm{\partial\partial^{\alpha}\phi_{0}}_{L^{2}(\mathbb{R}^{3})} + \norm{\partial^{\alpha}\phi_{1}}_{L^{2}(\mathbb{R}^{3})} < \epsilon. 
+	\end{equation*} 
+	Then for every $R > 0$, there exists $\epsilon_{0} = \epsilon_{0}(R) > 0$ sufficiently small such that if $\epsilon \leq \epsilon_{0}$, the unique solution remains smooth for all time. 
+\end{theorem}  
+
+\newpage 
 \section{An Introduction to Einstein Vacuum Equations in Wave Coordinates} 
 In this section, we look at the \textit{Einstein vaccum equations}. In particular, this requires us to cover some initial definitions in geometry. Thus we start with some basic definitions from the theory of Lorentzian manifolds. 
 
@@ -2595,7 +3061,7 @@ where $F_{\mu\nu}(g, \partial g)$ is a function of $g$ and its derivatives. In p
 \begin{definition}[Wave Coordinate Condition]
 	Let $(M, g)$ be a Lorentzian manifold. A local coordinate system $(x^{\mu})$ is said to satisfy the \textbf{wave coordinate condition} on $M$ if the following is true, 
 	\begin{equation*}
-	0 = \Box_{g}x^{\alpha} \coloneqq \frac{1}{\sqrt{-g}}\partial_{\mu}\partial_{\mu}(g^{\mu\nu}\sqrt{-g}\partial_{\nu}x^{\alpha}). 
+		0 = \Box_{g}x^{\alpha} \coloneqq \frac{1}{\sqrt{-g}}\partial_{\mu}\partial_{\mu}(g^{\mu\nu}\sqrt{-g}\partial_{\nu}x^{\alpha}). 
 	\end{equation*}
 \end{definition} 
 \begin{prop}
@@ -2654,187 +3120,6 @@ From this result, we have the following theorem of Choquet-Bruhat.
 	\end{equation}
 	and such that $\sum_{i,j}|\hat{g}_{ij} - \delta_{ij}| \leq \frac{1}{20}$, there exists a metric $g$ in $I \times \mathbb{R}^{n}$ which solves the Einstein vacuum equations such that the induced metric and the induced second fundamental form on $\{0\} \times \mathbb{R}^{n}$ coincide with $\hat{g}_{ij}$ and $\hat{k}_{ij}$, respectively. 
 \end{theorem} 
-
-\newpage 
-\section{More Dispersive Estimates for Linear Wave Equations and the Method of Klainerman}
-
-In this section, we consider again the linear wave equation $\Box\phi = 0$ on $\mathbb{R}^{n + 1}$, and present another proof of dispersion (in dimensions $\geq 2$) via the energy method. This will require us to use the techniques of Klainerman. We start with the following lemma. 
-
-\begin{lemma}
-	If $\Box\phi = 0$, then $\Box(\Gamma\phi) = 0$, where $\Gamma$ is one of the following fields, 
-	\begin{equation*}
-		\Gamma \in \{\partial_{t}, \partial_{i}, \Omega_{ij}, S, \Omega_{0i}\}, 
-	\end{equation*} 
-	where 
-	\begin{align*}
-		\begin{split} 
-			\Omega_{ij} &\coloneqq x_{i}\partial_{j} - x_{j}\partial_{i}, \\
-			S &\coloneqq t\partial_{t}+ \sum_{1}^{n}x_{i}\partial_{i}, \\
-			\Omega_{0,i} &\coloneqq t\partial_{i} + x_{i}\partial_{t}. 
-		\end{split} 
-	\end{align*} 
-	\label{eq:invarianceUnderCommutingFields}
-\end{lemma} 
-Note that this lemma tells us that the wave operator $\Box$ is invariant under time translation, spatial translation, rotations in the spatial dimension, scaling transformations, and (Lorentzian) boosts. Each of the admissible vector fields $\Gamma$ is then called a \textbf{commuting vector field}. Before we proceed with using this lemma to establish decay estimates, we first make the following definitions. 
-
-\begin{definition}[Multiindex Notation]
-	For the multiindex 
-	\begin{equation*}
-		\alpha = \left(\alpha_{1}, \alpha_{2}, \ldots, \alpha_{2n + 2 + \frac{n(n-1)}{2}}\right), 
-	\end{equation*}
-	we define 
-	\begin{equation*}
-		\Gamma^{\alpha} = \Gamma_{1}^{\alpha_{1}}\Gamma_{2}^{\alpha_{2}}\dotsm {\Gamma}^{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}_{\alpha_{2n + 2 + \frac{n(n + 1)}{2}}}. 
-	\end{equation*}
-	Here, each $\Gamma_{j}$ is an arbitrary ordering of the vector fields in the above lemma. 
-\end{definition}
-Then immediately, we obtain the following energy estimate. 
-\begin{corollary}[Energy Estimate for the Linear Homogeneous Wave Equation]
-	Given smooth and compactly supported initial data $(\phi_{0}, \phi_{1})$ to the linear wave equation in $(n + 1)$-dimensions, we have 
-	\begin{equation*}
-		\sup_{t \in[0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
-	\end{equation*} 
-	for some $C = C(n,k) > 0$. 
-\end{corollary}  
-\begin{proof}
-	From the proof of the estimate in Theorem \ref{eq:clwp_nc_ebound} (with constant metric $a$ and $F \equiv 0$), it follows that since for each $\alpha$,  $\Gamma^{\alpha}\phi$ is a solution of the linear homogeneous wave equation, 
-	\begin{equation*}
-		\sup_{t \in [0,\infty)}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C'\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0) 
-	\end{equation*} 
-	Thus taking the sum over all $|\alpha| \leq k$ for some $k \geq 1$, 
-	\begin{equation*}
-		\sup_{t \in [0,\infty)}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \leq C \sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
-	\end{equation*} 
-	where $C$ now depends on $n$ and $k$. 
-\end{proof} 
-Before we can continue with proving two decay estimates for the linear wave equation, we present the following results. 
-\begin{lemma}[Homogeneous ``Dispersion'']
-	There exists $C(n,k) > 0$ such that for $t \geq 0$, it holds that 
-	\begin{equation*}
-		\sum_{|\alpha| = k}|\partial^{\alpha}\phi| \leq \frac{C}{|t - r|^{k}}\sum_{|\alpha|\leq k}|\Gamma^{\alpha}\phi| 
-	\end{equation*}
-	for every $C^{k}$ function $\phi: \mathbb{R}^{n + 1} \to \mathbb{R}$. 
-\end{lemma} 
-\begin{lemma}[Scale-Invariant Sobolev Embedding Theorem]
-	For $k \in \mathbb{Z}$, $k >\frac{n}{2}$, there exists $C = C(n,k) > 0$ such that the following holds for all functions $\phi \in H^{k}(\mathbb{R}^{n})$: 
-	\begin{equation}
-		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{L^{2}(\mathbb{R}^{n})}^{\frac{2k - n}{2k}}\cdot \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{\frac{n}{2k}}. 
-	\end{equation}
-\end{lemma} 
-\begin{proof}
-	The standard Sobolev embedding theorem states the following: 
-	\begin{equation*}
-		\norm{\phi}_{L^{\infty}(\mathbb{R}^{n})} \leq C\norm{\phi}_{H^{k}(\mathbb{R}^{n})} \leq C\left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right), 
-	\end{equation*} 
-	under the given hypotheses. Now we can introduce a scaling parameter $\lambda$ and rescale $\phi$ as follows, 
-	\begin{equation*}
-		\phi_{\lambda}(x) = \phi(\lambda x). 
-	\end{equation*}
-	For every $m \in \mathbb{Z}$, we note that 
-	\begin{equation*}
-		\sum_{|\alpha|= m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})} = \lambda^{m - \frac{n}{2}}\sum_{|\alpha| = m}\norm{\partial_{x}^{\alpha}\phi_{\lambda}}_{L^{2}(\mathbb{R}^{n})}. 
-	\end{equation*}
-	Thus using the standard Sobolev embedding theorem, we have 
-	\begin{equation*}
-		\norm{\phi}_{L^{\infty}} \leq C\left(\lambda^{-\frac{n}{2}}\norm{\phi}_{L^{2}(\mathbb{R}^{n})} + \lambda^{k - \frac{n}{2}}\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right). 
-	\end{equation*}
-	Thus now define
-	\begin{equation*}
-		\lambda = \left(\sum_{|\alpha| = k}\norm{\partial_{x}^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{-1/k}\cdot \left(\norm{\phi}_{L^{2}(\mathbb{R}^{n})}\right)^{1/k}. 
-	\end{equation*}
-	Then the claim follows. 
-\end{proof} 
-These lemmas lead up to the \textit{Klainerman-Sobolev inequality}.
-\begin{theorem}[Klainerman-Sobolev Inequality]
-	There exists $C = C(n) > 0$ such that the following holds for all functions $\phi \in H^{\lfloor \frac{n + 2}{2}\rfloor}(\mathbb{R}^{n})$ for all $t \geq 0$: 
-	\begin{equation*}
-		\sup_{x}(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{\frac{1}{2}}|\phi|(t, x) \leq C\sum_{|\alpha|\leq \lfloor \frac{n + 2}{2}\rfloor }\norm{\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t). 
-	\end{equation*} 
-\end{theorem} 
-Then the Klainerman-Sobolev inequalities can be used to derive the following decay estimates for the wave equation. 
-\begin{corollary}[Sharp Decay Rate I]
-	Given data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$ for the wave equation in $(n + 1)$-dimensions, we have the following decay estimates for $t \geq 0$: 
-	\begin{equation*}
-		\sup_{x}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
-	\end{equation*} 
-\end{corollary} 
-\begin{proof}
-	By the first lemma in this section, one has that if $\phi$ is a solution to the linear homogeneous wave equation with initial data $(\phi_{0}, \phi_{1})$, then for any multiindex $\alpha$, $\partial^{\alpha}\phi$ is also a solution to the equation. Thus the Klainerman-Sobolev inequality tells us that 
-	\begin{align*}
-		\begin{split} 
-		\sup_{x}|\partial^{\alpha}\phi|(t, x) &\leq \frac{C}{(1 + t + r)^{\frac{n - 1}{2}}(1 + |t - r|)^{1/2}} \cdot \sum_{|\beta| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
-		&\leq \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\Gamma^{\beta}\partial^{\alpha} \phi}_{L^{2}(\mathbb{R}^{n})}(t) \\
-		&\lesssim \frac{C}{(1 + t)^{\frac{n - 1}{2}}} \cdot \sum_{|\beta|\leq \lfloor \frac{n + 2}{2}\rfloor} \norm{\partial \Gamma^{\beta}\phi}_{L^{2}(\mathbb{R}^{n})}(t)  \\
-		&\lesssim \frac{C}{(1 + t)^{\frac{n-1}{2}}} \cdot \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0), 
-		\end{split} 
-	\end{align*} 
-	where the second line comes from recognizing that $(1 + t + r)^{(1 - n)/2} \leq (1 + t)^{(1 - n)/2}$ and $(1 + |t - r|)^{-1/2} \leq 1$, the third line follows from expanding our $\Gamma^{\beta}\partial^{\alpha}\phi$, and the final line follows from the energy estimate we found above. Thus the proof concludes. 
-\end{proof} 
-And as before, we have an improved decay rate in some cases. 
-\begin{lemma}
-	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation with initial data $(\phi_{0}, \phi_{1}) \in C_{c}^{\infty}(\mathbb{R}^{n}) \times C_{c}^{\infty}(\mathbb{R}^{n})$. For every $\epsilon > 0$, there exists $C = C(n, \epsilon) > 0$ such that the following decay estimate holds in $S_{t} \coloneqq \{x: |x| < (1 - \epsilon)t \text{ or } |x| > (1 + \epsilon)t\}$ for $t \geq 0$: 
-	\begin{equation*}
-		\sup_{x \in S_{t}}\sum_{|\alpha| = 1}|\partial^{\alpha}\phi|(t, x) \leq \frac{C}{(1 + t)^{\frac{n}{2}}} \cdot \sum_{|\alpha|\leq \lfloor \frac{n + 2}{2} \rfloor}\norm{\partial\Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0). 
-	\end{equation*} 
-\end{lemma} 
-\begin{corollary}[Consequence of Finite Speed of Propagation]
-	Let $\phi$ be the solution to the $(n + 1)$-dimensional wave equation such that the initial data $(\phi_{0}, \phi_{1}) \subset C_{c}^{\infty}(B(0,R))$. Then there exists $C = C(n,R) > 0$ such that 
-	\begin{equation*}
-		\sup_{x}(1 + t + r)^{\frac{n- 1}{2}}(1 + |t - r|)^{-\frac{1}{2}}|\phi|(t,x) \leq C \sum_{|\alpha| \leq \lfloor \frac{n + 2}{2}\rfloor}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{n})}(0),
-	\end{equation*}
-	for all $t \geq 0$. 
-\end{corollary}
-A slightly better decay estimate can be had under certain conditions. First, w define 
-\begin{definition}[Angular Part of Derivatives]
-	Let $v = t + r$ and $u = t - r$, where $r = |x|$. Then we define $\cancel\nabla \phi$ to be the \textbf{angular part of the derivatives} so that 
-	\begin{equation*}
-		(\partial_{t}\phi)^{2} + \sum_{i = 1}^{n}(\partial_{i}\phi)^{2} = (\partial_{t}\phi)^{2} + (\partial_{r}\phi)^{2} + |\cancel\nabla \phi|^{2} = 2(\partial_{v}\phi)^{2} + 2(\partial_{u}\phi)^{2} + |\cancel \nabla \phi|^{2}, 
-	\end{equation*} 
-	where 
-	\begin{equation*}
-		|\cancel\nabla \phi|^{2} \coloneqq \frac{1}{2}\sum_{i,j = 1}^{n}\left(\frac{x_{i}}{r}\partial_{j}\phi - \frac{x_{j}}{r}\partial_{i}\phi\right)^{2}. 
-	\end{equation*} 
-\end{definition}  
-\begin{definition}[The Derivative, $\bar{\partial}$]
-	We define the ``good'' derivative $\bar{\partial}$ as follows: 
-	\begin{equation*}
-		|\bar{\phi}|^{2} \coloneqq 2(\partial_{v}\phi)^{2} + |\cancel\nabla \phi|^{2}. 
-	\end{equation*} 
-\end{definition} 
-
-\section{Small Data Global Regularity of Solutions (Nonlinear)}
-In this section, we will return to our study of nonlinear equations with ``small'' initial data. In this case, we have much to say about solutions to supercritical equations since the nonlinear terms are smaller, enabling the linear terms to dominate. So we can control the nonlinear terms. But we need to show that the solution actually decays sufficiently fast and that the error terms are integrable. Thus we will be examining the different methods associated with this technique. The emphasis will be on the wave map equation. 
-
-\begin{theorem}[Smoothness of Unique Solution to Wave Map]
-	Let $k \geq 6$, and consider the wave map equation 
-	\begin{equation*}
-		\Box\phi = \phi\left(\partial_{t}\phi^{\top}\partial_{t}\phi - \sum_{i = 1}^{4}\partial_{i}\phi^{\top}\partial_{i}\phi\right)
-	\end{equation*} 
-	in $\mathbb{R} \times \mathbb{R}^{4}$ with initial data  
-	\begin{equation*}
-		(\phi_{0}, \phi_{1})\upharpoonright_{\{t  = 0\}} \in C_{c}^{\infty}(B(0,R)) \times C_{c}^{\infty}(B(0,R)) 
-	\end{equation*} 
-	such that 
-	\begin{equation*}
-		\sum_{|\alpha|\leq k}\norm{\partial\partial^{\alpha}\phi_{0}}_{L^{2}(\mathbb{R}^{4})} + \norm{\partial^{\alpha}\phi_{1}}_{L^{2}(\mathbb{R}^{4})} < \epsilon. 
-	\end{equation*} 
-	Then for every $R > 0$, there exists $\epsilon_{0} = \epsilon_{0}(R) > 0$ sufficiently small such that if $\epsilon \leq \epsilon_{0}$, the unique solution remains smooth for all time. 
-\end{theorem} 
-We can make sense of the theorem as follows. Above, we mentioned that nonlinear equations can have nonlinearities of higher orders. These nonlinearities can cause a solution to quickly lose ``derivatives'' leading to undesirable behavior. Here, our hypothesis assumes that not only is our initia data smooth and compactly supported, but that the initial data itself does not ``look too much'' like a blow-up solution. The above statements make this idea rigorous. Then what we get from this theorem is that if the initial data is ``small'' enough, then the solution is smooth globally in time. 
-\begin{proof}
-	Our strategy for proving this result is the bootstrap method. The argument has the following form: (1) we assume that some weighted energy functional is bounded. (2) Next, we will use the Klainerman-Sobolev inequality to show that the functional is actually bounded by some better constant. (3) Then we exploit continuity to show that the solution exists for all time. We consider each step at a time. \vspace{-0.25cm}
-	\begin{enumerate}[itemsep =-2pt,label = (\alph{*})]
-		\item The weighted energy that we will consider in this proof is 
-			\begin{equation*}
-				\ti{E} = \sup_{t \in [0,T]}\sum_{|\alpha|\leq k}\norm{\partial \Gamma^{\alpha}\phi}_{L^{2}(\mathbb{R}^{4})}(t) \leq \epsilon^{\frac{3}{4}}
-			\end{equation*} 
-			for $T < T_{\ast}$, where $T_{\ast}$ is the maximal time of existence. This is a valid assumption to make since if $\epsilon$ is sufficiently small, then $\epsilon \ll \epsilon^{\frac{3}{4}}$ so that the inequality is consistent with our hypotheses on the initial data. 
-			\item Then since $k \geq 6$ so that $k/2 \geq 3$ (and $\lfloor \frac{4 + 2}{2} \rfloor = 3$), the Klainerman-Sobolev inequality tells us that 
-			\begin{equation*}
-				\sum_{|\alpha| \leq \frac{k}{2}}\norm{(1 + t + |x|)^{\frac{3}{2}}\partial\Gamma^{\alpha}\phi}_{L^{\infty}(\mathbb{R}^{4})}(t) \leq C\epsilon^{\frac{3}{4}}. 
-			\end{equation*} 
-	\end{enumerate}
-\end{proof} 
 \newpage 
 
 \part{Applications}
@@ -3436,46 +3721,180 @@ The geometric information contained in the solution is interesting. The vorticit
 
 \subsubsection{Global Existence and Uniqueness (2 Dimensions)}
 
-In this subsubsection, we will show that (classical/weak) solutions to the Euler equations in two dimensions actually exist. The setting will be as follows: we consider the Euler equations on an open regular bounded domain $\Omega \subset \mathbb{R}^{2}$, and we will study the equations 
+In this subsubsection,  our main interest is in showing that we have local unique solutions to the Euler equations under certain hypotheses. Our main hypothesis is that the fluid is moving in an open regular bounded domain $\Omega \subset \mathbb{R}^{2}$. In terms of the vorticity, the Cauchy problem reads 
+\begin{align*}
+	\begin{split}
+		D_{t}\omega &= (\partial_{t} + u \cdot \nabla)\omega = 0, \\
+		\omega &= \nabla \times u, \qquad \nabla \cdot u = 0, \\
+		u \cdot n &= 0, \qquad \text{on $\partial\Omega$} \\
+		u(x,0) &= u_{0}(x). 
+	\end{split}
+\end{align*}
+We also showed that 
 \begin{equation*}
-	\left\{
-	\begin{alignedat}{1}
-		&D_{t}\omega = (\partial_{t} + u \cdot \nabla)\omega = 0, \\
-		&\omega = \nabla \times u, \quad \nabla \cdot u = 0, \\
-		&u \cdot n = 0, \qquad (\text{on $\partial\Omega$}) \\
-		&u(x,0) = u_{0}(x). 
-	\end{alignedat} 
-	\right. 
-\end{equation*} 
-Our strategy for this subsubsection is as follows. First, we will show that the equations above have \textit{weak} solutions. Then we will consider some specific circumstances under which these weak solutions may be extended into classical solutions of the Euler equations. First, we define the notion of \textit{weak solutions} to the Euler equations. 
-
-\begin{definition}[Weak Solutions to the Euler Equations]
-	Let $\Omega \subset \mathbb{R}^{2}$ be an open, bounded, regular domain in the two-plane. Then if by $\Phi_{t}(x)$ we denote the path lines starting at $x \in \Omega$; i.e., the solution of the ODE 
-	\begin{equation*}
-		\left\{
-		\begin{alignedat}{1}
-			&\frac{d}{dt}\Phi_{t}(x) = u(\Phi_{t}(x),t) \\
-			&\Phi_{0}(x) = x,  
-		\end{alignedat} 
-		\right. 
-		\tag{$\ast_{2}$}
-		\label{eq:diffeq}
-	\end{equation*} 
-	for a fixed $\omega_{0}$, a \textbf{weak solution} to the Euler equations is a triple $(\Phi_{t}, u_{t}, \omega_{t})$ such that $\Phi_{t}$ solves the above ODE, $\omega_{t}(x) = \omega_{0}(\Phi_{-t}(x))$, and 
-	\begin{equation}
-		u_{t}(x) = K_{\Omega} \ast \omega_{t}(x) = \int_{\Omega}K_{\Omega}(x,y)\omega(y,t)\;dy, 
-		\tag{$\ast_{3}$}
-		\label{eq:green}
-	\end{equation} 
-	where $K_{\Omega}(x,y) = \nabla^{\perp}G_{\Omega}(x,y)$ and $G_{\Omega}$ is the fundamental solution of the Poisson equation with Dirichlet condition on $\partial \Omega$.
+	u_{t}(x) = K_{\Omega} \ast \omega_{t}(x) = \int_{\Omega}K_{\Omega}(x,y)\omega(y,t)\;dy, 
+\end{equation*}
+where $K_{\Omega}(x,t)$ is the solution to $K_{\Omega}(x,y) = \nabla^{\perp}G_{\Omega}(x,y)$, and $G_{\Omega}(x,y)$ is the Green's function for $\Omega$. Our fundamental goal is to find the velocity field $u_{t}(x)$. If we can do this, and show uniqueness, then we are done. On the other hand, suppose we already know the velocity fields. Let $\Phi_{t}(x)$ be the path lines starting from $x \in \Omega$; i.e., assume $\Phi_{t}$ are solutions to the differential equation 
+\begin{equation}
+	\frac{d}{dt}\Phi_{t}(x) = u(\Phi_{t}(x),t), \qquad \Phi_{0}(x)  = x. 
+\end{equation}
+Then $\omega(x, t) = \omega_{0}(\Phi_{-t}(x))$. Thus to solve the above Cauchy problem is equivalent to solving the following problem: having fixed $\omega_{0}$, find a triple $(\Phi_{t}, u_{t}, \omega_{t})$ such that $\Phi_{t}$ satisfies the above differential equation, $\omega_{t}(x) = \omega_{0}(\Phi_{-t}(x))$, and $u_{t}$ is given as the convolution between the kernel and the vorticity. In particular, it is easy to see that solutions to the Cauchy problem solve the problem above. However, solutions to the latter problem are not necessarily solutions to the original Cauchy problem, with the central constraint being that $\omega_{t}$ might not actually be differentiable in the classical sense. Thus, we define the notion of a \textit{weak solution}. 
+\begin{definition}[Weak Solution]
+	A \textbf{weak solution} is a solution $u$ to the the above triplet problem. 
 \end{definition} 
-We have the following existence result. 
+Much of our early work goes into showing the existence of weak solutions. This work begins with the following lemma. 
+\begin{lemma}[A priori Regularity]
+	The following two inequalities hold (where $|\Omega|$ is the volume of $\Omega$), 
+	\begin{equation*}
+		|u(x)| = \abs{K_{\Omega}\ast\omega}_{\infty} \leq C\norm{\omega}_{L^{\infty}}, 
+	\end{equation*}
+	and 
+	\begin{equation*}
+		\int_{\Omega}|K_{\Omega}(x, y) - K_{\Omega}(x',y)|\;dy \leq C(1+ |\Omega|)\varphi(|x - x'|), 
+	\end{equation*} 
+	where 
+	\begin{equation*}
+		\varphi(r) = 
+		\begin{cases}
+			r(1 - \ln(r)), & \text{if } r < 1, \\
+			1, & \text{if } r \geq 1. 
+		\end{cases}
+	\end{equation*}
+\end{lemma} 
+In particular, this lemma implies that if $\omega \in L^{\infty}$, then the velocity field $u = K_{\Omega} \ast \omega$ is a uniformly bounded vector field. Moreover, 
+\begin{align*}
+	\begin{split}
+		\abs{K_{\Omega}\ast \omega(x) - K_{\Omega}\ast \omega(y)} &= \abs{\int_{\Omega}K_{\Omega}(x,z)\omega(z,t) - K_{\Omega}(y,z)\omega(z,t)\;dz}\\
+		&\leq \int_{\Omega}|K_{\omega}(x,z) - K_{\Omega}(y,z)||\omega(z,t)|\;dz \\
+		&\leq C\norm{\omega(\cdot, t)}_{L^{\infty}} \varphi(|x - y|). 
+	\end{split} 
+\end{align*}
+We call this a \textit{quasi-Lipschitz condition}; obviously the vector field is not Lipschitz, but it is \textit{log-Lipschitz} (i.e., Lipschitz up to a logarithmic diverging factor). This suffices for our existence and uniqueness proofs. We have the following theorem. 
 \begin{theorem}[Existence of Weak Solutions to the Euler Equations]
-	Let $\omega_{0} \in L^{\infty}(\Omega)$. There exists a unique triple $(\Phi_{t}, u_{t}, \omega_{t})$ satisfying (\ref{eq:diffeq}) and (\ref{eq:green}), where $\omega \in L^{\infty}([0,T], L^{\infty}(\Omega))$. 
+	Let $\omega_{0} \in L^{\infty}(\Omega)$. Then there exists a unique triple $(\Phi_{t}, u_{t}, \omega_{t})$ solution to the above problem (i.e., a weak solution to the Cauchy problem), where $\omega \in L^{\infty}([0,T], L_{\infty}(\Omega))$, $u = K_{\Omega} \ast \omega$ is quasi-Lipschitz, and $\Phi$ satisfies the above differential equation. 
 \end{theorem} 
 \begin{proof}
-	The argument will mostly be constructive. 
+	The ``proof'' is mostly constructive in nature, and follows by an iterative scheme (i.e., Picard iteration - notice the resemblance to the general local well-posedness proof for quasilinear systems). We start by introducing a sequence of approximations defined as follows, 
+	\begin{align}
+		\begin{split}
+			\frac{d}{dt}\Phi_{t}^{n}(x) &= u_{t}^{n}(\Phi_{t}^{n}(x)), \\
+			u_{t}^{n}(x) &= K_{\Omega} \ast \omega_{t}^{n-1}, \\
+			\omega_{t}^{n}(x) &= \omega_{0}(\Phi_{-t}^{n}(x)). 
+		\end{split} 
+	\end{align}
+	Initially, we choose some arbitrary, $\omega_{t}^{0}(x) = \omega_{0}(x)$, where $\omega_{0} \in L^{\infty}$. Now we want to study convergence of the triple $(\phi^{n}, u^{n}, \omega^{n})$. If we can show that this sequence converges, then this gives us a good sign towards the existence of a weak solution. We begin by writing, 
+	\begin{align*}
+		\begin{split}
+			\Phi_{t}^{n}(x) - \Phi_{t}^{n-1}(x) &= \int_{0}^{t}u^{n}(\Phi_{s}^{n}(x),s) - u^{n-1}(\Phi_{s}^{n-1}(x),s)\;ds \\
+			&= \int_{0}^{t}u^{n}(\Phi_{s}^{n}(x),s) - u^{n}(\Phi_{s}^{n-1}(x),s)\;ds + \int_{0}^{t}u^{n}(\Phi_{s}^{n-1}(x),s) - u^{n-1}(\Phi_{s}^{n-1}(x),s)\;ds
+		\end{split} 
+	\end{align*}
+	On the other hand, we compute 
+	\begin{align*}
+		\begin{split}
+			\int_{\Omega}|u^{n}(x,t) - u^{n-1}(x,t)|\;dx &= \int_{\Omega}\abs{\int_{\Omega}K_{\Omega}(x,y)\omega^{n-1}(y,t) - K_{\Omega}(x,y)\omega^{n-2}(y,t)\;dy}\;dx \\
+			&= \int_{\Omega}\abs{\int_{\Omega}K_{\Omega}(x,\Phi^{n-1}_{t}(y))- K_{\Omega}(x,\Phi_{t}^{n-2}(y))\omega_{0}(y)\;dy}\;dx \\
+			&\leq C\norm{\omega_{0}}_{L^{\infty}}(1 + |D|)\int_{\Omega}\varphi(|\Phi_{t}^{n-1}(y) - \Phi_{t}^{n-2}(y)|)\;dy, 
+		\end{split} 
+	\end{align*}
+	where we've used the inequality from above, the fact that $|\int |\leq \int |\empspace|$, and a swap of integrals. Now we start looking at 
+	\begin{equation*}
+		\delta^{n}(t) = \frac{1}{|\Omega|}\int_{\Omega}|\Phi^{n}_{t}(x) - \Phi^{n-1}_{t}(x)|\;dx. 
+	\end{equation*}
+	Using Jensen's inequality and the two above inequalities, we obtain the estimate 
+	\begin{equation*}
+		\delta^{n}(t) \leq C\int_{0}^{t}\varphi(\delta^{n}(s))\;ds + C\int_{0}^{t}\varphi(\delta^{n-1}(s))\;ds, 
+	\end{equation*} 
+	where $C = C(\norm{\omega_{0}}_{L^{\infty}}, |\Omega|)$. In particular, if for some fixed $N$, we define $\rho^{N}(t) \coloneqq \sup_{n > N}\delta^{n}(t)$, we have, 
+	\begin{align*}
+		\begin{split}
+			\delta^{n}(t) \leq C\int_{0}^{t}\varphi(\rho^{N}(s))\;ds + C\int_{0}^{t}\varphi(\rho^{N -1}(s))\;ds \leq C\int_{0}^{t}\varphi(\rho^{N-1}(s))\;ds, 
+		\end{split} 
+	\end{align*}
+	where the final $C$ is not strictly the same $C$ as before (here, we use that $\rho^{N}(t) \leq \rho^{N-1}(t)$ for all $t$ by definition of the supremum). Thus in fact, 
+	\begin{equation*}
+		\rho^{N}(t) \leq C\int_{0}^{t}ds\varphi(\rho^{N-1}(s))\;ds. 
+	\end{equation*}
+	In particular, this implies that $\lim_{N \to \infty}\rho^{N}(t) \to 0$ uniformly in $t \in [0,T]$, for $T$ sufficiently small. Therefore, we have shown the existence of some $\Phi \in C([0,T]; M(\Omega))$ such that $M(\Omega)$ is the family of measurable transformations of $\Omega$ onto itself such that 
+	\begin{equation*}
+		\lim_{n \to \infty}\int_{\Omega}|\Phi_{t}(x) - \Phi_{t}^{n}(x)|\;dx \to 0. 
+	\end{equation*}
+	This result also holds for negative $t$. Thus from this argument, we can continue to conclude that the sequences all converge to appropriate limits. Thus the proof concludes. 
 \end{proof} 
+
+To recap, what we have shown is that if we have some essentially bounded initial vorticity field $\omega_{0}$, then we have a weak solution to the Euler equations such that $\omega_{t} \in L^{\infty}$ for all $t$. However, since we are interested in the physical applications of the Euler equations (as a physical model), we would like classical solutions to these equations. We have the following results. 
+\begin{theorem}[Persistence of Regularity]
+	Let $\omega_{0} \in C^{k}(\Omega)$ with $k \geq 1$. Then $\omega_{t}$, a solution of the Euler equation with initial datum $\omega_{0}$, is also a classical solution in the sense that it solves the Cauchy problem for all $x$ and $t$. Moreover, for all $t$, $\omega_{t} \in C^{k}(\Omega)$. 
+\end{theorem} 
+Thus the problem of the existence and uniqueness for the Euler equations in two dimensions is completely resolved. If we are interested in unbounded regions, then we can get analogous results if we assume appropriate decay properties of the vorticity field. 
+
+\paragraph{Local Existence and Uniqueness in Three Dimensions}
+Now we will establish the local existence and uniqueness theorem for the Euler equations in three dimensions. As before, we focus on the case $D = [-\pi,\pi]^{3}$. As before, our strategy will be to construct sequences of approximated solutions, study their convergence properties, and then conclude the appropriate results. We begin with the principal theorem. 
+
+\begin{theorem}
+	Let $u_{0} \in \mathbb{H}^{m}$, $m \geq 3$, and $T \geq 0$ be sufficiently small. Then there exists a unique classical solution $u_{t}(x)$ of the Euler equation, with initial datum $u_{0}(x)$ such that 
+	\begin{equation*}
+		\sup_{0 \leq t \leq T}\norm{u_{t}}_{H^{m}} < \infty. 
+	\end{equation*}
+\end{theorem} 
+\begin{proof}
+	\begin{enumerate}[itemsep =-2pt,label = (\roman{*})]
+		\item We begin with the construct a sequence of approximated solutions. For each nonnegative integer $N$, let $P_{N}$ be the orthogonal projector in the subspace of $L^{2}(\Omega)$ generated by the functions $\{\exp(ik \cdot x)\}_{|k|\leq N}$, where by $|k|$, we denote $\max\{k_{i}\}$.  Then, we consider the initial-value problems 
+		\begin{align*}
+			\begin{split}
+				\partial_{t}u^{N} + P_{N}[&(u^{N} \cdot \nabla)u^{N}] = -P_{N}\nabla p_{t}^{N}. \\
+				\nabla \cdot u^{N} = 0, \quad u_{0}^{N} &= P_{N}u_{0}, \quad u_{0} \in \mathbb{H}^{m}, \quad m \geq 3. 
+			\end{split} 
+		\end{align*} 
+		I.e., we are trying to construct a sequence of solutions that have a general form of $\sum_{j}a_{j}\exp(ik_{j} \cdot x)$. To simplify the PDE above, we consider taking the Fourier transform of both sides as that will get us an ODE. Doing so\footnote{Note the different convention for the constants in the Fourier transform...}, we obtain 
+		\begin{align*}
+			\begin{split} 
+			\frac{d}{dt}\hat{u}_{t}(k)) &= i\left\{k\hat{p}(k) - \sum_{h \in \mathbb{Z}^{3}}\hat{u}_{t}(k - h) \cdot h\hat{u}_{t}(h)\right\}, \\ 
+			k \cdot \hat{u}_{t}^{N} &= 0. 
+			\end{split} 
+		\end{align*} 
+		Here we understand the Fourier transform of the pressure as a functional of the velocity field. Suppose that the solution $u_{t}^{N}$ is real at time zero, which means that $\hat{u}_{0}^{N}(k) = [\hat{u}^{N}_{0}(-k)]^{\ast}$. If we consider the truncated ODE 
+		\begin{align*}
+			\begin{split} 
+				\frac{d}{dt}\hat{u}_{t}(k)) &= i\left\{k\hat{p}(k) - \sum_{h: |h|\leq N; |k - h| \leq N}\hat{u}_{t}(k - h) \cdot h\hat{u}_{t}(h)\right\}, \\ 
+				k \cdot \hat{u}_{t}^{N} &= 0, 
+			\end{split} 
+		\end{align*} 
+		which is solvable (at least for short times), then we have that this modified ODE preserves the reality of the solutions. Thus with this truncation, one has that the (local-in-time) solution to the initial-value PDE problem above is real so that $(u_{t}^{N}, P_{N}(u_{t}^{N} \cdot \nabla)u_{t}^{N}) = 0$. From this, we obtain the conservation of the (truncated) energy 
+		\begin{equation*}
+			\frac{d}{dt}(\norm{u_{t}^{N}}_{L^{2}}^{2}) = 0 \implies \sum_{k}|\hat{u}^{N}_{t}(k)|^{2} = \sum_{k}|\hat{u}^{N}_{0}(k)|^{2}. 
+		\end{equation*} 
+		Therefore, this implies that solutions to the above ODE (and thus PDE) can be extended to arbitrary $T > 0$; conservation of energy also immediately implies uniqueness. Thus we have constructed a sequence of approximated solutions. 
+		\item Now we wish to show that this sequence converges. From our preliminary discussion of bounds on solutions to the Euler equations, we have that for $m \geq 3$, there exists a time $T = T(m, \norm{u_{0}}_{\mathbb{H}^{m}})$ such that 
+		\begin{equation*}
+			\sup_{0 \leq t \leq T}\norm{u_{t}^{N}}_{\mathbb{H}^{m}} \leq M, 
+		\end{equation*} 
+		where $M$ is independent of $N$. Let $H > N$. Then, we calculate the following 
+		\begin{align*}
+			\begin{split}
+				\frac{1}{2}\frac{d}{dt}(\norm{u_{t}^{N} - u_{t}^{H}}_{\mathbb{H}^{2}})^{2} &= \frac{d}{dt}(u^{N}, u^{H}) \\
+				&= \left(\frac{d}{dt}u^{N}, u^{H}\right) + \left(u^{N}, \frac{d}{dt}u^{H}\right) \\
+				&= \left([1 - P_{N}](u^{N} \cdot \nabla)u^{N}, u^{H}\right) + \left(u^{N}, [u^{N} - u^{H}] \cdot \nabla(u^{H} - u^{N})\right), 
+			\end{split} 
+		\end{align*} 
+		where we use integration by parts and the divergence-free condition on $u$. Using the bounding estimates from the first subsection, we then conclude that 
+		\begin{equation*}
+			\sup_{0 \leq t \leq T}(\norm{u_{t}^{N} - u_{t}^{H}}_{\mathbb{H}^{2}})^{2} \leq CN^{-3}. 
+		\end{equation*} 
+		Thus this proves convergence (uniform in compact subsets) of the sequence. 
+		\item So let $u \in C([0,T]; L^{2}(\Omega))$ be the limit of the sequence. By the estimates on $u^{N}$, $u \in L^{\infty}([0,T]; \mathbb{H}^{m})$. But we must show that $u$ satisfies the Euler equation. Let $\varphi \in C^{\infty}(\Omega)$ be any divergence-free vector field. Then one has that for any $N$, 
+		\begin{equation*}
+			(\varphi, u_{t}^{N}) = (\varphi, u_{0}^{N}) + \int_{0}^{t}\sum_{i,j}(P_{N}\partial_{j}\varphi_{i}, u_{j}^{N}u_{i}^{N})\;ds. 
+		\end{equation*} 
+		Thus from our result in (ii), it follows that $u$ satisfies the Euler equation in the weak sense. But then it is possible to show that $u$ is pointwise differentiable in $\mathbb{H}^{2}$, and thus is a solution of the Euler equations in a classical sense.
+	\end{enumerate}
+	Thus, the proof of the theorem concludes. 
+\end{proof} 
+Notice the following difference in the case between the existence and uniqueness theorem in 2D and 3D: in the former, a unique solution existed globally-in-time. On the other hand, in the latter, a unique solution exists (at least) only locally-in-time. The difficulty in the latter is that the vorticity is no longer conserved along the path lines due to the linear action of the Jacobian matrix $\nabla \Phi_{t}$. In the Euler equations, this action appears via the term $(\omega \cdot \nabla)u$. To see how this term contributes to the difficulty of the problem, we recall that $\omega$ is the antisymmetric part of $\nabla u$. Therefore, it is reasonable to assume that $(\omega \cdot \nabla) u$ so that $D_{t}\omega \approx \omega^{2}$. This resembles the ODE 
+\begin{equation*}
+	\frac{d}{dt}Y = Y^{2}, \qquad Y(0) = Y_{0} > 0, 
+\end{equation*}
+which has solutions that blow-up in finite-time! So a heuristic comparison tells us that it is not easy to preclude the existence of finite-time blow up solutions to the Euler equations in 3D. 
 \newpage 
 
 \newpage 
