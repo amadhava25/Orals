@@ -1261,8 +1261,22 @@ Thus, we can write $\mathcal{R}^{\ast}\mathcal{R}(f) = f \ast k$, where $k(x) = 
 \end{proof} 
 Thus with this, we have the following restriction theorem. 
 \begin{theorem}[Restriction Theorem]
-	
+	Suppose $M$ has non-zero Gauss curvature at each point of the support of $d\mu$. Then the restriction inequality
+	\begin{equation*}
+		\left(\int_{M}|\hat{f}(\xi)|^{q}\;d\mu(\xi)\right)^{1/q} \leq c\norm{f}_{L^{p}(\mathbb{R}^{d})}
+	\end{equation*} 
+	holds for $q = 2$ and $p = \frac{2d + 2}{d + 3}$. 
 \end{theorem} 
+\begin{corollary}[Interpolation]
+	Under the above assumptions the restriction inequality holds for all $1 \leq p \leq \frac{2d + 2}{d + 3}$ and $q \leq \left(\frac{d - 1}{d + 1}\right)p'$. 
+\end{corollary} 
+\begin{corollary}[Decay Estimates]
+	Suppose that for some $\delta > 0$, we have 
+	\begin{equation*}
+		|\wh{d\mu}(\xi)| = \mathcal{O}(|\xi|^{-\delta}), \qquad \text{as $|\xi| \to \infty$}
+	\end{equation*}
+	for all surface-carried measures $d\mu$ of the form $\psi\;d\sigma$, where $d\sigma$ is the induced Lebesgue measure on the hypersurface $M$. 
+\end{corollary} 
 \paragraph{Applications to Dispersion Equations} 
 
 In this paragraph, we apply all of the results we obtained above to establish some dispersion estimates for dispersion equations (like the Schr\"odinger equation). 
@@ -1334,7 +1348,30 @@ The following theorem tells us when this is possible.
 	when $q = \frac{2d + 4}{d}$. 
 \end{theorem} 
 \begin{proof}
-	
+	We begin by labeling the coordinates on $\mathbb{R}^{d + 1}$ by $(x_{1}, \ldots, x_{d}, x_{d + 1})$, where we note that $t \leftrightarrow x_{d + 1}$. Then we take a spacetime Fourier transform with coordinates, $(\xi_{1}, \ldots, \xi_{d}, \xi_{d + 1})$. Let $M$ be the paraboloid given by 
+	\begin{equation*}
+		M = \{(\xi, \xi_{d + 1}): \xi_{d + 1} = -2\pi |\xi|^{2}\}, 
+	\end{equation*} 
+	where $|\xi| = \xi_{1}^{2} + \dotsm + \xi_{d}^{2}$. On $M$, we define the nonnegative measure $d\mu = \psi\;d\sigma = \psi_{0}\;d\xi$, where $d\xi$ is the Lebesgue measure on $\mathbb{R}^{d}$, and $\psi_{0}$ is a $C^{\infty}$ function of compact support that equals 1 for $(\xi, \xi_{d + 1}) \in M$ and $|\xi| \leq 1$ (thus $\psi = \psi_{0}(1 + 16\pi^{2}|\xi|^{2})^{1/2}$). As before, let $\mathcal{R}$ denote the restriction operator 
+	\begin{equation*}
+		\mathcal{R}^{\ast}(F)(x) = \int_{M}e^{2\pi i (x \cdot \xi + x_{d + 1}\xi_{d + 1})}F(\xi, \xi_{d + 1})\;d\mu. 
+	\end{equation*} 
+	Then the restriction theorem (i.e., the $\mathcal{R}^{\ast}\mathcal{R}$ method) tells us that 
+	\begin{equation*}
+		\norm{\mathcal{R}^{\ast}(F)}_{L^{q}(\mathbb{R}^{d + 1})} \leq c\norm{F}_{L^{2}(M,d\mu)}. 
+	\end{equation*} 
+	Setting $F(\xi, \xi_{d + 1}) = \hat{f}(\xi)$, we have 
+	\begin{align*}
+		\begin{split}
+			\mathcal{R}^{\ast}(F)(x) &= \int_{M}e^{2\pi i (x \cdot \xi + t\xi_{d + 1})}\hat{f}(\xi)\psi_{0}\;d\xi \\
+			&= \int_{M}e^{2\pi i (x \cdot \xi - |\xi|^{2})}\hat{f}(\xi)\psi_{0}\;d\xi . 
+		\end{split} 
+	\end{align*} 
+	Thus $\mathcal{R}^{\ast}(F) = e^{it\Delta}(f\psi_{0})$. Using this, we then obtain 
+	\begin{equation*}
+		\norm{e^{it\Delta}(f)}_{L^{q}(\mathbb{R}^{d + 1})} \leq c\norm{f}_{L^{2}(\mathbb{R}^{d})}
+	\end{equation*} 
+	whenever $\hat{f}$ is supported in the unit ball. Thus using a scaling argument, one can show that the corresponding result holds for all $f \in L^{2}$ with compactly supported Fourier transforms. Thus by density of such functions, the proof concludes.
 \end{proof} 
 \newpage 
 \part{Nonlinear Wave Equations}
@@ -2967,7 +3004,7 @@ The consequence of this result is as follows: in any quadratic term contained in
 	\end{equation*} 
 \end{prop} 
 
-Before we can actually do the analysis for the wave map equation in $\mathbb{R}^{3 + 1}$, we need a few more final controls on the nonlinear terms. Thus we have the definition, 
+Heuristically, this inequality tells us that a certain type of weighted energy is bounded for $\bar{\partial}\phi$ in this case. This is good news since we have shown that any quadratic terms in the nonlinearity contains at least one $\bar{\partial}$ derivative. Before we can actually do the analysis for the wave map equation in $\mathbb{R}^{3 + 1}$, we need a few more final controls on the nonlinear terms. Thus we have the definition, 
 \begin{definition}[Classical Null Condition]
 	Let $q^{\alpha\beta}$ be constants. Then $Q(\phi,\psi) = q^{\alpha\beta}\partial_{\alpha}\phi\partial_{\beta}\psi$ satisfies the \textbf{classical null condition} if 
 	\begin{equation*}
@@ -3769,7 +3806,9 @@ In particular, this lemma implies that if $\omega \in L^{\infty}$, then the velo
 		&\leq C\norm{\omega(\cdot, t)}_{L^{\infty}} \varphi(|x - y|). 
 	\end{split} 
 \end{align*}
-We call this a \textit{quasi-Lipschitz condition}; obviously the vector field is not Lipschitz, but it is \textit{log-Lipschitz} (i.e., Lipschitz up to a logarithmic diverging factor). This suffices for our existence and uniqueness proofs. We have the following theorem. 
+We call this a \textit{quasi-Lipschitz condition}; obviously the vector field is not Lipschitz, but it is \textit{log-Lipschitz} (i.e., Lipschitz up to a logarithmic diverging factor). This suffices for our existence and uniqueness proofs. 
+
+We have the following theorem. 
 \begin{theorem}[Existence of Weak Solutions to the Euler Equations]
 	Let $\omega_{0} \in L^{\infty}(\Omega)$. Then there exists a unique triple $(\Phi_{t}, u_{t}, \omega_{t})$ solution to the above problem (i.e., a weak solution to the Cauchy problem), where $\omega \in L^{\infty}([0,T], L_{\infty}(\Omega))$, $u = K_{\Omega} \ast \omega$ is quasi-Lipschitz, and $\Phi$ satisfies the above differential equation. 
 \end{theorem} 
@@ -3826,7 +3865,48 @@ To recap, what we have shown is that if we have some essentially bounded initial
 \begin{theorem}[Persistence of Regularity]
 	Let $\omega_{0} \in C^{k}(\Omega)$ with $k \geq 1$. Then $\omega_{t}$, a solution of the Euler equation with initial datum $\omega_{0}$, is also a classical solution in the sense that it solves the Cauchy problem for all $x$ and $t$. Moreover, for all $t$, $\omega_{t} \in C^{k}(\Omega)$. 
 \end{theorem} 
-Thus the problem of the existence and uniqueness for the Euler equations in two dimensions is completely resolved. If we are interested in unbounded regions, then we can get analogous results if we assume appropriate decay properties of the vorticity field. 
+Thus the problem of the existence and uniqueness for the Euler equations in two dimensions is completely resolved. If we are interested in unbounded regions, then we can get analogous results if we assume appropriate decay properties of the vorticity field. We also have the following proposition \cite{Majda_Bertozzi_2001}, 
+
+\begin{prop}[Finite Kinetic Energy for 2D Incompressible Velocity Field]
+	A two-dimensional incompressible velocity field $u$ with vorticity of compact support in $\mathbb{R}^{2}$ has finite kinetic energy, $\int_{\mathbb{R}^{2}}u^{2}\;dx < \infty$ if and only if $\int_{\mathbb{R}^{2}}\omega(y,t)\;dy = 0$. 
+\end{prop} 
+\begin{proof}
+	Suppose that $\operatorname{supp}(\omega) \subset \{|x| \leq R\}$ for some $R > 0$. From the Biot-Savart Law, we recall that 
+	\begin{align*}
+		\begin{split}
+			u(x, t) &= \int_{\mathbb{R}^{2}}K_{2}(x - y)\omega(y, t)\;dy, \\
+			K_{2}(x) & = \frac{1}{2\pi|x|^{2}}\binom{-x_{2}}{x_{1}}. 
+		\end{split} 
+	\end{align*} 
+	Now for $x \neq 0$, 
+	\begin{equation*}
+		|x - y|^{-2} = |x|^{-2}\left(1 - \frac{2x \cdot y}{|x|^{2}} + \frac{|y|^{2}}{|x|^{2}}\right)^{-1}. 
+	\end{equation*} 
+	So if $|y| \leq R$ and $|x| \geq 2R$, then for large $|x|$, 
+	\begin{equation*}
+		|x - y|^{-2} \sim |x|^{-2}\left(1 + \frac{-2x \cdot y + |y|^{2}}{|x|^{2}}\right) \sim |x|^{-2} + \mathcal{O}(|x|^{-3}). 
+	\end{equation*} 
+	Since $\omega$ was assumed to have support inside $|y| < R$, it follows that for large $|x|$, 
+	\begin{equation*}
+		u(x, t) = K_{2}(x)\int_{\mathbb{R}^{2}}\omega(y,t)\;dy + \mathcal{O}(|x|^{-2}). 
+	\end{equation*}
+	Now consider the kinetic energy, 
+	\begin{equation*}
+		\int_{\mathbb{R}^{2}}u^{2}\;dx = \int_{\mathbb{R}^{2}}\left|K_{2}(x)\int_{\mathbb{R}^{2}}\omega(y,t)\;dy + \mathcal{O}(|x|^{-2})\right|^{2}\;dx. 
+	\end{equation*} 
+	Let $M = \int_{\mathbb{R}^{2}}\omega(y, t)\;dy$. Here, we compute, 
+	\begin{align*}
+		\begin{split}
+			\left|K_{2}(x) M + \mathcal{O}(|x|^{-2})\right|^{2} \sim |K_{2}|^{2}M^{2} + \mathcal{O}(|x|^{-3}), 
+		\end{split} 
+	\end{align*} 
+	so that in the far region (i.e., $|x|$ large), the integrand behaves like $|K_{2}|^{2}M^{2} = \frac{M^{2}}{4\pi^{2}|x|^{2}}$. Thus switching to polar coordinates, it follows that 
+	\begin{equation*}
+		\int_{\mathbb{R}^{2}}u^{2}\;dx \sim \frac{M^{2}}{4\pi^{2}}\int_{\mathbb{R}}\frac{1}{r^{2}}(2\pi r)\;dr, 
+	\end{equation*} 
+	which is integrable iff $M = 0$ (otherwise, the integral diverges). 
+	
+\end{proof} 
 
 \paragraph{Local Existence and Uniqueness in Three Dimensions}
 Now we will establish the local existence and uniqueness theorem for the Euler equations in three dimensions. As before, we focus on the case $D = [-\pi,\pi]^{3}$. As before, our strategy will be to construct sequences of approximated solutions, study their convergence properties, and then conclude the appropriate results. We begin with the principal theorem. 
